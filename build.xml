@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- Copyright (c) 2008 by Naohide Sano, All rights reserved.               -->
+<!--                                                                        -->
+<!-- Written by Naohide Sano                                                -->
+<!--                                                                        -->
+<!-- aquesTalk                                                              -->
+<!--                                                                        -->
+<!-- @author	Naohide Sano                                                -->
+<!-- @version	0.00	080523	nsano	initial version                     -->
+<!--                                                                        -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
+
+<project default="run" basedir="."
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <property file="local.properties" />
+
+  <property name="dir.native" value="src/main/jni" />
+
+  <property name="dir.lib" value="lib" />
+  <property name="dir.build" value="target/classes" />
+
+  <!-- クラスパスの定義 -->
+  <path id="project.class.path">
+    <fileset dir="${dir.lib}">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <path id="test.class.path">
+    <pathelement location="test" />
+    <path refid="project.class.path" />
+  </path>
+
+  <!-- ターゲットの定義 -->
+
+  <!-- clean -->
+  <target name="clean" description="ビルド環境のクリア">
+    <delete dir="${dir.build}" />
+    <delete>
+      <fileset dir="${dir.native}">
+        <include name="*.o" />
+        <include name="vavi_speech_aquestalk_*.h" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- prepare -->
+  <target name="prepare" description="準備">
+    <mkdir dir="${dir.lib}" />
+    <mkdir dir="${dir.build}" />
+    <ivy:settings file="ivy-settings.xml" />
+    <ivy:convertpom pomFile="pom.xml" ivyFile="ivy.xml" />
+    <ivy:retrieve />
+  </target>
+
+  <!-- javac -->
+  <target name="compile" depends="prepare" description="コンパイル">
+    <javac debug="on" deprecation="true" encoding="MS932" destdir="${dir.build}">
+      <classpath refid="project.class.path" />
+      <include name="**/*.java" />
+      <src path="src/main/java" />
+    </javac>
+
+    <javac debug="on" deprecation="true" encoding="MS932" destdir="target/test-classes">
+      <classpath>
+      	<path refid="project.class.path" />
+      	<pathelement location="${dir.build}"/>
+      </classpath>
+      <include name="**/*.java" />
+      <src path="src/test/java" />
+    </javac>
+
+  	<copy toDir="${dir.build}">
+  	  <fileset dir="src/main/resources">
+  	  	<include name="**/*.properties" />
+  	  </fileset>
+  	</copy>
+  	
+  	<!-- .properties.sjis -->
+    <native2ascii encoding="Windows-31J"
+                  src="src/test/resources"
+                  dest="target/test-classes"
+                includes="**/*.properties.sjis"
+                ext=""/>
+  </target>
+
+  <!-- javah -->
+  <target name="javah" depends="compile" description="Makeing Header">
+    <javah destdir="${dir.native}">
+      <classpath>
+        <pathelement location="${dir.build}" />
+        <path refid="project.class.path" />
+      </classpath>
+      <class name="vavi.speech.aquestalk.AquesTalk" />
+      <class name="vavi.speech.aquestalk.AquesTalkDa" />
+    </javah>
+  </target>
+
+  <!-- gcc -->
+  <target name="compile.native" depends="javah" description="コンパイル C">
+    <apply executable="gcc" dest="${dir.native}" parallel="false">
+      <arg value="-c" />
+      <arg line="-g -Wall -O2" />
+      <arg line="-mno-cygwin"/>
+      <arg value="-Iinc" />
+      <arg value="-I${jdk.home}/include" />
+      <arg value="-I${jdk.home}/include/win32" />
+      <arg value="-o"/>
+      <targetfile/>
+      <srcfile/>
+      <fileset dir="${dir.native}" includes="*.c"/>
+      <mapper type="glob" from="*.c" to="*.o"/>
+    </apply>
+  </target>
+
+  <!-- link -->
+  <target name="link" depends="compile.native" description="Makeing DLL">
+    <apply executable="dllwrap" dest="${dir.lib}">
+      <arg value="--add-stdcall-alias" />
+      <arg line="--driver-name gcc"/>
+      <arg line="-mwindows --target=i386-mingw32" />
+      <arg line="-o" />
+      <targetfile />
+      <srcfile />
+      <arg value="${dir.lib}/AquesTalk.lib" />
+      <arg value="${dir.lib}/AquesTalkDa.lib" />
+      <arg line="-s -mno-cygwin" />
+      <fileset dir="${dir.native}" includes="*.o" />
+      <mapper type="glob" from="*.o" to="*.dll"/>
+    </apply>
+  </target>
+
+  <!-- run -->
+  <target name="run" depends="link" description="Run program">
+    <java classname="Test4" fork="yes">
+      <env key="PATH" path="${dir.lib}" />
+      <jvmarg value="-Djava.library.path=${dir.lib}" />
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement location="${dir.build}" />
+        <pathelement location="target/test-classes" />
+      </classpath>
+      <arg value="${run.in}" />
+    </java>
+  </target>
+
+  <!-- t1 -->
+  <target name="t1" depends="link" description="Run program use jsapi">
+    <java classname="Test5" fork="yes">
+      <env key="PATH" path="${dir.lib};../.." />
+      <jvmarg value="-Djava.library.path=${dir.lib};../.." />
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement location="${dir.build}" />
+        <pathelement location="target/test-classes" />
+      </classpath>
+      <arg value="${run.in}" />
+    </java>
+  </target>
+
+  <!-- t2 -->
+  <target name="t2" depends="" description="Run program">
+    <exec executable="wine">
+      <arg value="java" />
+      <arg value="-Dfile.encoding=${encoding}" />
+      <arg value="-Djava.library.path=${dir.lib}" />
+      <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.build};target/test-classes" />
+      <arg value="Test4" />
+      <arg value="${run.in}" />
+    </exec>
+  </target>
+
+  <!-- t3 -->
+  <target name="t3" depends="" description="Run program use jna">
+    <exec executable="wine">
+      <arg value="java" />
+      <arg value="-Djna.encoding=MS932" />
+      <arg value="-Dfile.encoding=${encoding}" />
+      <arg value="-Djava.library.path=${dir.lib}" />
+      <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.build};target/test-classes" />
+      <arg value="Test3" />
+      <arg value="${run.in}" />
+    </exec>
+  </target>
+
+  <!-- t4 -->
+  <target name="t4" depends="" description="Run program">
+    <exec executable="wine">
+      <arg value="java" />
+      <arg value="-Dfile.encoding=${encoding}" />
+      <arg value="-Djava.library.path=${dir.lib}" />
+      <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.build};target/test-classes" />
+      <arg value="Test5" />
+      <arg value="${run.in}" />
+    </exec>
+  </target>
+
+</project>
+
+<!-- -->
