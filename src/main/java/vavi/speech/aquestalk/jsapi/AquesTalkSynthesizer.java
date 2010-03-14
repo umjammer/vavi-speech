@@ -29,6 +29,9 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
+import net.java.sen.StringTagger;
+import net.java.sen.Token;
+
 import vavi.speech.aquestalk.AquesTalkDa;
 
 
@@ -57,7 +60,25 @@ public class AquesTalkSynthesizer implements Synthesizer {
     /** */
     private class Pair {
         public Pair(String text, SpeakableListener listener) {
-            this.text = text;
+            StringBuilder sb = new StringBuilder();
+            try {
+                StringTagger tagger = StringTagger.getInstance();
+                Token[] token = tagger.analyze(text);
+                if (token != null) {
+                    for (int i = 0; i < token.length; i++) {
+System.err.println(token[i].toString() + "\t("
+                   + token[i].getBasicString() + ")" + "\t" + token[i].getPos()
+                   + "(" + token[i].start() + "," + token[i].end() + ","
+                   + token[i].length() + ")\t" + token[i].getReading() + "\t"
+                   + token[i].getPronunciation());
+                        sb.append(token[i].getReading());
+                    }
+                }
+            } catch (IOException e) {
+                throw new IllegalArgumentException(e);
+            }
+System.err.println(sb);
+            this.text = sb.toString();
             this.listener = listener;
         }
         String text;
@@ -99,7 +120,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
     }
 
     /* */
-    public String phoneme(String arg0) throws EngineStateError {
+    public String phoneme(String text) throws EngineStateError {
         // TODO Auto-generated method stub
         return null;
     }
@@ -111,31 +132,31 @@ public class AquesTalkSynthesizer implements Synthesizer {
     }
 
     /* */
-    public void speak(String arg0, SpeakableListener listener)
+    public void speak(String JSMLText, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
-        queue.add(new Pair(arg0, listener));
+        queue.add(new Pair(JSMLText, listener));
     }
 
     /* */
-    public void speak(URL url, SpeakableListener listener)
+    public void speak(URL JSMLurl, SpeakableListener listener)
         throws JSMLException, MalformedURLException, IOException, EngineStateError {
         // TODO Auto-generated method stub
         
     }
 
     /* */
-    public void speak(Speakable arg0, SpeakableListener listener)
+    public void speak(Speakable JSMLtext, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
-        queue.offer(new Pair(arg0.getJSMLText(), listener));
+        queue.offer(new Pair(JSMLtext.getJSMLText(), listener));
     }
 
     /* */
-    public void speakPlainText(String arg0, SpeakableListener listener)
+    public void speakPlainText(String text, SpeakableListener listener)
         throws EngineStateError {
 
-        queue.offer(new Pair(arg0, listener));
+        queue.offer(new Pair(text, listener));
     }
 
     /* */

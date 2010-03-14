@@ -12,7 +12,7 @@
 <!--                                                                        -->
 <!-- ////////////////////////////////////////////////////////////////////// -->
 
-<project default="run" basedir="."
+<project name="aquesTalk" default="run" basedir="."
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <property file="local.properties" />
@@ -148,7 +148,7 @@
   </target>
 
   <!-- t1 -->
-  <target name="t1" depends="link" description="Run program use jsapi">
+  <target name="t1" depends="link" description="Run program (jsapi)">
     <java classname="Test5" fork="yes">
       <env key="PATH" path="${dir.lib};../.." />
       <jvmarg value="-Djava.library.path=${dir.lib};../.." />
@@ -162,7 +162,7 @@
   </target>
 
   <!-- t2 -->
-  <target name="t2" depends="" description="Run program">
+  <target name="t2" depends="" description="Run program (jni, wine)">
     <exec executable="wine">
       <arg value="java" />
       <arg value="-Dfile.encoding=${encoding}" />
@@ -174,7 +174,7 @@
   </target>
 
   <!-- t3 -->
-  <target name="t3" depends="" description="Run program use jna">
+  <target name="t3" depends="" description="Run program (jna, wine)">
     <exec executable="wine">
       <arg value="java" />
       <arg value="-Djna.encoding=MS932" />
@@ -187,15 +187,45 @@
   </target>
 
   <!-- t4 -->
-  <target name="t4" depends="" description="Run program">
+  <target name="t4" depends="" description="Run program (jsapi, wine)">
     <exec executable="wine">
       <arg value="java" />
       <arg value="-Dfile.encoding=${encoding}" />
       <arg value="-Djava.library.path=${dir.lib}" />
-      <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.build};target/test-classes" />
+      <arg value="-Dsen.home=${sen.home}" />
+      <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.lib}/sen-1.2.2.1g.jar;${dir.lib}/commons-logging-1.0.4.jar;${dir.build};target/test-classes" />
       <arg value="Test5" />
       <arg value="${run.in}" />
     </exec>
+  </target>
+
+  <!-- t5 -->
+  <target name="t5" depends="" description="Run program (jna)">
+    <java classname="Test3" fork="yes">
+      <env key="DYLD_LIBRARY_PATH" path="${dir.lib}" />
+      <jvmarg value="-d32" />
+      <jvmarg value="-Djava.library.path=${dir.lib}" />
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement location="${dir.build}" />
+        <pathelement location="target/test-classes" />
+      </classpath>
+      <arg value="${run.in}" />
+    </java>
+  </target>
+
+  <!-- t6 -->
+  <target name="t6" depends="" description="sen">
+    <java classname="Test1" fork="yes">
+      <jvmarg value="-Dsen.home=${sen.home}" />
+      <jvmarg value="-Dfile.encoding=utf-8" />
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement location="${dir.build}" />
+        <pathelement location="target/test-classes" />
+      </classpath>
+      <arg value="${run.sen}" />
+    </java>
   </target>
 
 </project>
