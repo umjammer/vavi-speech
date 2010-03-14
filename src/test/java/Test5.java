@@ -14,7 +14,7 @@ import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
 
 
 /**
- * Test5.
+ * Test5. (JSAPI)
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>

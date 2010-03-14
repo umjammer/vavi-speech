@@ -1,15 +1,15 @@
-import net.java.sen.StringTagger;
-import net.java.sen.Token;
-
 /*
  * Copyright (c) 2010 by Naohide Sano, All rights reserved.
  *
  * Programmed by Naohide Sano
  */
 
+import net.java.sen.StringTagger;
+import net.java.sen.Token;
+
 
 /**
- * Test1. 
+ * Test1. (sen test) 
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 2010/03/14 nsano initial version <br>
