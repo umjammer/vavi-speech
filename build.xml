@@ -38,10 +38,12 @@
 
   <!-- clean -->
   <target name="clean" description="ビルド環境のクリア">
-    <delete dir="${dir.build}" />
     <delete>
+      <fileset dir="${dir.build}">
+        <include name="**/*" />
+      </fileset>
       <fileset dir="${dir.native}">
-        <include name="*.o" />
+        <include name="**/*.o" />
         <include name="vavi_speech_aquestalk_*.h" />
       </fileset>
     </delete>
@@ -96,28 +98,31 @@
       </classpath>
       <class name="vavi.speech.aquestalk.AquesTalk" />
       <class name="vavi.speech.aquestalk.AquesTalkDa" />
+      <class name="vavi.speech.aquestalk2.AquesTalk2" />
+      <class name="vavi.speech.aquestalk2.AquesTalk2Da" />
     </javah>
   </target>
 
   <!-- gcc -->
-  <target name="compile.native" depends="javah" description="コンパイル C">
-    <apply executable="gcc" dest="${dir.native}" parallel="false">
+  <target name="compile.native.win32" depends="javah" description="コンパイル C">
+    <apply executable="gcc" dest="${dir.native}/win32" parallel="false">
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
       <arg line="-mno-cygwin"/>
-      <arg value="-Iinc" />
+      <arg value="-Ietc/include" />
+      <arg value="-I${dir.native}" />
       <arg value="-I${jdk.home}/include" />
       <arg value="-I${jdk.home}/include/win32" />
       <arg value="-o"/>
       <targetfile/>
       <srcfile/>
-      <fileset dir="${dir.native}" includes="*.c"/>
+      <fileset dir="${dir.native}/win32" includes="*.c"/>
       <mapper type="glob" from="*.c" to="*.o"/>
     </apply>
   </target>
 
   <!-- link -->
-  <target name="link" depends="compile.native" description="Makeing DLL">
+  <target name="link.win32" depends="compile.native.win32" description="Makeing DLL">
     <apply executable="dllwrap" dest="${dir.lib}">
       <arg value="--add-stdcall-alias" />
       <arg line="--driver-name gcc"/>
@@ -128,16 +133,94 @@
       <arg value="${dir.lib}/AquesTalk.lib" />
       <arg value="${dir.lib}/AquesTalkDa.lib" />
       <arg line="-s -mno-cygwin" />
-      <fileset dir="${dir.native}" includes="*.o" />
+      <fileset dir="${dir.native}/win32" includes="*.o" />
       <mapper type="glob" from="*.o" to="*.dll"/>
     </apply>
   </target>
 
+  <!-- gcc -->
+  <target name="compile.native.2" depends="javah" description="コンパイル C">
+    <apply executable="gcc" dest="${dir.native}/macosx" parallel="false">
+      <arg value="-c" />
+      <arg line="-g -Wall -O2" />
+      <arg line="-arch i386" />
+      <arg value="-I${java.home}/include" />
+      <arg value="-I${dir.native}" />
+      <arg value="-Itmp/macosx/AquesTalk_Mac_Eva/SamplePrograms/HelloAqTk" />
+      <arg value="-F${user.home}/Library/Frameworks" />
+      <arg line="-framework AquesTalkEva" />
+      <arg value="-o"/>
+      <targetfile/>
+      <srcfile/>
+      <fileset dir="${dir.native}/macosx" includes="AquesTalkWrapper.m"/>
+      <mapper type="glob" from="*.m" to="*.o"/>
+    </apply>
+  </target>
+
+  <!-- link -->
+  <target name="link.2" depends="compile.native.2" description="Makeing DLL">
+    <apply executable="gcc" dest="${dir.lib}">
+      <arg line="-dynamiclib" />
+      <arg line="-arch i386" />
+      <arg line="-o" />
+      <targetfile />
+      <srcfile />
+      <arg value="-Ltmp/macosx/AquesTalk_Mac_Eva/SamplePrograms/HelloAqTk" />
+      <arg value="-lAuPlay" />
+      <arg value="-F${user.home}/Library/Frameworks" />
+      <arg line="-framework Cocoa" />
+      <arg line="-framework AquesTalkEva" />
+      <arg line="-framework AudioUnit" />
+      <fileset dir="${dir.native}/macosx" includes="AquesTalkWrapper.o" />
+      <mapper type="glob" from="*.o" to="lib*.jnilib"/>
+    </apply>
+  </target>
+
+  <!-- gcc -->
+  <target name="compile.native" depends="javah" description="コンパイル C">
+    <apply executable="gcc" dest="${dir.native}/macosx" parallel="false">
+      <arg value="-c" />
+      <arg line="-g -Wall -O2" />
+      <arg line="-arch i386" />
+      <arg value="-I${java.home}/include" />
+      <arg value="-I${dir.native}" />
+      <arg value="-Itmp/macosx/AquesTalk2_Mac/SamplePrograms/HelloAqTk" />
+      <arg value="-F${user.home}/Library/Frameworks" />
+      <arg line="-framework AquesTalk2" />
+      <arg value="-o"/>
+      <targetfile/>
+      <srcfile/>
+      <fileset dir="${dir.native}/macosx" includes="AquesTalk2Wrapper.m"/>
+      <mapper type="glob" from="*.m" to="*.o"/>
+    </apply>
+  </target>
+
+  <!-- link -->
+  <target name="link" depends="compile.native" description="Makeing DLL">
+    <apply executable="gcc" dest="${dir.lib}">
+      <arg line="-dynamiclib" />
+      <arg line="-arch i386" />
+      <arg line="-o" />
+      <targetfile />
+      <srcfile />
+      <arg value="-Ltmp/macosx/AquesTalk2_Mac/SamplePrograms/HelloAqTk" />
+      <arg value="-lAuPlay" />
+      <arg value="-F${user.home}/Library/Frameworks" />
+      <arg line="-framework Cocoa" />
+      <arg line="-framework AquesTalk2" />
+      <arg line="-framework AudioUnit" />
+      <fileset dir="${dir.native}/macosx" includes="AquesTalk2Wrapper.o" />
+      <mapper type="glob" from="*.o" to="lib*.jnilib"/>
+    </apply>
+  </target>
+
   <!-- run -->
-  <target name="run" depends="link" description="Run program">
+  <target name="run" depends="link.2" description="Run program">
     <java classname="Test4" fork="yes">
       <env key="PATH" path="${dir.lib}" />
       <jvmarg value="-Djava.library.path=${dir.lib}" />
+      <jvmarg value="-d32" />
+      <jvmarg value="-Dfile.encoding=UTF-8" />
       <classpath>
         <path refid="project.class.path" />
         <pathelement location="${dir.build}" />
@@ -225,6 +308,35 @@
         <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${run.sen}" />
+    </java>
+  </target>
+
+  <!-- t7 -->
+  <target name="t7" depends="" description="read file (jsapi wine)">
+    <exec executable="wine">
+      <arg value="java" />
+      <arg value="-Dfile.encoding=${encoding}" />
+      <arg value="-Djava.library.path=${dir.lib}" />
+      <arg value="-Dsen.home=${sen.home}" />
+      <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.lib}/sen-1.2.2.1g.jar;${dir.lib}/commons-logging-1.0.4.jar;${dir.build};target/test-classes" />
+      <arg value="Test2" />
+      <arg value="${run.t7}" />
+    </exec>
+  </target>
+
+  <!-- t8 -->
+  <target name="t8" depends="link" description="aquestalk2">
+    <java classname="Test6" fork="yes">
+      <env key="PATH" path="${dir.lib}" />
+      <jvmarg value="-Djava.library.path=${dir.lib}" />
+      <jvmarg value="-d32" />
+      <jvmarg value="-Dfile.encoding=UTF-8" />
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement location="${dir.build}" />
+        <pathelement location="target/test-classes" />
+      </classpath>
+      <arg value="${run.in}" />
     </java>
   </target>
 

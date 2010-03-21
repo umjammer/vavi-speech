@@ -1,10 +1,16 @@
 /*
- * 規則音声合成エンジン AquesTalk
+ * 規則音声合成エンジン AquesTalk2
  * 
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
 
-package vavi.speech.aquestalk;
+package vavi.speech.aquestalk2;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -13,13 +19,13 @@ package vavi.speech.aquestalk;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class AquesTalkDa {
+public class AquesTalk2Da {
 
     /** */
     private long instance;
 
     static {
-        System.loadLibrary("AquesTalkWrapper");
+        System.loadLibrary("AquesTalk2Wrapper");
     }
 
     /** */
@@ -48,16 +54,38 @@ public class AquesTalkDa {
     private native int playSync(String koe, int iSpeed);
 
     /** */
-    public AquesTalkDa() {
+    public AquesTalk2Da() {
         this.instance = create();
     }
+
+    /** */
+    public void setPhont(String file) throws IOException {
+        if (file != null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            InputStream is = new FileInputStream(new File(file));
+            byte[] b = new byte[8192]; 
+            while (is.available() > 0) {
+                int r = is.read(b, 0, b.length);
+                if (r < 0) {
+                    break;
+                }
+                baos.write(b, 0, r);
+            }
+            setPhont(baos.toByteArray());
+        } else {
+            setPhont((byte[]) null);
+        }
+    }
+
+    /** */
+    private native void setPhont(byte[] data);
 
     /**
      * 音声合成エンジンのインスタンスを生成（非同期タイプ）
      * @return 音声合成エンジンのハンドルを返す
      */
     private native long create();
-
+    
     /** */
     protected void finalize() throws Throwable {
         release(instance);

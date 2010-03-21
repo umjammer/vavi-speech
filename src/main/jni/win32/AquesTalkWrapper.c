@@ -4,8 +4,8 @@
  * Programmed by Naohide Sano
  */
 
-#include "vavi_speech_aquestalk_AquesTalk.h"
-#include "vavi_speech_aquestalk_AquesTalkDa.h"
+#include <vavi_speech_aquestalk_AquesTalk.h>
+#include <vavi_speech_aquestalk_AquesTalkDa.h>
 #include "AquesTalk.h"
 #include "AquesTalkDa.h"
 #include <windows.h>
@@ -24,8 +24,8 @@ JNIEXPORT jbyteArray JNICALL Java_vavi_speech_aquestalk_AquesTalk_synthe
     char* __koe = (char*) malloc(_koe_length * 2 + 1);
     int __koe_length = WideCharToMultiByte(CP_ACP, 0, _koe, _koe_length, __koe, _koe_length * 2 + 1, NULL, NULL);
     __koe[__koe_length] = '\0';
-fprintf(stderr, "koe: %s\n", __koe);
-fflush(stderr);
+//fprintf(stderr, "koe: %s\n", __koe);
+//fflush(stderr);
     (*env)->ReleaseStringChars(env, koe, _koe);
 
     int size;
@@ -54,8 +54,8 @@ JNIEXPORT jint JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_playSync
     char* __koe = (char*) malloc(_koe_length * 2 + 1);
     int __koe_length = WideCharToMultiByte(CP_ACP, 0, _koe, _koe_length, __koe, _koe_length * 2 + 1, NULL, NULL);
     __koe[__koe_length] = '\0';
-fprintf(stderr, "koe: %s\n", __koe);
-fflush(stderr);
+//fprintf(stderr, "koe: %s\n", __koe);
+//fflush(stderr);
     (*env)->ReleaseStringChars(env, koe, _koe);
 
     int result = (jint) AquesTalkDa_PlaySync(__koe, (int) iSpeed);
@@ -70,10 +70,10 @@ fflush(stderr);
  * Method:    create
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_create
+JNIEXPORT jlong JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_create
   (JNIEnv *env, jobject obj) {
 
-    return (jint) AquesTalkDa_Create();
+    return (jlong) AquesTalkDa_Create();
 }
 
 /*
@@ -82,7 +82,7 @@ JNIEXPORT jint JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_create
  * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_release
-  (JNIEnv *env, jobject obj, jint hMe) {
+  (JNIEnv *env, jobject obj, jlong hMe) {
 
     AquesTalkDa_Release((H_AQTKDA) hMe);
 }
@@ -93,7 +93,7 @@ JNIEXPORT void JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_release
  * Signature: (ILjava/lang/String;IIII)I
  */
 JNIEXPORT jint JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_play
-  (JNIEnv *env, jobject obj, jint hMe, jstring koe, jint iSpeed, jint hWnd, jstring msg, jint dwUser) {
+  (JNIEnv *env, jobject obj, jlong hMe, jstring koe, jint iSpeed, jint hWnd, jstring msg, jint dwUser) {
 
     const char *_koe = (*env)->GetStringChars(env, koe, NULL);
     int _koe_length = (*env)->GetStringLength(env, koe);
@@ -117,7 +117,7 @@ fflush(stderr);
  * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_stop
-  (JNIEnv *env, jobject obj, jint hMe) {
+  (JNIEnv *env, jobject obj, jlong hMe) {
 
     AquesTalkDa_Stop((H_AQTKDA) hMe);
 }
@@ -128,7 +128,7 @@ JNIEXPORT void JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_stop
  * Signature: (I)I
  */
 JNIEXPORT jint JNICALL Java_vavi_speech_aquestalk_AquesTalkDa_isPlay
-  (JNIEnv *env, jobject obj, jint hMe) {
+  (JNIEnv *env, jobject obj, jlong hMe) {
 
     return (jint) AquesTalkDa_IsPlay((H_AQTKDA) hMe);
 }

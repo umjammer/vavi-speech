@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.aquestalk.jsapi;
+package vavi.speech.aquestalk2.jsapi;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -39,7 +39,7 @@ import vavi.speech.aquestalk.AquesTalkDa;
  * Provides  partial support for a JSAPI 1.0 synthesizer for the 
  * AquesTalk speech synthesis system.
  */
-public class AquesTalkSynthesizer implements Synthesizer {
+public class AquesTalk2Synthesizer implements Synthesizer {
 
     /** */
     private AquesTalkDa aquesTalkDa;
@@ -53,7 +53,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
      * @param desc describes the allowed mode of operations for this
      * 		synthesizer.
      */
-    public AquesTalkSynthesizer(AquesTalkSynthesizerModeDesc desc) {
+    public AquesTalk2Synthesizer(AquesTalk2SynthesizerModeDesc desc) {
         this.desc = desc;
     }
 
