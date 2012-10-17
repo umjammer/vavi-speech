@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Shift_JIS"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ////////////////////////////////////////////////////////////////////// -->
 <!-- Copyright (c) 2008 by Naohide Sano, All rights reserved.               -->
@@ -22,7 +22,7 @@
   <property name="dir.lib" value="lib" />
   <property name="dir.build" value="target/classes" />
 
-  <!-- ƒNƒ‰ƒXƒpƒX‚Ì’è‹` -->
+  <!-- ã‚¯ãƒ©ã‚¹ãƒ‘ã‚¹ã®å®šç¾© -->
   <path id="project.class.path">
     <fileset dir="${dir.lib}">
       <include name="*.jar" />
@@ -34,10 +34,10 @@
     <path refid="project.class.path" />
   </path>
 
-  <!-- ƒ^[ƒQƒbƒg‚Ì’è‹` -->
+  <!-- ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å®šç¾© -->
 
   <!-- clean -->
-  <target name="clean" description="ƒrƒ‹ƒhŠÂ‹«‚ÌƒNƒŠƒA">
+  <target name="clean" description="ãƒ“ãƒ«ãƒ‰ç’°å¢ƒã®ã‚¯ãƒªã‚¢">
     <delete>
       <fileset dir="${dir.build}">
         <include name="**/*" />
@@ -50,7 +50,7 @@
   </target>
 
   <!-- prepare -->
-  <target name="prepare" description="€”õ">
+  <target name="prepare" description="æº–å‚™">
     <mkdir dir="${dir.lib}" />
     <mkdir dir="${dir.build}" />
     <ivy:settings file="ivy-settings.xml" />
@@ -59,14 +59,14 @@
   </target>
 
   <!-- javac -->
-  <target name="compile" depends="prepare" description="ƒRƒ“ƒpƒCƒ‹">
-    <javac debug="on" deprecation="true" encoding="MS932" destdir="${dir.build}">
+  <target name="compile" depends="prepare" description="ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«">
+    <javac debug="on" deprecation="true" encoding="${encoding}" destdir="${dir.build}">
       <classpath refid="project.class.path" />
       <include name="**/*.java" />
       <src path="src/main/java" />
     </javac>
 
-    <javac debug="on" deprecation="true" encoding="MS932" destdir="target/test-classes">
+    <javac debug="on" deprecation="true" encoding="${encoding}" destdir="target/test-classes">
       <classpath>
       	<path refid="project.class.path" />
       	<pathelement location="${dir.build}"/>
@@ -104,7 +104,7 @@
   </target>
 
   <!-- gcc -->
-  <target name="compile.native.win32" depends="javah" description="ƒRƒ“ƒpƒCƒ‹ C">
+  <target name="compile.native.win32" depends="javah" description="ã‚³ãƒ³ãƒ‘ã‚¤ãƒ« C">
     <apply executable="gcc" dest="${dir.native}/win32" parallel="false">
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
@@ -139,7 +139,7 @@
   </target>
 
   <!-- gcc -->
-  <target name="compile.native.2" depends="javah" description="ƒRƒ“ƒpƒCƒ‹ C">
+  <target name="compile.native.2" depends="javah" description="ã‚³ãƒ³ãƒ‘ã‚¤ãƒ« C">
     <apply executable="gcc" dest="${dir.native}/macosx" parallel="false">
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
@@ -177,7 +177,7 @@
   </target>
 
   <!-- gcc -->
-  <target name="compile.native" depends="javah" description="ƒRƒ“ƒpƒCƒ‹ C">
+  <target name="compile.native" depends="javah" description="ã‚³ãƒ³ãƒ‘ã‚¤ãƒ« C">
     <apply executable="gcc" dest="${dir.native}/macosx" parallel="false">
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
@@ -283,7 +283,7 @@
   </target>
 
   <!-- t5 -->
-  <target name="t5" depends="" description="Run program (jna)">
+  <target name="t5" depends="" description="Run program (jna) under construction">
     <java classname="Test3" fork="yes">
       <env key="DYLD_LIBRARY_PATH" path="${dir.lib}" />
       <jvmarg value="-d32" />

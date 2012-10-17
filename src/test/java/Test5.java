@@ -23,15 +23,15 @@ public class Test5 {
 
     public void test01(String text) throws Exception {
         Synthesizer synthesizer;
-        // ƒVƒ“ƒZƒUƒCƒU‚Ìƒ‚[ƒh‚ğw’è
+        // ã‚·ãƒ³ã‚»ã‚¶ã‚¤ã‚¶ã®ãƒ¢ãƒ¼ãƒ‰ã‚’æŒ‡å®š
 //        SynthesizerModeDesc desc = new SynthesizerModeDesc("AquesTalkSynthEngineCentral", "general", Locale.JAPAN, false, null);
         SynthesizerModeDesc desc = new AquesTalkSynthesizerModeDesc("AquesTalkSynthEngineCentral", "general", Locale.JAPAN);
-        // ƒVƒ“ƒZƒUƒCƒU‚ğì¬
+        // ã‚·ãƒ³ã‚»ã‚¶ã‚¤ã‚¶ã‚’ä½œæˆ
         synthesizer = Central.createSynthesizer(desc);
-        synthesizer.speakPlainText("ƒnƒ[ƒ[ƒ‹ƒh", null);
-        synthesizer.speakPlainText("‚ä‚Á‚­‚è‚µ‚Ä‚¢‚Á‚Ä‚Ë", null);
-        synthesizer.speakPlainText("‚»‚ñ‚È‚±‚Æ‚æ‚è‚¨‚¤‚Ç‚ñ‚½‚×‚½‚¢", null);
-        synthesizer.speakPlainText("Š¿š“Ç‚ß‚é‚ÌH", null);
+        synthesizer.speakPlainText("ãƒãƒ­ãƒ¼ãƒ¯ãƒ¼ãƒ«ãƒ‰", null);
+        synthesizer.speakPlainText("ã‚†ã£ãã‚Šã—ã¦ã„ã£ã¦ã­", null);
+        synthesizer.speakPlainText("ãã‚“ãªã“ã¨ã‚ˆã‚ŠãŠã†ã©ã‚“ãŸã¹ãŸã„", null);
+        synthesizer.speakPlainText("æ¼¢å­—èª­ã‚ã‚‹ã®ï¼Ÿ", null);
         synthesizer.speakPlainText(text, null);
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
 

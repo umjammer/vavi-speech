@@ -37,7 +37,7 @@ public class Test4 {
 
     public void test01() throws Exception {
         AquesTalkDa aquesTalkDa = new AquesTalkDa();
-        String koe = "‚±‚ñ‚É‚¿‚ÍA‚ ‚­‚¦‚·‚Æ[‚­‚Å‚·";
+        String koe = "ã“ã‚“ã«ã¡ã¯ã€ã‚ããˆã™ã¨ãƒ¼ãã§ã™";
         aquesTalkDa.play(koe);
         while (aquesTalkDa.isPlay()) {
             Thread.sleep(20);
@@ -47,7 +47,7 @@ public class Test4 {
 
     public void test02() throws Exception {
         AquesTalk aquesTalk = new AquesTalk();
-        String koe = "‚±‚ñ‚É‚¿‚íA‚ ‚­‚¦‚·‚Æ[‚­‚Å‚·";
+        String koe = "ã“ã‚“ã«ã¡ã‚ã€ã‚ããˆã™ã¨ãƒ¼ãã§ã™";
         byte[] wave = aquesTalk.synthesize(koe, 100);
         AudioInputStream ais = AudioSystem.getAudioInputStream(new ByteArrayInputStream(wave));
 

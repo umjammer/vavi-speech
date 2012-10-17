@@ -1,5 +1,5 @@
 /*
- * ‹K‘¥‰¹º‡¬ƒGƒ“ƒWƒ“ AquesTalk
+ * è¦å‰‡éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ AquesTalk
  * 
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
@@ -11,7 +11,7 @@ import com.sun.jna.Native;
 
 
 /**
- * ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`ƒf[ƒ^‚ğ¶¬‚µAƒTƒEƒ“ƒhƒfƒoƒCƒX‚Éo—Í‚·‚é
+ * éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆã—ã€ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã«å‡ºåŠ›ã™ã‚‹
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
@@ -23,55 +23,55 @@ public interface AquesTalkDa extends Library {
         AquesTalkDa.class);
 
     /**
-     * ‰¹º‚ğ‡¬‚µ‚Äo—Íi“¯Šúƒ^ƒCƒvj
-     * ‰¹º‚ÌÄ¶‚ªI—¹‚·‚é‚Ü‚Å–ß‚ç‚È‚¢
-     * @param  koe[in]     ‰¹º‹L†—ñiNULLI’[j
-     * @param  iSpeed[in]  ”­˜b‘¬“x [%] 50-300 ‚ÌŠÔ‚Åw’è (=100)
-     * @return 0:³íI—¹@‚»‚êˆÈŠOFƒGƒ‰[ƒR[ƒh
+     * éŸ³å£°ã‚’åˆæˆã—ã¦å‡ºåŠ›ï¼ˆåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+     * éŸ³å£°ã®å†ç”ŸãŒçµ‚äº†ã™ã‚‹ã¾ã§æˆ»ã‚‰ãªã„
+     * @param  koe[in]     éŸ³å£°è¨˜å·åˆ—ï¼ˆNULLçµ‚ç«¯ï¼‰
+     * @param  iSpeed[in]  ç™ºè©±é€Ÿåº¦ [%] 50-300 ã®é–“ã§æŒ‡å®š (=100)
+     * @return 0:æ­£å¸¸çµ‚äº†ã€€ãã‚Œä»¥å¤–ï¼šã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
      */
     int AquesTalkDa_PlaySync(String koe, int iSpeed);
 
     /**
-     * ‰¹º‡¬ƒGƒ“ƒWƒ“‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬i”ñ“¯Šúƒ^ƒCƒvj
-     * @return ‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+     * éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆï¼ˆéåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+     * @return éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
      */
     int AquesTalkDa_Create();
 
     /**
-     * ‰¹º‡¬ƒGƒ“ƒWƒ“‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰ğ•úi”ñ“¯Šúƒ^ƒCƒvj
-     * @param  hMe[in]     ‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
+     * éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è§£æ”¾ï¼ˆéåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+     * @param  hMe[in]     éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
      */
     void AquesTalkDa_Release(int hMe);
 
     /**
-     * ‰¹º‚ğ‡¬‚µ‚Äo—Íi”ñ“¯Šúƒ^ƒCƒvj
-     * ‰¹º”gŒ`¶¬Œã‚ÉA‚·‚®‚É–ß‚é
-     * hWnd‚ğw’è‚·‚é‚ÆÄ¶I—¹ŒãAmsg‚Éw’è‚µ‚½ƒƒbƒZ[ƒW‚ªPost‚³‚ê‚éB
-     * Ä¶I—¹‘O‚ÉAquesTalkDa_Play()‚ğŒÄ‚Ño‚µ‚ÄA˜A‘±“I‚ÉÄ¶‚³‚¹‚é‚±‚Æ‚à‰Â”\B
+     * éŸ³å£°ã‚’åˆæˆã—ã¦å‡ºåŠ›ï¼ˆéåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+     * éŸ³å£°æ³¢å½¢ç”Ÿæˆå¾Œã«ã€ã™ãã«æˆ»ã‚‹
+     * hWndã‚’æŒ‡å®šã™ã‚‹ã¨å†ç”Ÿçµ‚äº†å¾Œã€msgã«æŒ‡å®šã—ãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒPostã•ã‚Œã‚‹ã€‚
+     * å†ç”Ÿçµ‚äº†å‰ã«AquesTalkDa_Play()ã‚’å‘¼ã³å‡ºã—ã¦ã€é€£ç¶šçš„ã«å†ç”Ÿã•ã›ã‚‹ã“ã¨ã‚‚å¯èƒ½ã€‚
      * 
-     * @param  hMe[in]     ‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
-     * @param  koe[in]     ‰¹º‹L†—ñiNULLI’[j
-     * @param  iSpeed[in]  ”­˜b‘¬“x [%] 50-300 ‚ÌŠÔ‚Åw’è (default 100)
-     * @param  hWnd[in]    I—¹ƒƒbƒZ[ƒW‘—oæƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
-     * @param  msg[in]     I—¹ƒƒbƒZ[ƒW (default 0)
-     * @param  dwUser[in]  ”CˆÓ‚Ìƒ†[ƒUƒpƒ‰ƒ[ƒ^(ƒƒbƒZ[ƒW‚ÌlParam ‚Éİ’è‚³‚ê‚é) (default 0)
-     * @return 0:³íI—¹@‚»‚êˆÈŠOFƒGƒ‰[ƒR[ƒh
+     * @param  hMe[in]     éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
+     * @param  koe[in]     éŸ³å£°è¨˜å·åˆ—ï¼ˆNULLçµ‚ç«¯ï¼‰
+     * @param  iSpeed[in]  ç™ºè©±é€Ÿåº¦ [%] 50-300 ã®é–“ã§æŒ‡å®š (default 100)
+     * @param  hWnd[in]    çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€å‡ºå…ˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+     * @param  msg[in]     çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ (default 0)
+     * @param  dwUser[in]  ä»»æ„ã®ãƒ¦ãƒ¼ã‚¶ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®lParam ã«è¨­å®šã•ã‚Œã‚‹) (default 0)
+     * @return 0:æ­£å¸¸çµ‚äº†ã€€ãã‚Œä»¥å¤–ï¼šã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
      */
     int AquesTalkDa_Play(int hMe, String koe, int iSpeed, int hWnd, int msg, int dwUser);
 
     /**
-     * Ä¶‚Ì’†~ 
-     * AquesTalkDa_Play()‚ÅÄ¶’†‚ÉAÄ¶‚ğ’†’f‚·‚éB
-     * Ä¶’†(Ä¶‘Ò‚¿‚ğŠÜ‚Şj‚Å‚ ‚èAI—¹ƒƒbƒZ[ƒW‘—oæ‚ªw’è‚³‚ê‚Ä‚¢‚½‚È‚çA
-     * I—¹ƒƒbƒZ[ƒW‚ªPost‚³‚ê‚éB
-     * @param  hMe[in]     ‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
+     * å†ç”Ÿã®ä¸­æ­¢ 
+     * AquesTalkDa_Play()ã§å†ç”Ÿä¸­ã«ã€å†ç”Ÿã‚’ä¸­æ–­ã™ã‚‹ã€‚
+     * å†ç”Ÿä¸­(å†ç”Ÿå¾…ã¡ã‚’å«ã‚€ï¼‰ã§ã‚ã‚Šã€çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€å‡ºå…ˆãŒæŒ‡å®šã•ã‚Œã¦ã„ãŸãªã‚‰ã€
+     * çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒPostã•ã‚Œã‚‹ã€‚
+     * @param  hMe[in]     éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
      */
     void AquesTalkDa_Stop(int hMe);
 
     /**
-     * Ä¶’†‚©”Û‚©
-     * @param  hMe[in]     ‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
-     * @return 1:Ä¶’† 0:Ä¶’†‚Å‚È‚¢
+     * å†ç”Ÿä¸­ã‹å¦ã‹
+     * @param  hMe[in]     éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
+     * @return 1:å†ç”Ÿä¸­ 0:å†ç”Ÿä¸­ã§ãªã„
      */
     int AquesTalkDa_IsPlay(int hMe);
 }

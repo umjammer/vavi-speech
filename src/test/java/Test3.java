@@ -28,14 +28,14 @@ public class Test3 {
     public void test01() throws Exception {
         AquesTalkDa aquesTalkDa = AquesTalkDa.INSTANCE;
         int h = aquesTalkDa.AquesTalkDa_Create();
-        String koe = "Ç‰Ç¡Ç≠ÇËÇµÇƒÇ¢Ç¡ÇƒÇÀ";
+        String koe = "„ÇÜ„Å£„Åè„Çä„Åó„Å¶„ÅÑ„Å£„Å¶„Å≠";
         aquesTalkDa.AquesTalkDa_PlaySync(koe, 100);
         aquesTalkDa.AquesTalkDa_Release(h);
     }
 
     public void test02() throws Exception {
         AquesTalk aquesTalk = AquesTalk.INSTANCE;
-        String koe = "Ç±ÇÒÇ…ÇøÇÕÅAÇ¶Ç ÇËÇÒÇ≠Ç≈Ç∑";
+        String koe = "„Åì„Çì„Å´„Å°„ÅØ„ÄÅ„Åà„Å¨„Çä„Çì„Åè„Åß„Åô";
         int[] result = new int[1];
         Pointer wave = aquesTalk.AquesTalk_Synthe(koe, 100, result);
         aquesTalk.AquesTalk_FreeWave(wave);

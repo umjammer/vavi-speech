@@ -1,5 +1,5 @@
 /*
- * ‹K‘¥‰¹º‡¬ƒGƒ“ƒWƒ“ AquesTalk
+ * è¦å‰‡éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ AquesTalk
  * 
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
@@ -12,8 +12,8 @@ import com.sun.jna.Pointer;
 
 
 /**
- * ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`ƒf[ƒ^‚ğƒƒ‚ƒŠã‚É¶¬‚·‚é
- * o—Í‰¹º”gŒ`‚ÍA8HKzƒTƒ“ƒvƒŠƒ“ƒO, 16bit,ƒ‚ƒmƒ‰ƒ‹,WAVƒtƒH[ƒ}ƒbƒg
+ * éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ¡ãƒ¢ãƒªä¸Šã«ç”Ÿæˆã™ã‚‹
+ * å‡ºåŠ›éŸ³å£°æ³¢å½¢ã¯ã€8HKzã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°, 16bit,ãƒ¢ãƒãƒ©ãƒ«,WAVãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
@@ -25,20 +25,20 @@ public interface AquesTalk extends Library {
         AquesTalk.class);
 
     /**
-     * ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`‚ğ¶¬ ‰¹º”gŒ`ƒf[ƒ^‚Í“à•”‚Å—ÌˆæŠm•Û‚³‚ê‚éB
-     * ‰¹º”gŒ`ƒf[ƒ^‚Ì‰ğ•ú‚Í–{ŠÖ”‚ÌŒÄ‚Ño‚µ‘¤‚Å{@link #AquesTalk_FreeWave()}‚É‚Äs‚¤
+     * éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ã‚’ç”Ÿæˆ éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã¯å†…éƒ¨ã§é ˜åŸŸç¢ºä¿ã•ã‚Œã‚‹ã€‚
+     * éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾ã¯æœ¬é–¢æ•°ã®å‘¼ã³å‡ºã—å´ã§{@link #AquesTalk_FreeWave()}ã«ã¦è¡Œã†
      * 
-     * @param koe[in] ‰¹º‹L†—ñ
-     * @param iSpeed[in] ”­˜b‘¬“x [%] 50-300 ‚ÌŠÔ‚Åw’è
-     * @param pSize[out] ¶¬‚µ‚½‰¹ºƒf[ƒ^‚ÌƒTƒCƒY[byte]iƒGƒ‰[‚Ìê‡‚ÍƒGƒ‰[ƒR[ƒh‚ª•Ô‚éj
-     * @return WAVƒtƒH[ƒ}ƒbƒg‚Ì‰¹ºƒf[ƒ^‚Ìæ“ªƒAƒhƒŒƒXBƒGƒ‰[‚Ínull‚ª•Ô‚é
+     * @param koe[in] éŸ³å£°è¨˜å·åˆ—
+     * @param iSpeed[in] ç™ºè©±é€Ÿåº¦ [%] 50-300 ã®é–“ã§æŒ‡å®š
+     * @param pSize[out] ç”Ÿæˆã—ãŸéŸ³å£°ãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚º[byte]ï¼ˆã‚¨ãƒ©ãƒ¼ã®å ´åˆã¯ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ãŒè¿”ã‚‹ï¼‰
+     * @return WAVãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®éŸ³å£°ãƒ‡ãƒ¼ã‚¿ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹ã€‚ã‚¨ãƒ©ãƒ¼æ™‚ã¯nullãŒè¿”ã‚‹
      */
     Pointer AquesTalk_Synthe(String koe, int iSpeed, int[] pSize);
 
     /**
-     * ‰¹ºƒf[ƒ^‚Ì—Ìˆæ‚ğŠJ•ú
+     * éŸ³å£°ãƒ‡ãƒ¼ã‚¿ã®é ˜åŸŸã‚’é–‹æ”¾
      * 
-     * @param wav[in] {@link #AquesTalk_Synthe(String, int, int[])}‚Å•Ô‚³‚ê‚½ƒAƒhƒŒƒX‚ğw’è
+     * @param wav[in] {@link #AquesTalk_Synthe(String, int, int[])}ã§è¿”ã•ã‚ŒãŸã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’æŒ‡å®š
      */
     void AquesTalk_FreeWave(Pointer wav);
 }

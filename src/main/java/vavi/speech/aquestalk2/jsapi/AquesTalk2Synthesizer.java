@@ -71,7 +71,7 @@ System.err.println(token[i].toString() + "\t("
                    + "(" + token[i].start() + "," + token[i].end() + ","
                    + token[i].length() + ")\t" + token[i].getReading() + "\t"
                    + token[i].getPronunciation());
-                        if (token[i].getReading() != null && !token[i].getPos().startsWith("ãLçÜ")) {
+                        if (token[i].getReading() != null && !token[i].getPos().startsWith("Ë®òÂè∑")) {
                             sb.append(token[i].getReading());
                         }
                     }

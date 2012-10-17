@@ -1,5 +1,5 @@
 /*
- * ‹K‘¥‰¹º‡¬ƒGƒ“ƒWƒ“ AquesTalk2
+ * è¦å‰‡éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ AquesTalk2
  * 
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
@@ -12,7 +12,7 @@ import com.sun.jna.Pointer;
 
 
 /**
- * ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`ƒf[ƒ^‚ğ¶¬‚µAƒTƒEƒ“ƒhƒfƒoƒCƒX‚Éo—Í‚·‚é
+ * éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆã—ã€ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã«å‡ºåŠ›ã™ã‚‹
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
@@ -24,7 +24,7 @@ public interface AquesTalk2Da extends Library {
         AquesTalk2Da.class);
 
     /**
-     * ‰¹º‚ğ‡¬‚µ‚Äo—Í
+     * éŸ³å£°ã‚’åˆæˆã—ã¦å‡ºåŠ›
      * 
      * @param data 
      * @param size

@@ -1,5 +1,5 @@
 /*
- * ‹K‘¥‰¹º‡¬ƒGƒ“ƒWƒ“ AquesTalk
+ * è¦å‰‡éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ AquesTalk
  * 
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
@@ -8,8 +8,8 @@ package vavi.speech.aquestalk;
 
 
 /**
- * ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`ƒf[ƒ^‚ğƒƒ‚ƒŠã‚É¶¬‚·‚é
- * o—Í‰¹º”gŒ`‚ÍA8HKzƒTƒ“ƒvƒŠƒ“ƒO, 16bit,ƒ‚ƒmƒ‰ƒ‹,WAVƒtƒH[ƒ}ƒbƒg
+ * éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ¡ãƒ¢ãƒªä¸Šã«ç”Ÿæˆã™ã‚‹
+ * å‡ºåŠ›éŸ³å£°æ³¢å½¢ã¯ã€8HKzã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°, 16bit,ãƒ¢ãƒãƒ©ãƒ«,WAVãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
@@ -26,11 +26,11 @@ public class AquesTalk {
     }
 
     /**
-     * ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`‚ğ¶¬B
+     * éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ã‚’ç”Ÿæˆã€‚
      * 
-     * @param koe ‰¹º‹L†—ñ
-     * @param speed ”­˜b‘¬“x [%] 50-300 ‚ÌŠÔ‚Åw’è
-     * @return WAVƒtƒH[ƒ}ƒbƒg‚Ì‰¹ºƒf[ƒ^BƒGƒ‰[‚Ínull‚ª•Ô‚é
+     * @param koe éŸ³å£°è¨˜å·åˆ—
+     * @param speed ç™ºè©±é€Ÿåº¦ [%] 50-300 ã®é–“ã§æŒ‡å®š
+     * @return WAVãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®éŸ³å£°ãƒ‡ãƒ¼ã‚¿ã€‚ã‚¨ãƒ©ãƒ¼æ™‚ã¯nullãŒè¿”ã‚‹
      */
     private native byte[] synthe(String koe, int speed);
 }
