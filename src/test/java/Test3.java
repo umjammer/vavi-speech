@@ -20,9 +20,9 @@ public class Test3 {
 
     /** */
     public static void main(String[] args) throws Exception {
-        Test3 test3 = new Test3();
-        test3.test01();
-        test3.test02();
+        Test3 app = new Test3();
+        app.test01();
+        app.test02();
     }
 
     public void test01() throws Exception {

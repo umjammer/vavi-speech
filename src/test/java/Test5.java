@@ -42,8 +42,8 @@ public class Test5 {
     }
 
     public static void main(String[] args) throws Exception {
-        Test5 test5 = new Test5();
-        test5.test01(args[0]);
+        Test5 app = new Test5();
+        app.test01(args[0]);
     }
 }
 

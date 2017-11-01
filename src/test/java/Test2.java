@@ -32,6 +32,7 @@ public class Test2 {
             String line = reader.readLine();
             synthesizer.speakPlainText(line, null);
         }
+        reader.close();
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
 
         synthesizer.allocate();
