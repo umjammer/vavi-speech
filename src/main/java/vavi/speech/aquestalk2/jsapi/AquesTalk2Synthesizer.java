@@ -51,7 +51,7 @@ public class AquesTalk2Synthesizer implements Synthesizer {
      * Creates a new Synthesizer in the DEALLOCATED state.
      *
      * @param desc describes the allowed mode of operations for this
-     * 		synthesizer.
+     *         synthesizer.
      */
     public AquesTalk2Synthesizer(AquesTalk2SynthesizerModeDesc desc) {
         this.desc = desc;

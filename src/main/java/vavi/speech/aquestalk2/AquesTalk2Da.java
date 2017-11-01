@@ -71,6 +71,7 @@ public class AquesTalk2Da {
                 }
                 baos.write(b, 0, r);
             }
+            is.close();
             setPhont(baos.toByteArray());
         } else {
             setPhont((byte[]) null);
