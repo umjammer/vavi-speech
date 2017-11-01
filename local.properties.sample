@@ -2,12 +2,13 @@
 #
 #
 
-encoding=UTF-8
+jvm=${env.JAVA_HOME}/bin/java
+javac.source=src/main/java
+javac.source.test=src/test/java
+javac.resource=src/main/resources
+javac.resource.test=src/test/resources
+javac.dest=target/classes
+javac.dest.test=target/test-classes
 
-jdk.home=/usr/local/java
+jni.target=darwin
 sen.home=${user.home}/src/000/sen-1.2.2.1
-vavi.dir=/Users/nsano/src/vavi/java
-
-run.in=\u8a18\u8005\u304c\u6c7d\u8eca\u3067\u5e30\u793e\u3057\u305f
-run.sen=\u3059\u3082\u3082\u3082\u3082\u3082\u3082\u3082\u3082\u306e\u3046\u3061
-run.t7=/Users/nsano/Music/Lyrics/\u82b1\u6fa4 \u9999\u83dc - \u604b\u611b\u30b5\u30fc\u30ad\u30e5\u30ec\u30fc\u30b7\u30e7\u30f3.txt

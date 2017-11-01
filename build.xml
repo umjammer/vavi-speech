@@ -13,80 +13,87 @@
 <!-- ////////////////////////////////////////////////////////////////////// -->
 
 <project name="aquesTalk" default="run" basedir="."
-         xmlns:ivy="antlib:org.apache.ivy.ant">
+         xmlns:artifact="urn:maven-artifact-ant">
 
-  <property file="local.properties" />
-
-  <property name="dir.native" value="src/main/jni" />
-
-  <property name="dir.lib" value="lib" />
-  <property name="dir.build" value="target/classes" />
-
-  <!-- クラスパスの定義 -->
-  <path id="project.class.path">
-    <fileset dir="${dir.lib}">
+  <path id="maven-ant-tasks.classpath">
+    <fileset dir="${user.home}/lib/java/maven-ant-tasks">
       <include name="*.jar" />
     </fileset>
   </path>
+  <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
+           classpathref="maven-ant-tasks.classpath" /> 
 
-  <path id="test.class.path">
-    <pathelement location="test" />
-    <path refid="project.class.path" />
+  <property environment="env"/>
+  <property file="local.properties" />
+
+  <xmlproperty file="pom.xml" />
+
+  <!-- Path Definitions -->
+  <path id="project.class.path">
+    <fileset refid="maven-ant-tasks.dependency.fileset"/>
   </path>
 
-  <!-- ターゲットの定義 -->
-
   <!-- clean -->
-  <target name="clean" description="ビルド環境のクリア">
+  <target name="clean" description="Cleaning">
     <delete>
-      <fileset dir="${dir.build}">
+      <fileset dir="${javac.dest}">
         <include name="**/*" />
       </fileset>
-      <fileset dir="${dir.native}">
-        <include name="**/*.o" />
-        <include name="vavi_speech_aquestalk_*.h" />
+      <fileset dir="${javac.dest.test}">
+        <include name="**/*" />
       </fileset>
     </delete>
   </target>
 
   <!-- prepare -->
-  <target name="prepare" description="準備">
-    <mkdir dir="${dir.lib}" />
-    <mkdir dir="${dir.build}" />
-    <ivy:settings file="ivy-settings.xml" />
-    <ivy:convertpom pomFile="pom.xml" ivyFile="ivy.xml" />
-    <ivy:retrieve />
+  <target name="prepare" description="Preparing">
+    <artifact:pom file="pom.xml" id="maven.project"/>
+    <artifact:dependencies fileSetId="maven-ant-tasks.dependency.fileset">
+      <pom refid="maven.project"/>
+    </artifact:dependencies>
   </target>
 
   <!-- javac -->
   <target name="compile" depends="prepare" description="コンパイル">
-    <javac debug="on" deprecation="true" encoding="${encoding}" destdir="${dir.build}">
+    <javac debug="on" destdir="${javac.dest}"
+           source="${project.build.plugins.plugin.configuration.source}"
+           target="${project.build.plugins.plugin.configuration.target}"
+           encoding="${project.build.plugins.plugin.configuration.encoding}">
       <classpath refid="project.class.path" />
       <include name="**/*.java" />
-      <src path="src/main/java" />
+      <src path="${javac.source}" />
     </javac>
 
-    <javac debug="on" deprecation="true" encoding="${encoding}" destdir="target/test-classes">
+    <copy todir="${javac.dest}">
+      <fileset dir="${javac.resource}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+
+    <javac debug="on" destdir="${javac.dest.test}"
+           source="${project.build.plugins.plugin.configuration.source}"
+           target="${project.build.plugins.plugin.configuration.target}"
+           encoding="${project.build.plugins.plugin.configuration.encoding}">
       <classpath>
-      	<path refid="project.class.path" />
-      	<pathelement location="${dir.build}"/>
+        <path refid="project.class.path" />
+        <pathelement location="${javac.dest}" />
       </classpath>
       <include name="**/*.java" />
-      <src path="src/test/java" />
+      <src path="${javac.source.test}" />
     </javac>
 
-  	<copy toDir="${dir.build}">
-  	  <fileset dir="src/main/resources">
-  	  	<include name="**/*.properties" />
-  	  </fileset>
-  	</copy>
-  	
-  	<!-- .properties.sjis -->
+    <copy todir="${javac.dest.test}">
+      <fileset dir="${javac.resource.test}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+
     <native2ascii encoding="Windows-31J"
-                  src="src/test/resources"
-                  dest="target/test-classes"
-                includes="**/*.properties.sjis"
-                ext=""/>
+                  ext=".properties"
+                  src="src/main/native2ascii"
+                  dest="${javac.dest}" >
+      <include name="**/*.properties" />
+    </native2ascii>
   </target>
 
   <!-- javah -->
@@ -144,7 +151,8 @@
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
       <arg line="-arch i386" />
-      <arg value="-I${java.home}/include" />
+      <arg value="-I${jdk.home}/include" />
+      <arg value="-I${jdk.home}/include/${jni.target}" />
       <arg value="-I${dir.native}" />
       <arg value="-Itmp/macosx/AquesTalk_Mac_Eva/SamplePrograms/HelloAqTk" />
       <arg value="-F${user.home}/Library/Frameworks" />
@@ -182,7 +190,8 @@
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
       <arg line="-arch i386" />
-      <arg value="-I${java.home}/include" />
+      <arg value="-I${jdk.home}/include" />
+      <arg value="-I${jdk.home}/include/${jni.target}" />
       <arg value="-I${dir.native}" />
       <arg value="-Itmp/macosx/AquesTalk2_Mac/SamplePrograms/HelloAqTk" />
       <arg value="-F${user.home}/Library/Frameworks" />
@@ -331,6 +340,23 @@
       <jvmarg value="-Djava.library.path=${dir.lib}" />
       <jvmarg value="-d32" />
       <jvmarg value="-Dfile.encoding=UTF-8" />
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement location="${dir.build}" />
+        <pathelement location="target/test-classes" />
+      </classpath>
+      <arg value="${run.in}" />
+    </java>
+  </target>
+
+  <!-- t9 -->
+  <target name="t9" depends="link" description="aquestalk2, jsapi">
+    <java classname="Test7" fork="yes">
+      <env key="PATH" path="${dir.lib}" />
+      <jvmarg value="-Djava.library.path=${dir.lib}" />
+      <jvmarg value="-d32" />
+      <jvmarg value="-Dfile.encoding=UTF-8" />
+      <arg value="-Dsen.home=${sen.home}" />
       <classpath>
         <path refid="project.class.path" />
         <pathelement location="${dir.build}" />
