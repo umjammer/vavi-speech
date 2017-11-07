@@ -88,7 +88,7 @@ System.err.println(sb);
     }
 
     /** */
-    private Queue<Pair> queue = new LinkedList<Pair>();
+    private Queue<Pair> queue = new LinkedList<>();
 
     /* */
     public Enumeration<?> enumerateQueue() throws EngineStateError {

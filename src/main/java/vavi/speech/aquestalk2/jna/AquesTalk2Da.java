@@ -1,6 +1,6 @@
 /*
  * 規則音声合成エンジン AquesTalk2
- * 
+ *
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
 
@@ -13,7 +13,7 @@ import com.sun.jna.Pointer;
 
 /**
  * 音声記号列から音声波形データを生成し、サウンドデバイスに出力する
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
@@ -25,8 +25,8 @@ public interface AquesTalk2Da extends Library {
 
     /**
      * 音声を合成して出力
-     * 
-     * @param data 
+     *
+     * @param data
      * @param size
      */
     void PlaySound(Pointer data, int size);

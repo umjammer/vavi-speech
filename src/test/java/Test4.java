@@ -21,7 +21,7 @@ import vavi.speech.aquestalk.AquesTalkDa;
 
 /**
  * Test4. (JNI)
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */

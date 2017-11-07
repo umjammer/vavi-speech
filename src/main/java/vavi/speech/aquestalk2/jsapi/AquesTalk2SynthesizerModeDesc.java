@@ -26,7 +26,7 @@ public class AquesTalk2SynthesizerModeDesc extends SynthesizerModeDesc implement
     /**
      * Creates a fully-specified descriptor. Any of the features may be
      * <code>null</code>.
-     * 
+     *
      * @param engineName the name of the engine
      * @param modeName the name of the mode
      * @param locale the locale associated with this mode
@@ -37,12 +37,12 @@ public class AquesTalk2SynthesizerModeDesc extends SynthesizerModeDesc implement
 
     /**
      * Returns the valid voices in this synthesizer mode.
-     * 
+     *
      * @return an array of valid voices, if no valid voices, it will return an
      *         array of size 0
      */
     public Voice[] getVoices() {
-        List<Voice> voiceList = new LinkedList<Voice>();
+        List<Voice> voiceList = new LinkedList<>();
         javax.speech.synthesis.Voice[] voices = super.getVoices();
         int count = 0;
         for (int i = 0; i < voices.length; i++) {
@@ -63,9 +63,9 @@ public class AquesTalk2SynthesizerModeDesc extends SynthesizerModeDesc implement
     /**
      * Constructs a AquesTalkSynthesizer with the properties of this mode
      * descriptor.
-     * 
+     *
      * @return a synthesizer that mathes the mode
-     * 
+     *
      * @throws IllegalArgumentException if the properties of this descriptor do
      *             not match any known engine or mode
      * @throws EngineException if the engine could not be created

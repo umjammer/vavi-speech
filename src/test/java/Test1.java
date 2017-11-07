@@ -9,7 +9,7 @@ import net.java.sen.Token;
 
 
 /**
- * Test1. (sen test) 
+ * Test1. (sen test)
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 2010/03/14 nsano initial version <br>

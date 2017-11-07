@@ -36,7 +36,7 @@ import vavi.speech.aquestalk.AquesTalkDa;
 
 
 /**
- * Provides  partial support for a JSAPI 1.0 synthesizer for the 
+ * Provides  partial support for a JSAPI 1.0 synthesizer for the
  * AquesTalk speech synthesis system.
  */
 public class AquesTalk2Synthesizer implements Synthesizer {
@@ -88,7 +88,7 @@ System.err.println(sb);
     }
 
     /** */
-    private Queue<Pair> queue = new LinkedList<Pair>();
+    private Queue<Pair> queue = new LinkedList<>();
 
     /* */
     public Enumeration<?> enumerateQueue() throws EngineStateError {
@@ -112,7 +112,7 @@ System.err.println(sb);
     /* */
     public void addSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -130,7 +130,7 @@ System.err.println(sb);
     /* */
     public void removeSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -144,7 +144,7 @@ System.err.println(sb);
     public void speak(URL JSMLurl, SpeakableListener listener)
         throws JSMLException, MalformedURLException, IOException, EngineStateError {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -164,7 +164,7 @@ System.err.println(sb);
     /* */
     public void addEngineListener(EngineListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -209,13 +209,13 @@ System.err.println(sb);
     /* */
     public void pause() throws EngineStateError {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
     public void removeEngineListener(EngineListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -248,7 +248,7 @@ e.printStackTrace(System.err);
     /* */
     public void waitEngineState(long state) throws InterruptedException, IllegalArgumentException {
         // TODO Auto-generated method stub
-        
+
     }
 }
 

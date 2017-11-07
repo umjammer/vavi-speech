@@ -1,6 +1,6 @@
 /*
  * 規則音声合成エンジン AquesTalk
- * 
+ *
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
 
@@ -9,7 +9,7 @@ package vavi.speech.aquestalk;
 
 /**
  * 音声記号列から音声波形データを生成し、サウンドデバイスに出力する
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
@@ -86,7 +86,7 @@ public class AquesTalkDa {
      * 音声波形生成後に、すぐに戻る
      * hWndを指定すると再生終了後、msgに指定したメッセージがPostされる。
      * 再生終了前に {@link play()}を呼び出して、連続的に再生させることも可能。
-     * 
+     *
      * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
      * @param koe 音声記号列
      * @param speed 発話速度 [%] 50-300 の間で指定 (default 100)
@@ -103,7 +103,7 @@ public class AquesTalkDa {
     }
 
     /**
-     * 再生の中止 
+     * 再生の中止
      * {@link #play()}で再生中に、再生を中断する。
      * 再生中(再生待ちを含む）であり、終了メッセージ送出先が指定されていたなら、
      * 終了メッセージがPostされる。
