@@ -4,6 +4,8 @@
  * Programmed by Naohide Sano
  */
 
+import org.junit.Test;
+
 import com.sun.jna.Pointer;
 
 import vavi.speech.aquestalk.jna.AquesTalk;
@@ -13,7 +15,7 @@ import vavi.speech.aquestalk.jna.AquesTalkDa;
 /**
  * Test3. (JNA)
  * 
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
 public class Test3 {
@@ -25,6 +27,7 @@ public class Test3 {
         app.test02();
     }
 
+    @Test
     public void test01() throws Exception {
         AquesTalkDa aquesTalkDa = AquesTalkDa.INSTANCE;
         int h = aquesTalkDa.AquesTalkDa_Create();
@@ -33,6 +36,7 @@ public class Test3 {
         aquesTalkDa.AquesTalkDa_Release(h);
     }
 
+    @Test
     public void test02() throws Exception {
         AquesTalk aquesTalk = AquesTalk.INSTANCE;
         String koe = "こんにちは、えぬりんくです";

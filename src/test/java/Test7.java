@@ -16,7 +16,7 @@ import vavi.speech.aquestalk2.jsapi.AquesTalk2SynthesizerModeDesc;
 /**
  * Test7. (aquestalk2, JSAPI)
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
 public class Test7 {

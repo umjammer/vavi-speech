@@ -11,7 +11,7 @@ package vavi.speech.aquestalk;
  * 音声記号列から音声波形データをメモリ上に生成する
  * 出力音声波形は、8HKzサンプリング, 16bit,モノラル,WAVフォーマット
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
 public class AquesTalk {

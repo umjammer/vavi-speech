@@ -14,7 +14,7 @@ import com.sun.jna.Pointer;
 /**
  * 音声記号列から音声波形データを生成し、サウンドデバイスに出力する
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
 public interface AquesTalk2Da extends Library {
