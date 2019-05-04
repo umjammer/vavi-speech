@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.sun.jna.Pointer;
 

@@ -15,8 +15,9 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
@@ -32,28 +33,51 @@
     </repository>
   </repositories>
   <dependencies>
-  	<dependency>
-  		<groupId>javax.speech</groupId>
-  		<artifactId>speech</artifactId>
-  		<version>1.0.0</version>
-  		<optional>false</optional>
-  	</dependency>
     <dependency>
-    	<groupId>commons-logging</groupId>
-    	<artifactId>commons-logging</artifactId>
-    	<version>1.0.4</version>
-    	<optional>false</optional>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.3.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>sen</groupId>
-    	<artifactId>sen</artifactId>
-    	<version>1.2.2.1g</version>
-    	<optional>false</optional>
+      <groupId>javax.speech</groupId>
+      <artifactId>speech</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>sen</groupId>
+      <artifactId>sen</artifactId>
+      <version>1.2.2.1g</version>
     </dependency>
     <dependency>
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
       <version>3.4.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.rococoa</groupId>
+      <artifactId>rococoa-cocoa</artifactId>
+      <version>0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-speech</artifactId>
+      <version>0.85.0-beta</version>
+    </dependency>
   </dependencies>
+  <description>TODO
+
+    rococoa text speech</description>
+  <url>https//github.com/umjammer/vavi-speech</url>
+  <scm>
+    <url>https//github.com/umjammer/vavi-speech</url>
+  </scm>
+  <issueManagement>
+    <system>https//github.com/umjammer/vavi-speech/issues</system>
+  </issueManagement>
 </project>

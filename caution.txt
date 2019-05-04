@@ -1,0 +1,7 @@
+wine は lib にパスが通るようにしてあるので注意
+
+TODO
+    naist-jdic
+    wikipedia noun
+    
+    win32 recompile (pointer long-nized)

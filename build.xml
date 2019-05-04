@@ -7,17 +7,17 @@
 <!--                                                                        -->
 <!-- aquesTalk                                                              -->
 <!--                                                                        -->
-<!-- @author	Naohide Sano                                                -->
-<!-- @version	0.00	080523	nsano	initial version                     -->
+<!-- @author Naohide Sano                                                   -->
+<!-- @version 0.00 080523 nsano initial version                             -->
 <!--                                                                        -->
 <!-- ////////////////////////////////////////////////////////////////////// -->
 
 <project name="aquesTalk" default="run" basedir="."
-         xmlns:artifact="urn:maven-artifact-ant">
+  xmlns:artifact="urn:maven-artifact-ant">
 
   <path id="maven-ant-tasks.classpath">
-    <fileset dir="${user.home}/lib/java/maven-ant-tasks">
-      <include name="*.jar" />
+    <fileset dir="${user.home}/lib/java">
+      <include name="maven-ant-tasks*.jar" />
     </fileset>
   </path>
   <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
@@ -25,82 +25,34 @@
 
   <property environment="env"/>
   <property file="local.properties" />
-
   <xmlproperty file="pom.xml" />
 
   <!-- Path Definitions -->
   <path id="project.class.path">
-    <fileset refid="maven-ant-tasks.dependency.fileset"/>
+    <pathelement location="${javac.dest.test}" />
+    <pathelement location="${javac.dest}" />
+    <fileset refid="maven-ant-tasks.dependency.fileset" />
   </path>
-
-  <!-- clean -->
-  <target name="clean" description="Cleaning">
-    <delete>
-      <fileset dir="${javac.dest}">
-        <include name="**/*" />
-      </fileset>
-      <fileset dir="${javac.dest.test}">
-        <include name="**/*" />
-      </fileset>
-    </delete>
-  </target>
 
   <!-- prepare -->
   <target name="prepare" description="Preparing">
-    <artifact:pom file="pom.xml" id="maven.project"/>
+    <artifact:pom file="pom.xml" id="maven.project" />
     <artifact:dependencies fileSetId="maven-ant-tasks.dependency.fileset">
-      <pom refid="maven.project"/>
+      <pom refid="maven.project" />
     </artifact:dependencies>
-  </target>
-
-  <!-- javac -->
-  <target name="compile" depends="prepare" description="コンパイル">
-    <javac debug="on" destdir="${javac.dest}"
-           source="${project.build.plugins.plugin.configuration.source}"
-           target="${project.build.plugins.plugin.configuration.target}"
-           encoding="${project.build.plugins.plugin.configuration.encoding}">
-      <classpath refid="project.class.path" />
-      <include name="**/*.java" />
-      <src path="${javac.source}" />
-    </javac>
-
-    <copy todir="${javac.dest}">
-      <fileset dir="${javac.resource}">
-        <include name="**/*" />
-      </fileset>
-    </copy>
-
-    <javac debug="on" destdir="${javac.dest.test}"
-           source="${project.build.plugins.plugin.configuration.source}"
-           target="${project.build.plugins.plugin.configuration.target}"
-           encoding="${project.build.plugins.plugin.configuration.encoding}">
-      <classpath>
-        <path refid="project.class.path" />
-        <pathelement location="${javac.dest}" />
-      </classpath>
-      <include name="**/*.java" />
-      <src path="${javac.source.test}" />
-    </javac>
-
-    <copy todir="${javac.dest.test}">
-      <fileset dir="${javac.resource.test}">
-        <include name="**/*" />
-      </fileset>
-    </copy>
-
-    <native2ascii encoding="Windows-31J"
-                  ext=".properties"
-                  src="src/main/native2ascii"
-                  dest="${javac.dest}" >
-      <include name="**/*.properties" />
-    </native2ascii>
+    <artifact:mvn pom="pom.xml">
+      <arg value="-q" />
+      <arg value="clean" />
+      <arg value="package" />
+      <arg value="-DskipTests=true" />
+    </artifact:mvn>
   </target>
 
   <!-- javah -->
-  <target name="javah" depends="compile" description="Makeing Header">
-    <javah destdir="${dir.native}">
+  <target name="javah" depends="prepare" description="Makeing Header">
+    <mkdir dir="target/native/macosx" />
+    <javah destdir="target/native">
       <classpath>
-        <pathelement location="${dir.build}" />
         <path refid="project.class.path" />
       </classpath>
       <class name="vavi.speech.aquestalk.AquesTalk" />
@@ -147,10 +99,10 @@
 
   <!-- gcc -->
   <target name="compile.native.2" depends="javah" description="コンパイル C">
-    <apply executable="gcc" dest="${dir.native}/macosx" parallel="false">
+    <apply executable="gcc" dest="target/native/macosx" parallel="false">
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
-      <arg line="-arch i386" />
+      <arg line="-arch i386 -arch x86_64" />
       <arg value="-I${jdk.home}/include" />
       <arg value="-I${jdk.home}/include/${jni.target}" />
       <arg value="-I${dir.native}" />
@@ -169,7 +121,7 @@
   <target name="link.2" depends="compile.native.2" description="Makeing DLL">
     <apply executable="gcc" dest="${dir.lib}">
       <arg line="-dynamiclib" />
-      <arg line="-arch i386" />
+      <arg line="-arch i386 -arch x86_64" />
       <arg line="-o" />
       <targetfile />
       <srcfile />
@@ -180,19 +132,19 @@
       <arg line="-framework AquesTalkEva" />
       <arg line="-framework AudioUnit" />
       <fileset dir="${dir.native}/macosx" includes="AquesTalkWrapper.o" />
-      <mapper type="glob" from="*.o" to="lib*.jnilib"/>
+      <mapper type="glob" from="*.o" to="lib*.dylib"/>
     </apply>
   </target>
 
   <!-- gcc -->
   <target name="compile.native" depends="javah" description="コンパイル C">
-    <apply executable="gcc" dest="${dir.native}/macosx" parallel="false">
+    <apply executable="gcc" dest="target/native/macosx" parallel="false">
       <arg value="-c" />
       <arg line="-g -Wall -O2" />
-      <arg line="-arch i386" />
-      <arg value="-I${jdk.home}/include" />
-      <arg value="-I${jdk.home}/include/${jni.target}" />
-      <arg value="-I${dir.native}" />
+      <arg line="-arch i386 -arch x86_64" />
+      <arg value="-I${env.JAVA_HOME}/include" />
+      <arg value="-I${env.JAVA_HOME}/include/${jni.target}" />
+      <arg value="-Itarget/native" />
       <arg value="-Itmp/macosx/AquesTalk2_Mac/SamplePrograms/HelloAqTk" />
       <arg value="-F${user.home}/Library/Frameworks" />
       <arg line="-framework AquesTalk2" />
@@ -208,7 +160,7 @@
   <target name="link" depends="compile.native" description="Makeing DLL">
     <apply executable="gcc" dest="${dir.lib}">
       <arg line="-dynamiclib" />
-      <arg line="-arch i386" />
+      <arg line="-arch i386 -arch x86_64" />
       <arg line="-o" />
       <targetfile />
       <srcfile />
@@ -218,8 +170,8 @@
       <arg line="-framework Cocoa" />
       <arg line="-framework AquesTalk2" />
       <arg line="-framework AudioUnit" />
-      <fileset dir="${dir.native}/macosx" includes="AquesTalk2Wrapper.o" />
-      <mapper type="glob" from="*.o" to="lib*.jnilib"/>
+      <fileset dir="target/native/macosx" includes="AquesTalk2Wrapper.o" />
+      <mapper type="glob" from="*.o" to="lib*.dylib"/>
     </apply>
   </target>
 
@@ -228,12 +180,9 @@
     <java classname="Test4" fork="yes">
       <env key="PATH" path="${dir.lib}" />
       <jvmarg value="-Djava.library.path=${dir.lib}" />
-      <jvmarg value="-d32" />
-      <jvmarg value="-Dfile.encoding=UTF-8" />
+      <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="${dir.build}" />
-        <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${run.in}" />
     </java>
@@ -242,12 +191,10 @@
   <!-- t1 -->
   <target name="t1" depends="link" description="Run program (jsapi)">
     <java classname="Test5" fork="yes">
-      <env key="PATH" path="${dir.lib};../.." />
-      <jvmarg value="-Djava.library.path=${dir.lib};../.." />
+      <env key="PATH" path="${dir.lib}" />
+      <jvmarg value="-Djava.library.path=${dir.lib}" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="${dir.build}" />
-        <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${run.in}" />
     </java>
@@ -269,7 +216,7 @@
   <target name="t3" depends="" description="Run program (jna, wine)">
     <exec executable="wine">
       <arg value="java" />
-      <arg value="-Djna.encoding=MS932" />
+      <arg value="-Djna.encoding=${}" />
       <arg value="-Dfile.encoding=${encoding}" />
       <arg value="-Djava.library.path=${dir.lib}" />
       <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.build};target/test-classes" />
@@ -282,7 +229,7 @@
   <target name="t4" depends="" description="Run program (jsapi, wine)">
     <exec executable="wine">
       <arg value="java" />
-      <arg value="-Dfile.encoding=${encoding}" />
+      <arg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <arg value="-Djava.library.path=${dir.lib}" />
       <arg value="-Dsen.home=${sen.home}" />
       <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.lib}/sen-1.2.2.1g.jar;${dir.lib}/commons-logging-1.0.4.jar;${dir.build};target/test-classes" />
@@ -295,12 +242,9 @@
   <target name="t5" depends="" description="Run program (jna) under construction">
     <java classname="Test3" fork="yes">
       <env key="DYLD_LIBRARY_PATH" path="${dir.lib}" />
-      <jvmarg value="-d32" />
       <jvmarg value="-Djava.library.path=${dir.lib}" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="${dir.build}" />
-        <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${run.in}" />
     </java>
@@ -310,11 +254,9 @@
   <target name="t6" depends="" description="sen">
     <java classname="Test1" fork="yes">
       <jvmarg value="-Dsen.home=${sen.home}" />
-      <jvmarg value="-Dfile.encoding=utf-8" />
+      <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="${dir.build}" />
-        <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${run.sen}" />
     </java>
@@ -324,7 +266,7 @@
   <target name="t7" depends="" description="read file (jsapi wine)">
     <exec executable="wine">
       <arg value="java" />
-      <arg value="-Dfile.encoding=${encoding}" />
+      <arg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <arg value="-Djava.library.path=${dir.lib}" />
       <arg value="-Dsen.home=${sen.home}" />
       <arg line="-cp ${dir.lib}/speech-1.0.0.jar;${dir.lib}/jna-3.1.0.jar;${dir.lib}/sen-1.2.2.1g.jar;${dir.lib}/commons-logging-1.0.4.jar;${dir.build};target/test-classes" />
@@ -338,12 +280,9 @@
     <java classname="Test6" fork="yes">
       <env key="PATH" path="${dir.lib}" />
       <jvmarg value="-Djava.library.path=${dir.lib}" />
-      <jvmarg value="-d32" />
       <jvmarg value="-Dfile.encoding=UTF-8" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="${dir.build}" />
-        <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${run.in}" />
     </java>
@@ -359,8 +298,6 @@
       <arg value="-Dsen.home=${sen.home}" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="${dir.build}" />
-        <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${run.in}" />
     </java>

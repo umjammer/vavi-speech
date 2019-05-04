@@ -11,4 +11,4 @@ javac.dest=target/classes
 javac.dest.test=target/test-classes
 
 jni.target=darwin
-sen.home=${user.home}/src/000/sen-1.2.2.1
+sen.home=${user.home}/src/sen-1.2.2.1
