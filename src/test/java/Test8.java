@@ -1,0 +1,56 @@
+/*
+ * Copyright (c) 2008 by Naohide Sano, All rights reserved.
+ *
+ * Programmed by Naohide Sano
+ */
+
+import com.sun.jna.Pointer;
+
+import vavi.speech.JavaSoundPlayer;
+import vavi.speech.Player;
+import vavi.speech.aquestalk10.jna.AquesTalk10;
+import vavi.util.properties.annotation.Property;
+import vavi.util.properties.annotation.PropsEntity;
+
+
+/**
+ * Test8. (aquestalk10, jna)
+ *
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
+ * @version 0.00 070202 initial version <br>
+ */
+@PropsEntity(url = "file://${user.dir}/local.properties")
+public class Test8 {
+
+    static AquesTalk10 instance;
+
+    @Property
+    String aquesTalk10DevKey;
+    @Property
+    String aqKanji2KoeDevKey;
+
+    static {
+        com.sun.jna.NativeLibrary.addSearchPath("AquesTalk10", System.getProperty("java.library.path"));
+        instance = AquesTalk10.INSTANCE;
+    }
+
+    public void test01(String text) throws Exception {
+        int[] size = new int[1];
+
+        int result = instance.AquesTalk_SetDevKey(aquesTalk10DevKey.getBytes());
+System.err.println(result);
+
+        Pointer wav = instance.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, text, size);
+
+        Player player = new JavaSoundPlayer();
+        player.play(wav.getByteArray(0, size[0]));
+    }
+
+    public static void main(String[] args) throws Exception {
+        Test8 app = new Test8();
+        PropsEntity.Util.bind(app);
+        app.test01(args[0]);
+    }
+}
+
+/* */

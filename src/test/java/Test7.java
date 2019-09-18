@@ -4,17 +4,18 @@
  * Programmed by Naohide Sano
  */
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
-import vavi.speech.aquestalk2.jsapi.AquesTalk2SynthesizerModeDesc;
+import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
 
 
 /**
- * Test7. (aquestalk2, JSAPI)
+ * Test7. (aquestalk10, JSAPI)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
@@ -22,22 +23,23 @@ import vavi.speech.aquestalk2.jsapi.AquesTalk2SynthesizerModeDesc;
 public class Test7 {
 
     public void test01(String text) throws Exception {
-        Synthesizer synthesizer;
         // シンセザイザのモードを指定
-//        SynthesizerModeDesc desc = new SynthesizerModeDesc("AquesTalkSynthEngineCentral", "general", Locale.JAPAN, false, null);
-        SynthesizerModeDesc desc = new AquesTalk2SynthesizerModeDesc("AquesTalk2SynthEngineCentral", "general", Locale.JAPAN);
+        SynthesizerModeDesc desc = new AquesTalk10SynthesizerModeDesc("AquesTalk10EngineCentral", "general", Locale.JAPAN);
+System.err.println("---- voices ----");
+Arrays.asList(desc.getVoices()).forEach(v -> System.err.println(v.getName()));
+System.err.println("---");
         // シンセザイザを作成
-        synthesizer = Central.createSynthesizer(desc);
+        Synthesizer synthesizer = Central.createSynthesizer(desc);
+        synthesizer.allocate();
+        synthesizer.resume();
+
         synthesizer.speakPlainText("ハローワールド", null);
         synthesizer.speakPlainText("ゆっくりしていってね", null);
         synthesizer.speakPlainText("そんなことよりおうどんたべたい", null);
         synthesizer.speakPlainText("漢字読めるの？", null);
         synthesizer.speakPlainText(text, null);
+
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-
-        synthesizer.allocate();
-        synthesizer.resume();
-
         synthesizer.deallocate();
     }
 
