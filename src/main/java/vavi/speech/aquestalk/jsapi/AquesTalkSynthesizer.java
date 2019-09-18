@@ -29,10 +29,9 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
-import net.java.sen.StringTagger;
-import net.java.sen.Token;
-
+import vavi.speech.Phonemer;
 import vavi.speech.aquestalk.AquesTalkDa;
+import vavi.speech.phoneme.SenJaPhonemer;
 
 
 /**
@@ -58,29 +57,16 @@ public class AquesTalkSynthesizer implements Synthesizer {
     }
 
     /** */
+    private Phonemer phonemer = new SenJaPhonemer();
+
+    /**
+     * <pre>
+     * -Dsen.home=${sen.home}
+     * </pre>
+     */
     private class Pair {
         public Pair(String text, SpeakableListener listener) {
-            StringBuilder sb = new StringBuilder();
-            try {
-                StringTagger tagger = StringTagger.getInstance();
-                Token[] token = tagger.analyze(text);
-                if (token != null) {
-                    for (int i = 0; i < token.length; i++) {
-System.err.println(token[i].toString() + "\t("
-                   + token[i].getBasicString() + ")" + "\t" + token[i].getPos()
-                   + "(" + token[i].start() + "," + token[i].end() + ","
-                   + token[i].length() + ")\t" + token[i].getReading() + "\t"
-                   + token[i].getPronunciation());
-                        if (token[i].getReading() != null && !token[i].getPos().startsWith("記号")) {
-                            sb.append(token[i].getReading());
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                throw new IllegalArgumentException(e);
-            }
-System.err.println(sb);
-            this.text = sb.toString();
+            this.text = phonemer.phoneme(text);
             this.listener = listener;
         }
         String text;
@@ -163,8 +149,6 @@ System.err.println(sb);
 
     /* */
     public void addEngineListener(EngineListener listener) {
-        // TODO Auto-generated method stub
-        
     }
 
     /* */
@@ -179,7 +163,6 @@ System.err.println(sb);
 
     /* */
     public AudioManager getAudioManager() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -190,32 +173,25 @@ System.err.println(sb);
 
     /* */
     public EngineProperties getEngineProperties() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     /* */
     public long getEngineState() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     /* */
     public VocabManager getVocabManager() throws EngineStateError {
-        // TODO Auto-generated method stub
         return null;
     }
 
     /* */
     public void pause() throws EngineStateError {
-        // TODO Auto-generated method stub
-        
     }
 
     /* */
     public void removeEngineListener(EngineListener listener) {
-        // TODO Auto-generated method stub
-        
     }
 
     /* */
@@ -241,14 +217,11 @@ e.printStackTrace(System.err);
 
     /* */
     public boolean testEngineState(long state) throws IllegalArgumentException {
-        // TODO Auto-generated method stub
         return false;
     }
 
     /* */
     public void waitEngineState(long state) throws InterruptedException, IllegalArgumentException {
-        // TODO Auto-generated method stub
-        
     }
 }
 

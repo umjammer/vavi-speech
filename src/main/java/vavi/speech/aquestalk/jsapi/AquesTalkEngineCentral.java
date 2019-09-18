@@ -15,9 +15,9 @@ import javax.speech.EngineModeDesc;
  * Supports the EngineCentral JSAPI 1.0 interface for the AquesTalkSynthesizer.
  * To use a AquesTalkSynthesizer, you should place a line into the
  * speech.properties file as so:
- * 
+ *
  * <pre>
- * AquesTalkSynthEngineCentral = speech.aquesTalk.jsapi.AquesTalkEngineCentral
+ * AquesTalkSynthEngineCentral = vavi.speech.aquesTalk.jsapi.AquesTalkEngineCentral
  * </pre>
  * 
  */
@@ -37,7 +37,7 @@ public class AquesTalkEngineCentral implements EngineCentral {
      * Returns a list containing references to all matching synthesizers. The
      * mapping of AquesTalk VoiceDirectories and Voices to JSAPI Synthesizers
      * and Voices is as follows:
-     * 
+     *
      * <p>
      * <ul>
      * <li>Each AquesTalk VoiceDirectory specifies the list of AquesTalk Voices
@@ -61,9 +61,9 @@ public class AquesTalkEngineCentral implements EngineCentral {
      * <li>The JSAPI Voices for each resulting Synthesizer will have the name
      * of the AquesTalk Voice (e.g. "kevin" "kevin16").
      * </ul>
-     * 
+     *
      * @param require an engine mode that describes the desired synthesizer
-     * 
+     *
      * @return an engineList containing matching engines, or null if no matching
      *         engines are found
      */

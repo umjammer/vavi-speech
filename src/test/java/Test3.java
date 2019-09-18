@@ -14,7 +14,7 @@ import vavi.speech.aquestalk.jna.AquesTalkDa;
 
 /**
  * Test3. (JNA)
- * 
+ *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */

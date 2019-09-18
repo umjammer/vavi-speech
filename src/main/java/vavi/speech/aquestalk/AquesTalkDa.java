@@ -10,6 +10,8 @@ package vavi.speech.aquestalk;
 /**
  * 音声記号列から音声波形データを生成し、サウンドデバイスに出力する
  *
+ * 32 bit mode only
+ *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
@@ -42,7 +44,7 @@ public class AquesTalkDa {
      * 音声を合成して出力（同期タイプ）
      * 音声の再生が終了するまで戻らない
      * @param koe 音声記号列
-     * @param speed 発話速度 [%] 50-300 の間で指定
+     * @param iSpeed 発話速度 [%] 50-300 の間で指定
      * @return 0: 正常終了、それ以外: エラーコード
      */
     private native int playSync(String koe, int iSpeed);
@@ -65,7 +67,7 @@ public class AquesTalkDa {
 
     /**
      * 音声合成エンジンのインスタンスを解放 (非同期タイプ)
-     * @param hMe 音声合成エンジンのハンドル {@link #create()} で生成
+     * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
      */
     private native void release(long instance);
 
@@ -85,7 +87,7 @@ public class AquesTalkDa {
      * 音声を合成して出力 (非同期タイプ)
      * 音声波形生成後に、すぐに戻る
      * hWndを指定すると再生終了後、msgに指定したメッセージがPostされる。
-     * 再生終了前に {@link play()}を呼び出して、連続的に再生させることも可能。
+     * 再生終了前に {@link #play(String)}を呼び出して、連続的に再生させることも可能。
      *
      * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
      * @param koe 音声記号列
@@ -104,7 +106,7 @@ public class AquesTalkDa {
 
     /**
      * 再生の中止
-     * {@link #play()}で再生中に、再生を中断する。
+     * {@link #play(String)}で再生中に、再生を中断する。
      * 再生中(再生待ちを含む）であり、終了メッセージ送出先が指定されていたなら、
      * 終了メッセージがPostされる。
      * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
