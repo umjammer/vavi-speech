@@ -1,4 +1,8 @@
+[![](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech)
+
 # vavi-speech
+
+Text to Speech (JSAPI) for Java
 
 | **Type** | **Description** | **Staus** | **SPI Status** | **Quality** | **Comment** |
 |:---------|:----------------|:---------:|:--------------:|:-----------:|:------------|
@@ -9,14 +13,3 @@
 | Google Cloud Text To Speech | [Google Cloud Text To Speech]() | ✅ | ✅ | 👑 | spi bug? |
 | Rococoa | Rococoa | ✅ | ✅ | 😃 | |
 | FreeTTS | [FreeTTS](https://freetts.sourceforge.io/) | - | ✅ | 💩 | |
-
-
-## TODO
-
- * google cloud speech
-    * https://github.com/lkuza2/java-speech-api
- * mac say
- * FreeTTS
-    * https://freetts.sourceforge.io/
-       * https://github.com/JVoiceXML/FreeTTS/tree/master/FreeTTS
-    * https://github.com/timabell/FreeTTS
