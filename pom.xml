@@ -98,16 +98,12 @@
 
   <repositories>
     <repository>
-        <id>maven.seasar.org</id>
-        <name>The Seasar Foundation Maven2 Repository</name>
-        <url>http://maven.seasar.org/maven2</url>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </repository>
-    <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>seasar</id>
+      <url>https://www.seasar.org/maven/maven2/</url>
     </repository>
 <!--
     <repository>
@@ -138,7 +134,7 @@
     <dependency>
       <groupId>sen</groupId>
       <artifactId>sen</artifactId>
-      <version>1.2.2.1g</version>
+      <version>1.1</version>
     </dependency>
     <dependency>
       <groupId>com.atilika.kuromoji</groupId>
