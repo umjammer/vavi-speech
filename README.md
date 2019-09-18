@@ -1,25 +1,22 @@
-## vavi-speech ##
+# vavi-speech
 
-| **Type** | **Description** | **Staus** | **SPI Status** |
-|:---------|:----------------|:----------|:---------------|
-| aquestalk | AquesTalk wrapper | o |  o |
-| aquestalk2 | AquesTalk2 wrapper | o | o |
+| **Type** | **Description** | **Staus** | **SPI Status** | **Quality** | **Comment** |
+|:---------|:----------------|:---------:|:--------------:|:-----------:|:------------|
+| AquesTalk | JNI | ✅ |  ✅ | 😃 | 32bit only |
+| AquesTalk | JNA | ✅ |  ✅ | 😃| 32bit only |
+| AquesTalk2 | JNI | - | - | | |
+| AquesTalk10 | JNA | ✅ |  ✅ | 😃 | |
+| Google Cloud Text To Speech | [Google Cloud Text To Speech]() | ✅ | ✅ | 👑 | spi bug? |
+| Rococoa | Rococoa | ✅ | ✅ | 😃 | |
+| FreeTTS | [FreeTTS](https://freetts.sourceforge.io/) | - | ✅ | 💩 | |
 
-## vavi-util-tag ##
 
-| **Type** | **Description** | **IN Status** | **OUT Status** |
-|:---------|:----------------|:--------------|:---------------|
-| mp3 v1 |  | o | ? |
-| mp3 v2 |  | o | o |
-| mp4 |  | o | ? |
-| ITCBox | iTunes Artwork | o | - |
+## TODO
 
-### Legend ###
-
-|Mark|Meaning|
-|:--|:---|
-| o | ok |
-| ? | not tested |
-| c | under construction |
-| x | ng |
-| - | n/a |
+ * google cloud speech
+    * https://github.com/lkuza2/java-speech-api
+ * mac say
+ * FreeTTS
+    * https://freetts.sourceforge.io/
+       * https://github.com/JVoiceXML/FreeTTS/tree/master/FreeTTS
+    * https://github.com/timabell/FreeTTS

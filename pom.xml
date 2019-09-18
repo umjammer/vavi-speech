@@ -5,9 +5,22 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>vavi</groupId>
   <artifactId>vavi-speech</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
+
+  <description>TODO
+
+    rococoa text speech</description>
+  <url>https//github.com/umjammer/vavi-speech</url>
+  <scm>
+    <url>https//github.com/umjammer/vavi-speech</url>
+  </scm>
+  <issueManagement>
+    <system>https//github.com/umjammer/vavi-speech/issues</system>
+  </issueManagement>
+
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <testSourceDirectory>src/test/java</testSourceDirectory>
@@ -20,19 +33,145 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
+<!--
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <javahClassNames>
+            <javahClassName>vavi.speech.aquestalk.AquesTalk</javahClassName>
+            <javahClassName>vavi.speech.aquestalk.AquesTalkDa</javahClassName>
+            <javahClassName>vavi.speech.aquestalk2.AquesTalk2</javahClassName>
+            <javahClassName>vavi.speech.aquestalk2.AquesTalk2Da</javahClassName>
+          </javahClassNames>
+          <javahSearchJNIFromDependencies>false</javahSearchJNIFromDependencies>
+          <javahOS>darwin</javahOS>
+          <compilerProvider>generic-classic</compilerProvider>
+          <compilerStartOptions>
+            <compilerStartOption>-g -Wall -O2 -fomit-frame-pointer -fPIC</compilerStartOption>
+            <compilerStartOption>
+              -arch x86_64
+              -Itmp/macosx/AquesTalk2_Mac/SamplePrograms/HelloAqTk
+              -F${user.home}/Library/Frameworks
+              -framework AquesTalkEva
+            </compilerStartOption>
+          </compilerStartOptions>
+          <sources>
+            <source>
+              <directory>src/main/native/macosx</directory>
+              <fileNames>
+                <fileName>AquesTalk2Wrapper.m</fileName>
+              </fileNames>
+            </source>
+          </sources>
+          <linkerStartOptions>
+            <linkerStartOption>-dynamiclib -arch x86_64
+              -Ltmp/macosx/AquesTalk2_Mac/SamplePrograms/HelloAqTk
+              -lAuPlay
+              -F${user.home}/Library/Frameworks
+              -framework Cocoa
+              -framework AquesTalk2
+              -framework AudioUnit
+            </linkerStartOption>
+          </linkerStartOptions>
+          <linkerFinalName></linkerFinalName>
+          <linkerEndOptions>
+            <linkerEndOption>-o ${project.build.directory}/libAquesTalk2Wrapper.dylib</linkerEndOption>
+          </linkerEndOptions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>javah</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>javah</goal>
+              <goal>compile</goal>
+              <goal>link</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+-->
     </plugins>
   </build>
+
   <repositories>
     <repository>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
         <id>maven.seasar.org</id>
         <name>The Seasar Foundation Maven2 Repository</name>
         <url>http://maven.seasar.org/maven2</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
     </repository>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+<!--
+    <repository>
+      <id>sonatype</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+-->
   </repositories>
+
   <dependencies>
+    <dependency>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons</artifactId>
+      <version>1.0.11</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.speech</groupId>
+      <artifactId>speech</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>sen</groupId>
+      <artifactId>sen</artifactId>
+      <version>1.2.2.1g</version>
+    </dependency>
+    <dependency>
+      <groupId>com.atilika.kuromoji</groupId>
+      <artifactId>kuromoji-ipadic</artifactId>
+      <version>0.9.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.rococoa</groupId>
+      <artifactId>rococoa-cocoa</artifactId>
+      <version>0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.rococoa</groupId>
+      <artifactId>rococoa-contrib</artifactId>
+      <version>0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-texttospeech</artifactId>
+      <version>0.80.0-beta</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.argparse4j</groupId>
+      <artifactId>argparse4j</artifactId>
+      <version>0.8.1</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.sociaal</groupId>
+      <artifactId>freetts</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -40,44 +179,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>javax.speech</groupId>
-      <artifactId>speech</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>sen</groupId>
-      <artifactId>sen</artifactId>
-      <version>1.2.2.1g</version>
-    </dependency>
-    <dependency>
-      <groupId>net.java.dev.jna</groupId>
-      <artifactId>jna</artifactId>
-      <version>3.4.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.rococoa</groupId>
-      <artifactId>rococoa-cocoa</artifactId>
-      <version>0.5</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-speech</artifactId>
-      <version>0.85.0-beta</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.2</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-  <description>TODO
 
-    rococoa text speech</description>
-  <url>https//github.com/umjammer/vavi-speech</url>
-  <scm>
-    <url>https//github.com/umjammer/vavi-speech</url>
-  </scm>
-  <issueManagement>
-    <system>https//github.com/umjammer/vavi-speech/issues</system>
-  </issueManagement>
 </project>
