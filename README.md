@@ -18,3 +18,4 @@ Text to Speech (JSAPI) for Java
 
  * implement parameters
  * implement voices
+ * [watson](https://www.ibm.com/watson/jp-ja/developercloud/text-to-speech.html)
