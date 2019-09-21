@@ -17,7 +17,7 @@
  * along with Rococoa.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package vavi.speech.rococoa.jsapi;
+package vavi.speech.rococoa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
-class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesizerDelegate {
+public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesizerDelegate {
 
     private volatile boolean success = false;
     private List<String> wordsSpoken = new ArrayList<>();
@@ -47,7 +47,7 @@ class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesizerDele
     private static final Object speechDoneMonitor = new Object();
     private static final Object waitForSpeechWordMonitor = new Object();
 
-    SynthesizerDelegate(NSSpeechSynthesizer ss) {
+    public SynthesizerDelegate(NSSpeechSynthesizer ss) {
         ss.setDelegate(this);
     }
 

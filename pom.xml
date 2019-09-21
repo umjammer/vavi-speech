@@ -8,11 +8,10 @@
 
   <groupId>vavi</groupId>
   <artifactId>vavi-speech</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 
   <description>TODO
-
-    rococoa text speech</description>
+</description>
   <url>https//github.com/umjammer/vavi-speech</url>
   <scm>
     <url>https//github.com/umjammer/vavi-speech</url>
@@ -22,8 +21,6 @@
   </issueManagement>
 
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/test/java</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -119,33 +116,21 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.umjammer</groupId>
-      <artifactId>vavi-commons</artifactId>
-      <version>1.0.11</version>
-    </dependency>
-
-    <dependency>
       <groupId>javax.speech</groupId>
       <artifactId>speech</artifactId>
       <version>1.0.0</version>
     </dependency>
+
     <dependency>
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
       <version>3.4.0</version>
     </dependency>
-
     <dependency>
-      <groupId>sen</groupId>
-      <artifactId>sen</artifactId>
-      <version>1.1</version>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons</artifactId>
+      <version>1.0.11</version>
     </dependency>
-    <dependency>
-      <groupId>com.atilika.kuromoji</groupId>
-      <artifactId>kuromoji-ipadic</artifactId>
-      <version>0.9.0</version>
-    </dependency>
-
     <dependency>
       <groupId>org.rococoa</groupId>
       <artifactId>rococoa-cocoa</artifactId>
@@ -170,6 +155,17 @@
       <groupId>net.sf.sociaal</groupId>
       <artifactId>freetts</artifactId>
       <version>1.2.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>sen</groupId>
+      <artifactId>sen</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.atilika.kuromoji</groupId>
+      <artifactId>kuromoji-ipadic</artifactId>
+      <version>0.9.0</version>
     </dependency>
 
     <dependency>

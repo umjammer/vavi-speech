@@ -38,6 +38,8 @@ import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
 import org.rococoa.contrib.appkit.NSSpeechSynthesizer.NSSpeechBoundary;
 import org.rococoa.contrib.appkit.NSSpeechSynthesizer.NSSpeechStatus;
 
+import vavi.speech.rococoa.SynthesizerDelegate;
+
 
 /**
  * Provides  partial support for a JSAPI 1.0 synthesizer for the
