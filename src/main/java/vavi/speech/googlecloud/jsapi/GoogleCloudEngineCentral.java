@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.googlectts.jsapi;
+package vavi.speech.googlecloud.jsapi;
 
 import javax.speech.EngineCentral;
 import javax.speech.EngineList;
@@ -12,8 +12,8 @@ import javax.speech.EngineModeDesc;
 
 
 /**
- * Supports the EngineCentral JSAPI 1.0 interface for the GoogleCloudSpeechSynthesizer.
- * To use a GoogleCloudSpeechSynthesizer, you should place a line into the
+ * Supports the EngineCentral JSAPI 1.0 interface for the GoogleCloudTextToSpeechSynthesizer.
+ * To use a GoogleCloudTextToSpeechSynthesizer, you should place a line into the
  * speech.properties file as so:
  *
  * <p>
@@ -22,33 +22,33 @@ import javax.speech.EngineModeDesc;
  * </p>
  *
  * <pre>
- * GoogleCloudTextToSpeechSynthEngineCentral = vavi.speech.googlectts.jsapi.GoogleCloudTextToSpeechEngineCentral
+ * GoogleCloudEngineCentral = vavi.speech.googlectts.jsapi.GoogleCloudEngineCentral
  * </pre>
  */
-public class GoogleCloudTextToSpeechEngineCentral implements EngineCentral {
+public class GoogleCloudEngineCentral implements EngineCentral {
 
 //  private String engineName = "GoogleCloudTextToSpeech Synthesizer";
 
     /**
-     * Creates a GoogleCloudSpeechEngineCentral
+     * Creates a GoogleCloudEngineCentral
      */
-    public GoogleCloudTextToSpeechEngineCentral() throws Exception {
+    public GoogleCloudEngineCentral() throws Exception {
         // Note that the JSAPI layer currently is silent
         // about any exceptions thrown from here, so we are noisy here
     }
 
     /**
      * Returns a list containing references to all matching synthesizers. The
-     * mapping of AquesTalk VoiceDirectories and Voices to JSAPI Synthesizers
+     * mapping of GoogleCloud VoiceDirectories and Voices to JSAPI Synthesizers
      * and Voices is as follows:
      * 
      * <p>
      * <ul>
-     * <li>Each Google Cloud Speech VoiceDirectory specifies the list of GoogleCloudTextToSpeech Voices
+     * <li>Each Google Cloud Speech VoiceDirectory specifies the list of GoogleCloud Voices
      * supported by that directory. Each Voice in that directory specifies its
      * name (e.g., "kevin" "kevin16" "alan"), domain (e.g., "general" or "time")
      * and locale (e.g., Locale.US).
-     * <li>For all Google Cloud Text To Speech Voices from all VoiceDirectories discovered by the
+     * <li>For all Google Cloud Voices from all VoiceDirectories discovered by the
      * VoiceManager, this method will group the Voices according to those that
      * have both a common locale and domain (e.g, all "general" domain voices
      * for the US local will be grouped together).
@@ -57,7 +57,7 @@ public class GoogleCloudTextToSpeechEngineCentral implements EngineCentral {
      * attributes:
      * <ul>
      * <li>The engine name is of the form: "GoogleCloudSpeech &lt;locale> &lt;domain>
-     * synthesizer" For example, "GoogleCloudTextToSpeech en_us general synthesizer"
+     * synthesizer" For example, "GoogleCloud en_us general synthesizer"
      * <li>The locale is the locale shared by all the voices (e.g., Locale.US)
      * <li>The mode name is the domain shared by all the voices (e.g.,
      * "general").

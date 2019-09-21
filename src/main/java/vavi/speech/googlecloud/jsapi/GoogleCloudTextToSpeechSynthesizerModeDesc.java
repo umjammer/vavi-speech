@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.googlectts.jsapi;
+package vavi.speech.googlecloud.jsapi;
 
 import java.io.IOException;
 import java.util.LinkedList;

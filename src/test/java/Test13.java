@@ -11,7 +11,7 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
-import vavi.speech.googlectts.jsapi.GoogleCloudTextToSpeechSynthesizerModeDesc;
+import vavi.speech.googlecloud.jsapi.GoogleCloudTextToSpeechSynthesizerModeDesc;
 
 
 /**
