@@ -7,10 +7,13 @@
 
 package vavi.speech.aquestalk10.jna;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.sun.jna.Library;
 import com.sun.jna.Native;
-import com.sun.jna.Structure;
 import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
 
 
 /**
@@ -127,4 +130,19 @@ public interface AquesTalk10 extends Library {
      * キーの解析を防ぐため不正なキーでも0を返す場合がある。この場合、ライセンス無のままである。
      */
     int AquesTalk_SetUsrKey(final byte[] key);
+
+    /** メソッドが返すエラーコードの内容 */
+    public static Map<Integer, String> errors = new HashMap<Integer, String>() {{
+        put(100, "その他のエラー");
+        put(101, "メモリ不足");
+        put(103, "音声記号列指定エラー(語頭の長音、促音の連続など)");
+        put(104, "音声記号列に有効な読みがない");
+        put(105, "音声記号列に未定義の読み記号が指定された");
+        put(106, "音声記号列のタグの指定が正しくない");
+        put(107, "タグの長さが制限を越えている（または[>]がみつからない）");
+        put(108, "タグ内の値の指定が正しくない");
+        put(120, "音声記号列が長すぎる");
+        put(121, "１つのフレーズ中の読み記号が多すぎる");
+        put(122, "音声記号列が長い（内部バッファオーバー1）");
+    }};
 }

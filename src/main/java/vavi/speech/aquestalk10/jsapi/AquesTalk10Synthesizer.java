@@ -34,17 +34,19 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
-import vavi.speech.JavaSoundPlayer;
+import vavi.beans.InstanciationBinder;
 import vavi.speech.Phonemer;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10Wrapper;
-import vavi.speech.phoneme.KuromojiJaPhonemer;
+import vavi.util.properties.annotation.Property;
+import vavi.util.properties.annotation.PropsEntity;
 
 
 /**
  * Provides  partial support for a JSAPI 1.0 synthesizer for the
  * AquesTalk speech synthesis system.
  */
+@PropsEntity(url = "classpath:aquestalk10.properties")
 public class AquesTalk10Synthesizer implements Synthesizer {
 
     /** */
@@ -58,10 +60,16 @@ public class AquesTalk10Synthesizer implements Synthesizer {
      */
     public AquesTalk10Synthesizer(AquesTalk10SynthesizerModeDesc desc) {
         this.desc = desc;
+        try {
+            PropsEntity.Util.bind(this);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     /** */
-    private Phonemer phonemer = new KuromojiJaPhonemer();
+    @Property(binder = InstanciationBinder.class, value = "vavi.speech.phoneme.KuromojiJaPhonemer")
+    private Phonemer phonemer;
 
     /** */
     private class Pair {
@@ -175,7 +183,7 @@ public class AquesTalk10Synthesizer implements Synthesizer {
     private boolean playing;
 
     /** */
-    private Player player = new JavaSoundPlayer();
+    private Player player = new vavi.speech.JavaSoundPlayer();
 
     /* */
     public void allocate() throws EngineException, EngineStateError {

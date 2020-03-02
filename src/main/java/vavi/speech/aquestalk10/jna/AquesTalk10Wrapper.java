@@ -84,15 +84,21 @@ public class AquesTalk10Wrapper {
     private Pointer wav = null;
 
     /**
-     * TODO text omit unsupported chars.
      * @return PCM wave format
+     * @throws IllegalArgumentException with error message
      * @see "https://docs.google.com/viewer?url=https%3A%2F%2Fwww.a-quest.com%2Farchive%2Fmanual%2Fsiyo_onseikigou.pdf"
      */
     public byte[] synthe(String text) {
         free();
 
         int[] size = new int[1];
+        // omit unsupported chars.
+        text = text.replaceAll("[!！　・\\ \\\n\\\r\\t]", ",");
+        text = text.replaceAll("(\\d+)", "<NUM VAL=$1>");
         wav = AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(voice, text, size);
+        if (wav == null) {
+            throw new IllegalArgumentException(AquesTalk10.errors.get(size[0]) + "\n" + text);
+        }
         return wav.getByteArray(0, size[0]);
     }
 
