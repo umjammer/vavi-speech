@@ -8,10 +8,14 @@
 
   <groupId>vavi</groupId>
   <artifactId>vavi-speech</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
 
-  <description>TODO
-</description>
+  <description>0.1.2
+
+    improve aquestalk10
+    improve phonemer
+    add yahoo japan, sudachi ja phonemer
+    add digit, alphabet phonemer</description>
   <url>https//github.com/umjammer/vavi-speech</url>
   <scm>
     <url>https//github.com/umjammer/vavi-speech</url>
@@ -129,7 +133,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.0.11</version>
+      <version>1.0.14</version>
     </dependency>
     <dependency>
       <groupId>org.rococoa</groupId>
@@ -145,6 +149,12 @@
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-texttospeech</artifactId>
       <version>0.80.0-beta</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.argparse4j</groupId>
@@ -167,6 +177,23 @@
       <artifactId>kuromoji-ipadic</artifactId>
       <version>0.9.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.worksap.nlp</groupId>
+      <artifactId>sudachi</artifactId>
+      <version>0.3.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>vavi</groupId>
+      <artifactId>vavi-util-screenscraping</artifactId>
+      <version>1.0.8-SNAPSHOT</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -174,6 +201,19 @@
       <version>5.3.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.3.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-commons</artifactId>
+      <version>1.5.2</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
