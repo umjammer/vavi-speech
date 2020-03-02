@@ -22,7 +22,8 @@ import net.java.sen.Token;
  */
 public class SenJaPhonemer implements Phonemer {
 
-    // TODO disable omit 記号
+    private DigitJaPhonemer converter = new DigitJaPhonemer();
+
     @Override
     public String phoneme(String text) {
         StringBuilder sb = new StringBuilder();
@@ -36,8 +37,10 @@ System.err.println(token[i].toString() + "\t("
                + "(" + token[i].start() + "," + token[i].end() + ","
                + token[i].length() + ")\t" + token[i].getReading() + "\t"
                + token[i].getPronunciation());
-                    if (token[i].getReading() != null && !token[i].getPos().startsWith("記号")) {
+                    if (token[i].getReading() != null) {
                         sb.append(token[i].getPronunciation());
+                    } else {
+                        sb.append(token[i].getBasicString());
                     }
                 }
             }
@@ -45,7 +48,7 @@ System.err.println(token[i].toString() + "\t("
             throw new IllegalArgumentException(e);
         }
 System.err.println(sb);
-        return sb.toString();
+        return converter.convertFrom(sb.toString());
     }
 }
 
