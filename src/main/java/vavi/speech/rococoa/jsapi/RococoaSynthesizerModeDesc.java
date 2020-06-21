@@ -48,6 +48,7 @@ public class RococoaSynthesizerModeDesc extends SynthesizerModeDesc implements E
         List<Voice> voiceList = new LinkedList<>();
         int count = 0;
         for (NSVoice nativeVoice : NSSpeechSynthesizer.availableVoices()) {
+//System.err.println(nativeVoice.getName() + ": " + nativeVoice.getIdentifier());
             Voice voice = new Voice(nativeVoice.getName(),
                                     toGenger(nativeVoice.getGender()),
                                     nativeVoice.getAge(),

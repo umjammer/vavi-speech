@@ -9,6 +9,8 @@ package vavi.speech.rococoa.jsapi;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -38,6 +40,8 @@ import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
 import org.rococoa.contrib.appkit.NSSpeechSynthesizer.NSSpeechBoundary;
 import org.rococoa.contrib.appkit.NSSpeechSynthesizer.NSSpeechStatus;
 
+import vavi.speech.JavaSoundPlayer;
+import vavi.speech.Player;
 import vavi.speech.rococoa.SynthesizerDelegate;
 
 
@@ -172,37 +176,54 @@ public class RococoaSynthesizer implements Synthesizer {
     /** */
     private boolean looping = true;
 
+    /** */
+    private boolean playing;
+
+    /** */
+    private Player player = new JavaSoundPlayer();
+
     /* */
     public void allocate() throws EngineException, EngineStateError {
         synthesizer = NSSpeechSynthesizer.synthesizerWithVoice(null);
         delegate = new SynthesizerDelegate(synthesizer);
         executer.execute(() -> {
             while (looping) {
-                if (synthesizer.isSpeaking()) {
-                    try {
-//System.err.println("speaking...");
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-System.err.println(e.getMessage());
-                    }
-                } else {
+                try {
                     Pair pair = queue.poll();
                     if (pair != null) {
                         if (pair.listener != null) {
-                            pair.listener.speakableStarted(new SpeakableEvent(this, SpeakableEvent.SPEAKABLE_STARTED));
+                            pair.listener.speakableStarted(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
                         }
+                        playing = true;
 System.err.println(pair.text);
-                        synthesizer.setVolume(0.2f);
-                        synthesizer.startSpeakingString(pair.text);
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-System.err.println(e.getMessage());
+                        player.play(synthe(pair.text));
+                        playing = false;
+                        if (pair.listener != null) {
+                            pair.listener.speakableEnded(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
                         }
                     }
+                    Thread.sleep(300);
+                } catch (Exception e) {
+e.printStackTrace();
                 }
             }
         });
+    }
+
+    /** */
+    private byte[] synthe(String text) {
+        try {
+//System.err.println("vioce: " + getSynthesizerProperties().getVoice());
+//            synthesizer.setVoice(toNativeVoice(getSynthesizerProperties().getVoice()));
+            Path path = Files.createTempFile(getClass().getName(), ".aiff");
+            synthesizer.startSpeakingStringToURL(text, path.toUri());
+            // wait to finish writing whole data
+            delegate.waitForSpeechDone(10000, true);
+            byte[] wav = Files.readAllBytes(path);
+            return wav;
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     /* */
@@ -273,10 +294,9 @@ System.err.println(e.getMessage());
     /* */
     public void waitEngineState(long state) throws InterruptedException, IllegalArgumentException {
         if (state == Synthesizer.QUEUE_EMPTY) {
-            while (!queue.isEmpty() || synthesizer.isSpeaking()) {
+            while (!queue.isEmpty() || playing) {
                 Thread.sleep(100);
             }
-            delegate.waitForSpeechDone(100, true);
         } else {
             throw new IllegalArgumentException("unsupported sate: " + state);
         }

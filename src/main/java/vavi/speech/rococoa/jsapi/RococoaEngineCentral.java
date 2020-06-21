@@ -26,7 +26,7 @@ public class RococoaEngineCentral implements EngineCentral {
 //  private String engineName = "Rococoa Synthesizer";
 
     /**
-     * Creates a AquesTalkEngineCentral
+     * Creates a RococoaEngineCentral
      */
     public RococoaEngineCentral() throws Exception {
         // Note that the JSAPI layer currently is silent
@@ -52,7 +52,7 @@ public class RococoaEngineCentral implements EngineCentral {
      * this method generates a new JSAPI SynthesizerModeDesc with the following
      * attributes:
      * <ul>
-     * <li>The engine name is of the form: "AquesTalk &lt;locale> &lt;domain>
+     * <li>The engine name is of the form: "Rococoa &lt;locale> &lt;domain>
      * synthesizer" For example, "Rococoa en_us general synthesizer"
      * <li>The locale is the locale shared by all the voices (e.g., Locale.US)
      * <li>The mode name is the domain shared by all the voices (e.g.,
