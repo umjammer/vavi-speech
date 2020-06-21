@@ -21,4 +21,12 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      env:
+        DOCOMO_GOO_HIRAGANA_API_KEY : ${{ secrets.DOCOMO_GOO_HIRAGANA_API_KEY }}
+        RECRUIT_PROOFREADING_API_KEY : ${{ secrets.RECRUIT_PROOFREADING_API_KEY }}
+        YAHOOJAPAN_API_KEY : ${{ secrets.YAHOOJAPAN_API_KEY }}
+        GOOGLE_APPLICATION_CREDENTIALS : tmp/google.json
+      run: |
+        mkdir tmp
+        echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} > tmp/google.json
+        mvn -B package --file pom.xml
