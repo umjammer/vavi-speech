@@ -26,7 +26,8 @@ jobs:
         RECRUIT_PROOFREADING_API_KEY : ${{ secrets.RECRUIT_PROOFREADING_API_KEY }}
         YAHOOJAPAN_API_KEY : ${{ secrets.YAHOOJAPAN_API_KEY }}
         GOOGLE_APPLICATION_CREDENTIALS : tmp/google.json
+        GOOGLE : ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       run: |
         mkdir tmp
-        echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} > tmp/google.json
+        'echo "$GOOGLE" > tmp/google.json'
         mvn -B package --file pom.xml
