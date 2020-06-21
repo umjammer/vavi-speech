@@ -11,6 +11,8 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+
 import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
 
 
@@ -20,6 +22,7 @@ import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
 public class Test7 {
 
     public void test01() throws Exception {
