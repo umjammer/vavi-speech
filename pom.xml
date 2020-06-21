@@ -102,6 +102,7 @@ TODO
             <version>3.0.0-M4</version>
             <configuration>
               <argLine>-Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties</argLine>
+              <forkMode>always</forkMode>
               <trimStackTrace>false</trimStackTrace>
             </configuration>
           </plugin>

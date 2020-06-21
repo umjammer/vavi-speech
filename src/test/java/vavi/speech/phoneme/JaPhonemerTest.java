@@ -9,6 +9,7 @@ package vavi.speech.phoneme;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -30,7 +31,6 @@ class JaPhonemerTest {
     // TODO make results same
     static Stream<Arguments> phonemerProvider() {
         return Stream.of(
-            arguments(new vavi.speech.phoneme.SenJaPhonemer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phoneme.KuromojiJaPhonemer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phoneme.GooFuriganaJaPhonemer(), "コンニチハ。 キョウハ テンキガ ヨイデスネ。 タビヘ デヨウト オモイマス。"),
             arguments(new vavi.speech.phoneme.YahooJapanJaPhonemer(), "きょうは。きょうはてんきがよいですね。たびへでようとおもいます。")
@@ -46,12 +46,15 @@ Debug.println("result: " + text);
         assertEquals(actual, text);
     }
 
+    // for w/ outer dictionary
     static Stream<Arguments> phonemerProvider1() {
         return Stream.of(
+            arguments(new vavi.speech.phoneme.SenJaPhonemer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phoneme.SudachiJaPhonemer(), "キョウワ。キョウワテンキガヨイデスネ。タビエデヨウトオモイマス。")
         );
     }
 
+    @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
     @ParameterizedTest
     @MethodSource("phonemerProvider1")
     void test1(Phonemer phonemer, String actual) throws Exception {
