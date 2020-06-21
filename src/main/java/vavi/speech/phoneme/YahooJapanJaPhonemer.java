@@ -9,7 +9,7 @@ package vavi.speech.phoneme;
 import java.io.IOException;
 
 import vavi.speech.Phonemer;
-import vavi.util.properties.annotation.Property;
+import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
 import vavix.util.screenscrape.annotation.Target;
@@ -19,20 +19,25 @@ import vavix.util.screenscrape.annotation.WebScraper;
 /**
  * YahooJapanJaPhonemer.
  *
+ * set environment variable YAHOOJAPAN_API_KEY
+ *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/02/27 umjammer initial version <br>
  */
-@PropsEntity(url = "classpath:yahoo_ja.properties")
+@PropsEntity
 public class YahooJapanJaPhonemer implements Phonemer {
 
     private DigitJaPhonemer converter = new DigitJaPhonemer();
 
-    @Property(name = "yahooJapan.apiKey")
+    @Env(name = "YAHOOJAPAN_API_KEY")
     String apiKey;
 
     {
         try {
             PropsEntity.Util.bind(this);
+            if (apiKey == null || apiKey.isEmpty()) {
+                throw new IllegalStateException("set environment variable YAHOOJAPAN_API_KEY");
+            }
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
