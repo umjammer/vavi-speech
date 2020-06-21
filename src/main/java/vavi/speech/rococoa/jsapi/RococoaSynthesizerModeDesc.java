@@ -26,10 +26,6 @@ import org.rococoa.contrib.appkit.NSVoice;
  */
 public class RococoaSynthesizerModeDesc extends SynthesizerModeDesc implements EngineCreate {
 
-    static {
-        com.sun.jna.NativeLibrary.addSearchPath("rococoa", System.getProperty("java.library.path"));
-    }
-
     /**
      * Creates a fully-specified descriptor. Any of the features may be
      * <code>null</code>.

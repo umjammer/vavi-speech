@@ -36,7 +36,6 @@ public class Test8 {
     String aqKanji2KoeDevKey;
 
     static {
-        com.sun.jna.NativeLibrary.addSearchPath("AquesTalk10", System.getProperty("java.library.path"));
         instance = AquesTalk10.INSTANCE;
     }
 

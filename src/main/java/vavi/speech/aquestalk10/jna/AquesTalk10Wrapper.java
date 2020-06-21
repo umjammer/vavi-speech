@@ -26,11 +26,6 @@ import vavi.util.properties.annotation.PropsEntity;
 @PropsEntity(url = "file://${user.dir}/local.properties")
 public class AquesTalk10Wrapper {
 
-    /* */
-    static {
-        com.sun.jna.NativeLibrary.addSearchPath("AquesTalk10", System.getProperty("java.library.path"));
-    }
-
     /** */
     @Property
     String aquesTalk10DevKey;

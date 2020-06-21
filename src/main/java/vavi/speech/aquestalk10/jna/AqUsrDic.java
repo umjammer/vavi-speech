@@ -64,8 +64,7 @@ import com.sun.jna.Native;
  */
 public interface AqUsrDic extends Library {
 
-    public static final AqUsrDic INSTANCE = (AqUsrDic) Native
-            .loadLibrary(System.getProperty("os.name").startsWith("Windows") ? "AqUsrDic" : "AqUsrDic", AqUsrDic.class);
+    public static final AqUsrDic INSTANCE = Native.load("AqUsrDic", AqUsrDic.class);
 
     /**
      * CSV辞書からユーザ辞書(aq_usr.dic)を生成(上書)

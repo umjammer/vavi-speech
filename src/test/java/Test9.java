@@ -33,8 +33,6 @@ public class Test9 {
     }
 
     public static void main(String[] args) throws Exception {
-        com.sun.jna.NativeLibrary.addSearchPath("rococoa", System.getProperty("java.library.path"));
-
         Test9 app = new Test9();
         app.test01(args[0]);
     }

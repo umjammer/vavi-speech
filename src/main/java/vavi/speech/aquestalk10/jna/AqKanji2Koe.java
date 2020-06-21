@@ -24,9 +24,7 @@ import com.sun.jna.Pointer;
  */
 public interface AqKanji2Koe extends Library {
 
-    public static final AqKanji2Koe INSTANCE = (AqKanji2Koe) Native
-            .loadLibrary(System.getProperty("os.name").startsWith("Windows") ? "AqKanji2Koe" : "AqKanji2Koe",
-                         AqKanji2Koe.class);
+    public static final AqKanji2Koe INSTANCE = Native.load("AqKanji2Koe", AqKanji2Koe.class);
 
     /**
      * 言語処理インスタンス生成（初期化）

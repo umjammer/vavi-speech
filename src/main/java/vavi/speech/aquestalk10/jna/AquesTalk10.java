@@ -7,7 +7,9 @@
 
 package vavi.speech.aquestalk10.jna;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.sun.jna.Library;
@@ -28,9 +30,7 @@ import com.sun.jna.Structure;
  */
 public interface AquesTalk10 extends Library {
 
-    public static final AquesTalk10 INSTANCE = (AquesTalk10) Native
-            .loadLibrary(System.getProperty("os.name").startsWith("Windows") ? "AquesTalk10" : "AquesTalk10",
-                         AquesTalk10.class);
+    public static final AquesTalk10 INSTANCE = Native.load("AquesTalk10", AquesTalk10.class);
 
     /** 声質パラメータ */
     public class AQTK_VOICE extends Structure {
@@ -67,6 +67,10 @@ public interface AquesTalk10 extends Library {
         public int lmd;
         /** 音程２(サンプリング周波数) 50-200 default:100 */
         public int fsc;
+        @Override
+        protected List<String> getFieldOrder() {
+            return Arrays.asList("bas", "spd", "vol", "pit", "acc", "lmd", "fsc");
+        }
     }
 
     /** 基本素片 */
