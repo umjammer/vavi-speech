@@ -31,7 +31,7 @@ class JaPhonemerTest {
     static Stream<Arguments> phonemerProvider() {
         return Stream.of(
             arguments(new vavi.speech.phoneme.SenJaPhonemer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
-            arguments(new vavi.speech.phoneme.SudachiJaPhonemer(), "キョウワ。キョウワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
+//            arguments(new vavi.speech.phoneme.SudachiJaPhonemer(), "キョウワ。キョウワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phoneme.KuromojiJaPhonemer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phoneme.GooFuriganaJaPhonemer(), "コンニチハ。 キョウハ テンキガ ヨイデスネ。 タビヘ デヨウト オモイマス。"),
             arguments(new vavi.speech.phoneme.YahooJapanJaPhonemer(), "きょうは。きょうはてんきがよいですね。たびへでようとおもいます。")
