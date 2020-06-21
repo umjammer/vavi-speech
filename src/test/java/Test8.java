@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import com.sun.jna.Pointer;
 
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
 @PropsEntity(url = "file://${user.dir}/local.properties")
 public class Test8 {
 

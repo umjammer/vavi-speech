@@ -31,7 +31,6 @@ class JaPhonemerTest {
     static Stream<Arguments> phonemerProvider() {
         return Stream.of(
             arguments(new vavi.speech.phoneme.SenJaPhonemer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
-//            arguments(new vavi.speech.phoneme.SudachiJaPhonemer(), "キョウワ。キョウワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phoneme.KuromojiJaPhonemer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phoneme.GooFuriganaJaPhonemer(), "コンニチハ。 キョウハ テンキガ ヨイデスネ。 タビヘ デヨウト オモイマス。"),
             arguments(new vavi.speech.phoneme.YahooJapanJaPhonemer(), "きょうは。きょうはてんきがよいですね。たびへでようとおもいます。")
@@ -41,6 +40,21 @@ class JaPhonemerTest {
     @ParameterizedTest
     @MethodSource("phonemerProvider")
     void test(Phonemer phonemer, String actual) throws Exception {
+Debug.println("-------------------------- " + phonemer.getClass().getSimpleName() + " --------------------------");
+        String text = phonemer.phoneme("今日は。今日は天気が良いですね。旅へ出ようと思います。");
+Debug.println("result: " + text);
+        assertEquals(actual, text);
+    }
+
+    static Stream<Arguments> phonemerProvider1() {
+        return Stream.of(
+            arguments(new vavi.speech.phoneme.SudachiJaPhonemer(), "キョウワ。キョウワテンキガヨイデスネ。タビエデヨウトオモイマス。")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("phonemerProvider1")
+    void test1(Phonemer phonemer, String actual) throws Exception {
 Debug.println("-------------------------- " + phonemer.getClass().getSimpleName() + " --------------------------");
         String text = phonemer.phoneme("今日は。今日は天気が良いですね。旅へ出ようと思います。");
 Debug.println("result: " + text);
