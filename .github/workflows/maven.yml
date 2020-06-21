@@ -29,5 +29,5 @@ jobs:
         GOOGLE : ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       run: |
         mkdir tmp
-        'echo "$GOOGLE" > tmp/google.json'
+        echo "$GOOGLE" > tmp/google.json
         mvn -B package --file pom.xml
