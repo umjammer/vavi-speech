@@ -5,6 +5,8 @@
  * Programmed by Naohide Sano
  */
 
+import org.junit.jupiter.api.Test;
+
 import com.google.cloud.texttospeech.v1.AudioConfig;
 import com.google.cloud.texttospeech.v1.AudioEncoding;
 import com.google.cloud.texttospeech.v1.SynthesisInput;
@@ -28,9 +30,15 @@ import vavi.speech.Player;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class Test12 {
+class Test12 {
 
-    public void test01(String text) throws Exception {
+    @Test
+    void test01() throws Exception {
+        speak("すもももももももものうち");
+    }
+
+    /** */
+    void speak(String text) throws Exception {
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
             // Set the text input to be synthesized
@@ -61,7 +69,7 @@ public class Test12 {
 
     public static void main(String[] args) throws Exception {
         Test12 app = new Test12();
-        app.test01(args[0]);
+        app.speak(args[0]);
     }
 }
 

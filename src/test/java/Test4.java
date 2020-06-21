@@ -15,6 +15,9 @@ import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.SourceDataLine;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
+
 import vavi.speech.aquestalk.AquesTalk;
 import vavi.speech.aquestalk.AquesTalkDa;
 
@@ -25,7 +28,8 @@ import vavi.speech.aquestalk.AquesTalkDa;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class Test4 {
+@EnabledIf("#{systemProperties['os.arch'].equals('x86')}")
+class Test4 {
 
     /** */
     public static void main(String[] args) throws Exception {
@@ -35,7 +39,8 @@ public class Test4 {
         test4.test03();
     }
 
-    public void test01() throws Exception {
+    @Test
+    void test01() throws Exception {
         AquesTalkDa aquesTalkDa = new AquesTalkDa();
         String koe = "こんにちは、あくえすとーくです";
         aquesTalkDa.play(koe);
@@ -45,7 +50,8 @@ public class Test4 {
         aquesTalkDa.play(koe, true);
     }
 
-    public void test02() throws Exception {
+    @Test
+    void test02() throws Exception {
         AquesTalk aquesTalk = new AquesTalk();
         String koe = "こんにちわ、あくえすとーくです";
         byte[] wave = aquesTalk.synthesize(koe, 100);
@@ -58,7 +64,7 @@ System.err.println(ais.getFormat());
         line.addLineListener(new LineListener() {
             public void update(LineEvent ev) {
                 if (LineEvent.Type.STOP == ev.getType()) {
-                    System.exit(0);
+System.err.println("stoped");
                 }
             }
         });
@@ -74,7 +80,8 @@ System.err.println(ais.getFormat());
         line.close();
     }
 
-    public void test03() throws Exception {
+    @Test
+    void test03() throws Exception {
         AquesTalkDa aquesTalkDa = new AquesTalkDa();
 
         Properties props = new Properties();

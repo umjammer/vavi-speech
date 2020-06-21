@@ -22,7 +22,11 @@ import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
  */
 public class Test7 {
 
-    public void test01(String text) throws Exception {
+    public void test01() throws Exception {
+        speak("すもももももももものうち");
+    }
+
+    public void speak(String text) throws Exception {
         // シンセザイザのモードを指定
         SynthesizerModeDesc desc = new AquesTalk10SynthesizerModeDesc("AquesTalk10EngineCentral", "general", Locale.JAPAN);
 System.err.println("---- voices ----");
@@ -45,7 +49,7 @@ System.err.println("---");
 
     public static void main(String[] args) throws Exception {
         Test7 app = new Test7();
-        app.test01(args[0]);
+        app.speak(args[0]);
     }
 }
 

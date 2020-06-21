@@ -17,14 +17,20 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * Test9. (rococoa)
  *
+ * TODO doesn't sound voice by current jna
+ *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class Test9 {
+class Test9 {
 
     private static final int TIME_TO_WAIT = 50000;
 
-    public void test01(String text) throws Exception {
+    void test01(String text) throws Exception {
+        speak("すもももももももものうち");
+    }
+
+    void speak(String text) throws Exception {
         NSSpeechSynthesizer ss = NSSpeechSynthesizer.synthesizerWithVoice(null);
         SynthesizerDelegate sd = new SynthesizerDelegate(ss);
         ss.setVolume(0.2f);
@@ -34,7 +40,7 @@ public class Test9 {
 
     public static void main(String[] args) throws Exception {
         Test9 app = new Test9();
-        app.test01(args[0]);
+        app.speak(args[0]);
     }
 
     static class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesizerDelegate {

@@ -5,6 +5,7 @@
  */
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
 
 import com.sun.jna.Pointer;
 
@@ -18,6 +19,7 @@ import vavi.speech.aquestalk.jna.AquesTalkDa;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@EnabledIf("#{systemProperties['os.arch'].equals('x86')}")
 public class Test3 {
 
     /** */

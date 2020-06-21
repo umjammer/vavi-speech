@@ -7,6 +7,9 @@
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
+
 import vavi.speech.aquestalk2.AquesTalk2Da;
 
 
@@ -16,6 +19,7 @@ import vavi.speech.aquestalk2.AquesTalk2Da;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@EnabledIf("#{systemProperties['os.arch'].equals('x86')}")
 public class Test6 {
 
     /** */
@@ -24,7 +28,8 @@ public class Test6 {
         app.test01();
     }
 
-    public void test01() throws Exception {
+    @Test
+    void test01() throws Exception {
         AquesTalk2Da aquesTalkDa = new AquesTalk2Da();
         aquesTalkDa.setPhont("tmp/macosx/AquesTalk2_Mac/phont/aq_f1b.phont");
 

@@ -4,6 +4,9 @@
  * Programmed by Naohide Sano
  */
 
+import java.io.IOException;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.sun.jna.Pointer;
@@ -14,9 +17,9 @@ import vavi.speech.aquestalk10.jna.AquesTalk10;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 /**
@@ -39,7 +42,21 @@ public class Test8 {
         instance = AquesTalk10.INSTANCE;
     }
 
-    public void test01(String text) throws Exception {
+    @BeforeEach
+    void before() {
+        try {
+            PropsEntity.Util.bind(this);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Test
+    void test01() throws Exception {
+        speak("すもももももももものうち");
+    }
+
+    void speak(String text) throws Exception {
         int[] size = new int[1];
 
         int result = instance.AquesTalk_SetDevKey(aquesTalk10DevKey.getBytes());
@@ -54,7 +71,7 @@ System.err.println(result);
     public static void main(String[] args) throws Exception {
         Test8 app = new Test8();
         PropsEntity.Util.bind(app);
-        app.test01(args[0]);
+        app.speak(args[0]);
     }
 
     @Test

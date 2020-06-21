@@ -10,6 +10,9 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
+
 import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
 
 
@@ -19,9 +22,15 @@ import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class Test5 {
+@EnabledIf("#{systemProperties['os.arch'].equals('x86')}")
+class Test5 {
 
-    public void test01(String text) throws Exception {
+    @Test
+    public void test01() throws Exception {
+        speak("すもももももももものうち");
+    }
+
+    void speak(String text) throws Exception {
         // シンセザイザのモードを指定
         SynthesizerModeDesc desc = new AquesTalkSynthesizerModeDesc("AquesTalkEngineCentral", "general", Locale.JAPAN);
         // シンセザイザを作成
@@ -41,7 +50,7 @@ public class Test5 {
 
     public static void main(String[] args) throws Exception {
         Test5 app = new Test5();
-        app.test01(args[0]);
+        app.speak(args[0]);
     }
 }
 

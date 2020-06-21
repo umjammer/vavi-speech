@@ -11,6 +11,8 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import org.junit.jupiter.api.Test;
+
 import vavi.speech.rococoa.jsapi.RococoaSynthesizerModeDesc;
 
 
@@ -20,9 +22,14 @@ import vavi.speech.rococoa.jsapi.RococoaSynthesizerModeDesc;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class Test11 {
+class Test11 {
 
-    public void test01(String text) throws Exception {
+    @Test
+    void test01() throws Exception {
+        speak("すもももももももものうち");
+    }
+
+    void speak(String text) throws Exception {
         // シンセザイザのモードを指定
         SynthesizerModeDesc desc = new RococoaSynthesizerModeDesc("RococaEngineCentral", "general", Locale.JAPAN);
 System.err.println("---- voices ----");
@@ -33,10 +40,6 @@ System.err.println("---");
         synthesizer.allocate();
         synthesizer.resume();
 
-        synthesizer.speakPlainText("ハローワールド", null);
-        synthesizer.speakPlainText("ゆっくりしていってね", null);
-        synthesizer.speakPlainText("そんなことよりおうどんたべたい", null);
-        synthesizer.speakPlainText("漢字読めるの？", null);
         synthesizer.speakPlainText(text, null);
 
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
@@ -45,7 +48,13 @@ System.err.println("---");
 
     public static void main(String[] args) throws Exception {
         Test11 app = new Test11();
-        app.test01(args[0]);
+        Arrays.asList("ハローワールド", "ゆっくりしていってね", "そんなことよりおうどんたべたい", "漢字読めるの？", args[0]).forEach(t -> {
+            try {
+                app.speak(t);
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+        });
     }
 }
 

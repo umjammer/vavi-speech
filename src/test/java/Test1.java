@@ -4,6 +4,8 @@
  * Programmed by Naohide Sano
  */
 
+import org.junit.jupiter.api.Test;
+
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
 
@@ -14,11 +16,17 @@ import net.java.sen.Token;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2010/03/14 nsano initial version <br>
  */
-public class Test1 {
+class Test1 {
 
-    public static void main(String[] args) throws Exception {
+    @Test
+    void test() throws Exception {
+        Test1 app = new Test1();
+        app.test("すもももももももものうち");
+    }
+
+    void test(String text) throws Exception {
         StringTagger tagger = StringTagger.getInstance();
-        Token[] token = tagger.analyze(args[0]);
+        Token[] token = tagger.analyze(text);
         if (token != null) {
             for (int i = 0; i < token.length; i++) {
 System.err.println(token[i].toString() + "\t("
