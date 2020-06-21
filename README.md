@@ -6,10 +6,10 @@ Text to Speech (JSAPI) for Java
 
 | **Type** | **Description** | **Staus** | **SPI Status** | **Quality** | **Comment** |
 |:---------|:----------------|:---------:|:--------------:|:-----------:|:------------|
-| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI | ✅ |  ✅ | 🙂 | 32bit only |
-| AquesTalk | JNA | ✅ |  ✅ | 🙂 | 32bit only |
+| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI | ✅ |  ✅ | 😐 | 32bit only |
+| AquesTalk | JNA | ✅ |  ✅ | 😐 | 32bit only |
 | AquesTalk2 | JNI | - | - | | |
-| AquesTalk10 | JNA | ✅ |  ✅ | 🙂 | |
+| AquesTalk10 | JNA | ✅ |  ✅ | 😐 | |
 | Google Cloud Text To Speech | [Google Cloud Text To Speech](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries) | ✅ | ✅ | 👑 | |
 | Rococoa | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA | ✅ | ✅ | 😃 | |
 | FreeTTS | [FreeTTS](https://freetts.sourceforge.io/) | - | ✅ | 💩 | |
@@ -18,19 +18,20 @@ Text to Speech (JSAPI) for Java
 
 | **Type** | **Description** | **Staus** | **Quality** | **Comment** |
 |:---------|:----------------|:---------:|:-----------:|:------------|
-| [Kromoji](https://github.com/atilika/kuromoji) |  | ✅ | 🙂 | number, alphabet |
-| [Sen](https://github.com/SenMorphologicalAnalyzer/sen) |  | ✅ | 🙂 | number, alphabet |
-| [Sudachi](https://github.com/WorksApplications/Sudachi) |  | ✅ | 🙂 | 助詞(は,へ), number, alphabet |
-| [YahooJapan Furigana](https://developer.yahoo.co.jp/webapi/jlp/furigana/v1/furigana.html) | Web | ✅ | 🙂 | 助詞(は,へ) |
+| [Kromoji](https://github.com/atilika/kuromoji) |  | ✅ | 😐 | number, alphabet |
+| [Sen](https://github.com/SenMorphologicalAnalyzer/sen) |  | ✅ | 😐 | number, alphabet |
+| [Sudachi](https://github.com/WorksApplications/Sudachi) |  | ✅ | 😐 | 助詞(は,へ), number, alphabet |
+| [YahooJapan Furigana](https://developer.yahoo.co.jp/webapi/jlp/furigana/v1/furigana.html) | Web | ✅ | 😐 | 助詞(は,へ) |
 | [YahooJapan MA](https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html) | Web | - | | |
+| [Goo Furigana](https://labs.goo.ne.jp/api/jp/hiragana-translation/) | Web | ✅ | 😐 | 助詞(は,へ) |
 
 ## Install
 
 ### AquesTalk
 
- * copy `AquesTalk10.framework/Versions/Current/AquesTalk` as `libaquestalk10.dylib` into `lib` directory
+ * place `AquesTalk10.framework` into `~/Library/Frameworks`
+ * create symbolic link `AquesTalk10.framework/AquesTalk` as `AquesTalk10.framework/AquesTalk10`
  * write `aquesTalk10DevKey` into `local.properties`
- * set jvmarg `"java.libraly.path"` `lib`
 
 ### Google Cloud Text To Speech
 
@@ -39,8 +40,8 @@ Text to Speech (JSAPI) for Java
 
 ### Rococoa
 
- * locate `librococoa.dylib` into `lib` directory
- * set jvm argument `"java.libraly.path"` `lib`
+ * locate `librococoa.dylib` into class path
+ * rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0
 
 ## TODO
 
@@ -50,7 +51,9 @@ Text to Speech (JSAPI) for Java
  * https://github.com/festvox/festival
  * jsapi source
 
- * auto load aques framework (jna)
+ * ~~auto load aques framework (jna)~~
+
+ * https://www.google.co.jp/ime/cgiapi.html
 
 ### Morphological Analyzer
 
@@ -59,6 +62,7 @@ Text to Speech (JSAPI) for Java
  * https://github.com/neubig/kytea
  * https://github.com/google/sentencepiece
  * https://github.com/oyahiroki/nlp4j
+ * https://github.com/lucene-gosen/lucene-gosen
 
 ### NLP
 
@@ -69,3 +73,8 @@ Text to Speech (JSAPI) for Java
 
  * https://fastapi.metacpan.org/source/MASH/Lingua-JA-Yomi-0.01/lib/Lingua/JA
  * https://github.com/KEINOS/google-ime-user-dictionary-ja-en
+
+### Kanji -> Kana
+
+ * chawan (lost in the internet)
+ * open jtalk njd*
