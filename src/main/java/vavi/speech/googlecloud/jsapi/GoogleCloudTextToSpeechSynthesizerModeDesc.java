@@ -85,7 +85,7 @@ public class GoogleCloudTextToSpeechSynthesizerModeDesc extends SynthesizerModeD
 //
 // System.out.format("Natural Sample Rate Hertz: %s\n\n", voice.getNaturalSampleRateHertz());
 //            }
- 
+
             return voices;
         } catch (IOException e) {
             throw new IllegalStateException(e);

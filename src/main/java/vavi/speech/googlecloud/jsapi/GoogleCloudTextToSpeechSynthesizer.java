@@ -106,7 +106,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     /* */
     public void addSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -124,7 +124,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     /* */
     public void removeSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -272,7 +272,7 @@ e.printStackTrace();
     /* */
     public void pause() throws EngineStateError {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */

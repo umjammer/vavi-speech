@@ -98,7 +98,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
     /* */
     public void addSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -116,7 +116,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
     /* */
     public void removeSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
@@ -130,7 +130,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
     public void speak(URL JSMLurl, SpeakableListener listener)
         throws JSMLException, MalformedURLException, IOException, EngineStateError {
         // TODO Auto-generated method stub
-        
+
     }
 
     /* */
