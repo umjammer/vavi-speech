@@ -5,6 +5,7 @@
 sen.home=/usr/local/src/sen-1.2.2.1
 
 aquesTalk10DevKey=XXXX-XXXX-XXXX-XXXX
+aquesTalk2DevKey=ZZZZ-ZZZZ-ZZZZ-ZZZ
 aqKanji2KoeDevKey=YYYY-YYYY-YYYY-YYYY
 
 google.credential=tmp/google-app-credentials.json

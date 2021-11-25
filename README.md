@@ -27,7 +27,12 @@ Text to Speech (JSAPI) for Java
 
 ## Install
 
-### AquesTalk
+### meven
+
+ * this project uses gitlab package registry. add a personal access token to `~/.m2/settings.xml`
+ * see https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#authenticate-to-the-package-registry-with-maven
+
+### AquesTalk10
 
  * place `AquesTalk10.framework` into `~/Library/Frameworks`
  * create symbolic link `AquesTalk10.framework/AquesTalk` as `AquesTalk10.framework/AquesTalk10`
@@ -41,7 +46,69 @@ Text to Speech (JSAPI) for Java
 ### Rococoa
 
  * locate `librococoa.dylib` into class path
- * rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0
+   * if you use maven it's already done, you can find it at `target/test-classes`.
+ * ~rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0~
+
+### Sen
+
+```shell
+$ git clone https://gitlab.com/umjammer/sen.git
+$ mvn install
+```
+ * set `$SEN/src/main/home` as `sen.home` in `local.properties`
+ * edit `aquestalk10.properties` like below
+
+```shell
+$ cat src/test/resources/aquestalk10.properties
+phonemer=vavi.speech.phoneme.SenJaPhonemer
+```
+
+### goo to hiragana
+
+ * register by github account
+   * https://labs.goo.ne.jp/jp/apiregister/
+ * set key to 'local.properties'
+ * edit `aquestalk10.properties` like below
+
+```shell
+$ cat src/test/resources/aquestalk10.properties
+phonemer=vavi.speech.phoneme.GooFuriganaJaPhonemer
+```
+
+### yahoo! japan
+
+ * https://e.developer.yahoo.co.jp/dashboard/
+ * set client id to 'local.properties'
+ * edit `aquestalk10.properties` like below
+
+```shell
+$ cat src/test/resources/aquestalk10.properties
+phonemer=vavi.speech.phoneme.YahooJapanJaPhonemer
+```
+
+### Kuromoji
+
+ * default
+ * edit `aquestalk10.properties` like below
+
+```shell
+$ cat src/test/resources/aquestalk10.properties
+phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
+```
+
+### Sudachi
+
+ * edit `aquestalk10.properties` like below
+
+```shell
+$ cat src/test/resources/aquestalk10.properties
+phonemer=vavi.speech.phoneme.SudachiJaPhonemer
+```
+
+### a3rt
+
+ * https://a3rt.recruit.co.jp/product/proofreadingAPI/registered/
+ * set client id by mail into 'local.properties'
 
 ## TODO
 
