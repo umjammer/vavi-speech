@@ -85,70 +85,70 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     /** */
     private Queue<Pair> queue = new LinkedList<>();
 
-    /* */
+    @Override
     public Enumeration<?> enumerateQueue() throws EngineStateError {
         return Collections.enumeration(queue);
     }
 
-    /* */
+    @Override
     public void cancel() throws EngineStateError {
     }
 
-    /* */
+    @Override
     public void cancel(Object source)
         throws IllegalArgumentException, EngineStateError {
     }
 
-    /* */
+    @Override
     public void cancelAll() throws EngineStateError {
     }
 
-    /* */
+    @Override
     public void addSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public SynthesizerProperties getSynthesizerProperties() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public String phoneme(String text) throws EngineStateError {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public void removeSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public void speak(String JSMLText, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
         speak(new Pair(JSMLText, listener));
     }
 
-    /* */
+    @Override
     public void speak(URL JSMLurl, SpeakableListener listener)
         throws JSMLException, MalformedURLException, IOException, EngineStateError {
 
         throw new UnsupportedOperationException();
     }
 
-    /* */
+    @Override
     public void speak(Speakable JSMLtext, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
         speak(new Pair(JSMLtext.getJSMLText(), listener));
     }
 
-    /* */
+    @Override
     public void speakPlainText(String text, SpeakableListener listener)
         throws EngineStateError {
 
@@ -166,7 +166,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     /** */
     private List<EngineListener> listeners = new ArrayList<>();
 
-    /* */
+    @Override
     public void addEngineListener(EngineListener listener) {
         listeners.add(listener);
     }
@@ -183,7 +183,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     /** */
     private Player player = new JavaSoundPlayer();
 
-    /* */
+    @Override
     public void allocate() throws EngineException, EngineStateError {
         try {
             this.client = TextToSpeechClient.create();
@@ -233,58 +233,58 @@ e.printStackTrace();
         return audioContents.toByteArray();
     }
 
-    /* */
+    @Override
     public void deallocate() throws EngineException, EngineStateError {
         looping = false;
         executer.shutdown();
         client.close();
     }
 
-    /* */
+    @Override
     public AudioManager getAudioManager() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public EngineModeDesc getEngineModeDesc() throws SecurityException {
         return desc;
     }
 
-    /* */
+    @Override
     public EngineProperties getEngineProperties() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public long getEngineState() {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    /* */
+    @Override
     public VocabManager getVocabManager() throws EngineStateError {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public void pause() throws EngineStateError {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public void removeEngineListener(EngineListener listener) {
         listeners.remove(listener);
     }
 
-    /* */
+    @Override
     public void resume() throws AudioException, EngineStateError {
     }
 
-    /** */
+    @Override
     public boolean testEngineState(long state) throws IllegalArgumentException {
         if (state == Synthesizer.QUEUE_EMPTY) {
             return queue.isEmpty();
@@ -295,7 +295,7 @@ e.printStackTrace();
         }
     }
 
-    /* */
+    @Override
     public void waitEngineState(long state) throws InterruptedException, IllegalArgumentException {
         if (state == Synthesizer.QUEUE_EMPTY) {
             while (!queue.isEmpty() || playing) {

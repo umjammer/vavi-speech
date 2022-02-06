@@ -47,6 +47,7 @@ public class GoogleCloudTextToSpeechSynthesizerModeDesc extends SynthesizerModeD
      * @return an array of valid voices, if no valid voices, it will return an
      *         array of size 0
      */
+    @Override
     public Voice[] getVoices() {
         List<Voice> voiceList = new LinkedList<>();
         int count = 0;
@@ -97,7 +98,7 @@ public class GoogleCloudTextToSpeechSynthesizerModeDesc extends SynthesizerModeD
      * this mode
      * descriptor.
      *
-     * @return a synthesizer that mathes the mode
+     * @return a synthesizer that matches the mode
      *
      * @throws IllegalArgumentException if the properties of this descriptor do
      *             not match any known engine or mode
@@ -105,6 +106,7 @@ public class GoogleCloudTextToSpeechSynthesizerModeDesc extends SynthesizerModeD
      * @throws SecurityException if the caller does not have permission to use
      *             the speech engine
      */
+    @Override
     public Engine createEngine() throws IllegalArgumentException, EngineException, SecurityException {
         GoogleCloudTextToSpeechSynthesizer s = new GoogleCloudTextToSpeechSynthesizer(this);
         return s;

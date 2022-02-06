@@ -14,7 +14,7 @@ import com.sun.jna.Pointer;
 /**
  * 音声記号列から音声波形データをメモリ上に生成する
  * 出力音声波形は、8HKzサンプリング, 16bit,モノラル,WAVフォーマット
- * 
+ *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
@@ -25,7 +25,7 @@ public interface AquesTalk2 extends Library {
     /**
      * 音声記号列から音声波形を生成 音声波形データは内部で領域確保される。
      * 音声波形データの解放は本関数の呼び出し側で{@link #AquesTalk2_FreeWave(Pointer)}にて行う
-     * 
+     *
      * @param koe [in] 音声記号列
      * @param iSpeed [in] 発話速度 [%] 50-300 の間で指定
      * @param pSize [out] 生成した音声データのサイズ[byte]（エラーの場合はエラーコードが返る）
@@ -35,7 +35,7 @@ public interface AquesTalk2 extends Library {
 
     /**
      * 音声データの領域を開放
-     * 
+     *
      * @param wav [in] {@link #AquesTalk2_Synthe_Utf8(String, int, int[], Pointer)}で返されたアドレスを指定
      */
     void AquesTalk2_FreeWave(Pointer wav);

@@ -28,7 +28,7 @@ import javax.speech.EngineStateError;
  */
 public class JavaSoundPlayer implements Player {
 
-    /* */
+    @Override
     public void play(byte[] data) throws IOException {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));

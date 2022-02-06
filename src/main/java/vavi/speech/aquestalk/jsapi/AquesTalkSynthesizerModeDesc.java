@@ -41,6 +41,7 @@ public class AquesTalkSynthesizerModeDesc extends SynthesizerModeDesc implements
      * @return an array of valid voices, if no valid voices, it will return an
      *         array of size 0
      */
+    @Override
     public Voice[] getVoices() {
         List<Voice> voiceList = new LinkedList<>();
         javax.speech.synthesis.Voice[] voices = super.getVoices();
@@ -64,7 +65,7 @@ public class AquesTalkSynthesizerModeDesc extends SynthesizerModeDesc implements
      * Constructs a AquesTalkSynthesizer with the properties of this mode
      * descriptor.
      *
-     * @return a synthesizer that mathes the mode
+     * @return a synthesizer that matches the mode
      *
      * @throws IllegalArgumentException if the properties of this descriptor do
      *             not match any known engine or mode
@@ -72,6 +73,7 @@ public class AquesTalkSynthesizerModeDesc extends SynthesizerModeDesc implements
      * @throws SecurityException if the caller does not have permission to use
      *             the speech engine
      */
+    @Override
     public Engine createEngine() throws IllegalArgumentException, EngineException, SecurityException {
         AquesTalkSynthesizer s = new AquesTalkSynthesizer(this);
         return s;
