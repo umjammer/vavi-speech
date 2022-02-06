@@ -24,6 +24,7 @@ Text to Speech (JSAPI) for Java
 | [YahooJapan Furigana](https://developer.yahoo.co.jp/webapi/jlp/furigana/v1/furigana.html) | Web | ✅ | 😐 | 助詞(は,へ) |
 | [YahooJapan MA](https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html) | Web | - | | |
 | [Goo Furigana](https://labs.goo.ne.jp/api/jp/hiragana-translation/) | Web | ✅ | 😐 | 助詞(は,へ) |
+| [Rococoa](https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293) |  | ✅ | 😃 | 数字+助数詞 |
 
 selected by `aquestalk10.properties`
 
@@ -49,7 +50,7 @@ selected by `aquestalk10.properties`
 
  * locate `librococoa.dylib` into class path
    * if you use maven it's already done, you can find it at `target/test-classes`.
- * ~rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0~
+ * ~~rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0~~
 
 ### Sen
 
@@ -158,8 +159,10 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
  * http://kakasi.namazu.org/index.html.ja
  * https://github.com/nicolas-raoul/kakasi-java
  * https://github.com/nicolas-raoul/jakaroma
+ * ~~[mac cocoa](https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293)~~ (done)
  * unidic
 
 #### Romaji -> Kana
 
+ * https://icu.unicode.org/home
  * https://github.com/andree-surya/moji4j

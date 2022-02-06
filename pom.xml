@@ -332,6 +332,12 @@ TODO
     </dependency>
 
     <dependency>
+      <groupId>com.ibm.icu</groupId>
+      <artifactId>icu4j</artifactId>
+      <version>70.1</version>
+    </dependency>
+
+    <dependency>
       <groupId>vavi</groupId> <!-- com.github.umjammer -->
       <artifactId>vavi-util-screenscraping</artifactId>
       <version>1.0.10-SNAPSHOT</version>
