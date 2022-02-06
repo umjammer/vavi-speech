@@ -4,11 +4,10 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
 
 import java.io.IOException;
 
-import vavi.speech.Phonemer;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -17,7 +16,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
 
 
 /**
- * YahooJapanJaPhonemer.
+ * YahooJapanJaPhonemizer.
  *
  * set environment variable YAHOOJAPAN_API_KEY
  *
@@ -25,9 +24,9 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @version 0.00 2020/02/27 umjammer initial version <br>
  */
 @PropsEntity
-public class YahooJapanJaPhonemer implements Phonemer {
+public class YahooJapanJaPhonemizer implements JaPhonemizer {
 
-    private DigitJaPhonemer converter = new DigitJaPhonemer();
+    private DigitJaPhonemizer converter = new DigitJaPhonemizer();
 
     @Env(name = "YAHOOJAPAN_API_KEY")
     String apiKey;

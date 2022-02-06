@@ -29,9 +29,9 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
-import vavi.speech.Phonemer;
+import vavi.speech.Phonemizer;
 import vavi.speech.aquestalk.AquesTalkDa;
-import vavi.speech.phoneme.SenJaPhonemer;
+import vavi.speech.phonemizer.SenJaPhonemizer;
 
 
 /**
@@ -57,7 +57,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
     }
 
     /** */
-    private Phonemer phonemer = new SenJaPhonemer();
+    private Phonemizer phonemizer = new SenJaPhonemizer();
 
     /**
      * <pre>
@@ -66,7 +66,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
      */
     private class Pair {
         public Pair(String text, SpeakableListener listener) {
-            this.text = phonemer.phoneme(text);
+            this.text = phonemizer.phoneme(text);
             this.listener = listener;
         }
         String text;

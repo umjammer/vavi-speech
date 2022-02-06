@@ -35,9 +35,9 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
 import vavi.beans.InstanciationBinder;
-import vavi.speech.Phonemer;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10Wrapper;
+import vavi.speech.phonemizer.JaPhonemizer;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -45,6 +45,16 @@ import vavi.util.properties.annotation.PropsEntity;
 /**
  * Provides  partial support for a JSAPI 1.0 synthesizer for the
  * AquesTalk speech synthesis system.
+ * <p>
+ * property file
+ * <ul>
+ * <li> aquestalk10.properties ... select a phonemizer class, locate in the class path.
+ * </ul>
+ * like
+ * <pre>
+ * phonemizer=vavi.speech.phonemizer.SudachiJaPhonemizer
+ * </pre>
+ * default class is {@link vavi.speech.phonemizer.KuromojiJaPhonemizer}
  */
 @PropsEntity(url = "classpath:aquestalk10.properties")
 public class AquesTalk10Synthesizer implements Synthesizer {
@@ -62,14 +72,15 @@ public class AquesTalk10Synthesizer implements Synthesizer {
         this.desc = desc;
         try {
             PropsEntity.Util.bind(this);
+logger.info("use " + phonemizer);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
     }
 
     /** */
-    @Property(binder = InstanciationBinder.class, value = "vavi.speech.phoneme.KuromojiJaPhonemer")
-    private Phonemer phonemer;
+    @Property(binder = InstanciationBinder.class, value = "vavi.speech.phonemizer.KuromojiJaPhonemizer")
+    private JaPhonemizer phonemizer;
 
     /** */
     private class Pair {
@@ -198,7 +209,7 @@ public class AquesTalk10Synthesizer implements Synthesizer {
                         }
 System.err.println(pair.text);
                         playing = true;
-                        player.play(aquesTalk10.synthe(phonemer.phoneme(pair.text)));
+                        player.play(aquesTalk10.synthe(phonemizer.phoneme(pair.text)));
                         playing = false;
                         if (pair.listener != null) {
                             pair.listener.speakableEnded(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));

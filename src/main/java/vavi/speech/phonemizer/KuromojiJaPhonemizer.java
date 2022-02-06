@@ -4,27 +4,26 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
 
 import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
 
-import vavi.speech.Phonemer;
 import vavi.util.CharNormalizerJa;
 
 
 /**
- * KuromojiJaPhonemer.
+ * KuromojiJaPhonemizer.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
-public class KuromojiJaPhonemer implements Phonemer {
+public class KuromojiJaPhonemizer implements JaPhonemizer {
 
     private Tokenizer tokenizer = new Tokenizer();
 
-    private DigitJaPhonemer digitConverter = new DigitJaPhonemer();
-    private AlphabetJaPhonemer alphabetConverter = new AlphabetJaPhonemer();
+    private DigitJaPhonemizer digitConverter = new DigitJaPhonemizer();
+    private AlphabetJaPhonemizer alphabetConverter = new AlphabetJaPhonemizer();
 
     @Override
     public String phoneme(String text) {

@@ -2,14 +2,13 @@
  * https://github.com/ruche7/MMDLipTools/blob/master/MMDLipCore/src/mmd/morph/lip/converters/DigitKanaConverter.cs
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import vavi.speech.Phonemer;
 import vavi.util.CharNormalizerJa;
 
 
@@ -19,7 +18,7 @@ import vavi.util.CharNormalizerJa;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/02/28 umjammer initial version <br>
  */
-public class DigitJaPhonemer implements Phonemer {
+public class DigitJaPhonemizer implements JaPhonemizer {
 
     /**
      * 整数部の読み仮名の構成要素。
@@ -497,7 +496,7 @@ public class DigitJaPhonemer implements Phonemer {
 
     /**
      * 小数部を表す文字列の読み仮名をバッファに追加する。
-     * 
+     *
      * @param src 数字列。
      * @param dest 追加先の文字列バッファ。
      * @return 追加された文字列長。

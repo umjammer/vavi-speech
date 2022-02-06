@@ -4,25 +4,27 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
 
 import java.io.IOException;
-
-import vavi.speech.Phonemer;
 
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
 
 
 /**
- * SenJaPhonemer.
- *
+ * SenJaPhonemizer.
+ * <p>
+ * system property
+ * <ul>
+ * <li> "sen.home" ... a directory includes a sen dictionary and settings
+ * </ul>
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
-public class SenJaPhonemer implements Phonemer {
+public class SenJaPhonemizer implements JaPhonemizer {
 
-    private DigitJaPhonemer converter = new DigitJaPhonemer();
+    private DigitJaPhonemizer converter = new DigitJaPhonemizer();
 
     @Override
     public String phoneme(String text) {

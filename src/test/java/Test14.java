@@ -15,7 +15,7 @@ import com.worksap.nlp.sudachi.DictionaryFactory;
 import com.worksap.nlp.sudachi.Morpheme;
 import com.worksap.nlp.sudachi.Tokenizer;
 
-import vavi.speech.phoneme.SudachiJaPhonemer;
+import vavi.speech.phonemizer.SudachiJaPhonemizer;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -138,7 +138,7 @@ public class Test14 {
      */
     void exec(String file, String exclusionPattern) throws IOException {
         StringBuilder sb = new StringBuilder();
-        try (Scanner scanner = new Scanner(SudachiJaPhonemer.class.getResourceAsStream("/sudachi.json"))) {
+        try (Scanner scanner = new Scanner(SudachiJaPhonemizer.class.getResourceAsStream("/sudachi.json"))) {
             while (scanner.hasNextLine()) {
                 sb.append(scanner.nextLine());
             }

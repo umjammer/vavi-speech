@@ -4,11 +4,10 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
 
 import java.io.IOException;
 
-import vavi.speech.Phonemer;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -19,7 +18,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
 
 
 /**
- * GooFuriganaJaPhonemer.
+ * GooFuriganaJaPhonemizer.
  *
  * set environment variable DOCOMO_GOO_HIRAGANA_API_KEY
  *
@@ -27,7 +26,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @version 0.00 2020/03/03 umjammer initial version <br>
  */
 @PropsEntity
-public class GooFuriganaJaPhonemer implements Phonemer {
+public class GooFuriganaJaPhonemizer implements JaPhonemizer {
 
     @Env(name = "DOCOMO_GOO_HIRAGANA_API_KEY")
     String apiKey;
@@ -43,7 +42,7 @@ public class GooFuriganaJaPhonemer implements Phonemer {
         }
     }
 
-    @WebScraper(url = "https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysis/v1/hiragana?APIKEY={0}",
+    @WebScraper(url = "https://labs.goo.ne.jp/api/hiragana",
                 input = PostInputHandler.class,
                 parser = JsonPathParser.class)
     public static class Result {
@@ -69,7 +68,7 @@ public class GooFuriganaJaPhonemer implements Phonemer {
         try {
             Result result = WebScraper.Util
                     .scrape(Result.class,
-                            "{\"request_id\":\"001\", \"sentence\":\"{1}\",\"output_type\":\"katakana\"}",
+                            "{\"app_id\":\"{0}\",\"request_id\":\"001\", \"sentence\":\"{1}\",\"output_type\":\"katakana\"}",
                             "application/json",
                             apiKey,
                             text.replace("\n", "")).get(0);
