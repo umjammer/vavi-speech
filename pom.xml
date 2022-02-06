@@ -75,6 +75,7 @@ TODO
                 <YAHOOJAPAN_API_KEY>${yahoo.japan.apiKey}</YAHOOJAPAN_API_KEY>
               </environmentVariables>
               <argLine>
+                -Dsudachi.dir=${sudachi.dir}
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
               </argLine>
             </configuration>
@@ -187,6 +188,23 @@ TODO
       </plugin>
 <!--
 -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native2ascii-maven-plugin</artifactId>
+        <version>2.0.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>resources</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>*.properties</include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>2.10</version>
@@ -310,7 +328,7 @@ TODO
     <dependency>
       <groupId>com.worksap.nlp</groupId>
       <artifactId>sudachi</artifactId>
-      <version>0.3.2</version>
+      <version>0.5.3</version>
     </dependency>
 
     <dependency>

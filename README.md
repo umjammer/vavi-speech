@@ -25,6 +25,8 @@ Text to Speech (JSAPI) for Java
 | [YahooJapan MA](https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html) | Web | - | | |
 | [Goo Furigana](https://labs.goo.ne.jp/api/jp/hiragana-translation/) | Web | ✅ | 😐 | 助詞(は,へ) |
 
+selected by `aquestalk10.properties`
+
 ## Install
 
 ### meven
@@ -61,6 +63,14 @@ $ mvn install
 ```shell
 $ cat src/test/resources/aquestalk10.properties
 phonemer=vavi.speech.phoneme.SenJaPhonemer
+```
+
+### sudachi
+
+```shell
+$ cd vavi-speech
+$ curl -o sudachi-dictionary-20210802-full.zip http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/sudachi-dictionary-20210802-full.zip
+$ tar zxvf sudachi-dictionary-20210802-full.zip src/test/resources/sudachi/
 ```
 
 ### goo to hiragana
@@ -144,4 +154,12 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
 ### Kanji -> Kana
 
  * chawan (lost in the internet)
- * open jtalk njd*
+ * [open jtalk](https://github.com/r9y9/open_jtalk) njd*
+ * http://kakasi.namazu.org/index.html.ja
+ * https://github.com/nicolas-raoul/kakasi-java
+ * https://github.com/nicolas-raoul/jakaroma
+ * unidic
+
+#### Romaji -> Kana
+
+ * https://github.com/andree-surya/moji4j

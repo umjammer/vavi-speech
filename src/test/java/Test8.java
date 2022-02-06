@@ -45,12 +45,8 @@ public class Test8 {
     }
 
     @BeforeEach
-    void before() {
-        try {
-            PropsEntity.Util.bind(this);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+    void before() throws IOException {
+        PropsEntity.Util.bind(this);
     }
 
     @Test
@@ -61,8 +57,9 @@ public class Test8 {
     void speak(String text) throws Exception {
         int[] size = new int[1];
 
+        @SuppressWarnings("unused")
         int result = instance.AquesTalk_SetDevKey(aquesTalk10DevKey.getBytes());
-System.err.println(result);
+//System.err.println("setkey: " + result + ", " + aquesTalk10DevKey);
 
         Pointer wav = instance.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, text, size);
 
@@ -86,6 +83,7 @@ System.err.println(result);
         assertNotNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "、", size));
         assertNotNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "？", size));
         assertNotNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "。", size));
+        assertNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "｡", size));
         assertNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "abc", size));
         assertNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "30", size));
     }

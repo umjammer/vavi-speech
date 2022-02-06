@@ -13,12 +13,18 @@ import java.util.Map;
 import com.sun.jna.Pointer;
 
 import vavi.speech.aquestalk10.jna.AquesTalk10.AQTK_VOICE;
+import vavi.util.properties.FormattedPropertiesFactory;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
 
 
 /**
  * AquesTalk10Wrapper.
+ * <p>
+ * property file
+ * <ul>
+ * <li> local.properties ... "aquesTalk10DevKey" aquestalk dev key, locate at "user.dir" directory
+ * </ul>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
@@ -78,6 +84,10 @@ public class AquesTalk10Wrapper {
     /** PCM wave pointer */
     private Pointer wav = null;
 
+    /** text replacement table before speaking */
+    private static FormattedPropertiesFactory.Basic replaceMap =
+            new FormattedPropertiesFactory.Basic("/aquestalk.properties", "text.replace.%s");
+
     /**
      * @return PCM wave format
      * @throws IllegalArgumentException with error message
@@ -88,11 +98,24 @@ public class AquesTalk10Wrapper {
 
         int[] size = new int[1];
         // omit unsupported chars.
-        text = text.replaceAll("[!！　・\\ \\\n\\\r\\t]", ",");
-        text = text.replaceAll("(\\d+)", "<NUM VAL=$1>");
+        int i = 1;
+        while (replaceMap.get(i + ".src") != null) {
+//Debug.println(replaceMap.get(i + ".src") + ", " + replaceMap.get(i + ".dest"));
+            text = text.replaceAll(replaceMap.get(i + ".src"), replaceMap.get(i + ".dest"));
+            i++;
+        }
         wav = AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(voice, text, size);
         if (wav == null) {
-            throw new IllegalArgumentException(AquesTalk10.errors.get(size[0]) + "\n" + text);
+            StringBuilder sb = new StringBuilder();
+            for (char c : text.toCharArray()) {
+                wav = AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(voice, String.valueOf(c), size);
+                if (wav == null) {
+                    sb.append(c);
+                } else {
+                    sb.append(Character.isIdeographic(c) ? "　" : " ");
+                }
+            }
+            throw new IllegalArgumentException(AquesTalk10.errors.get(size[0]) + "\n" + text + "\n" + sb.toString());
         }
         return wav.getByteArray(0, size[0]);
     }
