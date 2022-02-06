@@ -12,6 +12,8 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import vavi.speech.rococoa.jsapi.RococoaSynthesizerModeDesc;
 
@@ -22,6 +24,7 @@ import vavi.speech.rococoa.jsapi.RococoaSynthesizerModeDesc;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@EnabledOnOs(OS.MAC)
 class Test11 {
 
     @Test

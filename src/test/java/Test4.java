@@ -16,7 +16,7 @@ import javax.sound.sampled.LineListener;
 import javax.sound.sampled.SourceDataLine;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import vavi.speech.aquestalk.AquesTalk;
 import vavi.speech.aquestalk.AquesTalkDa;
@@ -28,7 +28,7 @@ import vavi.speech.aquestalk.AquesTalkDa;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-@EnabledIf("#{systemProperties['os.arch'].equals('x86')}")
+@EnabledIfSystemProperty(named = "os.arch", matches = "x86")
 class Test4 {
 
     /** */

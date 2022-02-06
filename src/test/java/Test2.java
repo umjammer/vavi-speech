@@ -12,7 +12,7 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
-import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
 
@@ -23,7 +23,7 @@ import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-@EnabledIf("#{systemProperties['os.arch'].equals('x86')}")
+@EnabledIfSystemProperty(named = "os.arch", matches = "x86")
 public class Test2 {
 
     public void test01(String file) throws Exception {

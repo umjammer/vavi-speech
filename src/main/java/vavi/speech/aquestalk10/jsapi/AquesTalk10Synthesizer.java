@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
@@ -58,6 +59,8 @@ import vavi.util.properties.annotation.PropsEntity;
  */
 @PropsEntity(url = "classpath:aquestalk10.properties")
 public class AquesTalk10Synthesizer implements Synthesizer {
+
+    private static final Logger logger = Logger.getLogger(AquesTalk10Synthesizer.class.getName());
 
     /** */
     private SynthesizerModeDesc desc;

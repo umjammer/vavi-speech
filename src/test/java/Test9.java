@@ -7,6 +7,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.rococoa.cocoa.foundation.NSRange;
 import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
 
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@EnabledOnOs(OS.MAC)
 class Test9 {
 
     private static final int TIME_TO_WAIT = 50000;
