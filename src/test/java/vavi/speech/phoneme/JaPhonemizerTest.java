@@ -21,15 +21,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * JaPhonemerTest.
+ * JaPhonemizerTest.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/03/01 umjammer initial version <br>
  */
-class JaPhonemerTest {
+class JaPhonemizerTest {
 
     // TODO make results same
-    static Stream<Arguments> phonemerProvider() {
+    static Stream<Arguments> phonemizerProvider() {
         return Stream.of(
             arguments(new vavi.speech.phonemizer.KuromojiJaPhonemizer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phonemizer.GooFuriganaJaPhonemizer(), "コンニチハ。 キョウハ テンキガ ヨイデスネ。 タビヘ デヨウト オモイマス。"),
@@ -38,7 +38,7 @@ class JaPhonemerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("phonemerProvider")
+    @MethodSource("phonemizerProvider")
     void test(Phonemizer phonemizer, String actual) throws Exception {
 Debug.println("-------------------------- " + phonemizer.getClass().getSimpleName() + " --------------------------");
         String text = phonemizer.phoneme("今日は。今日は天気が良いですね。旅へ出ようと思います。");
@@ -47,7 +47,7 @@ Debug.println("result: " + text);
     }
 
     // for w/ outer dictionary
-    static Stream<Arguments> phonemerProvider1() {
+    static Stream<Arguments> phonemizerProvider1() {
         return Stream.of(
             arguments(new vavi.speech.phonemizer.SenJaPhonemizer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
             arguments(new vavi.speech.phonemizer.SudachiJaPhonemizer(), "キョウワ。キョウワテンキガヨイデスネ。タビエデヨウトオモイマス。")
@@ -56,7 +56,7 @@ Debug.println("result: " + text);
 
     @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
     @ParameterizedTest
-    @MethodSource("phonemerProvider1")
+    @MethodSource("phonemizerProvider1")
     void test1(Phonemizer phonemizer, String actual) throws Exception {
 Debug.println("-------------------------- " + phonemizer.getClass().getSimpleName() + " --------------------------");
         String text = phonemizer.phoneme("今日は。今日は天気が良いですね。旅へ出ようと思います。");
