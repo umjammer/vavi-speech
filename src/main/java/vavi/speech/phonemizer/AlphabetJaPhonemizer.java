@@ -6,6 +6,8 @@
 
 package vavi.speech.phonemizer;
 
+import vavi.util.Locales;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
@@ -19,6 +21,7 @@ import java.util.Properties;
  * @see "https://fastapi.metacpan.org/source/MASH/Lingua-JA-Yomi-0.01/lib/Lingua/JA"
  * @see "https://github.com/KEINOS/google-ime-user-dictionary-ja-en"
  */
+@Locales(countries = "Japan", languages = "Japanese")
 public class AlphabetJaPhonemizer implements JaPhonemizer {
 
     /** alphabet words -> Katakana dictionary */

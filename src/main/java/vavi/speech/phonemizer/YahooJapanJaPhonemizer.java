@@ -8,6 +8,7 @@ package vavi.speech.phonemizer;
 
 import java.io.IOException;
 
+import vavi.util.Locales;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -24,6 +25,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @version 0.00 2020/02/27 umjammer initial version <br>
  */
 @PropsEntity
+@Locales(countries = "Japan", languages = "Japanese")
 public class YahooJapanJaPhonemizer implements JaPhonemizer {
 
     private DigitJaPhonemizer converter = new DigitJaPhonemizer();

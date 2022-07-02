@@ -8,6 +8,7 @@ package vavi.speech.phonemizer;
 
 import java.io.IOException;
 
+import vavi.util.Locales;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -26,6 +27,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @version 0.00 2020/03/03 umjammer initial version <br>
  */
 @PropsEntity
+@Locales(countries = "Japan", languages = "Japanese")
 public class GooFuriganaJaPhonemizer implements JaPhonemizer {
 
     @Env(name = "DOCOMO_GOO_HIRAGANA_API_KEY")

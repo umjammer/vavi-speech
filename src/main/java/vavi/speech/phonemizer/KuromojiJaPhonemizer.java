@@ -10,6 +10,7 @@ import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
 
 import vavi.util.CharNormalizerJa;
+import vavi.util.Locales;
 
 
 /**
@@ -18,6 +19,7 @@ import vavi.util.CharNormalizerJa;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
+@Locales(countries = "Japan", languages = "Japanese")
 public class KuromojiJaPhonemizer implements JaPhonemizer {
 
     private Tokenizer tokenizer = new Tokenizer();

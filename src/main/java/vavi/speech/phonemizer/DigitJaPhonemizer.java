@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import vavi.util.CharNormalizerJa;
+import vavi.util.Locales;
 
 
 /**
@@ -18,6 +19,7 @@ import vavi.util.CharNormalizerJa;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/02/28 umjammer initial version <br>
  */
+@Locales(countries = "Japan", languages = "Japanese")
 public class DigitJaPhonemizer implements JaPhonemizer {
 
     /**

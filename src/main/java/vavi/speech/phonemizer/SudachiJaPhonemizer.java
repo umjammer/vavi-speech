@@ -13,6 +13,7 @@ import com.worksap.nlp.sudachi.Dictionary;
 import com.worksap.nlp.sudachi.DictionaryFactory;
 import com.worksap.nlp.sudachi.Morpheme;
 import com.worksap.nlp.sudachi.Tokenizer;
+import vavi.util.Locales;
 
 
 /**
@@ -25,6 +26,7 @@ import com.worksap.nlp.sudachi.Tokenizer;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/02/27 umjammer initial version <br>
  */
+@Locales(countries = "Japan", languages = "Japanese")
 public class SudachiJaPhonemizer implements JaPhonemizer {
 
     private Tokenizer tokenizer;

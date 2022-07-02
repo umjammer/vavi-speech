@@ -16,6 +16,7 @@ import org.rococoa.cocoa.foundation.NSString;
 import org.rococoa.internal.FoundationLibrary;
 
 import com.ibm.icu.text.Transliterator;
+import vavi.util.Locales;
 
 
 /**
@@ -25,6 +26,7 @@ import com.ibm.icu.text.Transliterator;
  * @version 0.00 2022/01/19 umjammer initial version <br>
  * @see "https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293"
  */
+@Locales(countries = "Japan", languages = "Japanese")
 public class RococoaJaPhonemizer implements JaPhonemizer {
 
     @Override

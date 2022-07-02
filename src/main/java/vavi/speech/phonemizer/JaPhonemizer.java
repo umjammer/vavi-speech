@@ -7,6 +7,7 @@
 package vavi.speech.phonemizer;
 
 import vavi.speech.Phonemizer;
+import vavi.util.Locales;
 
 
 /**
@@ -18,6 +19,7 @@ import vavi.speech.Phonemizer;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2021/01/25 umjammer initial version <br>
  */
+@Locales(countries = "Japan", languages = "Japanese")
 public interface JaPhonemizer extends Phonemizer {
 
 }

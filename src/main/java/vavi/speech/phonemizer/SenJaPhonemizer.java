@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
+import vavi.util.Locales;
 
 
 /**
@@ -22,6 +23,7 @@ import net.java.sen.Token;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
+@Locales(countries = "Japan", languages = "Japanese")
 public class SenJaPhonemizer implements JaPhonemizer {
 
     private DigitJaPhonemizer converter = new DigitJaPhonemizer();
