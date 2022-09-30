@@ -12,6 +12,8 @@ import vavi.util.Locales;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
+import vavix.util.screenscrape.annotation.JsonPathParser;
+import vavix.util.screenscrape.annotation.PostInputHandler;
 import vavix.util.screenscrape.annotation.Target;
 import vavix.util.screenscrape.annotation.WebScraper;
 
@@ -23,6 +25,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/02/27 umjammer initial version <br>
+ * @see "https://developer.yahoo.co.jp/webapi/jlp/furigana/v2/furigana.html"
  */
 @PropsEntity
 @Locales(countries = "Japan", languages = "Japanese")
@@ -44,15 +47,17 @@ public class YahooJapanJaPhonemizer implements JaPhonemizer {
         }
     }
 
-    // value: because of fuckin' xml namespace
-    @WebScraper(url = "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid={0}&grade=1&sentence={1}",
-            value = "//*[local-name()='Result']/*[local-name()='WordList']/*[local-name()='Word']")
+    @WebScraper(url = "https://jlp.yahooapis.jp/FuriganaService/V2/furigana",
+            isDebug = false,
+            input = PostInputHandler.class,
+            parser = JsonPathParser.class,
+            value = "$..result.word")
     public static class Result {
-        @Target(value = "/Word/Furigana")
+        @Target
         String furigana;
-        @Target(value = "/Word/Surface")
+        @Target
         String surface;
-        @Target(value = "/Word/Roman")
+        @Target
         String roman;
         public String toString() {
             StringBuilder sb = new StringBuilder();
@@ -63,21 +68,33 @@ public class YahooJapanJaPhonemizer implements JaPhonemizer {
             sb.append(roman);
             return sb.toString();
         }
+        static final String BODY = "" +
+                "{\n" +
+                "  \"id\": \"{0}\",\n" +
+                "  \"jsonrpc\": \"2.0\",\n" +
+                "  \"method\": \"jlp.furiganaservice.furigana\",\n" +
+                "  \"params\": {\n" +
+                "    \"q\": \"{1}\",\n" +
+                "    \"grade\": 1\n" +
+                "  }\n" +
+                "}";
+        static final String UA = "Yahoo AppID: %s";
     }
 
     @Override
     public String phoneme(String text) {
         try {
             StringBuilder sb = new StringBuilder();
+            System.setProperty("vavix.util.screenscrape.annotation.PostInputHandler.userAgent", String.format(Result.UA, apiKey));
             WebScraper.Util.foreach(Result.class, m -> {
 System.err.println(m);
                 // TODO 助詞 は、へ
-                if (m.furigana.isEmpty()) {
-                    sb.append(m.surface);
-                } else {
+                if (m.furigana != null && !m.furigana.isEmpty()) {
                     sb.append(m.furigana);
+                } else if (m.surface != null && !m.surface.isEmpty()) {
+                    sb.append(m.surface);
                 }
-            }, apiKey, text);
+            }, Result.BODY, "application/json", "1234-1", text);
 System.err.println(sb);
             return converter.convertFrom(sb.toString());
         } catch (IOException e) {
