@@ -1,4 +1,7 @@
-[![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech) [![Java CI with Maven](https://github.com/umjammer/vavi-speech/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/umjammer/vavi-speech/actions)
+[![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech)
+[![Java CI with Maven](https://github.com/umjammer/vavi-speech/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/umjammer/vavi-speech/actions)
+[![CodeQL](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml)
+![Java](https://img.shields.io/badge/Java-8-b07219)
 
 # vavi-speech
 
@@ -127,11 +130,17 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
  * implement voices
  * [watson](https://www.ibm.com/watson/jp-ja/developercloud/text-to-speech.html)
  * https://github.com/festvox/festival
+ * voicevox
+
  * jsapi source
 
  * ~~auto load aques framework (jna)~~
 
  * https://www.google.co.jp/ime/cgiapi.html
+
+ * text analytics + nicotalk character emotion
+
+ * tacotron2
 
 ### Morphological Analyzer
 
@@ -166,3 +175,7 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
 
  * https://icu.unicode.org/home
  * https://github.com/andree-surya/moji4j
+
+#### Proofreading
+
+ * https://developer.yahoo.co.jp/webapi/jlp/kousei/v2/kousei.html

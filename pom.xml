@@ -8,7 +8,7 @@
 
   <groupId>vavi</groupId>
   <artifactId>vavi-speech</artifactId>
-  <version>0.1.3</version>
+  <version>0.1.4-SNAPSHOT</version>
 
   <name>vavi-speech</name>
   <description>
@@ -24,7 +24,7 @@ TODO
   </issueManagement>
 
   <properties>
-    <rococoa.version>0.8.3</rococoa.version>
+    <rococoa.version>0.8.4</rococoa.version>
   </properties>
 
   <profiles>
@@ -154,7 +154,7 @@ TODO
                   -framework AudioUnit
                 </linkerStartOption>
               </linkerStartOptions>
-              <linkerFinalName></linkerFinalName>
+              <linkerFinalName/>
               <linkerEndOptions>
                 <linkerEndOption>-o ${project.build.directory}/libAquesTalk2Wrapper.dylib</linkerEndOption>
               </linkerEndOptions>
@@ -275,6 +275,11 @@ TODO
   
   <dependencies>
     <dependency>
+      <groupId>vavi</groupId>
+      <artifactId>vavi-commons</artifactId>
+      <version>1.1.7-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>javax.speech</groupId>
       <artifactId>speech</artifactId>
       <version>1.0.0</version>
@@ -282,13 +287,8 @@ TODO
 
     <dependency>
       <groupId>com.github.umjammer</groupId>
-      <artifactId>vavi-commons</artifactId>
-      <version>1.1.5</version>
-    </dependency>
-    <dependency>
-      <groupId>org.rococoa</groupId>
-      <artifactId>rococoa-cocoa</artifactId>
-      <version>${rococoa.version}</version>
+      <artifactId>vavi-sound</artifactId>
+      <version>1.0.12</version>
     </dependency>
     <dependency>
       <groupId>org.rococoa</groupId>
@@ -338,9 +338,9 @@ TODO
     </dependency>
 
     <dependency>
-      <groupId>vavi</groupId> <!-- com.github.umjammer -->
+      <groupId>vavi</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.10-SNAPSHOT</version>
+      <version>1.0.11-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <groupId>commons-codec</groupId>
