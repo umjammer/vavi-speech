@@ -12,31 +12,29 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
-import vavi.speech.googlecloud.jsapi.GoogleCloudTextToSpeechSynthesizerModeDesc;
+import vavi.speech.rococoa.jsapi.RococoaSynthesizerModeDesc;
 
 
 /**
- * Test13. (google cloud text to speech, JSAPI)
- *
- * <p>
- * specify the environment variable "GOOGLE_APPLICATION_CREDENTIALS"
- * for google credential json.
- * </p>
+ * JSAPITest_rococoa. (rococoa, JSAPI)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-class Test13 {
+@EnabledOnOs(OS.MAC)
+class JSAPITest_rococoa {
 
     @Test
-    public void test01() throws Exception {
+    void test01() throws Exception {
         speak("すもももももももものうち");
     }
 
-    public void speak(String text) throws Exception {
+    void speak(String text) throws Exception {
         // シンセザイザのモードを指定
-        SynthesizerModeDesc desc = new GoogleCloudTextToSpeechSynthesizerModeDesc("GoogleCloudtextToSpeechEngineCentral", "general", Locale.JAPAN);
+        SynthesizerModeDesc desc = new RococoaSynthesizerModeDesc("RococaEngineCentral", "general", Locale.JAPAN);
 System.err.println("---- voices ----");
 Arrays.asList(desc.getVoices()).forEach(v -> System.err.println(v.getName()));
 System.err.println("---");
@@ -52,7 +50,7 @@ System.err.println("---");
     }
 
     public static void main(String[] args) throws Exception {
-        Test13 app = new Test13();
+        JSAPITest_rococoa app = new JSAPITest_rococoa();
         Arrays.asList("ハローワールド", "ゆっくりしていってね", "そんなことよりおうどんたべたい", "漢字読めるの？", args[0]).forEach(t -> {
             try {
                 app.speak(t);

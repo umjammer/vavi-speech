@@ -11,27 +11,32 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.Test;
 
-import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
+import vavi.speech.googlecloud.jsapi.GoogleCloudTextToSpeechSynthesizerModeDesc;
 
 
 /**
- * Test7. (aquestalk10, JSAPI)
+ * JSAPITest_google. (google cloud text to speech, JSAPI)
+ *
+ * <p>
+ * specify the environment variable "GOOGLE_APPLICATION_CREDENTIALS"
+ * for google credential json.
+ * </p>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
-public class Test7 {
+class JSAPITest_google {
 
+    @Test
     public void test01() throws Exception {
         speak("すもももももももものうち");
     }
 
     public void speak(String text) throws Exception {
         // シンセザイザのモードを指定
-        SynthesizerModeDesc desc = new AquesTalk10SynthesizerModeDesc("AquesTalk10EngineCentral", "general", Locale.JAPAN);
+        SynthesizerModeDesc desc = new GoogleCloudTextToSpeechSynthesizerModeDesc("GoogleCloudtextToSpeechEngineCentral", "general", Locale.JAPAN);
 System.err.println("---- voices ----");
 Arrays.asList(desc.getVoices()).forEach(v -> System.err.println(v.getName()));
 System.err.println("---");
@@ -40,10 +45,6 @@ System.err.println("---");
         synthesizer.allocate();
         synthesizer.resume();
 
-        synthesizer.speakPlainText("ハローワールド", null);
-        synthesizer.speakPlainText("ゆっくりしていってね", null);
-        synthesizer.speakPlainText("そんなことよりおうどんたべたい", null);
-        synthesizer.speakPlainText("漢字読めるの？", null);
         synthesizer.speakPlainText(text, null);
 
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
@@ -51,8 +52,14 @@ System.err.println("---");
     }
 
     public static void main(String[] args) throws Exception {
-        Test7 app = new Test7();
-        app.speak(args[0]);
+        JSAPITest_google app = new JSAPITest_google();
+        Arrays.asList("ハローワールド", "ゆっくりしていってね", "そんなことよりおうどんたべたい", "漢字読めるの？", args[0]).forEach(t -> {
+            try {
+                app.speak(t);
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+        });
     }
 }
 

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 
 /**
- * Test9. (rococoa)
+ * RococoaTest. (rococoa)
  *
  * TODO doesn't sound voice by current jna
  *
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @version 0.00 070202 initial version <br>
  */
 @EnabledOnOs(OS.MAC)
-class Test9 {
+class RococoaTest {
 
     private static final int TIME_TO_WAIT = 50000;
 
@@ -42,7 +42,7 @@ class Test9 {
     }
 
     public static void main(String[] args) throws Exception {
-        Test9 app = new Test9();
+        RococoaTest app = new RococoaTest();
         app.speak(args[0]);
     }
 

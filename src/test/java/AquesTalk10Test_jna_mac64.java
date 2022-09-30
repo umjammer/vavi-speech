@@ -24,14 +24,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 /**
- * Test8. (aquestalk10, jna)
+ * AquesTalk10Test_jna_mac64. (aquestalk10, jna)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
 @PropsEntity(url = "file://${user.dir}/local.properties")
-public class Test8 {
+public class AquesTalk10Test_jna_mac64 {
 
     static AquesTalk10 instance;
 
@@ -68,7 +68,7 @@ public class Test8 {
     }
 
     public static void main(String[] args) throws Exception {
-        Test8 app = new Test8();
+        AquesTalk10Test_jna_mac64 app = new AquesTalk10Test_jna_mac64();
         PropsEntity.Util.bind(app);
         app.speak(args[0]);
     }

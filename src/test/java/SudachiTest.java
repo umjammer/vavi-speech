@@ -35,13 +35,13 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @see "https://a3rt.recruit-tech.co.jp/product/proofreadingAPI/"
  */
 @PropsEntity
-public class Test14 {
+public class SudachiTest {
 
     /**
      * @param args 0: file name, 1: exclude regex
      */
     public static void main(String[] args) throws Exception {
-        Test14 app = new Test14();
+        SudachiTest app = new SudachiTest();
         PropsEntity.Util.bind(app);
         if (app.apiKey == null || app.apiKey.isEmpty()) {
             throw new IllegalStateException("set env RECRUIT_PROOFREADING_API_KEY");

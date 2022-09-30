@@ -20,7 +20,7 @@ import vavi.speech.Player;
 
 
 /**
- * Test12. (google cloud text to speech)
+ * GoogleCTTSTest. (google cloud text to speech)
  *
  * <p>
  * specify the environment variable "GOOGLE_APPLICATION_CREDENTIALS"
@@ -30,7 +30,7 @@ import vavi.speech.Player;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-class Test12 {
+class GoogleCTTSTest {
 
     @Test
     void test01() throws Exception {
@@ -68,7 +68,7 @@ class Test12 {
     }
 
     public static void main(String[] args) throws Exception {
-        Test12 app = new Test12();
+        GoogleCTTSTest app = new GoogleCTTSTest();
         app.speak(args[0]);
     }
 }

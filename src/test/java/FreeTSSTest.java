@@ -17,12 +17,12 @@ import org.junit.jupiter.api.Test;
 
 
 /**
- * Test10. (FreeTSS)
+ * FreeTSSTest. (FreeTSS)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-class Test10 {
+class FreeTSSTest {
 
     @Test
     void test01() throws Exception {
@@ -55,7 +55,7 @@ System.err.println("---");
     }
 
     public static void main(String[] args) throws Exception {
-        Test10 app = new Test10();
+        FreeTSSTest app = new FreeTSSTest();
         Arrays.asList("Hello World", "Make yourself at home.", "By the way, I want to eat udon", "Do you speak English?", args[0]).forEach(t -> {
             try {
                 app.speak(t);
