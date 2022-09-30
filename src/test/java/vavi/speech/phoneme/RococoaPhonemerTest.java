@@ -7,12 +7,15 @@
 package vavi.speech.phoneme;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import vavi.speech.Phonemizer;
 import vavi.util.Debug;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@EnabledOnOs(OS.MAC)
 class RococoaPhonemerTest {
 
     @Test
