@@ -40,7 +40,7 @@ public class RococoaJaPhonemizer implements JaPhonemizer {
         ID tokenizer = Foundation.cfStringTokenizerCreate(FoundationLibrary.kCFAllocatorDefault, input, range, FoundationLibrary.kCFStringTokenizerUnitWordBoundary, locale);
         int tokenType = Foundation.cfStringTokenizerGoToTokenAtIndex(tokenizer, 0);
 
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         while (tokenType != FoundationLibrary.kCFStringTokenizerTokenNone) {
             ID latin = Foundation.cfStringTokenizerCopyCurrentTokenAttribute(tokenizer, FoundationLibrary.kCFStringTokenizerAttributeLatinTranscription);
@@ -66,7 +66,7 @@ public class RococoaJaPhonemizer implements JaPhonemizer {
         Foundation.cfRelease(locale);
         Foundation.cfRelease(jaLocaleIdentifier);
 
-        String romans = String.join("", result.toArray(new String[result.size()]));
+        String romans = String.join("", result.toArray(new String[0]));
 
         // icu4j (#stringByApplyingTransform() uses icu)
         Transliterator transliterator = Transliterator.getInstance("Latin-Hiragana");

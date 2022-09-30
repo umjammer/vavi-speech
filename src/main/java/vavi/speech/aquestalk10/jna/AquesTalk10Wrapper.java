@@ -85,7 +85,7 @@ public class AquesTalk10Wrapper {
     private Pointer wav = null;
 
     /** text replacement table before speaking */
-    private static FormattedPropertiesFactory.Basic replaceMap =
+    private static final FormattedPropertiesFactory.Basic replaceMap =
             new FormattedPropertiesFactory.Basic("/aquestalk.properties", "text.replace.%s");
 
     /**
@@ -127,7 +127,7 @@ public class AquesTalk10Wrapper {
         }
     }
 
-    /* */
+    @Override
     protected void finalize() throws Throwable {
         free();
     }
