@@ -94,7 +94,7 @@ TODO
         <plugins>
           <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <argLine>-Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties</argLine>
               <forkMode>always</forkMode>
@@ -179,7 +179,9 @@ TODO
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -206,8 +208,9 @@ TODO
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.10</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>copy</id>
@@ -236,7 +239,6 @@ TODO
   <repositories>
     <repository>
       <id>github</id>
-      <name>GitHub umjammer Apache Maven Packages</name>
       <url>https://maven.pkg.github.com/umjammer/*</url>
     </repository>
     <repository>
@@ -266,7 +268,7 @@ TODO
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.8.1</version>
+        <version>5.9.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -275,9 +277,9 @@ TODO
   
   <dependencies>
     <dependency>
-      <groupId>vavi</groupId>
+      <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.1.7-SNAPSHOT</version>
+      <version>1.1.7</version>
     </dependency>
     <dependency>
       <groupId>javax.speech</groupId>
@@ -288,7 +290,7 @@ TODO
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-sound</artifactId>
-      <version>1.0.12</version>
+      <version>1.0.13</version>
     </dependency>
     <dependency>
       <groupId>org.rococoa</groupId>
@@ -307,7 +309,7 @@ TODO
     <dependency>
       <groupId>net.sourceforge.argparse4j</groupId>
       <artifactId>argparse4j</artifactId>
-      <version>0.8.1</version>
+      <version>0.9.0</version>
     </dependency>
     <dependency>
       <groupId>net.sf.sociaal</groupId>
@@ -328,13 +330,13 @@ TODO
     <dependency>
       <groupId>com.worksap.nlp</groupId>
       <artifactId>sudachi</artifactId>
-      <version>0.5.3</version>
+      <version>0.7.0</version>
     </dependency>
 
     <dependency>
       <groupId>com.ibm.icu</groupId>
       <artifactId>icu4j</artifactId>
-      <version>70.1</version>
+      <version>71.1</version>
     </dependency>
 
     <dependency>
@@ -373,7 +375,7 @@ TODO
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jdk14</artifactId>
-      <version>1.7.2</version>
+      <version>1.7.36</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
