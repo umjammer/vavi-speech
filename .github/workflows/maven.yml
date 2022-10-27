@@ -29,7 +29,7 @@ jobs:
         DOCOMO_GOO_HIRAGANA_API_KEY : ${{ secrets.DOCOMO_GOO_HIRAGANA_API_KEY }}
         RECRUIT_PROOFREADING_API_KEY : ${{ secrets.RECRUIT_PROOFREADING_API_KEY }}
         YAHOOJAPAN_API_KEY : ${{ secrets.YAHOOJAPAN_API_KEY }}
-        GOOGLE_APPLICATION_CREDENTIALS : tmp/google.json
+        GOOGLE_APPLICATION_CREDENTIALS : 'tmp/google.json'
         GOOGLE : ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         GITHUB_TOKEN: ${{ github.token }}
       run: |

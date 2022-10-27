@@ -50,7 +50,7 @@ class JSAPITest_google {
             PropsEntity.Util.bind(this);
         }
         Path p = Paths.get(json);
-Debug.printf("google.json: exists: %s, size: %s, %s", Files.exists(p), Files.size(p), System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
+Debug.printf("google.json: exists: %s, size: %s, env: %s", Files.exists(p), Files.size(p), System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
     }
 
     @Test
