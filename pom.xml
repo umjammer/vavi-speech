@@ -59,48 +59,6 @@ TODO
               </execution>
             </executions>
           </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M7</version>
-            <configuration>
-              <forkMode>always</forkMode>
-              <trimStackTrace>false</trimStackTrace>
-              <systemProperties>
-                <sen.home>${sen.home}</sen.home>
-              </systemProperties>
-              <environmentVariables>
-                <GOOGLE_APPLICATION_CREDENTIALS>${google.credential}</GOOGLE_APPLICATION_CREDENTIALS>
-                <DOCOMO_GOO_HIRAGANA_API_KEY>${docomo.goo.hiragana.apiKey}</DOCOMO_GOO_HIRAGANA_API_KEY>
-                <RECRUIT_PROOFREADING_API_KEY>${recruit.proofreading.apiKey}</RECRUIT_PROOFREADING_API_KEY>
-                <YAHOOJAPAN_API_KEY>${yahoo.japan.apiKey}</YAHOOJAPAN_API_KEY>
-              </environmentVariables>
-              <argLine>
-                -Dsudachi.dir=${sudachi.dir}
-                -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
-              </argLine>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>github workflow</id>
-      <activation>
-        <property>
-          <name>env.GITHUB_WORKFLOW</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M7</version>
-            <configuration>
-              <argLine>-Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties</argLine>
-              <forkMode>always</forkMode>
-              <trimStackTrace>false</trimStackTrace>
-            </configuration>
-          </plugin>
         </plugins>
       </build>
     </profile>
@@ -232,6 +190,30 @@ TODO
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M7</version>
+        <configuration>
+          <forkMode>always</forkMode>
+          <trimStackTrace>false</trimStackTrace>
+          <systemProperties>
+            <sen.home>${sen.home}</sen.home>
+          </systemProperties>
+          <environmentVariables>
+            <GOOGLE_APPLICATION_CREDENTIALS>${google.credential}</GOOGLE_APPLICATION_CREDENTIALS>
+            <DOCOMO_GOO_HIRAGANA_API_KEY>${docomo.goo.hiragana.apiKey}</DOCOMO_GOO_HIRAGANA_API_KEY>
+            <RECRUIT_PROOFREADING_API_KEY>${recruit.proofreading.apiKey}</RECRUIT_PROOFREADING_API_KEY>
+            <YAHOOJAPAN_API_KEY>${yahoo.japan.apiKey}</YAHOOJAPAN_API_KEY>
+          </environmentVariables>
+          <argLine>
+            -Dsudachi.dir=${sudachi.dir}
+            -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
+          </argLine>
+          <includes>
+            <include>**/*Test_*.java</include>
+          </includes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
