@@ -61,7 +61,7 @@ TODO
           </plugin>
           <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <forkMode>always</forkMode>
               <trimStackTrace>false</trimStackTrace>
@@ -342,7 +342,7 @@ TODO
     <dependency>
       <groupId>vavi</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.11-SNAPSHOT</version>
+      <version>1.0.11</version>
       <exclusions>
         <exclusion>
           <groupId>commons-codec</groupId>
