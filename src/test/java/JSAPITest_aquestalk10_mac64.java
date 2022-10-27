@@ -17,13 +17,13 @@ import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
 
 
 /**
- * Test7. (aquestalk10, JSAPI)
+ * JSAPITest_aquestalk10_mac64. (aquestalk10, JSAPI)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
-public class Test7 {
+public class JSAPITest_aquestalk10_mac64 {
 
     public void test01() throws Exception {
         speak("すもももももももものうち");
@@ -51,7 +51,7 @@ System.err.println("---");
     }
 
     public static void main(String[] args) throws Exception {
-        Test7 app = new Test7();
+        JSAPITest_aquestalk10_mac64 app = new JSAPITest_aquestalk10_mac64();
         app.speak(args[0]);
     }
 }

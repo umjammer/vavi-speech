@@ -8,6 +8,8 @@ package vavi.speech.phoneme;
 
 import org.junit.jupiter.api.Test;
 
+import vavi.speech.phonemizer.DigitJaPhonemizer;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -21,7 +23,7 @@ class DigitKanaConverterTest {
 
     @Test
     void test() {
-        DigitJaPhonemer converter = new DigitJaPhonemer();
+        DigitJaPhonemizer converter = new DigitJaPhonemizer();
         assertEquals("さのいちおくにせんさんびゃくよんじゅうごまんろくせんななひゃくはちじゅうきゅうなおいちおくにせんさんびゃくよんじゅうごまんろくせんななひゃくはちじゅうきゅうひで", converter.convertFrom("さの123456789なお123456789ひで"));
         assertEquals("いちおくにせんさんびゃくよんじゅうごまんろくせんななひゃくはちじゅうきゅう", converter.phoneme("123456789"));
         assertEquals("いちおくにせんさんびゃくよんじゅうごまんろくせんななひゃくはちじゅうきゅう", converter.phoneme("123,456,789"));

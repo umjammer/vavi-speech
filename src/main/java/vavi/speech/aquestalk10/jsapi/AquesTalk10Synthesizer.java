@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
@@ -35,9 +36,9 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
 import vavi.beans.InstanciationBinder;
-import vavi.speech.Phonemer;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10Wrapper;
+import vavi.speech.phonemizer.JaPhonemizer;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -45,9 +46,21 @@ import vavi.util.properties.annotation.PropsEntity;
 /**
  * Provides  partial support for a JSAPI 1.0 synthesizer for the
  * AquesTalk speech synthesis system.
+ * <p>
+ * property file
+ * <ul>
+ * <li> aquestalk10.properties ... select a phonemizer class, locate in the class path.
+ * </ul>
+ * like
+ * <pre>
+ * phonemizer=vavi.speech.phonemizer.SudachiJaPhonemizer
+ * </pre>
+ * default class is {@link vavi.speech.phonemizer.KuromojiJaPhonemizer}
  */
 @PropsEntity(url = "classpath:aquestalk10.properties")
 public class AquesTalk10Synthesizer implements Synthesizer {
+
+    private static final Logger logger = Logger.getLogger(AquesTalk10Synthesizer.class.getName());
 
     /** */
     private SynthesizerModeDesc desc;
@@ -62,14 +75,15 @@ public class AquesTalk10Synthesizer implements Synthesizer {
         this.desc = desc;
         try {
             PropsEntity.Util.bind(this);
+logger.info("use " + phonemizer);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
     }
 
     /** */
-    @Property(binder = InstanciationBinder.class, value = "vavi.speech.phoneme.KuromojiJaPhonemer")
-    private Phonemer phonemer;
+    @Property(binder = InstanciationBinder.class, value = "vavi.speech.phonemizer.KuromojiJaPhonemizer")
+    private JaPhonemizer phonemizer;
 
     /** */
     private class Pair {
@@ -84,70 +98,70 @@ public class AquesTalk10Synthesizer implements Synthesizer {
     /** */
     private Queue<Pair> queue = new LinkedList<>();
 
-    /* */
+    @Override
     public Enumeration<?> enumerateQueue() throws EngineStateError {
         return Collections.enumeration(queue);
     }
 
-    /* */
+    @Override
     public void cancel() throws EngineStateError {
     }
 
-    /* */
+    @Override
     public void cancel(Object source)
         throws IllegalArgumentException, EngineStateError {
     }
 
-    /* */
+    @Override
     public void cancelAll() throws EngineStateError {
     }
 
-    /* */
+    @Override
     public void addSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public SynthesizerProperties getSynthesizerProperties() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public String phoneme(String text) throws EngineStateError {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public void removeSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public void speak(String JSMLText, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
         speak(new Pair(JSMLText, listener));
     }
 
-    /* */
+    @Override
     public void speak(URL JSMLurl, SpeakableListener listener)
         throws JSMLException, MalformedURLException, IOException, EngineStateError {
 
         throw new UnsupportedOperationException();
     }
 
-    /* */
+    @Override
     public void speak(Speakable JSMLtext, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
         speak(new Pair(JSMLtext.getJSMLText(), listener));
     }
 
-    /* */
+    @Override
     public void speakPlainText(String text, SpeakableListener listener)
         throws EngineStateError {
 
@@ -165,7 +179,7 @@ public class AquesTalk10Synthesizer implements Synthesizer {
     /** */
     private List<EngineListener> listeners = new ArrayList<>();
 
-    /* */
+    @Override
     public void addEngineListener(EngineListener listener) {
         listeners.add(listener);
     }
@@ -185,7 +199,7 @@ public class AquesTalk10Synthesizer implements Synthesizer {
     /** */
     private Player player = new vavi.speech.JavaSoundPlayer();
 
-    /* */
+    @Override
     public void allocate() throws EngineException, EngineStateError {
         aquesTalk10 = AquesTalk10Wrapper.getInstance();
         executer.execute(() -> {
@@ -198,7 +212,7 @@ public class AquesTalk10Synthesizer implements Synthesizer {
                         }
 System.err.println(pair.text);
                         playing = true;
-                        player.play(aquesTalk10.synthe(phonemer.phoneme(pair.text)));
+                        player.play(aquesTalk10.synthe(phonemizer.phoneme(pair.text)));
                         playing = false;
                         if (pair.listener != null) {
                             pair.listener.speakableEnded(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
@@ -212,58 +226,58 @@ e.printStackTrace();
         });
     }
 
-    /* */
+    @Override
     public void deallocate() throws EngineException, EngineStateError {
         looping = false;
         executer.shutdown();
         aquesTalk10 = null;
     }
 
-    /* */
+    @Override
     public AudioManager getAudioManager() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public EngineModeDesc getEngineModeDesc() throws SecurityException {
         return desc;
     }
 
-    /* */
+    @Override
     public EngineProperties getEngineProperties() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public long getEngineState() {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    /* */
+    @Override
     public VocabManager getVocabManager() throws EngineStateError {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public void pause() throws EngineStateError {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public void removeEngineListener(EngineListener listener) {
         listeners.remove(listener);
     }
 
-    /* */
+    @Override
     public void resume() throws AudioException, EngineStateError {
     }
 
-    /* */
+    @Override
     public boolean testEngineState(long state) throws IllegalArgumentException {
         if (state == Synthesizer.QUEUE_EMPTY) {
             return queue.isEmpty();
@@ -274,7 +288,7 @@ e.printStackTrace();
         }
     }
 
-    /* */
+    @Override
     public void waitEngineState(long state) throws InterruptedException, IllegalArgumentException {
         if (state == Synthesizer.QUEUE_EMPTY) {
             while (!queue.isEmpty() || playing) {

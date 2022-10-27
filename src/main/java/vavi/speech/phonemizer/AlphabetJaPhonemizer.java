@@ -4,13 +4,13 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
+
+import vavi.util.Locales;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
-
-import vavi.speech.Phonemer;
 
 
 /**
@@ -21,14 +21,15 @@ import vavi.speech.Phonemer;
  * @see "https://fastapi.metacpan.org/source/MASH/Lingua-JA-Yomi-0.01/lib/Lingua/JA"
  * @see "https://github.com/KEINOS/google-ime-user-dictionary-ja-en"
  */
-public class AlphabetJaPhonemer implements Phonemer {
+@Locales(countries = "Japan", languages = "Japanese")
+public class AlphabetJaPhonemizer implements JaPhonemizer {
 
     /** alphabet words -> Katakana dictionary */
     private static Properties dictionary = new Properties();
 
     static {
         try {
-            dictionary.load(new InputStreamReader(AlphabetJaPhonemer.class.getResourceAsStream("/bep-eng.dic")));
+            dictionary.load(new InputStreamReader(AlphabetJaPhonemizer.class.getResourceAsStream("/bep-eng.dic")));
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }

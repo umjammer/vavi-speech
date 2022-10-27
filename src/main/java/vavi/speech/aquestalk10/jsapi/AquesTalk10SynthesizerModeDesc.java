@@ -45,6 +45,7 @@ public class AquesTalk10SynthesizerModeDesc extends SynthesizerModeDesc implemen
      * @return an array of valid voices, if no valid voices, it will return an
      *         array of size 0
      */
+    @Override
     public Voice[] getVoices() {
         List<Voice> voiceList = new LinkedList<>();
         int count = 0;
@@ -76,7 +77,7 @@ public class AquesTalk10SynthesizerModeDesc extends SynthesizerModeDesc implemen
      * Constructs a AquesTalkSynthesizer with the properties of this mode
      * descriptor.
      *
-     * @return a synthesizer that mathes the mode
+     * @return a synthesizer that matches the mode
      *
      * @throws IllegalArgumentException if the properties of this descriptor do
      *             not match any known engine or mode
@@ -84,6 +85,7 @@ public class AquesTalk10SynthesizerModeDesc extends SynthesizerModeDesc implemen
      * @throws SecurityException if the caller does not have permission to use
      *             the speech engine
      */
+    @Override
     public Engine createEngine() throws IllegalArgumentException, EngineException, SecurityException {
         AquesTalk10Synthesizer s = new AquesTalk10Synthesizer(this);
         return s;

@@ -77,65 +77,65 @@ public class RococoaSynthesizer implements Synthesizer {
     /** */
     private Queue<Pair> queue = new LinkedList<>();
 
-    /* */
+    @Override
     public Enumeration<?> enumerateQueue() throws EngineStateError {
         return Collections.enumeration(queue);
     }
 
-    /* */
+    @Override
     public void cancel() throws EngineStateError {
         synthesizer.stopSpeaking();
     }
 
-    /* */
+    @Override
     public void cancel(Object source)
         throws IllegalArgumentException, EngineStateError {
 
         synthesizer.stopSpeaking();
     }
 
-    /* */
+    @Override
     public void cancelAll() throws EngineStateError {
     }
 
-    /* */
+    @Override
     public void addSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public SynthesizerProperties getSynthesizerProperties() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public String phoneme(String text) throws EngineStateError {
         return synthesizer.phonemesFromText(text);
     }
 
-    /* */
+    @Override
     public void removeSpeakableListener(SpeakableListener listener) {
         // TODO Auto-generated method stub
 
     }
 
-    /* */
+    @Override
     public void speak(String JSMLText, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
         speak(new Pair(JSMLText, listener));
     }
 
-    /* */
+    @Override
     public void speak(URL JSMLurl, SpeakableListener listener)
         throws JSMLException, MalformedURLException, IOException, EngineStateError {
 
         throw new UnsupportedOperationException();
     }
 
-    /* */
+    @Override
     public void speak(Speakable JSMLtext, SpeakableListener listener)
         throws JSMLException, EngineStateError {
 
@@ -159,7 +159,7 @@ public class RococoaSynthesizer implements Synthesizer {
     /** */
     private List<EngineListener> listeners = new ArrayList<>();
 
-    /* */
+    @Override
     public void addEngineListener(EngineListener listener) {
         listeners.add(listener);
     }
@@ -182,7 +182,7 @@ public class RococoaSynthesizer implements Synthesizer {
     /** */
     private Player player = new JavaSoundPlayer();
 
-    /* */
+    @Override
     public void allocate() throws EngineException, EngineStateError {
         synthesizer = NSSpeechSynthesizer.synthesizerWithVoice(null);
         delegate = new SynthesizerDelegate(synthesizer);
@@ -226,31 +226,31 @@ e.printStackTrace();
         }
     }
 
-    /* */
+    @Override
     public void deallocate() throws EngineException, EngineStateError {
         looping = false;
         executer.shutdown();
         synthesizer.release();
     }
 
-    /* */
+    @Override
     public AudioManager getAudioManager() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public EngineModeDesc getEngineModeDesc() throws SecurityException {
         return desc;
     }
 
-    /* */
+    @Override
     public EngineProperties getEngineProperties() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public long getEngineState() {
         NSSpeechStatus status = synthesizer.getStatus();
         return (synthesizer != null ? Synthesizer.ALLOCATED : 0) |
@@ -259,28 +259,28 @@ e.printStackTrace();
                (!queue.isEmpty() ? Synthesizer.QUEUE_NOT_EMPTY : 0);
     }
 
-    /* */
+    @Override
     public VocabManager getVocabManager() throws EngineStateError {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* */
+    @Override
     public void pause() throws EngineStateError {
         synthesizer.pauseSpeakingAtBoundary(NSSpeechBoundary.ImmediateBoundary);
     }
 
-    /* */
+    @Override
     public void removeEngineListener(EngineListener listener) {
         listeners.remove(listener);
     }
 
-    /* */
+    @Override
     public void resume() throws AudioException, EngineStateError {
         synthesizer.continueSpeaking();
     }
 
-    /* */
+    @Override
     public boolean testEngineState(long state) throws IllegalArgumentException {
         if (state == Synthesizer.QUEUE_EMPTY) {
             return queue.peek() == null;
@@ -291,7 +291,7 @@ e.printStackTrace();
         }
     }
 
-    /* */
+    @Override
     public void waitEngineState(long state) throws InterruptedException, IllegalArgumentException {
         if (state == Synthesizer.QUEUE_EMPTY) {
             while (!queue.isEmpty() || playing) {

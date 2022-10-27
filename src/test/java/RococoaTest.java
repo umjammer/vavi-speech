@@ -7,6 +7,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.rococoa.cocoa.foundation.NSRange;
 import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
 
@@ -15,14 +17,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 
 /**
- * Test9. (rococoa)
+ * RococoaTest. (rococoa)
  *
  * TODO doesn't sound voice by current jna
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-class Test9 {
+@EnabledOnOs(OS.MAC)
+class RococoaTest {
 
     private static final int TIME_TO_WAIT = 50000;
 
@@ -39,7 +42,7 @@ class Test9 {
     }
 
     public static void main(String[] args) throws Exception {
-        Test9 app = new Test9();
+        RococoaTest app = new RococoaTest();
         app.speak(args[0]);
     }
 

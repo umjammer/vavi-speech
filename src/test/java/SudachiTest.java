@@ -15,7 +15,7 @@ import com.worksap.nlp.sudachi.DictionaryFactory;
 import com.worksap.nlp.sudachi.Morpheme;
 import com.worksap.nlp.sudachi.Tokenizer;
 
-import vavi.speech.phoneme.SudachiJaPhonemer;
+import vavi.speech.phonemizer.SudachiJaPhonemizer;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -35,13 +35,13 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @see "https://a3rt.recruit-tech.co.jp/product/proofreadingAPI/"
  */
 @PropsEntity
-public class Test14 {
+public class SudachiTest {
 
     /**
      * @param args 0: file name, 1: exclude regex
      */
     public static void main(String[] args) throws Exception {
-        Test14 app = new Test14();
+        SudachiTest app = new SudachiTest();
         PropsEntity.Util.bind(app);
         if (app.apiKey == null || app.apiKey.isEmpty()) {
             throw new IllegalStateException("set env RECRUIT_PROOFREADING_API_KEY");
@@ -138,7 +138,7 @@ public class Test14 {
      */
     void exec(String file, String exclusionPattern) throws IOException {
         StringBuilder sb = new StringBuilder();
-        try (Scanner scanner = new Scanner(SudachiJaPhonemer.class.getResourceAsStream("/sudachi.json"))) {
+        try (Scanner scanner = new Scanner(SudachiJaPhonemizer.class.getResourceAsStream("/sudachi.json"))) {
             while (scanner.hasNextLine()) {
                 sb.append(scanner.nextLine());
             }

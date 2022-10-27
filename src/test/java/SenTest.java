@@ -12,17 +12,17 @@ import net.java.sen.Token;
 
 
 /**
- * Test1. (sen test)
+ * SenTest. (sen test)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2010/03/14 nsano initial version <br>
  */
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
-class Test1 {
+class SenTest {
 
     @Test
     void test() throws Exception {
-        Test1 app = new Test1();
+        SenTest app = new SenTest();
         app.test("すもももももももものうち");
     }
 

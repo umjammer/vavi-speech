@@ -1,4 +1,7 @@
-[![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech) [![Java CI with Maven](https://github.com/umjammer/vavi-speech/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/umjammer/vavi-speech/actions)
+[![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech)
+[![Java CI with Maven](https://github.com/umjammer/vavi-speech/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/umjammer/vavi-speech/actions)
+[![CodeQL](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml)
+![Java](https://img.shields.io/badge/Java-8-b07219)
 
 # vavi-speech
 
@@ -24,6 +27,9 @@ Text to Speech (JSAPI) for Java
 | [YahooJapan Furigana](https://developer.yahoo.co.jp/webapi/jlp/furigana/v1/furigana.html) | Web | ✅ | 😐 | 助詞(は,へ) |
 | [YahooJapan MA](https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html) | Web | - | | |
 | [Goo Furigana](https://labs.goo.ne.jp/api/jp/hiragana-translation/) | Web | ✅ | 😐 | 助詞(は,へ) |
+| [Rococoa](https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293) |  | ✅ | 😃 | 数字+助数詞 |
+
+selected by `aquestalk10.properties`
 
 ## Install
 
@@ -47,7 +53,7 @@ Text to Speech (JSAPI) for Java
 
  * locate `librococoa.dylib` into class path
    * if you use maven it's already done, you can find it at `target/test-classes`.
- * ~rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0~
+ * ~~rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0~~
 
 ### Sen
 
@@ -61,6 +67,14 @@ $ mvn install
 ```shell
 $ cat src/test/resources/aquestalk10.properties
 phonemer=vavi.speech.phoneme.SenJaPhonemer
+```
+
+### sudachi
+
+```shell
+$ cd vavi-speech
+$ curl -o sudachi-dictionary-20210802-full.zip http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/sudachi-dictionary-20210802-full.zip
+$ tar zxvf sudachi-dictionary-20210802-full.zip src/test/resources/sudachi/
 ```
 
 ### goo to hiragana
@@ -116,11 +130,17 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
  * implement voices
  * [watson](https://www.ibm.com/watson/jp-ja/developercloud/text-to-speech.html)
  * https://github.com/festvox/festival
+ * voicevox
+
  * jsapi source
 
  * ~~auto load aques framework (jna)~~
 
  * https://www.google.co.jp/ime/cgiapi.html
+
+ * text analytics + nicotalk character emotion
+
+ * tacotron2
 
 ### Morphological Analyzer
 
@@ -144,4 +164,18 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
 ### Kanji -> Kana
 
  * chawan (lost in the internet)
- * open jtalk njd*
+ * [open jtalk](https://github.com/r9y9/open_jtalk) njd*
+ * http://kakasi.namazu.org/index.html.ja
+ * https://github.com/nicolas-raoul/kakasi-java
+ * https://github.com/nicolas-raoul/jakaroma
+ * ~~[mac cocoa](https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293)~~ (done)
+ * unidic
+
+#### Romaji -> Kana
+
+ * https://icu.unicode.org/home
+ * https://github.com/andree-surya/moji4j
+
+#### Proofreading
+
+ * https://developer.yahoo.co.jp/webapi/jlp/kousei/v2/kousei.html

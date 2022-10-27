@@ -13,11 +13,12 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.speech.EngineStateError;
+
+import static vavi.sound.SoundUtil.volume;
 
 
 /**
@@ -28,7 +29,7 @@ import javax.speech.EngineStateError;
  */
 public class JavaSoundPlayer implements Player {
 
-    /* */
+    @Override
     public void play(byte[] data) throws IOException {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
@@ -40,10 +41,7 @@ public class JavaSoundPlayer implements Player {
 
             line.start();
 
-FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-double gain = .2d; // number between 0 and 1 (loudest)
-float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-gainControl.setValue(dB);
+            volume(line, .2d);
 
             int r = 0;
             byte[] buf = new byte[8192];
