@@ -253,6 +253,10 @@ TODO
       <id>gitlab-maven</id>
       <url>https://gitlab.com/api/v4/projects/18523814/packages/maven</url>
     </repository>
+    <repository>
+      <id>gitlab-maven2</id> <!-- idk why this is needed??? -->
+      <url>https://gitlab.com/api/v4/projects/30804899/packages/maven</url>
+    </repository>
   </repositories>
 
   <dependencyManagement>
