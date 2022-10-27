@@ -27,6 +27,13 @@ TODO
     <rococoa.version>0.8.4</rococoa.version>
   </properties>
 
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/umjammer/vavi-speech</url>
+    </repository>
+  </distributionManagement>
+
   <profiles>
     <profile>
       <id>local (not on CI)</id>
