@@ -35,6 +35,7 @@ selected by `aquestalk10.properties`
 
 ### meven
 
+ * https://github.com/umjammer/vavi-speech/packages/1691244
  * this project uses gitlab package registry. add a personal access token to `~/.m2/settings.xml`
  * see https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#authenticate-to-the-package-registry-with-maven
 
@@ -131,15 +132,10 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
  * [watson](https://www.ibm.com/watson/jp-ja/developercloud/text-to-speech.html)
  * https://github.com/festvox/festival
  * voicevox
-
  * jsapi source
-
  * ~~auto load aques framework (jna)~~
-
  * https://www.google.co.jp/ime/cgiapi.html
-
  * text analytics + nicotalk character emotion
-
  * tacotron2
 
 ### Morphological Analyzer
