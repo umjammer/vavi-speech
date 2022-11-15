@@ -6,10 +6,13 @@
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.worksap.nlp.sudachi.Config;
 import com.worksap.nlp.sudachi.Dictionary;
 import com.worksap.nlp.sudachi.DictionaryFactory;
 import com.worksap.nlp.sudachi.Morpheme;
@@ -53,14 +56,14 @@ public class SudachiTest {
     private static final String c0 = (char) 0x1b + "[" + 0 + "m";
 
     /** check single character and checked by proofreading */
-    private boolean checkSingle = false;
+    private final boolean checkSingle = false;
     /** check only checked by proofreading */
-    private boolean checkAr3t = true;
+    private final boolean checkAr3t = true;
 
     @Env(name = "RECRUIT_PROOFREADING_API_KEY")
     String apiKey;
 
-    @WebScraper(url = "https://api.a3rt.recruit-tech.co.jp/proofreading/v2/typo?apikey={0}&sentence={1}&sensitivity={2}",
+    @WebScraper(url = "https://api.a3rt.recruit.co.jp/proofreading/v2/typo?apikey={0}&sentence={1}&sensitivity={2}",
                 parser = JsonPathParser.class,
                 input = PlainInputHandler.class,
                 isDebug = false,
@@ -78,7 +81,7 @@ public class SudachiTest {
         String normalizedSentence;
         @Target
         String checkedSentence;
-        class Alert {
+        static class Alert {
             int pos;
             String word;
             float score;
@@ -137,17 +140,12 @@ public class SudachiTest {
      * @param exclusionPattern regex
      */
     void exec(String file, String exclusionPattern) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        try (Scanner scanner = new Scanner(SudachiJaPhonemizer.class.getResourceAsStream("/sudachi.json"))) {
-            while (scanner.hasNextLine()) {
-                sb.append(scanner.nextLine());
-            }
-        }
 
-        Dictionary dict = new DictionaryFactory().create(System.getProperty("sudachi.dir"), sb.toString());
+        Config config = Config.fromClasspath("sudachi.json");
+        Dictionary dict = new DictionaryFactory().create(config);
         Tokenizer tokenizer = dict.create();
 
-        try (Scanner scanner = new Scanner(new FileInputStream(file))) {
+        try (Scanner scanner = new Scanner(Files.newInputStream(Paths.get(file)))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().replaceAll("(｜|［＃.+?］|《.+?》)", ""); // exclude aozora markup tag and ruby
                 Result result = null;
@@ -216,6 +214,8 @@ System.err.printf("%sD: %04d%s\t%s\t%s%s%s\t\t%s%f\t%s%s\n", c1, l, c0, a.word, 
                 l++;
             }
         }
+
+        dict.close();
     }
 
     boolean containsJaCharacters(String str) {

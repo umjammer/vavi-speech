@@ -7,8 +7,10 @@
 package vavi.speech.phonemizer;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Scanner;
 
+import com.worksap.nlp.sudachi.Config;
 import com.worksap.nlp.sudachi.Dictionary;
 import com.worksap.nlp.sudachi.DictionaryFactory;
 import com.worksap.nlp.sudachi.Morpheme;
@@ -29,21 +31,16 @@ import vavi.util.Locales;
 @Locales(countries = "Japan", languages = "Japanese")
 public class SudachiJaPhonemizer implements JaPhonemizer {
 
-    private Tokenizer tokenizer;
+    private final Tokenizer tokenizer;
 
     public SudachiJaPhonemizer() {
         try {
-            StringBuilder sb = new StringBuilder();
-            Scanner scanner = new Scanner(SudachiJaPhonemizer.class.getResourceAsStream("/sudachi.json"));
-            while (scanner.hasNextLine()) {
-                sb.append(scanner.nextLine());
+            Config config = Config.fromClasspath("sudachi.json");
+            try (Dictionary dict = new DictionaryFactory().create(config)) {
+                tokenizer = dict.create();
             }
-            scanner.close();
-System.err.println(sb);
-            Dictionary dict = new DictionaryFactory().create(System.getProperty("sudachi.dir"), sb.toString());
-            tokenizer = dict.create();
         } catch (IOException e) {
-            throw new IllegalStateException(e);
+            throw new UncheckedIOException(e);
         }
     }
 

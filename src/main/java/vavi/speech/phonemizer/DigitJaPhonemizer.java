@@ -230,21 +230,21 @@ public class DigitJaPhonemizer implements JaPhonemizer {
             }
         };
 
-        static int Begin = None.ordinal();
+        static final int Begin = None.ordinal();
 
-        static int DigitBegin = Digit0.ordinal();
+        static final int DigitBegin = Digit0.ordinal();
 
-        static int DigitEnd = Ten.ordinal();
+        static final int DigitEnd = Ten.ordinal();
 
-        static int BaseBegin = Ten.ordinal();
+        static final int BaseBegin = Ten.ordinal();
 
-        static int BaseEnd = Man.ordinal();
+        static final int BaseEnd = Man.ordinal();
 
-        static int BigBegin = Man.ordinal();
+        static final int BigBegin = Man.ordinal();
 
-        static int BigEnd = Infinity.ordinal();
+        static final int BigEnd = Infinity.ordinal();
 
-        static int End = Infinity.ordinal();
+        static final int End = Infinity.ordinal();
 
         /**
          * 自身が有効な値であるか否かを取得する。
