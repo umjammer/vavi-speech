@@ -55,13 +55,12 @@ public class GooFuriganaJaPhonemizer implements JaPhonemizer {
         @Target
         String converted;
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(request_id);
-            sb.append(",");
-            sb.append(output_type);
-            sb.append(",");
-            sb.append(converted);
-            return sb.toString();
+            String sb = request_id +
+                    "," +
+                    output_type +
+                    "," +
+                    converted;
+            return sb;
         }
     }
 

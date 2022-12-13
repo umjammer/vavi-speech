@@ -73,7 +73,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     }
 
     /** */
-    private class Pair {
+    private static class Pair {
         public Pair(String text, SpeakableListener listener) {
             this.text = text;
             this.listener = listener;

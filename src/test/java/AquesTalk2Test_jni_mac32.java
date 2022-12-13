@@ -37,7 +37,7 @@ public class AquesTalk2Test_jni_mac32 {
         props.load(AquesTalk2Test_jni_mac32.class.getResourceAsStream("table.properties"));
         Enumeration<?> e = props.propertyNames();
         while (e.hasMoreElements()) {
-            String name = String.class.cast(e.nextElement());
+            String name = (String) e.nextElement();
 System.err.println("Japanese: " + name);
             aquesTalkDa.play(props.getProperty(name), true);
         }

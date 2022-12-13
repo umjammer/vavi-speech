@@ -115,7 +115,7 @@ public class AquesTalk10Wrapper {
                     sb.append(Character.isIdeographic(c) ? "　" : " ");
                 }
             }
-            throw new IllegalArgumentException(AquesTalk10.errors.get(size[0]) + "\n" + text + "\n" + sb.toString());
+            throw new IllegalArgumentException(AquesTalk10.errors.get(size[0]) + "\n" + text + "\n" + sb);
         }
         return wav.getByteArray(0, size[0]);
     }

@@ -4,7 +4,6 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,7 +17,6 @@ import com.worksap.nlp.sudachi.DictionaryFactory;
 import com.worksap.nlp.sudachi.Morpheme;
 import com.worksap.nlp.sudachi.Tokenizer;
 
-import vavi.speech.phonemizer.SudachiJaPhonemizer;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -56,9 +54,9 @@ public class SudachiTest {
     private static final String c0 = (char) 0x1b + "[" + 0 + "m";
 
     /** check single character and checked by proofreading */
-    private final boolean checkSingle = false;
+    private static final boolean checkSingle = false;
     /** check only checked by proofreading */
-    private final boolean checkAr3t = true;
+    private static final boolean checkAr3t = true;
 
     @Env(name = "RECRUIT_PROOFREADING_API_KEY")
     String apiKey;
@@ -88,39 +86,38 @@ public class SudachiTest {
             List<String> suggestions;
             @Override
             public String toString() {
-                StringBuilder sb = new StringBuilder();
-                sb.append("Arart [pos=");
-                sb.append(pos);
-                sb.append(", word=");
-                sb.append(word);
-                sb.append(", score=");
-                sb.append(score);
-                sb.append(", suggestions=");
-                sb.append(suggestions);
-                sb.append("]");
-                return sb.toString();
+                String sb = "Arart [pos=" +
+                        pos +
+                        ", word=" +
+                        word +
+                        ", score=" +
+                        score +
+                        ", suggestions=" +
+                        suggestions +
+                        "]";
+                return sb;
             }
         }
         // TODO should be eliminated
-        public static class MyTypeToken extends com.google.gson.reflect.TypeToken<ArrayList<Alert>> { public MyTypeToken() { super(); }};
+        public static class MyTypeToken extends com.google.gson.reflect.TypeToken<ArrayList<Alert>> { public MyTypeToken() { super(); }}
+
         @Target(optional = true, option = MyTypeToken.class) /* should be "option = Alert.class" */
         List<Alert> alerts;
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(resultID);
-            sb.append(",");
-            sb.append(status);
-            sb.append(",");
-            sb.append(message);
-            sb.append(",");
-            sb.append(inputSentence);
-            sb.append(",");
-            sb.append(normalizedSentence);
-            sb.append(",");
-            sb.append(checkedSentence);
-            sb.append(",");
-            sb.append(alerts);
-            return sb.toString();
+            String sb = resultID +
+                    "," +
+                    status +
+                    "," +
+                    message +
+                    "," +
+                    inputSentence +
+                    "," +
+                    normalizedSentence +
+                    "," +
+                    checkedSentence +
+                    "," +
+                    alerts;
+            return sb;
         }
     }
 

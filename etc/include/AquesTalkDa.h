@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
 /*!	@class	CAquesTalkDa
 
-	@brief	‹K‘¥‰¹º‡¬ƒGƒ“ƒWƒ“ AquesTalkDa
+	@brief	è¦å‰‡éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ AquesTalkDa
 
-  ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`ƒf[ƒ^‚ð¶¬‚µAƒTƒEƒ“ƒhƒfƒoƒCƒX‚Éo—Í‚·‚é
+  éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆã—ã€ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã«å‡ºåŠ›ã™ã‚‹
 
 
 	@author	N.Yamazaki (Aquest)
 
 	@date	2006/05/08	N.Yamazaki	Creation
 	@date	2006/10/03	N.Yamazaki	Ver.2.0
-	@date	2006/10/12	N.Yamazaki	Ver.2.1 .defƒtƒ@ƒCƒ‹‚ÌŽg—p‚Æ__stdcall‚Ì’è‹`
+	@date	2006/10/12	N.Yamazaki	Ver.2.1 .defãƒ•ã‚¡ã‚¤ãƒ«ã®ä½¿ç”¨ã¨__stdcallã®å®šç¾©
 */
-//	‚±‚Ìƒ\[ƒXƒR[ƒh‚Ì—˜—pðŒ‚É‚Â‚¢‚Ä‚ÍA
-//	“¯«‚Ì AqLicense.txt ‚ð‚²——‚­‚¾‚³‚¢
+//	ã“ã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®åˆ©ç”¨æ¡ä»¶ã«ã¤ã„ã¦ã¯ã€
+//	åŒæ¢±ã® AqLicense.txt ã‚’ã”è¦§ãã ã•ã„
 //  COPYRIGHT (C) 2006 AQUEST CORP.
 //////////////////////////////////////////////////////////////////////
 #if !defined(_AQUESTALKDA_H_)
@@ -33,57 +33,57 @@ extern "C"{
 
 
 /////////////////////////////////////////////
-//!	‰¹º‚ð‡¬‚µ‚Äo—Íi“¯Šúƒ^ƒCƒvj
-//!	‰¹º‚ÌÄ¶‚ªI—¹‚·‚é‚Ü‚Å–ß‚ç‚È‚¢
-//! @param	koe[in]		‰¹º‹L†—ñiNULLI’[j
-//! @param	iSpeed[in]	”­˜b‘¬“x [%] 50-300 ‚ÌŠÔ‚ÅŽw’è
-//!	@return	0:³íI—¹@‚»‚êˆÈŠOFƒGƒ‰[ƒR[ƒh
+//!	éŸ³å£°ã‚’åˆæˆã—ã¦å‡ºåŠ›ï¼ˆåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+//!	éŸ³å£°ã®å†ç”ŸãŒçµ‚äº†ã™ã‚‹ã¾ã§æˆ»ã‚‰ãªã„
+//! @param	koe[in]		éŸ³å£°è¨˜å·åˆ—ï¼ˆNULLçµ‚ç«¯ï¼‰
+//! @param	iSpeed[in]	ç™ºè©±é€Ÿåº¦ [%] 50-300 ã®é–“ã§æŒ‡å®š
+//!	@return	0:æ­£å¸¸çµ‚äº†ã€€ãã‚Œä»¥å¤–ï¼šã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
 DllExport	int __stdcall AquesTalkDa_PlaySync(const char *koe, int iSpeed);
 
 
 
 ////////////////////////////////////////////////////////////////////////
-//  ˆÈ‰ºA”ñ“¯Šúƒ^ƒCƒv‚ÌŠÖ”
+//  ä»¥ä¸‹ã€éžåŒæœŸã‚¿ã‚¤ãƒ—ã®é–¢æ•°
 ////////////////////////////////////////////////////////////////////////
-typedef void		*H_AQTKDA;	// ‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ “¯Šúƒ^ƒCƒv‚ÌŠÖ”‚ÅŽg—p‚·‚é
+typedef void		*H_AQTKDA;	// éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« åŒæœŸã‚¿ã‚¤ãƒ—ã®é–¢æ•°ã§ä½¿ç”¨ã™ã‚‹
 
 /////////////////////////////////////////////
-//!	‰¹º‡¬ƒGƒ“ƒWƒ“‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ð¶¬i”ñ“¯Šúƒ^ƒCƒvj
-//! @return	‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹‚ð•Ô‚·
+//!	éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆï¼ˆéžåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+//! @return	éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 DllExport	H_AQTKDA __stdcall AquesTalkDa_Create();
 
 /////////////////////////////////////////////
-//!	‰¹º‡¬ƒGƒ“ƒWƒ“‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ð‰ð•úi”ñ“¯Šúƒ^ƒCƒvj
-//! @param	hMe[in]		‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
+//!	éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è§£æ”¾ï¼ˆéžåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+//! @param	hMe[in]		éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
 DllExport	void __stdcall AquesTalkDa_Release(H_AQTKDA hMe);
 
 /////////////////////////////////////////////
-//!	‰¹º‚ð‡¬‚µ‚Äo—Íi”ñ“¯Šúƒ^ƒCƒvj
-//!	‰¹º”gŒ`¶¬Œã‚ÉA‚·‚®‚É–ß‚é
-//!	hWnd‚ðŽw’è‚·‚é‚ÆÄ¶I—¹ŒãAmsg‚ÉŽw’è‚µ‚½ƒƒbƒZ[ƒW‚ªPost‚³‚ê‚éB
-//!	Ä¶I—¹‘O‚ÉAquesTalkDa_Play()‚ðŒÄ‚Ño‚µ‚ÄA˜A‘±“I‚ÉÄ¶‚³‚¹‚é‚±‚Æ‚à‰Â”\B
+//!	éŸ³å£°ã‚’åˆæˆã—ã¦å‡ºåŠ›ï¼ˆéžåŒæœŸã‚¿ã‚¤ãƒ—ï¼‰
+//!	éŸ³å£°æ³¢å½¢ç”Ÿæˆå¾Œã«ã€ã™ãã«æˆ»ã‚‹
+//!	hWndã‚’æŒ‡å®šã™ã‚‹ã¨å†ç”Ÿçµ‚äº†å¾Œã€msgã«æŒ‡å®šã—ãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒPostã•ã‚Œã‚‹ã€‚
+//!	å†ç”Ÿçµ‚äº†å‰ã«AquesTalkDa_Play()ã‚’å‘¼ã³å‡ºã—ã¦ã€é€£ç¶šçš„ã«å†ç”Ÿã•ã›ã‚‹ã“ã¨ã‚‚å¯èƒ½ã€‚
 //!	
-//! @param	hMe[in]		‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
-//! @param	koe[in]		‰¹º‹L†—ñiNULLI’[j
-//! @param	iSpeed[in]	”­˜b‘¬“x [%] 50-300 ‚ÌŠÔ‚ÅŽw’è
-//! @param	hWnd[in]	I—¹ƒƒbƒZ[ƒW‘—oæƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
-//! @param	msg[in]		I—¹ƒƒbƒZ[ƒW
-//! @param	dwUser[in]	”CˆÓ‚Ìƒ†[ƒUƒpƒ‰ƒ[ƒ^(ƒƒbƒZ[ƒW‚ÌlParam ‚ÉÝ’è‚³‚ê‚éj
-//!	@return	0:³íI—¹@‚»‚êˆÈŠOFƒGƒ‰[ƒR[ƒh
+//! @param	hMe[in]		éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
+//! @param	koe[in]		éŸ³å£°è¨˜å·åˆ—ï¼ˆNULLçµ‚ç«¯ï¼‰
+//! @param	iSpeed[in]	ç™ºè©±é€Ÿåº¦ [%] 50-300 ã®é–“ã§æŒ‡å®š
+//! @param	hWnd[in]	çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€å‡ºå…ˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+//! @param	msg[in]		çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+//! @param	dwUser[in]	ä»»æ„ã®ãƒ¦ãƒ¼ã‚¶ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®lParam ã«è¨­å®šã•ã‚Œã‚‹ï¼‰
+//!	@return	0:æ­£å¸¸çµ‚äº†ã€€ãã‚Œä»¥å¤–ï¼šã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
 DllExport	int __stdcall AquesTalkDa_Play(H_AQTKDA hMe, const char *koe, int iSpeed, HWND hWnd, unsigned long msg, unsigned long dwUser);
 
 /////////////////////////////////////////////
-//!	Ä¶‚Ì’†Ž~ 
-//! AquesTalkDa_Play()‚ÅÄ¶’†‚ÉAÄ¶‚ð’†’f‚·‚éB
-//!	Ä¶’†(Ä¶‘Ò‚¿‚ðŠÜ‚Þj‚Å‚ ‚èAI—¹ƒƒbƒZ[ƒW‘—oæ‚ªŽw’è‚³‚ê‚Ä‚¢‚½‚È‚çA
-//! I—¹ƒƒbƒZ[ƒW‚ªPost‚³‚ê‚éB
-//! @param	hMe[in]		‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
+//!	å†ç”Ÿã®ä¸­æ­¢ 
+//! AquesTalkDa_Play()ã§å†ç”Ÿä¸­ã«ã€å†ç”Ÿã‚’ä¸­æ–­ã™ã‚‹ã€‚
+//!	å†ç”Ÿä¸­(å†ç”Ÿå¾…ã¡ã‚’å«ã‚€ï¼‰ã§ã‚ã‚Šã€çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€å‡ºå…ˆãŒæŒ‡å®šã•ã‚Œã¦ã„ãŸãªã‚‰ã€
+//! çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒPostã•ã‚Œã‚‹ã€‚
+//! @param	hMe[in]		éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
 DllExport	void __stdcall AquesTalkDa_Stop(H_AQTKDA hMe);
 
 /////////////////////////////////////////////
-//!	Ä¶’†‚©”Û‚©
-//! @param	hMe[in]		‰¹º‡¬ƒGƒ“ƒWƒ“‚Ìƒnƒ“ƒhƒ‹ AquesTalkDa_Create()‚Å¶¬
-//! @return 1:Ä¶’† 0:Ä¶’†‚Å‚È‚¢
+//!	å†ç”Ÿä¸­ã‹å¦ã‹
+//! @param	hMe[in]		éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ« AquesTalkDa_Create()ã§ç”Ÿæˆ
+//! @return 1:å†ç”Ÿä¸­ 0:å†ç”Ÿä¸­ã§ãªã„
 DllExport	int __stdcall AquesTalkDa_IsPlay(H_AQTKDA hMe);
 
 

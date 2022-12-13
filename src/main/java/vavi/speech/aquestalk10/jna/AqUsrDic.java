@@ -64,7 +64,7 @@ import com.sun.jna.Native;
  */
 public interface AqUsrDic extends Library {
 
-    public static final AqUsrDic INSTANCE = Native.load("AqUsrDic", AqUsrDic.class);
+    AqUsrDic INSTANCE = Native.load("AqUsrDic", AqUsrDic.class);
 
     /**
      * CSV辞書からユーザ辞書(aq_usr.dic)を生成(上書)
@@ -74,7 +74,7 @@ public interface AqUsrDic extends Library {
      * @param pathDicCsv CSV辞書ファイルのパス
      * @return 0：正常終了それ以外：エラー
      */
-    int AqUsrDic_Import(final String pathUserDic, final String pathDicCsv);
+    int AqUsrDic_Import(String pathUserDic, String pathDicCsv);
 
     /**
      * ユーザ辞書(aq_usr.dic)からCSV辞書を生成
@@ -84,7 +84,7 @@ public interface AqUsrDic extends Library {
      * @param pathDicCsv CSV辞書ファイルのパス
      * @return 0：正常終了それ以外：エラー
      */
-    int AqUsrDic_Export(final String pathUserDic, final String pathDicCsv);
+    int AqUsrDic_Export(String pathUserDic, String pathDicCsv);
 
     /**
      * 書式のチェック
@@ -96,7 +96,7 @@ public interface AqUsrDic extends Library {
      * @param posCode 品詞コード（下記参照）
      * @return 0：チェックOKそれ以外：エラー
      */
-    int AqUsrDic_Check(final String surface, final String yomi, int posCode);
+    int AqUsrDic_Check(String surface, String yomi, int posCode);
 
     /**
      * 最後のエラーの詳細メッセージを返す

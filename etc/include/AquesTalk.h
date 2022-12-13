@@ -1,20 +1,20 @@
 //////////////////////////////////////////////////////////////////////
 /*!	@class	CAquesTalk
 
-	@brief	‹K‘¥‰¹º‡¬ƒGƒ“ƒWƒ“ AquesTalk
+	@brief	è¦å‰‡éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ AquesTalk
 
-  ‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`ƒf[ƒ^‚ðƒƒ‚ƒŠã‚É¶¬‚·‚é
-  o—Í‰¹º”gŒ`‚ÍA8HKzƒTƒ“ƒvƒŠƒ“ƒO, 16bit,ƒ‚ƒmƒ‰ƒ‹,WAVƒtƒH[ƒ}ƒbƒg
+  éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ¡ãƒ¢ãƒªä¸Šã«ç”Ÿæˆã™ã‚‹
+  å‡ºåŠ›éŸ³å£°æ³¢å½¢ã¯ã€8HKzã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°, 16bit,ãƒ¢ãƒŽãƒ©ãƒ«,WAVãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
 
 
 	@author	N.Yamazaki (Aquest)
 
 	@date	2006/05/08	N.Yamazaki	Creation
 	@date	2006/10/03	N.Yamazaki	Ver.2.0
-	@date	2006/10/12	N.Yamazaki	Ver.2.1 .defƒtƒ@ƒCƒ‹‚ÌŽg—p‚Æ__stdcall‚Ì’è‹`
+	@date	2006/10/12	N.Yamazaki	Ver.2.1 .defãƒ•ã‚¡ã‚¤ãƒ«ã®ä½¿ç”¨ã¨__stdcallã®å®šç¾©
 */
-//	‚±‚Ìƒ\[ƒXƒR[ƒh‚Ì—˜—pðŒ‚É‚Â‚¢‚Ä‚ÍA
-//	“¯«‚Ì AqLicense.txt ‚ð‚²——‚­‚¾‚³‚¢
+//	ã“ã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®åˆ©ç”¨æ¡ä»¶ã«ã¤ã„ã¦ã¯ã€
+//	åŒæ¢±ã® AqLicense.txt ã‚’ã”è¦§ãã ã•ã„
 //  COPYRIGHT (C) 2006 AQUEST CORP.
 //////////////////////////////////////////////////////////////////////
 #if !defined(_AQUESTALK_H_)
@@ -32,18 +32,18 @@ extern "C"{
 
 
 /////////////////////////////////////////////
-//!	‰¹º‹L†—ñ‚©‚ç‰¹º”gŒ`‚ð¶¬
-//!	‰¹º”gŒ`ƒf[ƒ^‚Í“à•”‚Å—ÌˆæŠm•Û‚³‚ê‚éB
-//!	‰¹º”gŒ`ƒf[ƒ^‚Ì‰ð•ú‚Í–{ŠÖ”‚ÌŒÄ‚Ño‚µ‘¤‚ÅAquesTalk_FreeWave()‚É‚Äs‚¤
-//! @param	koe[in]		‰¹º‹L†—ñiNULLI’[j
-//! @param	iSpeed[in]	”­˜b‘¬“x [%] 50-300 ‚ÌŠÔ‚ÅŽw’è
-//!	@param	pSize[out]	¶¬‚µ‚½‰¹ºƒf[ƒ^‚ÌƒTƒCƒY[byte]iƒGƒ‰[‚Ìê‡‚ÍƒGƒ‰[ƒR[ƒh‚ª•Ô‚éj
-//!	@return	WAVƒtƒH[ƒ}ƒbƒg‚Ì‰¹ºƒf[ƒ^‚Ìæ“ªƒAƒhƒŒƒXBƒGƒ‰[Žž‚ÍNULL‚ª•Ô‚é
+//!	éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰éŸ³å£°æ³¢å½¢ã‚’ç”Ÿæˆ
+//!	éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã¯å†…éƒ¨ã§é ˜åŸŸç¢ºä¿ã•ã‚Œã‚‹ã€‚
+//!	éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾ã¯æœ¬é–¢æ•°ã®å‘¼ã³å‡ºã—å´ã§AquesTalk_FreeWave()ã«ã¦è¡Œã†
+//! @param	koe[in]		éŸ³å£°è¨˜å·åˆ—ï¼ˆNULLçµ‚ç«¯ï¼‰
+//! @param	iSpeed[in]	ç™ºè©±é€Ÿåº¦ [%] 50-300 ã®é–“ã§æŒ‡å®š
+//!	@param	pSize[out]	ç”Ÿæˆã—ãŸéŸ³å£°ãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚º[byte]ï¼ˆã‚¨ãƒ©ãƒ¼ã®å ´åˆã¯ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ãŒè¿”ã‚‹ï¼‰
+//!	@return	WAVãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã®éŸ³å£°ãƒ‡ãƒ¼ã‚¿ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹ã€‚ã‚¨ãƒ©ãƒ¼æ™‚ã¯NULLãŒè¿”ã‚‹
 DllExport unsigned char * __stdcall AquesTalk_Synthe(const char *koe, int iSpeed, int *pSize);
 
 /////////////////////////////////////////////
-//!	‰¹ºƒf[ƒ^‚Ì—Ìˆæ‚ðŠJ•ú
-//!	@param  wav[in]		AquesTalk_Synthe()‚Å•Ô‚³‚ê‚½ƒAƒhƒŒƒX‚ðŽw’è
+//!	éŸ³å£°ãƒ‡ãƒ¼ã‚¿ã®é ˜åŸŸã‚’é–‹æ”¾
+//!	@param  wav[in]		AquesTalk_Synthe()ã§è¿”ã•ã‚ŒãŸã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’æŒ‡å®š
 DllExport void __stdcall AquesTalk_FreeWave(unsigned char *wav);
 
 

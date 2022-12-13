@@ -60,13 +60,12 @@ public class YahooJapanJaPhonemizer implements JaPhonemizer {
         @Target
         String roman;
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(surface);
-            sb.append(",");
-            sb.append(furigana);
-            sb.append(",");
-            sb.append(roman);
-            return sb.toString();
+            String sb = surface +
+                    "," +
+                    furigana +
+                    "," +
+                    roman;
+            return sb;
         }
         static final String BODY = "" +
                 "{\n" +

@@ -46,8 +46,7 @@ public class AquesTalkSynthesizerModeDesc extends SynthesizerModeDesc implements
         List<Voice> voiceList = new LinkedList<>();
         javax.speech.synthesis.Voice[] voices = super.getVoices();
         int count = 0;
-        for (int i = 0; i < voices.length; i++) {
-            Voice aquesTalkVoice = voices[i];
+        for (Voice aquesTalkVoice : voices) {
             try {
                 voiceList.add(aquesTalkVoice);
                 count++;

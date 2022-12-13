@@ -8,7 +8,6 @@ package vavi.speech.phonemizer;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.Scanner;
 
 import com.worksap.nlp.sudachi.Config;
 import com.worksap.nlp.sudachi.Dictionary;

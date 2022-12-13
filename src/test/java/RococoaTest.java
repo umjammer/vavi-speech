@@ -87,7 +87,7 @@ class RococoaTest {
             return phonemesSpoken;
         }
 
-        public void speechSynthesizer_didFinishSpeaking(NSSpeechSynthesizer sender, final boolean success) {
+        public void speechSynthesizer_didFinishSpeaking(NSSpeechSynthesizer sender, boolean success) {
             this.success = success;
             synchronized (speechDoneMonitor) {
                 speechDoneMonitor.notify();
@@ -115,7 +115,7 @@ class RococoaTest {
             }
         }
 
-        public void waitForWord(long interval, final String word) {
+        public void waitForWord(long interval, String word) {
             synchronized (waitForSpeechWordMonitor) {
                 wordWaitingFor = word;
                 try {
