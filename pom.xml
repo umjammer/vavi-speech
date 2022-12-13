@@ -309,7 +309,7 @@ TODO
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-sound</artifactId>
-      <version>1.0.14</version>
+      <version>1.0.15</version>
     </dependency>
     <dependency>
       <groupId>org.rococoa</groupId>
@@ -355,7 +355,7 @@ TODO
     <dependency>
       <groupId>com.ibm.icu</groupId>
       <artifactId>icu4j</artifactId>
-      <version>71.1</version>
+      <version>72.1</version>
     </dependency>
 
     <dependency>
