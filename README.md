@@ -7,15 +7,15 @@
 
 Text to Speech (JSAPI) for Java
 
-| **Type** | **Description** | **Staus** | **SPI Status** | **Quality** | **Comment** |
-|:---------|:----------------|:---------:|:--------------:|:-----------:|:------------|
-| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI | ✅ |  ✅ | 😐 | 32bit only |
-| AquesTalk | JNA | ✅ |  ✅ | 😐 | 32bit only |
-| AquesTalk2 | JNI | - | - | | |
-| AquesTalk10 | JNA | ✅ |  ✅ | 😐 | |
-| Google Cloud Text To Speech | [Google Cloud Text To Speech](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries) | ✅ | ✅ | 👑 | |
+| **Type** | **Description**                                                                                                                                                                                   | **Staus** | **SPI Status** | **Quality** | **Comment** |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------:|:--------------:|:-----------:|:------------|
+| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only |
+| AquesTalk | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only |
+| AquesTalk2 | JNI                                                                                                                                                                                               | - | - | | |
+| AquesTalk10 | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 | |
+| Google Cloud Text To Speech | [Google Cloud Text To Speech](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)                                                                                           | ✅ | ✅ | 👑 | |
 | Rococoa | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA | ✅ | ✅ | 😃 | |
-| FreeTTS | [FreeTTS](https://freetts.sourceforge.io/) | - | ✅ | 💩 | |
+| FreeTTS | [FreeTTS](https://github.com/umjammer/FreeTTS/)                                                                                                                             | - | ✅ | 💩 | |
 
 ## Kanji -> Kana converter
 
@@ -70,12 +70,19 @@ $ cat src/test/resources/aquestalk10.properties
 phonemer=vavi.speech.phoneme.SenJaPhonemer
 ```
 
-### sudachi
+### Sudachi
 
 ```shell
 $ cd vavi-speech
 $ curl -o sudachi-dictionary-20210802-full.zip http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/sudachi-dictionary-20210802-full.zip
 $ tar zxvf sudachi-dictionary-20210802-full.zip src/test/resources/sudachi/
+```
+
+* edit `aquestalk10.properties` like below
+
+```shell
+$ cat src/test/resources/aquestalk10.properties
+phonemer=vavi.speech.phoneme.SudachiJaPhonemer
 ```
 
 ### goo to hiragana
@@ -111,19 +118,10 @@ $ cat src/test/resources/aquestalk10.properties
 phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
 ```
 
-### Sudachi
-
- * edit `aquestalk10.properties` like below
-
-```shell
-$ cat src/test/resources/aquestalk10.properties
-phonemer=vavi.speech.phoneme.SudachiJaPhonemer
-```
-
 ### a3rt
 
  * https://a3rt.recruit.co.jp/product/proofreadingAPI/registered/
- * set client id by mail into 'local.properties'
+ * set client id by email into 'local.properties'
 
 ## TODO
 
@@ -131,12 +129,17 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
  * implement voices
  * [watson](https://www.ibm.com/watson/jp-ja/developercloud/text-to-speech.html)
  * https://github.com/festvox/festival
- * voicevox
+ * ~~voicevox~~ -> [vavi-speech2](https://github.com/umjammer/vavi-speech2)
  * jsapi source
  * ~~auto load aques framework (jna)~~
  * https://www.google.co.jp/ime/cgiapi.html
- * text analytics + nicotalk character emotion
+ * ~~text analytics + nicotalk character emotion~~ -> [vavi-speech2](https://github.com/umjammer/vavi-speech2) (wip)
  * tacotron2
+ * 語尾方言変換
+   * ~~[お嬢様言葉](https://github.com/jiro4989/ojosama)~~ done
+     * remaining some unit tests
+     * extract rules as json
+   * ずんだもん
 
 ### Morphological Analyzer
 
@@ -144,8 +147,11 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html
  * https://github.com/neubig/kytea
  * https://github.com/google/sentencepiece
+   * https://github.com/levyfan/sentencepiece-jni
+   * https://github.com/keigohtr/apitore-sdk-java
  * https://github.com/oyahiroki/nlp4j
  * https://github.com/lucene-gosen/lucene-gosen
+ * https://github.com/ikawaha/kagome
 
 ### NLP
 
@@ -160,10 +166,10 @@ phonemer=vavi.speech.phoneme.SudachiJaPhonemer
 ### Kanji -> Kana
 
  * chawan (lost in the internet)
- * [open jtalk](https://github.com/r9y9/open_jtalk) njd*
+ * ~~[open jtalk](https://github.com/r9y9/open_jtalk) njd*~~ -> [Gyutan](https://github.com/umjammer/Gyutan)
  * http://kakasi.namazu.org/index.html.ja
- * https://github.com/nicolas-raoul/kakasi-java
- * https://github.com/nicolas-raoul/jakaroma
+ * https://github.com/nicolas-raoul/kakasi-java (predecessor of jakaroma)
+ * https://github.com/nicolas-raoul/jakaroma (engine is kuromoji)
  * ~~[mac cocoa](https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293)~~ (done)
  * unidic
 

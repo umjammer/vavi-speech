@@ -24,7 +24,8 @@ TODO
   </issueManagement>
 
   <properties>
-    <rococoa.version>0.8.4</rococoa.version>
+    <rococoa.version>0.8.5</rococoa.version>
+    <freetts.version>1.2.3</freetts.version>
   </properties>
 
   <distributionManagement>
@@ -51,6 +52,7 @@ TODO
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>properties-maven-plugin</artifactId>
+            <version>1.1.0</version>
             <executions>
               <execution>
                 <id>read-properties</id>
@@ -68,6 +70,7 @@ TODO
           </plugin>
           <plugin>
             <!-- don't touch: this works well on local -->
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M7</version>
             <configuration>
@@ -86,9 +89,6 @@ TODO
                 -Dsudachi.dir=${sudachi.dir}
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
               </argLine>
-              <includes>
-                <include>**/*Test_*.java</include>
-              </includes>
             </configuration>
           </plugin>
         </plugins>
@@ -131,6 +131,7 @@ TODO
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>native-maven-plugin</artifactId>
+            <version>1.0-alpha-11</version>
             <extensions>true</extensions>
             <configuration>
               <javahClassNames>
@@ -253,19 +254,21 @@ TODO
 
   <repositories>
     <repository>
-      <id>jitpack.io</id>
-      <url>https://jitpack.io</url>
-    </repository>
-    <repository>
       <id>github</id>
       <url>https://maven.pkg.github.com/umjammer/*</url>
     </repository>
     <repository>
-      <id>gitlab-maven2</id> <!-- idk why this is needed??? -->
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+<!--
+    <repository>
+      <id>gitlab-maven2</id> !- idk why this is needed??? -
       <url>https://gitlab.com/api/v4/projects/30804899/packages/maven</url>
     </repository>
+-->
     <repository>
-      <id>gitlab-maven</id>
+      <id>gitlab-maven</id> <!-- sen -->
       <url>https://gitlab.com/api/v4/projects/18523814/packages/maven</url>
     </repository>
     <repository>
@@ -330,16 +333,11 @@ TODO
       <artifactId>argparse4j</artifactId>
       <version>0.9.0</version>
     </dependency>
-    <dependency>
-      <groupId>net.sf.sociaal</groupId>
-      <artifactId>freetts</artifactId>
-      <version>1.2.2</version>
-    </dependency>
 
     <dependency>
       <groupId>sen</groupId>
       <artifactId>sen</artifactId>
-      <version>1.2.2.2</version>
+      <version>1.2.3</version>
     </dependency>
     <dependency>
       <groupId>com.atilika.kuromoji</groupId>
@@ -395,6 +393,37 @@ TODO
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jdk14</artifactId>
       <version>1.7.36</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jvoicexml</groupId>
+      <artifactId>freetts</artifactId>
+      <version>${freetts.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jvoicexml</groupId>
+      <artifactId>freetts_jsapi10</artifactId>
+      <version>${freetts.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jvoicexml</groupId>
+      <artifactId>cmulex</artifactId>
+      <version>${freetts.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jvoicexml</groupId>
+      <artifactId>en_us</artifactId>
+      <version>${freetts.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jvoicexml</groupId>
+      <artifactId>cmu_us_kal</artifactId>
+      <version>${freetts.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
