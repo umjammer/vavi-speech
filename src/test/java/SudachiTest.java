@@ -121,6 +121,7 @@ public class SudachiTest {
         }
     }
 
+    // recruit
     public Result proofread(String text) {
         try {
             return WebScraper.Util.scrape(Result.class, apiKey, text, "low").get(0);
@@ -138,6 +139,7 @@ public class SudachiTest {
      */
     void exec(String file, String exclusionPattern) throws IOException {
 
+        // sudachi
         Config config = Config.fromClasspath("sudachi.json");
         Dictionary dict = new DictionaryFactory().create(config);
         Tokenizer tokenizer = dict.create();

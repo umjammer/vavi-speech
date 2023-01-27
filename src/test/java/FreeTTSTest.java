@@ -17,12 +17,12 @@ import org.junit.jupiter.api.Test;
 
 
 /**
- * FreeTSSTest. (FreeTSS)
+ * FreeTTSTest. (FreeTSS)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-class FreeTSSTest {
+class FreeTTSTest {
 
     @Test
     void test01() throws Exception {
@@ -43,10 +43,12 @@ class FreeTSSTest {
 System.err.println("---- voices ----");
 Arrays.asList(smd.getVoices()).forEach(v -> System.err.println(v.getName()));
 System.err.println("---");
-        Optional<Voice> voice = Arrays.stream(smd.getVoices())
-                .filter(v -> v.getName().equals("kevin16"))
-                .findFirst();
-        synthesizer.getSynthesizerProperties().setVoice(voice.get());
+        String name = "kevin16";
+//        String name = "kevin";
+        Voice voice = Arrays.stream(smd.getVoices())
+                .filter(v -> v.getName().equals(name))
+                .findFirst().get();
+        synthesizer.getSynthesizerProperties().setVoice(voice);
 
         synthesizer.speakPlainText(text, null);
 
@@ -55,7 +57,7 @@ System.err.println("---");
     }
 
     public static void main(String[] args) throws Exception {
-        FreeTSSTest app = new FreeTSSTest();
+        FreeTTSTest app = new FreeTTSTest();
         Arrays.asList("Hello World", "Make yourself at home.", "By the way, I want to eat udon", "Do you speak English?", args[0]).forEach(t -> {
             try {
                 app.speak(t);

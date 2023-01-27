@@ -48,6 +48,7 @@ class JSAPITest2_aquestalk_win32 {
         synthesizer.deallocate();
     }
 
+    /** */
     public static void main(String[] args) throws Exception {
         JSAPITest2_aquestalk_win32 app = new JSAPITest2_aquestalk_win32();
         app.speak(args[0]);

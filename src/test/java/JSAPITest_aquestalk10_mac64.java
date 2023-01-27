@@ -11,6 +11,7 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
@@ -23,12 +24,14 @@ import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
  * @version 0.00 070202 initial version <br>
  */
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
-public class JSAPITest_aquestalk10_mac64 {
+class JSAPITest_aquestalk10_mac64 {
 
-    public void test01() throws Exception {
+    @Test
+    void test01() throws Exception {
         speak("すもももももももものうち");
     }
 
+    /** */
     public void speak(String text) throws Exception {
         // シンセザイザのモードを指定
         SynthesizerModeDesc desc = new AquesTalk10SynthesizerModeDesc("AquesTalk10EngineCentral", "general", Locale.JAPAN);
@@ -50,6 +53,7 @@ System.err.println("---");
         synthesizer.deallocate();
     }
 
+    /** */
     public static void main(String[] args) throws Exception {
         JSAPITest_aquestalk10_mac64 app = new JSAPITest_aquestalk10_mac64();
         app.speak(args[0]);

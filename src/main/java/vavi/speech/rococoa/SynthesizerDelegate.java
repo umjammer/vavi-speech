@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.rococoa.cocoa.foundation.NSRange;
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
 
 
 /**

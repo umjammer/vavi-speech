@@ -7,10 +7,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 import org.rococoa.cocoa.foundation.NSRange;
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -29,7 +30,8 @@ class RococoaTest {
 
     private static final int TIME_TO_WAIT = 50000;
 
-    void test01(String text) throws Exception {
+    @Test
+    void test01() throws Exception {
         speak("すもももももももものうち");
     }
 

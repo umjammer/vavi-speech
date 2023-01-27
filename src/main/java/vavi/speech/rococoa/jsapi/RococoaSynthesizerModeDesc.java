@@ -16,8 +16,8 @@ import javax.speech.EngineException;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.Voice;
 
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
-import org.rococoa.contrib.appkit.NSVoice;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
+import org.rococoa.cocoa.appkit.NSVoice;
 
 
 /**

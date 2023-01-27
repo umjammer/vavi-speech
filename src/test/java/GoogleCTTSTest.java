@@ -67,6 +67,7 @@ class GoogleCTTSTest {
         }
     }
 
+    /** */
     public static void main(String[] args) throws Exception {
         GoogleCTTSTest app = new GoogleCTTSTest();
         app.speak(args[0]);

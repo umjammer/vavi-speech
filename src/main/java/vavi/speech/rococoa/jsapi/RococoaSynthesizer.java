@@ -36,9 +36,9 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer.NSSpeechBoundary;
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer.NSSpeechStatus;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer.NSSpeechBoundary;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer.NSSpeechStatus;
 
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
