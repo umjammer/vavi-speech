@@ -6,10 +6,13 @@
 
 package vavi.speech.phonemizer;
 
+import java.util.logging.Level;
+
 import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
 
 import vavi.util.CharNormalizerJa;
+import vavi.util.Debug;
 import vavi.util.Locales;
 
 
@@ -31,10 +34,12 @@ public class KuromojiJaPhonemizer implements JaPhonemizer {
     public String phoneme(String text) {
         StringBuilder sb = new StringBuilder();
         for (Token token : tokenizer.tokenize(CharNormalizerJa.ToHalfDigit.normalize(text))) {
-System.err.println(token.getSurface() + "\t("
+if (Debug.isLoggable(Level.FINE)) {
+ System.err.println(token.getSurface() + "\t("
            + token.getBaseForm() + ")" + "\t" + token.getAllFeaturesArray()[0] + "-" + token.getAllFeaturesArray()[1]
            + "(" + token.getPosition() + ")\t" + token.getReading() + "\t"
            + token.getPronunciation());
+ }
             if (token.getPronunciation().equals("*")) {
                 if (token.getAllFeaturesArray()[1].equals("数")) {
                     sb.append(digitConverter.phoneme(token.getSurface()));
@@ -47,7 +52,9 @@ System.err.println(token.getSurface() + "\t("
                 sb.append(token.getPronunciation());
             }
         }
-System.err.println(sb);
+if (Debug.isLoggable(Level.FINE)) {
+ System.err.println(sb);
+}
         return sb.toString();
     }
 

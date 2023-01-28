@@ -7,9 +7,11 @@
 package vavi.speech.phonemizer;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
+import vavi.util.Debug;
 import vavi.util.Locales;
 
 
@@ -36,11 +38,13 @@ public class SenJaPhonemizer implements JaPhonemizer {
             Token[] token = tagger.analyze(text);
             if (token != null) {
                 for (Token value : token) {
-                    System.err.println(value.toString() + "\t("
-                            + value.getBasicString() + ")" + "\t" + value.getPos()
-                            + "(" + value.start() + "," + value.end() + ","
-                            + value.length() + ")\t" + value.getReading() + "\t"
-                            + value.getPronunciation());
+if (Debug.isLoggable(Level.FINE)) {
+ System.err.println(value.toString() + "\t("
+            + value.getBasicString() + ")" + "\t" + value.getPos()
+            + "(" + value.start() + "," + value.end() + ","
+            + value.length() + ")\t" + value.getReading() + "\t"
+            + value.getPronunciation());
+}
                     if (value.getReading() != null) {
                         sb.append(value.getPronunciation());
                     } else {
@@ -51,7 +55,9 @@ public class SenJaPhonemizer implements JaPhonemizer {
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-System.err.println(sb);
+if (Debug.isLoggable(Level.FINE)) {
+ System.err.println(sb);
+}
         return converter.convertFrom(sb.toString());
     }
 }

@@ -9,6 +9,7 @@ package vavi.speech.rococoa.jsapi;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 
 import javax.speech.Engine;
 import javax.speech.EngineCreate;
@@ -18,6 +19,7 @@ import javax.speech.synthesis.Voice;
 
 import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
 import org.rococoa.cocoa.appkit.NSVoice;
+import vavi.util.Debug;
 
 
 /**
@@ -49,7 +51,7 @@ public class RococoaSynthesizerModeDesc extends SynthesizerModeDesc implements E
         List<Voice> voiceList = new LinkedList<>();
         int count = 0;
         for (NSVoice nativeVoice : NSSpeechSynthesizer.availableVoices()) {
-//System.err.println(nativeVoice.getName() + ": " + nativeVoice.getIdentifier());
+Debug.println(Level.FINEST, nativeVoice.getName() + ": " + nativeVoice.getIdentifier());
             Voice voice = new Voice(nativeVoice.getName(),
                                     toGenger(nativeVoice.getGender()),
                                     nativeVoice.getAge(),

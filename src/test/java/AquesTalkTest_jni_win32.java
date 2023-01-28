@@ -7,6 +7,7 @@
 import java.io.ByteArrayInputStream;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import vavi.speech.aquestalk.AquesTalk;
 import vavi.speech.aquestalk.AquesTalkDa;
+import vavi.util.Debug;
 
 
 /**
@@ -56,13 +58,13 @@ class AquesTalkTest_jni_win32 {
         byte[] wave = aquesTalk.synthesize(koe, 100);
         AudioInputStream ais = AudioSystem.getAudioInputStream(new ByteArrayInputStream(wave));
 
-System.err.println(ais.getFormat());
+Debug.println(ais.getFormat());
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, ais.getFormat());
         SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
         line.open(ais.getFormat());
         line.addLineListener(ev -> {
             if (LineEvent.Type.STOP == ev.getType()) {
-System.err.println("stoped");
+Debug.println("stoped");
             }
         });
         line.start();
@@ -86,7 +88,7 @@ System.err.println("stoped");
         Enumeration<?> e = props.propertyNames();
         while (e.hasMoreElements()) {
             String name = (String) e.nextElement();
-System.err.println("Japanese: " + name);
+Debug.println("Japanese: " + name);
             aquesTalkDa.play(props.getProperty(name), true);
         }
     }

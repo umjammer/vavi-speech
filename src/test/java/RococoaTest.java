@@ -155,7 +155,7 @@ class RococoaTest {
 
         public void speechSynthesizer_willSpeakWord_ofString(NSSpeechSynthesizer sender, NSRange wordToSpeak, String text) {
             wordsSpoken.add(text.substring((int) wordToSpeak.getLocation(), (int) wordToSpeak.getEndLocation()));
-            if ( wordWaitingFor == null || wordsSpoken.get(wordsSpoken.size()-1).equals(wordWaitingFor)) {
+            if (wordWaitingFor == null || wordsSpoken.get(wordsSpoken.size() - 1).equals(wordWaitingFor)) {
                 synchronized(waitForSpeechWordMonitor) {
                     waitForSpeechWordMonitor.notify();
                 }

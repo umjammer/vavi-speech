@@ -9,6 +9,7 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 
 /**
@@ -18,6 +19,7 @@ import net.java.sen.Token;
  * @version 0.00 2010/03/14 nsano initial version <br>
  */
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
+@EnabledIfSystemProperty(named = "sen.home", matches = ".*")
 class SenTest {
 
     @Test

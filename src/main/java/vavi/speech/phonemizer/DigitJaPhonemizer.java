@@ -6,10 +6,12 @@ package vavi.speech.phonemizer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import vavi.util.CharNormalizerJa;
+import vavi.util.Debug;
 import vavi.util.Locales;
 
 
@@ -471,13 +473,13 @@ public class DigitJaPhonemizer implements JaPhonemizer {
             } else {
                 if (NumberPhoneType.BigBegin + bigPos - 1 > NumberPhoneType.BigEnd) {
                     // 大きすぎるのでスキップ
-                    System.err.println("too big: " + src);
+Debug.println(Level.FINE, "too big: " + src);
                     continue;
                 }
                 baseType = NumberPhoneType.values()[NumberPhoneType.BigBegin + bigPos - 1];
                 if (!baseType.isBig()) {
                     // 大きすぎるのでスキップ
-                    System.err.println("too big: " + src);
+Debug.println(Level.FINE, "too big: " + src);
                     continue;
                 }
             }
