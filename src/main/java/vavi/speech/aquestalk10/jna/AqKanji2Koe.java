@@ -24,7 +24,7 @@ import com.sun.jna.Pointer;
  */
 public interface AqKanji2Koe extends Library {
 
-    public static final AqKanji2Koe INSTANCE = Native.load("AqKanji2Koe", AqKanji2Koe.class);
+    AqKanji2Koe INSTANCE = Native.load("AqKanji2Koe", AqKanji2Koe.class);
 
     /**
      * 言語処理インスタンス生成（初期化）
@@ -62,7 +62,7 @@ public interface AqKanji2Koe extends Library {
      * @param nBufKoe [in] koeのバッファサイズ[byte]
      * @return 0:正常終了 それ以外：エラーコード
      */
-    int AqKanji2Koe_Convert(Pointer hAqKanji2Koe, final String kanji, String koe, int nBufKoe);
+    int AqKanji2Koe_Convert(Pointer hAqKanji2Koe, String kanji, String koe, int nBufKoe);
 
     /**
      * 開発ライセンスキー設定
@@ -73,5 +73,5 @@ public interface AqKanji2Koe extends Library {
      * @return ライセンスキーが正しければ0、正しくなければ1が返る
      *         キーの解析を防ぐため不正なキーでも0を返す場合がある。このとき制限は解除されない。
      */
-    int AqKanji2Koe_SetDevKey(final byte[] devKey);
+    int AqKanji2Koe_SetDevKey(byte[] devKey);
 }

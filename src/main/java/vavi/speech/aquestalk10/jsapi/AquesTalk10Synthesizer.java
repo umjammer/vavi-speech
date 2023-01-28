@@ -6,6 +6,7 @@
 
 package vavi.speech.aquestalk10.jsapi;
 
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.speech.AudioException;
@@ -35,10 +37,12 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
+import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
 import vavi.beans.InstanciationBinder;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10Wrapper;
 import vavi.speech.phonemizer.JaPhonemizer;
+import vavi.util.Debug;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -65,6 +69,9 @@ public class AquesTalk10Synthesizer implements Synthesizer {
     /** */
     private SynthesizerModeDesc desc;
 
+    /** */
+    private SynthesizerProperties properties = new BaseSynthesizerProperties();
+
     /**
      * Creates a new Synthesizer in the DEALLOCATED state.
      *
@@ -86,7 +93,7 @@ logger.info("use " + phonemizer);
     private JaPhonemizer phonemizer;
 
     /** */
-    private class Pair {
+    private static class Pair {
         public Pair(String text, SpeakableListener listener) {
             this.text = text;
             this.listener = listener;
@@ -108,8 +115,7 @@ logger.info("use " + phonemizer);
     }
 
     @Override
-    public void cancel(Object source)
-        throws IllegalArgumentException, EngineStateError {
+    public void cancel(Object source) throws IllegalArgumentException, EngineStateError {
     }
 
     @Override
@@ -124,8 +130,7 @@ logger.info("use " + phonemizer);
 
     @Override
     public SynthesizerProperties getSynthesizerProperties() {
-        // TODO Auto-generated method stub
-        return null;
+        return properties;
     }
 
     @Override
@@ -141,9 +146,7 @@ logger.info("use " + phonemizer);
     }
 
     @Override
-    public void speak(String JSMLText, SpeakableListener listener)
-        throws JSMLException, EngineStateError {
-
+    public void speak(String JSMLText, SpeakableListener listener) throws JSMLException, EngineStateError {
         speak(new Pair(JSMLText, listener));
     }
 
@@ -155,16 +158,12 @@ logger.info("use " + phonemizer);
     }
 
     @Override
-    public void speak(Speakable JSMLtext, SpeakableListener listener)
-        throws JSMLException, EngineStateError {
-
+    public void speak(Speakable JSMLtext, SpeakableListener listener) throws JSMLException, EngineStateError {
         speak(new Pair(JSMLtext.getJSMLText(), listener));
     }
 
     @Override
-    public void speakPlainText(String text, SpeakableListener listener)
-        throws EngineStateError {
-
+    public void speakPlainText(String text, SpeakableListener listener) throws EngineStateError {
         speak(new Pair(text, listener));
     }
 
@@ -201,29 +200,35 @@ logger.info("use " + phonemizer);
 
     @Override
     public void allocate() throws EngineException, EngineStateError {
-        aquesTalk10 = AquesTalk10Wrapper.getInstance();
-        executer.execute(() -> {
-            while (looping) {
-                try {
-                    Pair pair = queue.poll();
-                    if (pair != null) {
-                        if (pair.listener != null) {
-                            pair.listener.speakableStarted(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
+        try {
+            aquesTalk10 = AquesTalk10Wrapper.getInstance();
+            properties.setVolume(1f);
+            executer.execute(() -> {
+                while (looping) {
+                    try {
+                        Pair pair = queue.poll();
+                        if (pair != null) {
+                            if (pair.listener != null) {
+                                pair.listener.speakableStarted(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
+                            }
+Debug.println(Level.FINE, "\n" + pair.text);
+                            playing = true;
+                            player.setVolume(properties.getVolume());
+                            player.play(aquesTalk10.synthe(phonemizer.phoneme(pair.text)));
+                            playing = false;
+                            if (pair.listener != null) {
+                                pair.listener.speakableEnded(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
+                            }
                         }
-System.err.println(pair.text);
-                        playing = true;
-                        player.play(aquesTalk10.synthe(phonemizer.phoneme(pair.text)));
-                        playing = false;
-                        if (pair.listener != null) {
-                            pair.listener.speakableEnded(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
-                        }
-                    }
-                    Thread.sleep(100);
-                } catch (Exception e) {
+                        Thread.sleep(100);
+                    } catch (Exception e) {
 e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
+        } catch (PropertyVetoException e) {
+            throw (EngineException) new EngineException().initCause(e);
+        }
     }
 
     @Override
@@ -265,7 +270,6 @@ e.printStackTrace();
     @Override
     public void pause() throws EngineStateError {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -282,7 +286,7 @@ e.printStackTrace();
         if (state == Synthesizer.QUEUE_EMPTY) {
             return queue.isEmpty();
         } else if (state == Synthesizer.QUEUE_NOT_EMPTY) {
-                return!queue.isEmpty();
+            return !queue.isEmpty();
         } else {
             throw new IllegalArgumentException("unsupported sate: " + state);
         }

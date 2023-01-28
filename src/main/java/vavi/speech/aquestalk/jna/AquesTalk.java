@@ -22,7 +22,7 @@ import com.sun.jna.Pointer;
  */
 public interface AquesTalk extends Library {
 
-    public static final AquesTalk INSTANCE = Native.load("AquesTalk", AquesTalk.class);
+    AquesTalk INSTANCE = Native.load("AquesTalk", AquesTalk.class);
 
     /**
      * 音声記号列から音声波形を生成 音声波形データは内部で領域確保される。

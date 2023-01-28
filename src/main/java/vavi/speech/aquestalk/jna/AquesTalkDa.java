@@ -20,7 +20,7 @@ import com.sun.jna.Native;
  */
 public interface AquesTalkDa extends Library {
 
-    public static final AquesTalkDa INSTANCE = Native.load("AquesTalkDa", AquesTalkDa.class);
+    AquesTalkDa INSTANCE = Native.load("AquesTalkDa", AquesTalkDa.class);
 
     /**
      * 音声を合成して出力（同期タイプ）

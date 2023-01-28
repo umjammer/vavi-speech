@@ -7,7 +7,9 @@
 package vavi.speech.phonemizer;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
+import vavi.util.Debug;
 import vavi.util.Locales;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
@@ -55,13 +57,12 @@ public class GooFuriganaJaPhonemizer implements JaPhonemizer {
         @Target
         String converted;
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(request_id);
-            sb.append(",");
-            sb.append(output_type);
-            sb.append(",");
-            sb.append(converted);
-            return sb.toString();
+            String sb = request_id +
+                    "," +
+                    output_type +
+                    "," +
+                    converted;
+            return sb;
         }
     }
 
@@ -74,11 +75,11 @@ public class GooFuriganaJaPhonemizer implements JaPhonemizer {
                             "application/json",
                             apiKey,
                             text.replace("\n", "")).get(0);
-System.err.println(result);
+Debug.println(Level.FINE, result);
             // TODO 助詞 は、へ, space
             return result.converted;
         } catch (IOException e) {
-System.err.println(text);
+Debug.println(Level.WARNING, text);
             throw new IllegalStateException(e);
         }
     }

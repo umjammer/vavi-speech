@@ -21,9 +21,11 @@ package vavi.speech.rococoa;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.rococoa.cocoa.foundation.NSRange;
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
+import vavi.util.Debug;
 
 
 /**
@@ -73,7 +75,7 @@ public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesi
         return phonemesSpoken;
     }
 
-    public void speechSynthesizer_didFinishSpeaking(NSSpeechSynthesizer sender, final boolean success) {
+    public void speechSynthesizer_didFinishSpeaking(NSSpeechSynthesizer sender, boolean success) {
         this.success = success;
         synchronized (speechDoneMonitor) {
             speechDoneMonitor.notify();
@@ -103,7 +105,7 @@ public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesi
         }
     }
 
-    public void waitForWord(long interval, final String word) {
+    public void waitForWord(long interval, String word) {
         synchronized (waitForSpeechWordMonitor) {
             wordWaitingFor = word;
             try {
@@ -124,23 +126,31 @@ public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesi
         return "Unknown method";
     }
 
+    @Override
     public void speechSynthesizer_didEncounterErrorAtIndex_ofString_message(NSSpeechSynthesizer sender,
                                                                             Integer characterIndex,
                                                                             String text,
                                                                             String errorMessage) {
+Debug.println(Level.FINER, "speechSynthesizer_didEncounterErrorAtIndex_ofString_message: " + sender);
         position = characterIndex;
         this.errorMessage = errorMessage;
     }
 
+    @Override
     public void speechSynthesizer_didEncounterSyncMessage(NSSpeechSynthesizer sender, String synchMark) {
+Debug.println(Level.FINER, "speechSynthesizer_didEncounterSyncMessage: " + sender);
         this.synchMark = synchMark;
     }
 
+    @Override
     public synchronized void speechSynthesizer_willSpeakPhoneme(NSSpeechSynthesizer sender, short phonemeOpcode) {
+Debug.println(Level.FINER, "speechSynthesizer_willSpeakPhoneme: " + sender);
         phonemesSpoken.add(sender.opcodeToPhoneme(phonemeOpcode));
     }
 
+    @Override
     public void speechSynthesizer_willSpeakWord_ofString(NSSpeechSynthesizer sender, NSRange wordToSpeak, String text) {
+Debug.println(Level.FINER, "speechSynthesizer_willSpeakWord_ofString: " + sender);
         wordsSpoken.add(text.substring((int) wordToSpeak.getLocation(), (int) wordToSpeak.getEndLocation()));
         if (wordWaitingFor == null || wordsSpoken.get(wordsSpoken.size() - 1).equals(wordWaitingFor)) {
             synchronized (waitForSpeechWordMonitor) {

@@ -8,9 +8,9 @@ package vavi.speech.aquestalk2;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 
 /**
@@ -62,7 +62,7 @@ public class AquesTalk2Da {
     public void setPhont(String file) throws IOException {
         if (file != null) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            InputStream is = new FileInputStream(new File(file));
+            InputStream is = Files.newInputStream(new File(file).toPath());
             byte[] b = new byte[8192]; 
             while (is.available() > 0) {
                 int r = is.read(b, 0, b.length);

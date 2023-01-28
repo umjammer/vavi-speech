@@ -1,175 +1,175 @@
 //////////////////////////////////////////////////////////////////////////////
-               AquesTalk ‹K‘¥‰¹º‡¬ƒ‰ƒCƒuƒ‰ƒŠ
+               AquesTalk è¦å‰‡éŸ³å£°åˆæˆãƒ©ã‚¤ãƒ–ãƒ©ãƒª
                        AqTk/readme.txt
 //////////////////////////////////////////////////////////////////////////////
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        ŠT—v
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-uAquesTalk ‹K‘¥‰¹º‡¬ƒ‰ƒCƒuƒ‰ƒŠv‚ÍAƒeƒLƒXƒgî•ñ‚ð‰¹º”gŒ`‚É•ÏŠ·o—Í‚·‚éƒ‰
-ƒCƒuƒ‰ƒŠ‚Å‚·B
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        æ¦‚è¦
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+ã€ŒAquesTalk è¦å‰‡éŸ³å£°åˆæˆãƒ©ã‚¤ãƒ–ãƒ©ãƒªã€ã¯ã€ãƒ†ã‚­ã‚¹ãƒˆæƒ…å ±ã‚’éŸ³å£°æ³¢å½¢ã«å¤‰æ›å‡ºåŠ›ã™ã‚‹ãƒ©
+ã‚¤ãƒ–ãƒ©ãƒªã§ã™ã€‚
 
-AquesTalk‚ÍAŠÈ’P‚ÉƒVƒXƒeƒ€‚É‘g‚Ýž‚ß‚é‚±‚Æ‚ð‘æˆê–Ú•W‚Æ‚µ‚ÄŠJ”­‚µ‚Ü‚µ‚½B
-‚±‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ðŽg‚¦‚ÎA—lX‚ÈƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÉŠÈ’P‚É‰¹ºƒƒbƒZ[ƒW‚ð’Ç‰Á‚·‚é
-‚±‚Æ‚ª‚Å‚«‚é‚æ‚¤‚É‚È‚è‚Ü‚·B
+AquesTalkã¯ã€ç°¡å˜ã«ã‚·ã‚¹ãƒ†ãƒ ã«çµ„ã¿è¾¼ã‚ã‚‹ã“ã¨ã‚’ç¬¬ä¸€ç›®æ¨™ã¨ã—ã¦é–‹ç™ºã—ã¾ã—ãŸã€‚
+ã“ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ãˆã°ã€æ§˜ã€…ãªã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã«ç°¡å˜ã«éŸ³å£°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
+ã“ã¨ãŒã§ãã‚‹ã‚ˆã†ã«ãªã‚Šã¾ã™ã€‚
 
-‚Ü‚½A–{ƒ‰ƒCƒuƒ‰ƒŠ‚ÍA‰c—˜A”ñ‰c—˜‚É‚©‚©‚í‚ç‚¸–³ž‚ÅŽg—p‚Å‚«A»•i‚É‘g‚Ýž‚ñ‚Å
-”Ì”„‚·‚é‚±‚Æ‚à‰Â”\‚Å‚·B
+ã¾ãŸã€æœ¬ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã¯ã€å–¶åˆ©ã€éžå–¶åˆ©ã«ã‹ã‹ã‚ã‚‰ãšç„¡å„Ÿã§ä½¿ç”¨ã§ãã€è£½å“ã«çµ„ã¿è¾¼ã‚“ã§
+è²©å£²ã™ã‚‹ã“ã¨ã‚‚å¯èƒ½ã§ã™ã€‚
 
-AquesTalk‚ÍAƒVƒ“ƒvƒ‹‚³‚ð’Ç‹‚µ‚½‚±‚Æ‚©‚çAˆê”Ê“I‚ÈƒeƒLƒXƒg‰¹º‡¬‚Ì‚æ‚¤‚È‘å‹K
-–Í‚È’PŒêŽ«‘‚ðŽ‚Á‚Ä‚¢‚Ü‚¹‚ñB‚µ‚½‚ª‚Á‚ÄAŠ¿Žš‚©‚È¬‚¶‚è•¶‚©‚ç‚Ì‰¹º‡¬‚Í‚Å‚«
-‚¸A‚©‚È•\‹L‚Ì‰¹º‹L†—ñ‚©‚ç‚Ì‰¹º‡¬‚Æ‚È‚è‚Ü‚·B
+AquesTalkã¯ã€ã‚·ãƒ³ãƒ—ãƒ«ã•ã‚’è¿½æ±‚ã—ãŸã“ã¨ã‹ã‚‰ã€ä¸€èˆ¬çš„ãªãƒ†ã‚­ã‚¹ãƒˆéŸ³å£°åˆæˆã®ã‚ˆã†ãªå¤§è¦
+æ¨¡ãªå˜èªžè¾žæ›¸ã‚’æŒã£ã¦ã„ã¾ã›ã‚“ã€‚ã—ãŸãŒã£ã¦ã€æ¼¢å­—ã‹ãªæ··ã˜ã‚Šæ–‡ã‹ã‚‰ã®éŸ³å£°åˆæˆã¯ã§ã
+ãšã€ã‹ãªè¡¨è¨˜ã®éŸ³å£°è¨˜å·åˆ—ã‹ã‚‰ã®éŸ³å£°åˆæˆã¨ãªã‚Šã¾ã™ã€‚
 
-ˆê•ûAAquesTalk‚Í‚‹@”\‚È”’l“Ç‚Ýƒ‚ƒWƒ…[ƒ‹‚ðŠÜ‚ñ‚Å‚¢‚Ü‚·B‚±‚ê‚ÍA”’l‚ð–_“Ç‚ÝA
-Œ…“Ç‚ÝA•”ŽŒ‚È‚Ç‚Ìˆá‚¢‚É‰ž‚¶‚Ä“KØ‚È“Ç‚Ý‚ÆƒAƒNƒZƒ“ƒg‚Å‰¹º‚ð‡¬‚·‚é‚à‚Ì‚Å‚·B
-‚±‚ê‚É‚æ‚èA“®“I‚É”­º“à—e‚ð•ÏX‚·‚éê‡‚É‚à_“î‚É‘Î‰ž‚Å‚«‚Ü‚·B
+ä¸€æ–¹ã€AquesTalkã¯é«˜æ©Ÿèƒ½ãªæ•°å€¤èª­ã¿ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’å«ã‚“ã§ã„ã¾ã™ã€‚ã“ã‚Œã¯ã€æ•°å€¤ã‚’æ£’èª­ã¿ã€
+æ¡èª­ã¿ã€åŠ©æ•°è©žãªã©ã®é•ã„ã«å¿œã˜ã¦é©åˆ‡ãªèª­ã¿ã¨ã‚¢ã‚¯ã‚»ãƒ³ãƒˆã§éŸ³å£°ã‚’åˆæˆã™ã‚‹ã‚‚ã®ã§ã™ã€‚
+ã“ã‚Œã«ã‚ˆã‚Šã€å‹•çš„ã«ç™ºå£°å†…å®¹ã‚’å¤‰æ›´ã™ã‚‹å ´åˆã«ã‚‚æŸ”è»Ÿã«å¯¾å¿œã§ãã¾ã™ã€‚
 
-‚Ü‚¸‚ÍAƒTƒ“ƒvƒ‹ƒvƒƒOƒ‰ƒ€(bin/AqTkApp.exe)‚ðŽÀs‚µ‚ÄA‚±‚Ì‡¬‰¹º‚ð‚¨ŽŽ‚µ‚­‚¾
-‚³‚¢B
-
-
-‰¹º‹L†—ñ‚Ìˆê—á‚ðŽŸ‚ÉŽ¦‚µ‚Ü‚·B
-Ú×‚ÍA“¯«‚Ìu‰¹º‹L†—ñŽd—l.pdfv‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
-
-u‚ ‚µ‚½‚Ì/‚Ä'‚ñ‚«‚íA‚¢‚¿‚É‚¿‚¶‚ã[/‚Í‚êBv
-u‚Å‚ñ‚í‚Î'‚ñ‚²[‚íA<NUM VAL=01-2345-6789>‚Å‚·Bv
+ã¾ãšã¯ã€ã‚µãƒ³ãƒ—ãƒ«ãƒ—ãƒ­ã‚°ãƒ©ãƒ (bin/AqTkApp.exe)ã‚’å®Ÿè¡Œã—ã¦ã€ã“ã®åˆæˆéŸ³å£°ã‚’ãŠè©¦ã—ãã 
+ã•ã„ã€‚
 
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        “Á’¥
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-EŠÈ’P‚É‘g‚Ýž‚Ý‰Â”\
-    - ‰¹º‹L†—ñ‚ð—^‚¦‚é‚Æ‰¹ºo—ÍA‚Ü‚½‚Í‰¹º”gŒ`ƒf[ƒ^‚ð•Ô‚·‚¾‚¯‚ÌŠÈ’PAPI
-    - ŽÀsŽž‚É‚Í‚±‚ÌDLL‚¾‚¯‚Å‚æ‚­Aƒf[ƒ^ƒtƒ@ƒCƒ‹‚È‚ÇˆêØ•s—v
-E‚‚¢‡¬‰¹º•iŽ¿
-    - ŠŠ‚ç‚©‚È•·‚«Žæ‚è‚â‚·‚¢‰¹Ž¿‚ÆŽ©‘R‚ÈƒCƒ“ƒgƒl[ƒVƒ‡ƒ“
-E”’l“Ç‚Ýƒ‚ƒWƒ…[ƒ‹‚ðŽÀ‘•
-    - ”’l‚ð’¼ÚŽw’è‚Å‚«‚é‚Ì‚ÅAŠeŽí‚Ì“®“I‚ÈƒƒbƒZ[ƒW‚ð¶¬‰Â”\
-EƒtƒŠ[‚ÅŽg‚¦‚éƒ‰ƒCƒuƒ‰ƒŠ
-    - ’P‚È‚éŽg—p‚¾‚¯‚Å‚È‚­A»•i‚É‘g‚Ýž‚ñ‚Å”Ì”„‚·‚é‚±‚Æ‚à‰Â”\
-E’´ƒRƒ“ƒpƒNƒg‚È‰¹º‡¬ƒGƒ“ƒWƒ“
-    - –ñ108KByte‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚É‹K‘¥‰¹º‡¬‚Ì‚·‚×‚Ä‚ðŠÜ‚ÝAŠO•”ƒf[ƒ^‚ÍˆêØ•s—v
+éŸ³å£°è¨˜å·åˆ—ã®ä¸€ä¾‹ã‚’æ¬¡ã«ç¤ºã—ã¾ã™ã€‚
+è©³ç´°ã¯ã€åŒæ¢±ã®ã€ŒéŸ³å£°è¨˜å·åˆ—ä»•æ§˜.pdfã€ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        ƒpƒbƒP[ƒW\¬
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-–{ƒpƒbƒP[ƒW‚É‚ÍAˆÈ‰º‚Ìƒtƒ@ƒCƒ‹‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·B
+ã€Œã‚ã—ãŸã®/ã¦'ã‚“ãã‚ã€ã„ã¡ã«ã¡ã˜ã‚…ãƒ¼/ã¯ã‚Œã€‚ã€
+ã€Œã§ã‚“ã‚ã°'ã‚“ã”ãƒ¼ã‚ã€<NUM VAL=01-2345-6789>ã§ã™ã€‚ã€
 
-readme.txt                  ‚±‚Ìƒtƒ@ƒCƒ‹
-AqLicense.txt               ƒvƒƒOƒ‰ƒ€Žg—p‹–‘øŒ_–ñ‘
+
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        ç‰¹å¾´
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+ãƒ»ç°¡å˜ã«çµ„ã¿è¾¼ã¿å¯èƒ½
+    - éŸ³å£°è¨˜å·åˆ—ã‚’ä¸Žãˆã‚‹ã¨éŸ³å£°å‡ºåŠ›ã€ã¾ãŸã¯éŸ³å£°æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã™ã ã‘ã®ç°¡å˜API
+    - å®Ÿè¡Œæ™‚ã«ã¯ã“ã®DLLã ã‘ã§ã‚ˆãã€ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ãªã©ä¸€åˆ‡ä¸è¦
+ãƒ»é«˜ã„åˆæˆéŸ³å£°å“è³ª
+    - æ»‘ã‚‰ã‹ãªèžãå–ã‚Šã‚„ã™ã„éŸ³è³ªã¨è‡ªç„¶ãªã‚¤ãƒ³ãƒˆãƒãƒ¼ã‚·ãƒ§ãƒ³
+ãƒ»æ•°å€¤èª­ã¿ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’å®Ÿè£…
+    - æ•°å€¤ã‚’ç›´æŽ¥æŒ‡å®šã§ãã‚‹ã®ã§ã€å„ç¨®ã®å‹•çš„ãªãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ç”Ÿæˆå¯èƒ½
+ãƒ»ãƒ•ãƒªãƒ¼ã§ä½¿ãˆã‚‹ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+    - å˜ãªã‚‹ä½¿ç”¨ã ã‘ã§ãªãã€è£½å“ã«çµ„ã¿è¾¼ã‚“ã§è²©å£²ã™ã‚‹ã“ã¨ã‚‚å¯èƒ½
+ãƒ»è¶…ã‚³ãƒ³ãƒ‘ã‚¯ãƒˆãªéŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³
+    - ç´„108KByteã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«è¦å‰‡éŸ³å£°åˆæˆã®ã™ã¹ã¦ã‚’å«ã¿ã€å¤–éƒ¨ãƒ‡ãƒ¼ã‚¿ã¯ä¸€åˆ‡ä¸è¦
+
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸æ§‹æˆ
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+æœ¬ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã«ã¯ã€ä»¥ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒå«ã¾ã‚Œã¦ã„ã¾ã™ã€‚
+
+readme.txt                  ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«
+AqLicense.txt               ãƒ—ãƒ­ã‚°ãƒ©ãƒ ä½¿ç”¨è¨±è«¾å¥‘ç´„æ›¸
 doc
-@„°ƒvƒƒOƒ‰ƒ~ƒ“ƒOƒKƒCƒh.pdf –{ƒ‰ƒCƒuƒ‰ƒŠŽg—p‚Ì‚½‚ß‚Ì‹ZpŽ‘—¿
-@„°‰¹º‹L†—ñŽd—l.pdf      ‰¹º‹L†—ñŽd—l‘
-inc                         ƒCƒ“ƒNƒ‹[ƒhƒwƒbƒ_
-@„° AquesTalk.h            CAquesTalkƒNƒ‰ƒXƒwƒbƒ_
-@„° AquesTalkDa.h          CAquesTalkDaƒNƒ‰ƒXƒwƒbƒ_
-lib                         ƒ‰ƒCƒuƒ‰ƒŠƒtƒ@ƒCƒ‹
-@„° AquesTalk.lib          CAquesTalkƒNƒ‰ƒX—plib
-@„° AquesTalkD.lib         CAquesTalkƒNƒ‰ƒX—plib(debug)
-@„° AquesTalkDa.lib        CAquesTalkDaƒNƒ‰ƒX—plib
-@„° AquesTalkDaD.lib       CAquesTalkDaƒNƒ‰ƒX—plib(debug)
+ã€€â”£ãƒ—ãƒ­ã‚°ãƒ©ãƒŸãƒ³ã‚°ã‚¬ã‚¤ãƒ‰.pdf æœ¬ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä½¿ç”¨ã®ãŸã‚ã®æŠ€è¡“è³‡æ–™
+ã€€â”£éŸ³å£°è¨˜å·åˆ—ä»•æ§˜.pdf      éŸ³å£°è¨˜å·åˆ—ä»•æ§˜æ›¸
+inc                         ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ˜ãƒƒãƒ€
+ã€€â”£ AquesTalk.h            CAquesTalkã‚¯ãƒ©ã‚¹ãƒ˜ãƒƒãƒ€
+ã€€â”£ AquesTalkDa.h          CAquesTalkDaã‚¯ãƒ©ã‚¹ãƒ˜ãƒƒãƒ€
+lib                         ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ•ã‚¡ã‚¤ãƒ«
+ã€€â”£ AquesTalk.lib          CAquesTalkã‚¯ãƒ©ã‚¹ç”¨lib
+ã€€â”£ AquesTalkD.lib         CAquesTalkã‚¯ãƒ©ã‚¹ç”¨lib(debug)
+ã€€â”£ AquesTalkDa.lib        CAquesTalkDaã‚¯ãƒ©ã‚¹ç”¨lib
+ã€€â”£ AquesTalkDaD.lib       CAquesTalkDaã‚¯ãƒ©ã‚¹ç”¨lib(debug)
 bin                         
-@„° AqTkApp.exe            ƒTƒ“ƒvƒ‹ƒAƒvƒŠiŽÀsƒvƒƒOƒ‰ƒ€j
-@„° AquesTalk.dll          CAquesTalkƒNƒ‰ƒX—pdll
-@„° AquesTalkD.dll         CAquesTalkƒNƒ‰ƒX—pdll(debug)
-@„° AquesTalkDa.dll        CAquesTalkDaƒNƒ‰ƒX—pdll
-@„° AquesTalkDaD.dll       CAquesTalkDaƒNƒ‰ƒX—pdll(debug)
-AqTkApp                     MFCƒTƒ“ƒvƒ‹
-@„« F                     @AqTkApp.exe‚Ìƒ\[ƒXƒR[ƒh‚Å‚·
-HelloTalk                   Win32ƒvƒƒOƒ‰ƒ€ƒTƒ“ƒvƒ‹
-@„« F             @      @‰¹º‚ð‡¬‚µ‚ÄAWAVƒtƒ@ƒCƒ‹‚Éo—Í‚·‚éA
-                            @Å‚à’Pƒ‚ÈƒvƒƒOƒ‰ƒ€‚Å‚·
+ã€€â”£ AqTkApp.exe            ã‚µãƒ³ãƒ—ãƒ«ã‚¢ãƒ—ãƒªï¼ˆå®Ÿè¡Œãƒ—ãƒ­ã‚°ãƒ©ãƒ ï¼‰
+ã€€â”£ AquesTalk.dll          CAquesTalkã‚¯ãƒ©ã‚¹ç”¨dll
+ã€€â”£ AquesTalkD.dll         CAquesTalkã‚¯ãƒ©ã‚¹ç”¨dll(debug)
+ã€€â”£ AquesTalkDa.dll        CAquesTalkDaã‚¯ãƒ©ã‚¹ç”¨dll
+ã€€â”£ AquesTalkDaD.dll       CAquesTalkDaã‚¯ãƒ©ã‚¹ç”¨dll(debug)
+AqTkApp                     MFCã‚µãƒ³ãƒ—ãƒ«
+ã€€â”ƒ ï¼š                     ã€€AqTkApp.exeã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã§ã™
+HelloTalk                   Win32ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚µãƒ³ãƒ—ãƒ«
+ã€€â”ƒ ï¼š             ã€€      ã€€éŸ³å£°ã‚’åˆæˆã—ã¦ã€WAVãƒ•ã‚¡ã‚¤ãƒ«ã«å‡ºåŠ›ã™ã‚‹ã€
+                            ã€€æœ€ã‚‚å˜ç´”ãªãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§ã™
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        ƒTƒ“ƒvƒ‹ƒAƒvƒŠ‚ÌŽg—p•û–@
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-ƒpƒbƒP[ƒW“à‚ÌbinƒtƒHƒ‹ƒ_‚É‚ ‚é AqTkApp.exe ‚ðŽÀs‚µ‚Ü‚·B
-‚È‚¨AŽÀsŽž‚É‚ÍAAqTkApp.exe‚Æ“¯‚¶ƒfƒBƒŒƒNƒgƒŠ‚ÉAquesTalk.dllAAquesTalkDa.dll
-‚ª•K—v‚Å‚·BAqTkApp.exe‚ð‘¼‚ÌƒtƒHƒ‹ƒ_‚ÉƒRƒs[‚µ‚ÄŽg—p‚·‚éê‡‚ÍA‚±‚ê‚ç‚Ìƒtƒ@ƒCƒ‹
-‚àˆê‚ÉƒRƒs[‚µ‚Ä‚­‚¾‚³‚¢B
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        ã‚µãƒ³ãƒ—ãƒ«ã‚¢ãƒ—ãƒªã®ä½¿ç”¨æ–¹æ³•
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å†…ã®binãƒ•ã‚©ãƒ«ãƒ€ã«ã‚ã‚‹ AqTkApp.exe ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
+ãªãŠã€å®Ÿè¡Œæ™‚ã«ã¯ã€AqTkApp.exeã¨åŒã˜ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«AquesTalk.dllã€AquesTalkDa.dll
+ãŒå¿…è¦ã§ã™ã€‚AqTkApp.exeã‚’ä»–ã®ãƒ•ã‚©ãƒ«ãƒ€ã«ã‚³ãƒ”ãƒ¼ã—ã¦ä½¿ç”¨ã™ã‚‹å ´åˆã¯ã€ã“ã‚Œã‚‰ã®ãƒ•ã‚¡ã‚¤ãƒ«
+ã‚‚ä¸€ç·’ã«ã‚³ãƒ”ãƒ¼ã—ã¦ãã ã•ã„ã€‚
 
-Še[Play]ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚Æ‰¹º‚ð‡¬‚µ‚ÄÄ¶‚µ‚Ü‚·B
-Ä¶’†‚ÉA[Stop]ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆÄ¶‚ð’†Ž~‚µ‚Ü‚·B
-
-
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        Žd—l 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-ƒ‰ƒCƒuƒ‰ƒŠŒ`Ž®           Win32 DLL(ƒ_ƒCƒiƒ~ƒbƒNƒŠƒ“ƒNƒ‰ƒCƒuƒ‰ƒŠ) 
-“®ìOS                   WindowsXP, Windows2000, (NT, 98) 
-‰¹ºƒf[ƒ^Œ`Ž®           WAVƒtƒH[ƒ}ƒbƒg(8KHzƒTƒ“ƒvƒŠƒ“ƒO, 16bitPCM, ƒ‚ƒmƒ‰ƒ‹)
-ŠJ”­ƒc[ƒ‹               Microsoft Visual C++ 6.0 
-Œ¾Œê                     C++@iI/F‚ÍC‚Ì•W€ŒÄ‚Ño‚µ)
-ƒvƒƒOƒ‰ƒ€+ƒf[ƒ^ƒTƒCƒY  –ñ108KByte 
+å„[Play]ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨éŸ³å£°ã‚’åˆæˆã—ã¦å†ç”Ÿã—ã¾ã™ã€‚
+å†ç”Ÿä¸­ã«ã€[Stop]ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨å†ç”Ÿã‚’ä¸­æ­¢ã—ã¾ã™ã€‚
 
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        ƒ‰ƒCƒuƒ‰ƒŠ‚ÌŽg—p—á(VC++)
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-Å‚àŠÈ’P‚È•û–@‚Å‚ÍAŽŸ‚Ì‚PƒXƒeƒbƒv‚Å‰¹º‚ð¶¬AÄ¶‚Å‚«‚Ü‚·
-
-1. ‰¹º‚ð¶¬‚µ‚ÄAƒTƒEƒ“ƒhƒfƒoƒCƒX‚Éo—Í 
-
-	AquesTalkDa_PlaySync("‚±‚ñ‚É‚¿‚íB"); //< ˆø”‚É‰¹º‹L†—ñ‚Ì•¶Žš—ñ‚ðŽw’è
-
-
-ƒvƒƒOƒ‰ƒ~ƒ“ƒO•û–@‚ÌÚ×‚ÍAuƒvƒƒOƒ‰ƒ~ƒ“ƒOƒKƒCƒh.pdfv‚ðŽQÆ‚­‚¾‚³‚¢B
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        ä»•æ§˜ 
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+ãƒ©ã‚¤ãƒ–ãƒ©ãƒªå½¢å¼           Win32 DLL(ãƒ€ã‚¤ãƒŠãƒŸãƒƒã‚¯ãƒªãƒ³ã‚¯ãƒ©ã‚¤ãƒ–ãƒ©ãƒª) 
+å‹•ä½œOS                   WindowsXP, Windows2000, (NT, 98) 
+éŸ³å£°ãƒ‡ãƒ¼ã‚¿å½¢å¼           WAVãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ(8KHzã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°, 16bitPCM, ãƒ¢ãƒŽãƒ©ãƒ«)
+é–‹ç™ºãƒ„ãƒ¼ãƒ«               Microsoft Visual C++ 6.0 
+è¨€èªž                     C++ã€€ï¼ˆI/Fã¯Cã®æ¨™æº–å‘¼ã³å‡ºã—)
+ãƒ—ãƒ­ã‚°ãƒ©ãƒ +ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º  ç´„108KByte 
 
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        ƒ‰ƒCƒZƒ“ƒXŠT—ª
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-- ¤—pA”ñ¤—p‚Ì—˜—p‚ð–â‚í‚¸–³ž‚ÅŽg—p‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
-- ƒIƒŠƒWƒiƒ‹‚ÌƒpƒbƒP[ƒW‚Ì“]ÚAÄ”z•z‚ÍŽ©—R‚És‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚·B
-- –³ž‚ÅDLL‚ð»•i‚É‘g‚Ýž‚ñ‚Å”Ì”„‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·iDLL‚ÌÄ”z•z‚Ì‹K’è‚É]‚¤•K—v
-@‚ª—L‚è‚Ü‚·j
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ä½¿ç”¨ä¾‹(VC++)
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+æœ€ã‚‚ç°¡å˜ãªæ–¹æ³•ã§ã¯ã€æ¬¡ã®ï¼‘ã‚¹ãƒ†ãƒƒãƒ—ã§éŸ³å£°ã‚’ç”Ÿæˆã€å†ç”Ÿã§ãã¾ã™
 
-ƒIƒŠƒWƒiƒ‹‚ÌƒpƒbƒP[ƒW‚Ì‚Ü‚Ü‚Å‚ ‚ê‚ÎAŒÂlŠÔ‚Ì”z•zAƒCƒ“ƒ^[ƒlƒbƒg‚ðŠÜ‚Þƒlƒbƒgƒ
-[ƒNã‚Ö‚ÌƒAƒbƒvƒ[ƒhA‘Ð‚Ö‚ÌŽû˜^‚ðs‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚·B‚»‚ÌÛ‚É“–ŽÐ‚Ö‚Ì˜A—‚Í
-•s—v‚Å‚·B
+1. éŸ³å£°ã‚’ç”Ÿæˆã—ã¦ã€ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã«å‡ºåŠ› 
 
-–{ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ‰ƒCƒZƒ“ƒV[‚ÉŠÖ‚µ‚Ä‚ÍAƒpƒbƒP[ƒW“à‚ÌuAqLicense.txtv‚Ì“à—e‚É]
-‚Á‚Ä‚­‚¾‚³‚¢B
+	AquesTalkDa_PlaySync("ã“ã‚“ã«ã¡ã‚ã€‚"); //< å¼•æ•°ã«éŸ³å£°è¨˜å·åˆ—ã®æ–‡å­—åˆ—ã‚’æŒ‡å®š
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        DLL‚ÌÄ”z•z
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-‚Ü‚¸‚ÍAƒpƒbƒP[ƒW“à‚ÌuAqLicense.txtv‚ÌDLL‚ÌÄ”z•z‚Ì€‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
 
-‹ï‘Ì—á‚Æ‚µ‚Ä‚ÍA
-–{ƒpƒbƒP[ƒW“à‚ÌDLL‚ðA»•i‚É‘g‚Ýž‚ñ‚Å”Ì”„“™‚·‚éê‡‚ÍADLL‚Æ“¯‚¶ƒfƒBƒŒƒNƒgƒŠ‚ÉA
-‚±‚ÌƒpƒbƒP[ƒW‚ÉŠÜ‚Ü‚ê‚éuAqLicense.txtv‚ð•Û‘¶‚µ‚Ä‚­‚¾‚³‚¢B
+ãƒ—ãƒ­ã‚°ãƒ©ãƒŸãƒ³ã‚°æ–¹æ³•ã®è©³ç´°ã¯ã€ã€Œãƒ—ãƒ­ã‚°ãƒ©ãƒŸãƒ³ã‚°ã‚¬ã‚¤ãƒ‰.pdfã€ã‚’å‚ç…§ãã ã•ã„ã€‚
 
-‚Ü‚½A»•i‚Ìƒ}ƒjƒ…ƒAƒ‹‚ÉAAŽŸ‚Ì‚æ‚¤‚É‹L‚µ‚Ä‚­‚¾‚³‚¢B
 
-u–{»•i‚ÍƒAƒNƒGƒXƒgŽÐ‚Ì‹K‘¥‰¹º‡¬ƒ‰ƒCƒuƒ‰ƒŠ‚ðŽg—p‚µ‚Ä‚¨‚èA‚»‚Ì’˜ìŒ ‚Í“¯ŽÐ‚É
-‹A‘®‚µ‚Ü‚·Bv
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ¦‚ç•¥
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+- å•†ç”¨ã€éžå•†ç”¨ã®åˆ©ç”¨ã‚’å•ã‚ãšç„¡å„Ÿã§ä½¿ç”¨ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
+- ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã®è»¢è¼‰ã€å†é…å¸ƒã¯è‡ªç”±ã«è¡Œã†ã“ã¨ãŒã§ãã¾ã™ã€‚
+- ç„¡å„Ÿã§DLLã‚’è£½å“ã«çµ„ã¿è¾¼ã‚“ã§è²©å£²ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ï¼ˆDLLã®å†é…å¸ƒã®è¦å®šã«å¾“ã†å¿…è¦
+ã€€ãŒæœ‰ã‚Šã¾ã™ï¼‰
 
-ˆê•ûAƒT[ƒo[ƒvƒƒOƒ‰ƒ€“™‚ÅAƒ}ƒjƒ…ƒAƒ‹‚ª—˜—pŽÒ‚Ì–Ú‚ÉG‚ê‚é‚±‚Æ‚ª‚È‚¢ê‡‚É‚ÍA
-‰¹º‚ðo—Í‚·‚é‰æ–Ê‚ÉA—˜—pŽÒi‡¬‰¹º‚ð•·‚­lj‚É‚±‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚Å‰¹º‡¬‚µ‚Ä
-‚¢‚é‚±‚Æ‚ª‚í‚©‚é‚æ‚¤‚É–¾‹L‚µ‚Ä‚­‚¾‚³‚¢BŽŸ‚Í‚»‚Ìˆê—á‚Å‚·B 
+ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã®ã¾ã¾ã§ã‚ã‚Œã°ã€å€‹äººé–“ã®é…å¸ƒã€ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒƒãƒˆã‚’å«ã‚€ãƒãƒƒãƒˆãƒ¯
+ãƒ¼ã‚¯ä¸Šã¸ã®ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã€æ›¸ç±ã¸ã®åŽéŒ²ã‚’è¡Œã†ã“ã¨ãŒã§ãã¾ã™ã€‚ãã®éš›ã«å½“ç¤¾ã¸ã®é€£çµ¡ã¯
+ä¸è¦ã§ã™ã€‚
 
-u‚±‚Ì‰¹º‚ÍAƒAƒNƒGƒXƒgŽÐ‚Ì‹K‘¥‰¹º‡¬ƒ‰ƒCƒuƒ‰ƒŠ‚É‚æ‚è¶¬‚³‚ê‚Ä‚¢‚Ü‚·Bv
+æœ¬ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ©ã‚¤ã‚»ãƒ³ã‚·ãƒ¼ã«é–¢ã—ã¦ã¯ã€ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å†…ã®ã€ŒAqLicense.txtã€ã®å†…å®¹ã«å¾“
+ã£ã¦ãã ã•ã„ã€‚
 
-‚±‚ÌŒ‚ÉŠÖ‚µ‚ÄA‚²•s–¾‚È“_‚ÍAinfoaq@a-quest.com ‚Ü‚Å‚¨–â‚¢‡‚í‚¹‚­‚¾‚³‚¢B
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        DLLã®å†é…å¸ƒ
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+ã¾ãšã¯ã€ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å†…ã®ã€ŒAqLicense.txtã€ã®DLLã®å†é…å¸ƒã®é …ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-        ƒTƒ|[ƒg
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-ƒz[ƒ€ƒy[ƒW‚âŒfŽ¦”Â‚É‚¨‚¢‚Ä•s’èŠú‚É‘Î‰ž‚¢‚½‚µ‚Ü‚·B•s‹ï‡‚â—v–]‚É‚Â‚¢‚Ä‚ÍŒfŽ¦
-”Â‚âƒ[ƒ‹‚ð‘—‚Á‚Ä‚¢‚½‚¾‚¯‚ê‚ÎK‚¢‚Å‚·B‚µ‚©‚µ‚È‚ª‚çA“à—e‚É‚æ‚Á‚Ä‚Í•Ô“š‚ª‚Å‚«
-‚È‚¢‚±‚Æ‚ª‚ ‚éŽ|A‚ ‚ç‚©‚¶‚ß‚²—¹³‚­‚¾‚³‚¢B
+å…·ä½“ä¾‹ã¨ã—ã¦ã¯ã€
+æœ¬ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å†…ã®DLLã‚’ã€è£½å“ã«çµ„ã¿è¾¼ã‚“ã§è²©å£²ç­‰ã™ã‚‹å ´åˆã¯ã€DLLã¨åŒã˜ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ã€
+ã“ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã«å«ã¾ã‚Œã‚‹ã€ŒAqLicense.txtã€ã‚’ä¿å­˜ã—ã¦ãã ã•ã„ã€‚
 
-Šî–{“I‚ÈŽg—p•û–@‚É‚Â‚¢‚Ä‚Ì‚²Ž¿–â‚È‚Ç‚ÍAŒfŽ¦”Â“™‚Åƒ†[ƒUŠÔ‚Å‰ðŒˆ‚¢‚½‚¾‚¯‚é‚Æ”ñ
-í‚É•‚©‚è‚Ü‚·B
+ã¾ãŸã€è£½å“ã®ãƒžãƒ‹ãƒ¥ã‚¢ãƒ«ã«ã€ã€æ¬¡ã®ã‚ˆã†ã«è¨˜ã—ã¦ãã ã•ã„ã€‚
 
-ŒÂ•Ê‚Ì—v–]‚â‰ü—Ç‚ð‚²Šó–]‚Ìê‡‚ÍA—Lž‚É‚Ä‘Î‰ž‚µ‚½‚¢‚ÆŽv‚¢‚Ü‚·‚Ì‚Å‚¨–â‚¢‡‚í‚¹
-‚­‚¾‚³‚¢B
+ã€Œæœ¬è£½å“ã¯ã‚¢ã‚¯ã‚¨ã‚¹ãƒˆç¤¾ã®è¦å‰‡éŸ³å£°åˆæˆãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨ã—ã¦ãŠã‚Šã€ãã®è‘—ä½œæ¨©ã¯åŒç¤¾ã«
+å¸°å±žã—ã¾ã™ã€‚ã€
 
-WindowsˆÈŠO‚Ìƒvƒ‰ƒbƒgƒtƒH[ƒ€A—á‚¦‚ÎALinux, Symbian, BREW, ITRON “™‚Å‚²—˜—p‚ð
-‚²ŒŸ“¢‚Ìê‡‚àAƒ‰ƒCƒZƒ“ƒX’ñ‹Ÿ‚¢‚½‚µ‚Ü‚·‚Ì‚ÅA‚¨–â‚¢‡‚í‚¹‚­‚¾‚³‚¢B
+ä¸€æ–¹ã€ã‚µãƒ¼ãƒãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ç­‰ã§ã€ãƒžãƒ‹ãƒ¥ã‚¢ãƒ«ãŒåˆ©ç”¨è€…ã®ç›®ã«è§¦ã‚Œã‚‹ã“ã¨ãŒãªã„å ´åˆã«ã¯ã€
+éŸ³å£°ã‚’å‡ºåŠ›ã™ã‚‹ç”»é¢ã«ã€åˆ©ç”¨è€…ï¼ˆåˆæˆéŸ³å£°ã‚’èžãäººï¼‰ã«ã“ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã§éŸ³å£°åˆæˆã—ã¦
+ã„ã‚‹ã“ã¨ãŒã‚ã‹ã‚‹ã‚ˆã†ã«æ˜Žè¨˜ã—ã¦ãã ã•ã„ã€‚æ¬¡ã¯ãã®ä¸€ä¾‹ã§ã™ã€‚ 
 
-–â‡‚¹æF     infoaq@a-quest.com 
-ƒz[ƒ€ƒy[ƒWF http://www.a-quest.com/aquestalk/
+ã€Œã“ã®éŸ³å£°ã¯ã€ã‚¢ã‚¯ã‚¨ã‚¹ãƒˆç¤¾ã®è¦å‰‡éŸ³å£°åˆæˆãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ã‚ˆã‚Šç”Ÿæˆã•ã‚Œã¦ã„ã¾ã™ã€‚ã€
 
-Copyright(C) 2006 ƒAƒNƒGƒXƒg
+ã“ã®ä»¶ã«é–¢ã—ã¦ã€ã”ä¸æ˜Žãªç‚¹ã¯ã€infoaq@a-quest.com ã¾ã§ãŠå•ã„åˆã‚ã›ãã ã•ã„ã€‚
+
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+        ã‚µãƒãƒ¼ãƒˆ
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+ãƒ›ãƒ¼ãƒ ãƒšãƒ¼ã‚¸ã‚„æŽ²ç¤ºæ¿ã«ãŠã„ã¦ä¸å®šæœŸã«å¯¾å¿œã„ãŸã—ã¾ã™ã€‚ä¸å…·åˆã‚„è¦æœ›ã«ã¤ã„ã¦ã¯æŽ²ç¤º
+æ¿ã‚„ãƒ¡ãƒ¼ãƒ«ã‚’é€ã£ã¦ã„ãŸã ã‘ã‚Œã°å¹¸ã„ã§ã™ã€‚ã—ã‹ã—ãªãŒã‚‰ã€å†…å®¹ã«ã‚ˆã£ã¦ã¯è¿”ç­”ãŒã§ã
+ãªã„ã“ã¨ãŒã‚ã‚‹æ—¨ã€ã‚ã‚‰ã‹ã˜ã‚ã”äº†æ‰¿ãã ã•ã„ã€‚
+
+åŸºæœ¬çš„ãªä½¿ç”¨æ–¹æ³•ã«ã¤ã„ã¦ã®ã”è³ªå•ãªã©ã¯ã€æŽ²ç¤ºæ¿ç­‰ã§ãƒ¦ãƒ¼ã‚¶é–“ã§è§£æ±ºã„ãŸã ã‘ã‚‹ã¨éž
+å¸¸ã«åŠ©ã‹ã‚Šã¾ã™ã€‚
+
+å€‹åˆ¥ã®è¦æœ›ã‚„æ”¹è‰¯ã‚’ã”å¸Œæœ›ã®å ´åˆã¯ã€æœ‰å„Ÿã«ã¦å¯¾å¿œã—ãŸã„ã¨æ€ã„ã¾ã™ã®ã§ãŠå•ã„åˆã‚ã›
+ãã ã•ã„ã€‚
+
+Windowsä»¥å¤–ã®ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ã€ä¾‹ãˆã°ã€Linux, Symbian, BREW, ITRON ç­‰ã§ã”åˆ©ç”¨ã‚’
+ã”æ¤œè¨Žã®å ´åˆã‚‚ã€ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æä¾›ã„ãŸã—ã¾ã™ã®ã§ã€ãŠå•ã„åˆã‚ã›ãã ã•ã„ã€‚
+
+å•åˆã›å…ˆï¼š     infoaq@a-quest.com 
+ãƒ›ãƒ¼ãƒ ãƒšãƒ¼ã‚¸ï¼š http://www.a-quest.com/aquestalk/
+
+Copyright(C) 2006 ã‚¢ã‚¯ã‚¨ã‚¹ãƒˆ

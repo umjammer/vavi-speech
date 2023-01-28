@@ -12,6 +12,7 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
@@ -24,9 +25,10 @@ import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
  * @version 0.00 070202 initial version <br>
  */
 @EnabledIfSystemProperty(named = "os.arch", matches = "x86")
-public class JSAPITest_aquestalk_win32 {
+class JSAPITest_aquestalk_win32 {
 
-    public void test01(String file) throws Exception {
+    @Test
+    void test01(String file) throws Exception {
         speak("すもももももももものうち");
     }
 
@@ -48,6 +50,7 @@ public class JSAPITest_aquestalk_win32 {
         synthesizer.deallocate();
     }
 
+    /** */
     public static void main(String[] args) throws Exception {
         JSAPITest_aquestalk_win32 app = new JSAPITest_aquestalk_win32();
         app.speak(args[0]);

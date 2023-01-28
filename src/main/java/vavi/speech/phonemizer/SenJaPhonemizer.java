@@ -7,9 +7,11 @@
 package vavi.speech.phonemizer;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
+import vavi.util.Debug;
 import vavi.util.Locales;
 
 
@@ -35,23 +37,27 @@ public class SenJaPhonemizer implements JaPhonemizer {
             StringTagger tagger = StringTagger.getInstance();
             Token[] token = tagger.analyze(text);
             if (token != null) {
-                for (int i = 0; i < token.length; i++) {
-System.err.println(token[i].toString() + "\t("
-               + token[i].getBasicString() + ")" + "\t" + token[i].getPos()
-               + "(" + token[i].start() + "," + token[i].end() + ","
-               + token[i].length() + ")\t" + token[i].getReading() + "\t"
-               + token[i].getPronunciation());
-                    if (token[i].getReading() != null) {
-                        sb.append(token[i].getPronunciation());
+                for (Token value : token) {
+if (Debug.isLoggable(Level.FINE)) {
+ System.err.println(value.toString() + "\t("
+            + value.getBasicString() + ")" + "\t" + value.getPos()
+            + "(" + value.start() + "," + value.end() + ","
+            + value.length() + ")\t" + value.getReading() + "\t"
+            + value.getPronunciation());
+}
+                    if (value.getReading() != null) {
+                        sb.append(value.getPronunciation());
                     } else {
-                        sb.append(token[i].getBasicString());
+                        sb.append(value.getBasicString());
                     }
                 }
             }
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-System.err.println(sb);
+if (Debug.isLoggable(Level.FINE)) {
+ System.err.println(sb);
+}
         return converter.convertFrom(sb.toString());
     }
 }

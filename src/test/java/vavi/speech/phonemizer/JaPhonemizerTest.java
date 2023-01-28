@@ -4,12 +4,15 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
 
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -37,6 +40,8 @@ class JaPhonemizerTest {
         );
     }
 
+    @EnabledIfEnvironmentVariable(named = "YAHOOJAPAN_API_KEY", matches = ".*")
+    @EnabledIfEnvironmentVariable(named = "DOCOMO_GOO_HIRAGANA_API_KEY", matches = ".*")
     @ParameterizedTest
     @MethodSource("phonemizerProvider")
     void test(Phonemizer phonemizer, String actual) throws Exception {
@@ -54,7 +59,7 @@ Debug.println("result: " + text);
         );
     }
 
-    @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
+    @EnabledIfSystemProperty(named = "sen.home", matches = ".*")
     @ParameterizedTest
     @MethodSource("phonemizerProvider1")
     void test1(Phonemizer phonemizer, String actual) throws Exception {

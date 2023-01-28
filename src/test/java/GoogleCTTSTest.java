@@ -63,10 +63,12 @@ class GoogleCTTSTest {
             ByteString audioContents = response.getAudioContent();
 
             Player player = new JavaSoundPlayer();
+            player.setVolume(0.03f);
             player.play(audioContents.toByteArray());
         }
     }
 
+    /** */
     public static void main(String[] args) throws Exception {
         GoogleCTTSTest app = new GoogleCTTSTest();
         app.speak(args[0]);

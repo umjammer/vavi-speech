@@ -30,10 +30,10 @@ import com.sun.jna.Structure;
  */
 public interface AquesTalk10 extends Library {
 
-    public static final AquesTalk10 INSTANCE = Native.load("AquesTalk10", AquesTalk10.class);
+    AquesTalk10 INSTANCE = Native.load("AquesTalk10", AquesTalk10.class);
 
     /** 声質パラメータ */
-    public class AQTK_VOICE extends Structure {
+    class AQTK_VOICE extends Structure {
         /**
          * @param bas
          * @param spd
@@ -83,19 +83,19 @@ public interface AquesTalk10 extends Library {
     // プリセット声種
 
     /** 女声 F1 */
-    static final AQTK_VOICE gVoice_F1 = new AQTK_VOICE(VoiceBase.F1E, 100, 100, 100, 100, 100, 100);
+    AQTK_VOICE gVoice_F1 = new AQTK_VOICE(VoiceBase.F1E, 100, 100, 100, 100, 100, 100);
     /** 女声 F2 */
-    static final AQTK_VOICE gVoice_F2 = new AQTK_VOICE(VoiceBase.F2E, 100, 100, 77, 150, 100, 100);
+    AQTK_VOICE gVoice_F2 = new AQTK_VOICE(VoiceBase.F2E, 100, 100, 77, 150, 100, 100);
     /** 女声 F3 */
-    static final AQTK_VOICE gVoice_F3 = new AQTK_VOICE(VoiceBase.F1E, 80, 100, 100, 100, 61, 148);
+    AQTK_VOICE gVoice_F3 = new AQTK_VOICE(VoiceBase.F1E, 80, 100, 100, 100, 61, 148);
     /** 男声 M1 */
-    static final AQTK_VOICE gVoice_M1 = new AQTK_VOICE(VoiceBase.M1E, 100, 100, 30, 100, 100, 100);
+    AQTK_VOICE gVoice_M1 = new AQTK_VOICE(VoiceBase.M1E, 100, 100, 30, 100, 100, 100);
     /** 男声 M2 */
-    static final AQTK_VOICE gVoice_M2 = new AQTK_VOICE(VoiceBase.M1E, 105, 100, 45, 130, 120, 100);
+    AQTK_VOICE gVoice_M2 = new AQTK_VOICE(VoiceBase.M1E, 105, 100, 45, 130, 120, 100);
     /** ロボット R1 */
-    static final AQTK_VOICE gVoice_R1 = new AQTK_VOICE(VoiceBase.M1E, 100, 100, 30, 20, 190, 100);
+    AQTK_VOICE gVoice_R1 = new AQTK_VOICE(VoiceBase.M1E, 100, 100, 30, 20, 190, 100);
     /** ロボット R2 */
-    static final AQTK_VOICE gVoice_R2 = new AQTK_VOICE(VoiceBase.F2E, 70, 100, 50, 50, 50, 180);
+    AQTK_VOICE gVoice_R2 = new AQTK_VOICE(VoiceBase.F2E, 70, 100, 50, 50, 50, 180);
 
     /**
      * 音声記号列から音声波形を生成
@@ -107,13 +107,13 @@ public interface AquesTalk10 extends Library {
      * @param pSize [out] 生成した音声データのサイズ[byte]（エラーの場合はエラーコードが返る）
      * @return WAVフォーマットの音声データの先頭アドレス。エラー時はNULLが返る
      */
-    Pointer AquesTalk_Synthe_Utf8(final AQTK_VOICE pParam, final String koe, int[] pSize);
+    Pointer AquesTalk_Synthe_Utf8(AQTK_VOICE pParam, String koe, int[] pSize);
 
     /**
      * 音声データの領域を開放
      * @param wav [in] AquesTalk_Synthe()で返されたアドレスを指定
      */
-    void AquesTalk_FreeWave(final Pointer wav);
+    void AquesTalk_FreeWave(Pointer wav);
 
     /**
      * 開発ライセンスキー設定
@@ -123,7 +123,7 @@ public interface AquesTalk10 extends Library {
      * @return ライセンスキーが正しければ0、正しくなければ1が返る
      * キーの解析を防ぐため不正なキーでも0を返す場合がある。このとき制限は解除されない。
      */
-    int AquesTalk_SetDevKey(final byte[] key);
+    int AquesTalk_SetDevKey(byte[] key);
 
     /**
      * 使用ライセンスキー設定
@@ -133,10 +133,10 @@ public interface AquesTalk10 extends Library {
      * @return ライセンスキーが正しければ0、正しくなければ1が返る
      * キーの解析を防ぐため不正なキーでも0を返す場合がある。この場合、ライセンス無のままである。
      */
-    int AquesTalk_SetUsrKey(final byte[] key);
+    int AquesTalk_SetUsrKey(byte[] key);
 
     /** メソッドが返すエラーコードの内容 */
-    public static Map<Integer, String> errors = new HashMap<Integer, String>() {{
+    Map<Integer, String> errors = new HashMap<Integer, String>() {{
         put(100, "その他のエラー");
         put(101, "メモリ不足");
         put(103, "音声記号列指定エラー(語頭の長音、促音の連続など)");

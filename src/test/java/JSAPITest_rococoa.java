@@ -32,6 +32,7 @@ class JSAPITest_rococoa {
         speak("すもももももももものうち");
     }
 
+    /** */
     void speak(String text) throws Exception {
         // シンセザイザのモードを指定
         SynthesizerModeDesc desc = new RococoaSynthesizerModeDesc("RococaEngineCentral", "general", Locale.JAPAN);
@@ -43,12 +44,15 @@ System.err.println("---");
         synthesizer.allocate();
         synthesizer.resume();
 
+        synthesizer.getSynthesizerProperties().setVolume(0.02f);
+
         synthesizer.speakPlainText(text, null);
 
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
         synthesizer.deallocate();
     }
 
+    /** */
     public static void main(String[] args) throws Exception {
         JSAPITest_rococoa app = new JSAPITest_rococoa();
         Arrays.asList("ハローワールド", "ゆっくりしていってね", "そんなことよりおうどんたべたい", "漢字読めるの？", args[0]).forEach(t -> {

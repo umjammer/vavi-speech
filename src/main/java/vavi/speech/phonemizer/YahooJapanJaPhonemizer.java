@@ -7,7 +7,9 @@
 package vavi.speech.phonemizer;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
+import vavi.util.Debug;
 import vavi.util.Locales;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
@@ -60,13 +62,12 @@ public class YahooJapanJaPhonemizer implements JaPhonemizer {
         @Target
         String roman;
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(surface);
-            sb.append(",");
-            sb.append(furigana);
-            sb.append(",");
-            sb.append(roman);
-            return sb.toString();
+            String sb = surface +
+                    "," +
+                    furigana +
+                    "," +
+                    roman;
+            return sb;
         }
         static final String BODY = "" +
                 "{\n" +
@@ -87,7 +88,7 @@ public class YahooJapanJaPhonemizer implements JaPhonemizer {
             StringBuilder sb = new StringBuilder();
             System.setProperty("vavix.util.screenscrape.annotation.PostInputHandler.userAgent", String.format(Result.UA, apiKey));
             WebScraper.Util.foreach(Result.class, m -> {
-System.err.println(m);
+Debug.println(Level.FINER, m);
                 // TODO 助詞 は、へ
                 if (m.furigana != null && !m.furigana.isEmpty()) {
                     sb.append(m.furigana);
@@ -95,7 +96,7 @@ System.err.println(m);
                     sb.append(m.surface);
                 }
             }, Result.BODY, "application/json", "1234-1", text);
-System.err.println(sb);
+Debug.println(Level.FINER, sb);
             return converter.convertFrom(sb.toString());
         } catch (IOException e) {
             throw new IllegalStateException(e);

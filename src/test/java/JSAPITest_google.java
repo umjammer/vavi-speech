@@ -17,6 +17,7 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import vavi.speech.googlecloud.jsapi.GoogleCloudTextToSpeechSynthesizerModeDesc;
 import vavi.util.Debug;
 import vavi.util.properties.annotation.Property;
@@ -28,13 +29,14 @@ import vavi.util.properties.annotation.PropsEntity;
  *
  * <p>
  * specify the environment variable "GOOGLE_APPLICATION_CREDENTIALS"
- * for google credential json.
+ * for google credential json. e.g. "tmp/google.json"
  * </p>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
 @PropsEntity(url = "file:local.properties")
+@EnabledIfEnvironmentVariable(named = "GOOGLE_APPLICATION_CREDENTIALS", matches = ".*")
 class JSAPITest_google {
 
     static boolean localPropertiesExists() {
@@ -69,12 +71,15 @@ System.err.println("---");
         synthesizer.allocate();
         synthesizer.resume();
 
+        synthesizer.getSynthesizerProperties().setVolume(0.03f);
+
         synthesizer.speakPlainText(text, null);
 
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
         synthesizer.deallocate();
     }
 
+    /** */
     public static void main(String[] args) throws Exception {
         JSAPITest_google app = new JSAPITest_google();
         Arrays.asList("ハローワールド", "ゆっくりしていってね", "そんなことよりおうどんたべたい", "漢字読めるの？", args[0]).forEach(t -> {

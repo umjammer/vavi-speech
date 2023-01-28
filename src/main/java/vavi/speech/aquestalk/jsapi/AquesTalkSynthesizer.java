@@ -29,6 +29,7 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
+import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
 import vavi.speech.Phonemizer;
 import vavi.speech.aquestalk.AquesTalkDa;
 import vavi.speech.phonemizer.SenJaPhonemizer;
@@ -37,6 +38,8 @@ import vavi.speech.phonemizer.SenJaPhonemizer;
 /**
  * Provides  partial support for a JSAPI 1.0 synthesizer for the 
  * AquesTalk speech synthesis system.
+ *
+ * TODO use AquosTalk (not DA)
  */
 public class AquesTalkSynthesizer implements Synthesizer {
 
@@ -45,6 +48,9 @@ public class AquesTalkSynthesizer implements Synthesizer {
 
     /** */
     private SynthesizerModeDesc desc;
+
+    /** */
+    private SynthesizerProperties properties = new BaseSynthesizerProperties();
 
     /**
      * Creates a new Synthesizer in the DEALLOCATED state.
@@ -87,8 +93,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
     }
 
     @Override
-    public void cancel(Object source)
-        throws IllegalArgumentException, EngineStateError {
+    public void cancel(Object source) throws IllegalArgumentException, EngineStateError {
     }
 
     @Override
@@ -103,8 +108,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
 
     @Override
     public SynthesizerProperties getSynthesizerProperties() {
-        // TODO Auto-generated method stub
-        return null;
+        return properties;
     }
 
     @Override
@@ -120,9 +124,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
     }
 
     @Override
-    public void speak(String JSMLText, SpeakableListener listener)
-        throws JSMLException, EngineStateError {
-
+    public void speak(String JSMLText, SpeakableListener listener) throws JSMLException, EngineStateError {
         queue.add(new Pair(JSMLText, listener));
     }
 
@@ -134,16 +136,12 @@ public class AquesTalkSynthesizer implements Synthesizer {
     }
 
     @Override
-    public void speak(Speakable JSMLtext, SpeakableListener listener)
-        throws JSMLException, EngineStateError {
-
+    public void speak(Speakable JSMLtext, SpeakableListener listener) throws JSMLException, EngineStateError {
         queue.offer(new Pair(JSMLtext.getJSMLText(), listener));
     }
 
     @Override
-    public void speakPlainText(String text, SpeakableListener listener)
-        throws EngineStateError {
-
+    public void speakPlainText(String text, SpeakableListener listener) throws EngineStateError {
         queue.offer(new Pair(text, listener));
     }
 

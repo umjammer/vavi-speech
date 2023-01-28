@@ -6,6 +6,7 @@
 
 package vavi.speech.googlecloud.jsapi;
 
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.logging.Level;
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
 import javax.speech.EngineException;
@@ -41,9 +42,10 @@ import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
 import com.google.cloud.texttospeech.v1.TextToSpeechClient;
 import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
 import com.google.protobuf.ByteString;
-
+import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
+import vavi.util.Debug;
 
 
 /**
@@ -62,6 +64,9 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     /** */
     private SynthesizerModeDesc desc;
 
+    /** */
+    private SynthesizerProperties properties = new BaseSynthesizerProperties();
+
     /**
      * Creates a new Synthesizer in the DEALLOCATED state.
      *
@@ -73,7 +78,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     }
 
     /** */
-    private class Pair {
+    private static class Pair {
         public Pair(String text, SpeakableListener listener) {
             this.text = text;
             this.listener = listener;
@@ -95,8 +100,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     }
 
     @Override
-    public void cancel(Object source)
-        throws IllegalArgumentException, EngineStateError {
+    public void cancel(Object source) throws IllegalArgumentException, EngineStateError {
     }
 
     @Override
@@ -111,8 +115,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
 
     @Override
     public SynthesizerProperties getSynthesizerProperties() {
-        // TODO Auto-generated method stub
-        return null;
+        return properties;
     }
 
     @Override
@@ -128,9 +131,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     }
 
     @Override
-    public void speak(String JSMLText, SpeakableListener listener)
-        throws JSMLException, EngineStateError {
-
+    public void speak(String JSMLText, SpeakableListener listener) throws JSMLException, EngineStateError {
         speak(new Pair(JSMLText, listener));
     }
 
@@ -142,16 +143,12 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     }
 
     @Override
-    public void speak(Speakable JSMLtext, SpeakableListener listener)
-        throws JSMLException, EngineStateError {
-
+    public void speak(Speakable JSMLtext, SpeakableListener listener) throws JSMLException, EngineStateError {
         speak(new Pair(JSMLtext.getJSMLText(), listener));
     }
 
     @Override
-    public void speakPlainText(String text, SpeakableListener listener)
-        throws EngineStateError {
-
+    public void speakPlainText(String text, SpeakableListener listener) throws EngineStateError {
         speak(new Pair(text, listener));
     }
 
@@ -187,6 +184,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     public void allocate() throws EngineException, EngineStateError {
         try {
             this.client = TextToSpeechClient.create();
+            properties.setVolume(1f);
             executer.execute(() -> {
                 while (looping) {
                     try {
@@ -196,7 +194,8 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
                                 pair.listener.speakableStarted(new SpeakableEvent(GoogleCloudTextToSpeechSynthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
                             }
                             playing = true;
-System.err.println(pair.text);
+Debug.println(Level.FINE, "\n" + pair.text);
+                            player.setVolume(properties.getVolume());
                             player.play(synthe(pair.text));
                             playing = false;
                             if (pair.listener != null) {
@@ -209,7 +208,7 @@ e.printStackTrace();
                     }
                 }
             });
-        } catch (IOException e) {
+        } catch (IOException | PropertyVetoException e) {
             throw (EngineException) new EngineException().initCause(e);
         }
     }

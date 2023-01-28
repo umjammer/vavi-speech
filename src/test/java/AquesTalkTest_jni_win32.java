@@ -7,12 +7,12 @@
 import java.io.ByteArrayInputStream;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import javax.sound.sampled.SourceDataLine;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +20,7 @@ import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import vavi.speech.aquestalk.AquesTalk;
 import vavi.speech.aquestalk.AquesTalkDa;
+import vavi.util.Debug;
 
 
 /**
@@ -57,20 +58,18 @@ class AquesTalkTest_jni_win32 {
         byte[] wave = aquesTalk.synthesize(koe, 100);
         AudioInputStream ais = AudioSystem.getAudioInputStream(new ByteArrayInputStream(wave));
 
-System.err.println(ais.getFormat());
+Debug.println(ais.getFormat());
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, ais.getFormat());
         SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
         line.open(ais.getFormat());
-        line.addLineListener(new LineListener() {
-            public void update(LineEvent ev) {
-                if (LineEvent.Type.STOP == ev.getType()) {
-System.err.println("stoped");
-                }
+        line.addLineListener(ev -> {
+            if (LineEvent.Type.STOP == ev.getType()) {
+Debug.println("stoped");
             }
         });
         line.start();
         byte[] buf = new byte[1024];
-        int l = 0;
+        int l;
         while (ais.available() > 0) {
             l = ais.read(buf, 0, 1024);
             line.write(buf, 0, l);
@@ -88,8 +87,8 @@ System.err.println("stoped");
         props.load(AquesTalkTest_jni_win32.class.getResourceAsStream("table.properties"));
         Enumeration<?> e = props.propertyNames();
         while (e.hasMoreElements()) {
-            String name = String.class.cast(e.nextElement());
-System.err.println("Japanese: " + name);
+            String name = (String) e.nextElement();
+Debug.println("Japanese: " + name);
             aquesTalkDa.play(props.getProperty(name), true);
         }
     }

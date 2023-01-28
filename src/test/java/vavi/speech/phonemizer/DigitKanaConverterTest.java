@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.phoneme;
+package vavi.speech.phonemizer;
 
 import org.junit.jupiter.api.Test;
 

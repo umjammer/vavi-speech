@@ -6,11 +6,13 @@
 
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import vavi.speech.aquestalk2.AquesTalk2Da;
+import vavi.util.Debug;
 
 
 /**
@@ -37,8 +39,8 @@ public class AquesTalk2Test_jni_mac32 {
         props.load(AquesTalk2Test_jni_mac32.class.getResourceAsStream("table.properties"));
         Enumeration<?> e = props.propertyNames();
         while (e.hasMoreElements()) {
-            String name = String.class.cast(e.nextElement());
-System.err.println("Japanese: " + name);
+            String name = (String) e.nextElement();
+Debug.println("Japanese: " + name);
             aquesTalkDa.play(props.getProperty(name), true);
         }
     }

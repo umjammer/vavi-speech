@@ -9,6 +9,7 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 
 /**
@@ -18,6 +19,7 @@ import net.java.sen.Token;
  * @version 0.00 2010/03/14 nsano initial version <br>
  */
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
+@EnabledIfSystemProperty(named = "sen.home", matches = ".*")
 class SenTest {
 
     @Test
@@ -30,12 +32,12 @@ class SenTest {
         StringTagger tagger = StringTagger.getInstance();
         Token[] token = tagger.analyze(text);
         if (token != null) {
-            for (int i = 0; i < token.length; i++) {
-System.err.println(token[i].toString() + "\t("
-           + token[i].getBasicString() + ")" + "\t" + token[i].getPos()
-           + "(" + token[i].start() + "," + token[i].end() + ","
-           + token[i].length() + ")\t" + token[i].getReading() + "\t"
-           + token[i].getPronunciation());
+            for (Token value : token) {
+                System.err.println(value.toString() + "\t("
+                        + value.getBasicString() + ")" + "\t" + value.getPos()
+                        + "(" + value.start() + "," + value.end() + ","
+                        + value.length() + ")\t" + value.getReading() + "\t"
+                        + value.getPronunciation());
             }
         }
     }

@@ -8,6 +8,7 @@ package vavi.speech.phonemizer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.rococoa.Foundation;
 import org.rococoa.ID;
@@ -16,6 +17,7 @@ import org.rococoa.cocoa.foundation.NSString;
 import org.rococoa.internal.FoundationLibrary;
 
 import com.ibm.icu.text.Transliterator;
+import vavi.util.Debug;
 import vavi.util.Locales;
 
 
@@ -45,13 +47,13 @@ public class RococoaJaPhonemizer implements JaPhonemizer {
         while (tokenType != FoundationLibrary.kCFStringTokenizerTokenNone) {
             ID latin = Foundation.cfStringTokenizerCopyCurrentTokenAttribute(tokenizer, FoundationLibrary.kCFStringTokenizerAttributeLatinTranscription);
 
-//System.err.println("latin: " + latin + ", " + latin.isNull());
+Debug.println(Level.FINER, "latin: " + latin + ", " + latin.isNull());
             if (!latin.isNull()) {
                 NSString roman = NSString.stringWithString(Foundation.toString(latin));
-//System.err.println("roman: " + roman);
+Debug.println(Level.FINER, "roman: " + roman);
                 // TODO doesn't work, help me
 //                NSString hiragana = roman.stringByApplyingTransform(NSStringTransform.NSStringTransformLatinToHiragana, false);
-//System.err.println("hiragana: " + hiragana);
+//Debug.println(Level.FINER, "hiragana: " + hiragana);
 //
 //                result.add(hiragana.toString());
                 result.add(roman.toString());

@@ -7,10 +7,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 import org.rococoa.cocoa.foundation.NSRange;
-import org.rococoa.contrib.appkit.NSSpeechSynthesizer;
+import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -29,7 +30,8 @@ class RococoaTest {
 
     private static final int TIME_TO_WAIT = 50000;
 
-    void test01(String text) throws Exception {
+    @Test
+    void test01() throws Exception {
         speak("すもももももももものうち");
     }
 
@@ -87,7 +89,7 @@ class RococoaTest {
             return phonemesSpoken;
         }
 
-        public void speechSynthesizer_didFinishSpeaking(NSSpeechSynthesizer sender, final boolean success) {
+        public void speechSynthesizer_didFinishSpeaking(NSSpeechSynthesizer sender, boolean success) {
             this.success = success;
             synchronized (speechDoneMonitor) {
                 speechDoneMonitor.notify();
@@ -115,7 +117,7 @@ class RococoaTest {
             }
         }
 
-        public void waitForWord(long interval, final String word) {
+        public void waitForWord(long interval, String word) {
             synchronized (waitForSpeechWordMonitor) {
                 wordWaitingFor = word;
                 try {
@@ -153,7 +155,7 @@ class RococoaTest {
 
         public void speechSynthesizer_willSpeakWord_ofString(NSSpeechSynthesizer sender, NSRange wordToSpeak, String text) {
             wordsSpoken.add(text.substring((int) wordToSpeak.getLocation(), (int) wordToSpeak.getEndLocation()));
-            if ( wordWaitingFor == null || wordsSpoken.get(wordsSpoken.size()-1).equals(wordWaitingFor)) {
+            if (wordWaitingFor == null || wordsSpoken.get(wordsSpoken.size() - 1).equals(wordWaitingFor)) {
                 synchronized(waitForSpeechWordMonitor) {
                     waitForSpeechWordMonitor.notify();
                 }
