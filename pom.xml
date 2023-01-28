@@ -25,7 +25,7 @@ TODO
 
   <properties>
     <rococoa.version>0.8.5</rococoa.version>
-    <freetts.version>1.2.3</freetts.version>
+    <freetts.version>1.2.4</freetts.version>
   </properties>
 
   <distributionManagement>
@@ -76,6 +76,9 @@ TODO
             <configuration>
               <forkMode>always</forkMode>
               <trimStackTrace>false</trimStackTrace>
+              <includes>
+                <include>**/*</include>
+              </includes>
               <systemProperties>
                 <sen.home>${sen.home}</sen.home>
               </systemProperties>
@@ -369,6 +372,12 @@ TODO
     </dependency>
 
     <dependency>
+      <groupId>org.jvoicexml</groupId>
+      <artifactId>freetts_jsapi10</artifactId>
+      <version>${freetts.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
@@ -401,12 +410,12 @@ TODO
       <artifactId>freetts</artifactId>
       <version>${freetts.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jvoicexml</groupId>
-      <artifactId>freetts_jsapi10</artifactId>
-      <version>${freetts.version}</version>
-      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>net.sf.sociaal</groupId>
+          <artifactId>freetts</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.jvoicexml</groupId>

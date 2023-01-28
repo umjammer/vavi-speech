@@ -8,6 +8,7 @@ package vavi.speech;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.logging.Level;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -17,6 +18,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.speech.EngineStateError;
+
+import vavi.util.Debug;
 
 import static vavi.sound.SoundUtil.volume;
 
@@ -28,6 +31,9 @@ import static vavi.sound.SoundUtil.volume;
  * @version 0.00 2019/09/19 umjammer initial version <br>
  */
 public class JavaSoundPlayer implements Player {
+
+    /** */
+    private double volume = .2;
 
     @Override
     public void play(byte[] data) throws IOException {
@@ -41,7 +47,9 @@ public class JavaSoundPlayer implements Player {
 
             line.start();
 
-            volume(line, .2d);
+double dB = Math.log(volume) / Math.log(10.0) * 20.0;
+Debug.printf(Level.FINE, "gain: %3.2f, dB: %3.2f", volume, dB);
+            volume(line, volume);
 
             int r = 0;
             byte[] buf = new byte[8192];
@@ -58,5 +66,11 @@ public class JavaSoundPlayer implements Player {
             throw (EngineStateError) new EngineStateError().initCause(e);
         }
     }
+
+    @Override
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
 }
+
 /* */

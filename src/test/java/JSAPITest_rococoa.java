@@ -44,6 +44,8 @@ System.err.println("---");
         synthesizer.allocate();
         synthesizer.resume();
 
+        synthesizer.getSynthesizerProperties().setVolume(0.02f);
+
         synthesizer.speakPlainText(text, null);
 
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);

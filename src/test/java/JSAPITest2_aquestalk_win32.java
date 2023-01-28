@@ -38,6 +38,8 @@ class JSAPITest2_aquestalk_win32 {
         synthesizer.allocate();
         synthesizer.resume();
 
+        synthesizer.getSynthesizerProperties().setVolume(0.5f);
+
         synthesizer.speakPlainText("ハローワールド", null);
         synthesizer.speakPlainText("ゆっくりしていってね", null);
         synthesizer.speakPlainText("そんなことよりおうどんたべたい", null);

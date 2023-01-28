@@ -41,7 +41,7 @@ class FreeTTSTest {
 
         SynthesizerModeDesc smd = (SynthesizerModeDesc) synthesizer.getEngineModeDesc();
 System.err.println("---- voices ----");
-Arrays.asList(smd.getVoices()).forEach(v -> System.err.println(v.getName()));
+Arrays.stream(smd.getVoices()).forEach(v -> System.err.println(v.getName()));
 System.err.println("---");
         String name = "kevin16";
 //        String name = "kevin";
@@ -49,6 +49,7 @@ System.err.println("---");
                 .filter(v -> v.getName().equals(name))
                 .findFirst().get();
         synthesizer.getSynthesizerProperties().setVoice(voice);
+        synthesizer.getSynthesizerProperties().setVolume(0.5f); // 0.0 ~ 1.0
 
         synthesizer.speakPlainText(text, null);
 

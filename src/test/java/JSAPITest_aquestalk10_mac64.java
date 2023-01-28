@@ -43,6 +43,8 @@ System.err.println("---");
         synthesizer.allocate();
         synthesizer.resume();
 
+        synthesizer.getSynthesizerProperties().setVolume(0.01f);
+
         synthesizer.speakPlainText("ハローワールド", null);
         synthesizer.speakPlainText("ゆっくりしていってね", null);
         synthesizer.speakPlainText("そんなことよりおうどんたべたい", null);

@@ -19,6 +19,9 @@ public interface Player {
 
     /** */
     void play(byte[] data) throws IOException;
+
+    /** 0.0 ~ 1.0 */
+    void setVolume(double volume);
 }
 
 /* */

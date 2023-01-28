@@ -6,6 +6,7 @@
 
 package vavi.speech.rococoa.jsapi;
 
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
@@ -36,6 +38,7 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
+import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
 import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
 import org.rococoa.cocoa.appkit.NSSpeechSynthesizer.NSSpeechBoundary;
 import org.rococoa.cocoa.appkit.NSSpeechSynthesizer.NSSpeechStatus;
@@ -43,6 +46,7 @@ import org.rococoa.cocoa.appkit.NSSpeechSynthesizer.NSSpeechStatus;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 import vavi.speech.rococoa.SynthesizerDelegate;
+import vavi.util.Debug;
 
 
 /**
@@ -53,6 +57,9 @@ public class RococoaSynthesizer implements Synthesizer {
 
     /** */
     private SynthesizerModeDesc desc;
+
+    /** */
+    private SynthesizerProperties properties = new BaseSynthesizerProperties();
 
     /**
      * Creates a new Synthesizer in the DEALLOCATED state.
@@ -106,8 +113,7 @@ public class RococoaSynthesizer implements Synthesizer {
 
     @Override
     public SynthesizerProperties getSynthesizerProperties() {
-        // TODO Auto-generated method stub
-        return null;
+        return properties;
     }
 
     @Override
@@ -184,36 +190,42 @@ public class RococoaSynthesizer implements Synthesizer {
 
     @Override
     public void allocate() throws EngineException, EngineStateError {
-        synthesizer = NSSpeechSynthesizer.synthesizerWithVoice(null);
-        delegate = new SynthesizerDelegate(synthesizer);
-        executer.execute(() -> {
-            while (looping) {
-                try {
-                    Pair pair = queue.poll();
-                    if (pair != null) {
-                        if (pair.listener != null) {
-                            pair.listener.speakableStarted(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
+        try {
+            synthesizer = NSSpeechSynthesizer.synthesizerWithVoice(null);
+            delegate = new SynthesizerDelegate(synthesizer);
+            properties.setVolume(1f);
+            executer.execute(() -> {
+                while (looping) {
+                    try {
+                        Pair pair = queue.poll();
+                        if (pair != null) {
+                            if (pair.listener != null) {
+                                pair.listener.speakableStarted(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
+                            }
+                            playing = true;
+Debug.println(Level.FINE, "\n" + pair.text);
+                            player.setVolume(properties.getVolume());
+                            player.play(synthe(pair.text));
+                            playing = false;
+                            if (pair.listener != null) {
+                                pair.listener.speakableEnded(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
+                            }
                         }
-                        playing = true;
-System.err.println(pair.text);
-                        player.play(synthe(pair.text));
-                        playing = false;
-                        if (pair.listener != null) {
-                            pair.listener.speakableEnded(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
-                        }
-                    }
-                    Thread.sleep(300);
-                } catch (Exception e) {
+                        Thread.sleep(300);
+                    } catch (Exception e) {
 e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
+        } catch (PropertyVetoException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /** */
     private byte[] synthe(String text) {
         try {
-//System.err.println("vioce: " + getSynthesizerProperties().getVoice());
+//Debug.println(Level.FINER, "vioce: " + getSynthesizerProperties().getVoice());
 //            synthesizer.setVoice(toNativeVoice(getSynthesizerProperties().getVoice()));
             Path path = Files.createTempFile(getClass().getName(), ".aiff");
             synthesizer.startSpeakingStringToURL(text, path.toUri());

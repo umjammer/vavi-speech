@@ -5,6 +5,7 @@
  */
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import com.sun.jna.Pointer;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10;
+import vavi.util.Debug;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -59,11 +61,12 @@ public class AquesTalk10Test_jna_mac64 {
 
         @SuppressWarnings("unused")
         int result = instance.AquesTalk_SetDevKey(aquesTalk10DevKey.getBytes());
-//System.err.println("setkey: " + result + ", " + aquesTalk10DevKey);
+Debug.println(Level.FINEST, "setkey: " + result + ", " + aquesTalk10DevKey);
 
         Pointer wav = instance.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, text, size);
 
         Player player = new JavaSoundPlayer();
+        player.setVolume(0.01f);
         player.play(wav.getByteArray(0, size[0]));
     }
 

@@ -63,6 +63,7 @@ class GoogleCTTSTest {
             ByteString audioContents = response.getAudioContent();
 
             Player player = new JavaSoundPlayer();
+            player.setVolume(0.03f);
             player.play(audioContents.toByteArray());
         }
     }
