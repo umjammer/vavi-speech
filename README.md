@@ -127,10 +127,11 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
 
  * implement parameters
  * implement voices
+ * implement audio queues (using org.jvoicexml in [FreeTTS](https://github.com/umjammer/FreeTTS), see freetts package also)
  * [watson](https://www.ibm.com/watson/jp-ja/developercloud/text-to-speech.html)
  * https://github.com/festvox/festival
  * ~~voicevox~~ -> [vavi-speech2](https://github.com/umjammer/vavi-speech2)
- * jsapi source
+ * jsapi source -> independent project
  * ~~auto load aques framework (jna)~~
  * https://www.google.co.jp/ime/cgiapi.html
  * ~~text analytics + nicotalk character emotion~~ -> [vavi-speech2](https://github.com/umjammer/vavi-speech2) (wip)

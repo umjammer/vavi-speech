@@ -264,12 +264,6 @@ TODO
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
-<!--
-    <repository>
-      <id>gitlab-maven2</id> !- idk why this is needed??? -
-      <url>https://gitlab.com/api/v4/projects/30804899/packages/maven</url>
-    </repository>
--->
     <repository>
       <id>gitlab-maven</id> <!-- sen -->
       <url>https://gitlab.com/api/v4/projects/18523814/packages/maven</url>
