@@ -641,8 +641,8 @@
           "surface": "貴様"
         }
       ],
-      "value": "貴方",
-      "disablePrefix": true
+      "disablePrefix": true,
+      "value": "貴方"
     },
     {
       "disabled": true,
@@ -732,8 +732,8 @@
           "surface": "皆様"
         }
       ],
-      "value": "皆様方",
-      "disablePrefix": true
+      "disablePrefix": true,
+      "value": "皆様方"
     },
     {
       "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ こそあど言葉",
@@ -1320,10 +1320,10 @@
           "surface": "ふふふ"
         }
       ],
-      "value": "ほほほ",
-      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕⭕ 形容詞文。形容詞で文が終わる時に変換する"
+      "value": "ほほほ"
     },
     {
+      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕⭕ 形容詞文。形容詞で文が終わる時に変換する",
       "conditions": [
         {
           "feature": {
@@ -1332,8 +1332,8 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "enableKutenToExclamation": true,
       "appendLongNote": true,
+      "enableKutenToExclamation": true,
       "value": "@1ですわ"
     }
   ],

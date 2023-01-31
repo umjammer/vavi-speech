@@ -60,10 +60,10 @@ public class Rule {
 
     /** ContinuousConditionsConvertRule は連続する条件がすべてマッチしたときに変換するルール。 */
     public static class ContinuousConditionsConvertRule {
-        ConvertCondition[] conditions;
-        boolean appendLongNote;
-        boolean enableKutenToExclamation;
         String value;
+        boolean appendLongNote;
+        ConvertCondition[] conditions;
+        boolean enableKutenToExclamation;
         @Override public String toString() {
             return "ContinuousConditionsConvertRule{" +
                     "conditions=" + Arrays.toString(conditions) +
@@ -104,10 +104,10 @@ public class Rule {
         ConvertCondition[] conditions1;
         /** 二番目に評価されるルール */
         ConvertCondition[] conditions2;
-        /** 助動詞。マッチしなくても次にすすむ */
-        ConvertCondition[] auxiliaryVerb;
         /** 終助詞 */
         Map<MeaningType, ConvertCondition[]> sentenceEndingParticle;
+        /** 助動詞。マッチしなくても次にすすむ */
+        ConvertCondition[] auxiliaryVerb;
         Map<MeaningType, String[]> value;
 
         @Override public String toString() {
@@ -132,15 +132,15 @@ public class Rule {
     public ContinuousConditionsConvertRule[] continuousConditionsConvertRules;
 
     /**
-     * ExcludeRules は変換処理を無視するルール。
-     * このルールは ConvertRules よりも優先して評価される。
-     */
-    public ConvertRule[] excludeRules;
-
-    /**
      * ConvertRules は 単独のTokenに対して、Conditionsがすべてマ ッチしたときに変換するルール。
      * <p>
      * 基本的な変換はここに定義する。
      */
     public ConvertRule[] convertRules;
+
+    /**
+     * ExcludeRules は変換処理を無視するルール。
+     * このルールは ConvertRules よりも優先して評価される。
+     */
+    public ConvertRule[] excludeRules;
 }

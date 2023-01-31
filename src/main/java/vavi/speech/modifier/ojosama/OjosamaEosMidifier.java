@@ -15,13 +15,16 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import com.google.api.client.json.JsonString;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import net.java.sen.StringTagger;
@@ -122,8 +125,19 @@ public class OjosamaEosMidifier {
     private Rule rule;
 
     /* gson */
+    public static final JsonSerializer<Boolean> booleanJsonSerializer = (in, type, context) ->
+            in ? new JsonPrimitive(true) : null;
+
+    /* gson */
     public static final JsonSerializer<Pattern> patternJsonSerializer = (in, type, context) ->
             context.serialize(in.pattern());
+
+    /* gson */
+    public static final JsonSerializer<ConvertCondition[]> convertConditionArrayJsonSerializer = (in, type, context) -> {
+        JsonArray result = new JsonArray();
+        Arrays.stream(in).forEach(c -> result.add(context.serialize(c, ConvertCondition.class)));
+        return result;
+    };
 
     /* gson */
     static class FeatureConditionJsonSerDes implements JsonSerializer<Feature>, JsonDeserializer<Feature> {
@@ -139,11 +153,19 @@ public class OjosamaEosMidifier {
 
         @Override
         public JsonElement serialize(Feature src, Type typeOfSrc, JsonSerializationContext context) {
-            return context.serialize(src.elements(), String[].class);
+            if (src instanceof Pos) {
+                JsonObject result = new JsonObject();
+                result.add("pos", new JsonPrimitive("Pos." + ((Pos) src).name()));
+                return result;
+            } else {
+                JsonObject result = new JsonObject();
+                result.add("elements", context.serialize(src.elements(), String[].class));
+                return result;
+            }
         }
     }
 
-        /* gson */
+    /* gson */
     static class ConvertConditionJsonSerDes implements JsonSerializer<ConvertCondition>, JsonDeserializer<ConvertCondition> {
 
         @Override
@@ -168,19 +190,37 @@ public class OjosamaEosMidifier {
 
         @Override
         public JsonElement serialize(ConvertCondition src, Type typeOfSrc, JsonSerializationContext context) {
-            // TODO doesn't work
-            return context.serialize(src, Object.class);
+            JsonObject result = new JsonObject();
+            if (src.feature != null)
+                result.add("feature", context.serialize(src.feature, Feature.class));
+            if (src.reading != null)
+                result.add("reading", new JsonPrimitive(src.reading));
+            if (src.surface != null)
+                result.add("surface", new JsonPrimitive(src.surface));
+            if (src.baseForm != null)
+                result.add("baseForm", new JsonPrimitive(src.baseForm));
+            if (src.surfaceRe != null)
+                result.add("surfaceRe", context.serialize(src.surfaceRe, Pattern.class));
+            if (src.readingRe != null)
+                result.add("readingRe", context.serialize(src.readingRe, Pattern.class));
+            if (src.baseFormRe != null)
+                result.add("baseFormRe", context.serialize(src.baseFormRe, Pattern.class));
+            return result;
         }
     }
 
-    /* */
+    static Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(ConvertCondition[].class, convertConditionArrayJsonSerializer)
+            .registerTypeAdapter(ConvertCondition.class, new ConvertConditionJsonSerDes())
+            .registerTypeAdapter(Feature.class, new FeatureConditionJsonSerDes())
+            .registerTypeAdapter(Pattern.class, patternJsonSerializer)
+            .registerTypeAdapter(Boolean.class, booleanJsonSerializer)
+            .create();
+
+    /* load rule */
     {
         try {
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Pattern.class, patternJsonSerializer)
-                    .registerTypeAdapter(Feature.class, new FeatureConditionJsonSerDes())
-                    .registerTypeAdapter(ConvertCondition.class, new ConvertConditionJsonSerDes())
-                    .create();
             rule = gson.fromJson(new InputStreamReader(OjosamaEosMidifier.class.getResourceAsStream("salome.json")), Rule.class);
             assert 1 == rule.sentenceEndingParticleConvertRules.length;
             assert 18 == rule.continuousConditionsConvertRules.length;
