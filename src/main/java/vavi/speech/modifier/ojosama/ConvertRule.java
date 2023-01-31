@@ -9,13 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import static vavi.speech.modifier.ojosama.ConvertCondition.newCond;
-import static vavi.speech.modifier.ojosama.ConvertCondition.newCondAuxiliaryVerb;
-import static vavi.speech.modifier.ojosama.ConvertCondition.newCondRe;
-import static vavi.speech.modifier.ojosama.ConvertCondition.newCondSentenceEndingParticle;
-import static vavi.speech.modifier.ojosama.ConvertCondition.newConds;
-import static vavi.speech.modifier.ojosama.Util.AdjectivesSelfSupporting;
-import static vavi.speech.modifier.ojosama.Util.VerbNotIndependence;
+import static vavi.speech.modifier.ojosama.Util.Feature;
+import static vavi.speech.modifier.ojosama.Util.Pos;
 
 
 /**
@@ -82,36 +77,6 @@ public class ConvertRule {
     public ConvertRule setValue(String value) {
         this.value = value;
         return this;
-    }
-
-    // convenient instanciators
-
-    private static ConvertRule newRule(String[] features, String surface, String value) {
-        return new ConvertRule()
-                .setConditions(new ConvertCondition[] {
-                        newCond(features, surface)
-                })
-                .setValue(value);
-    }
-
-    private static ConvertRule newRulePronounGeneral(String surface, String value) {
-        return newRule(Util.PronounGeneral, surface, value);
-    }
-
-    private static ConvertRule newRuleNounsGeneral(String surface, String value) {
-        return newRule(Util.NounsGeneral, surface, value);
-    }
-
-    private static ConvertRule newRuleAdnominalAdjective(String surface, String value) {
-        return newRule(Util.AdnominalAdjective, surface, value);
-    }
-
-    private static ConvertRule newRuleAdjectivesSelfSupporting(String surface, String value) {
-        return newRule(AdjectivesSelfSupporting, surface, value);
-    }
-
-    private static ConvertRule newRuleInterjection(String surface, String value) {
-        return newRule(Util.Interjection, surface, value);
     }
 
     /** ContinuousConditionsConvertRule は連続する条件がすべてマッチしたときに変換するルール。 */
@@ -185,42 +150,60 @@ public class ConvertRule {
     public static final SentenceEndingParticleConvertRule[] SentenceEndingParticleConvertRules = new SentenceEndingParticleConvertRule[] {
             new SentenceEndingParticleConvertRule(
                     new ConvertCondition[] {
-                            new ConvertCondition().setFeatures(Util.NounsGeneral),
-                            new ConvertCondition().setFeatures(Util.NounsSaDynamic),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsSaDynamic),
                     },
                     new ConvertCondition[] {
                             new ConvertCondition()
-                                    .setFeatures(Util.VerbIndependence)
+                                    .setFeatures(Pos.VerbIndependence)
                                     .setBaseForm("する"),
                             new ConvertCondition()
-                                    .setFeatures(Util.VerbIndependence)
+                                    .setFeatures(Pos.VerbIndependence)
                                     .setBaseForm("やる"),
                     },
                     new HashMap<MeaningType, ConvertCondition[]>() {{
                         put(MeaningType.Hope,
                                 new ConvertCondition[] {
-                                        newCondSentenceEndingParticle("ぜ"),
-                                        newCondSentenceEndingParticle("よ"),
-                                        newCondSentenceEndingParticle("べ"),
+                                        new ConvertCondition()
+                                                .setFeatures(Pos.SentenceEndingParticle)
+                                                .setSurface("ぜ"),
+                                        new ConvertCondition()
+                                                .setFeatures(Pos.SentenceEndingParticle)
+                                                .setSurface("よ"),
+                                        new ConvertCondition()
+                                                .setFeatures(Pos.SentenceEndingParticle)
+                                                .setSurface("べ"),
                                 });
                         put(MeaningType.Poem,
                                 new ConvertCondition[] {
                                         // これだけ特殊
-                                        newCond(new String[] {"助詞", "副助詞／並立助詞／終助詞"}, "か"),
+                                        new ConvertCondition()
+                                                .setFeatures(new Feature("助詞", "副助詞／並立助詞／終助詞"))
+                                                .setSurface("か"),
                                 });
                         put(MeaningType.Prohibition,
                                 new ConvertCondition[] {
-                                        newCondSentenceEndingParticle("な"),
+                                        new ConvertCondition()
+                                                .setFeatures(Pos.SentenceEndingParticle)
+                                                .setSurface("な"),
                                 });
 
                         put(MeaningType.Coercion,
                                 new ConvertCondition[] {
-                                        newCondSentenceEndingParticle("ぞ"),
-                                        newCondSentenceEndingParticle("の"),
+                                        new ConvertCondition()
+                                                .setFeatures(Pos.SentenceEndingParticle)
+                                                .setSurface("ぞ"),
+                                        new ConvertCondition()
+                                                .setFeatures(Pos.SentenceEndingParticle)
+                                                .setSurface("の"),
                                 });
                     }},
                     new ConvertCondition[] {
-                            newCondAuxiliaryVerb("う"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("う"),
                     },
                     new HashMap<MeaningType, String[]>() {{
                         put(MeaningType.Hope, new String[] {"をいたしませんこと",});
@@ -231,16 +214,6 @@ public class ConvertRule {
             )
     };
 
-    /** */
-    private static final ConvertCondition condNounsGeneral = new ConvertCondition().setFeatures(
-            Util.NounsGeneral
-    );
-
-    /** */
-    private static final ConvertCondition condPronounsGeneral = new ConvertCondition().setFeatures(
-            Util.PronounGeneral
-    );
-
     /**
      * continuousConditionsConvertRules は連続する条件がすべてマッチしたときに変換するルール。
      * <p>
@@ -250,86 +223,149 @@ public class ConvertRule {
     public static final ContinuousConditionsConvertRule[] ContinuousConditionsConvertRules = new ContinuousConditionsConvertRule[] {
             new ContinuousConditionsConvertRule()
                     .setValue("壱百満天原サロメ")
-                    .setConditions(newConds(new String[] {"壱", "百", "満天", "原", "サロメ"})
-            ),
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setSurface("壱"),
+                            new ConvertCondition()
+                                    .setSurface("百"),
+                            new ConvertCondition()
+                                    .setSurface("満天"),
+                            new ConvertCondition()
+                                    .setSurface("原"),
+                            new ConvertCondition()
+                                    .setSurface("サロメ"),
+                    }),
             new ContinuousConditionsConvertRule()
                     .setValue("壱百満天原")
-                    .setConditions(newConds(new String[] {"壱", "百", "満天", "原"})
-            ),
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setSurface("壱"),
+                            new ConvertCondition()
+                                    .setSurface("百"),
+                            new ConvertCondition()
+                                    .setSurface("満天"),
+                            new ConvertCondition()
+                                    .setSurface("原"),
+                    }),
             new ContinuousConditionsConvertRule()
                     .setValue("壱百満点")
-                    .setConditions(newConds(new String[] {"壱", "百", "満点"})
-            ),
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setSurface("壱"),
+                            new ConvertCondition()
+                                    .setSurface("百"),
+                            new ConvertCondition()
+                                    .setSurface("満点"),
+                    }),
             new ContinuousConditionsConvertRule()
                     .setValue("いたしますわ")
                     .setAppendLongNote(true)
                     .setConditions(new ConvertCondition[] {
-                            newCond(new String[] {"動詞", "自立"}, "し"),
-                            newCond(new String[] {"助動詞"}, "ます"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("動詞", "自立"))
+                                    .setSurface("し"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("助動詞"))
+                                    .setSurface("ます"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("ですので")
                     .setConditions(new ConvertCondition[] {
-                            newCond(new String[] {"助動詞"}, "だ"),
-                            newCond(new String[] {"助詞", "接続助詞"}, "から"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("助動詞"))
+                                    .setSurface("だ"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("助詞", "接続助詞"))
+                                    .setSurface("から"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("なんですの")
                     .setConditions(new ConvertCondition[] {
-                            newCond(new String[] {"助動詞"}, "な"),
-                            newCond(new String[] {"名詞", "非自立", "一般"}, "ん"),
-                            newCond(new String[] {"助動詞"}, "だ"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("助動詞"))
+                                    .setSurface("な"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("名詞", "非自立", "一般"))
+                                    .setSurface("ん"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("助動詞"))
+                                    .setSurface("だ"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("ですわ")
                     .setConditions(new ConvertCondition[] {
-                            newCond(new String[] {"助動詞"}, "だ"),
-                            newCond(new String[] {"助詞", "終助詞"}, "よ"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("助動詞"))
+                                    .setSurface("だ"),
+                            new ConvertCondition()
+                                    .setFeatures(new Feature("助詞", "終助詞"))
+                                    .setSurface("よ"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("なんですの").setConditions(
                             new ConvertCondition[] {
-                                    newCond(Util.PronounGeneral, "なん"),
-                                    newCond(Util.SubPostpositionalParticle, "じゃ"),
+                                    new ConvertCondition()
+                                            .setFeatures(Pos.PronounGeneral)
+                                            .setSurface("なん"),
+                                    new ConvertCondition()
+                                            .setFeatures(Pos.SubPostpositionalParticle)
+                                            .setSurface("じゃ"),
                             })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("なんですの")
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.PronounGeneral, "なん"),
-                            newCond(Util.AuxiliaryVerb, "だ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("なん"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("だ"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("なんですの")
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.PronounGeneral, "なん"),
-                            newCond(Util.AssistantParallelParticle, "や"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("なん"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AssistantParallelParticle)
+                                    .setSurface("や"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("@1ですの")
                     .setConditions(new ConvertCondition[] {
-                            condNounsGeneral,
-                            newCond(Util.AuxiliaryVerb, "じゃ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("じゃ"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("@1ですの")
                     .setConditions(new ConvertCondition[] {
-                            condNounsGeneral,
-                            newCond(Util.AuxiliaryVerb, "だ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("だ"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("@1ですの")
                     .setConditions(new ConvertCondition[] {
-                            condNounsGeneral,
-                            newCond(Util.AuxiliaryVerb, "や"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("や"),
                     })
                     .setEnableKutenToExclamation(
                     true
@@ -337,42 +373,61 @@ public class ConvertRule {
             new ContinuousConditionsConvertRule()
                     .setValue("@1ですの")
                     .setConditions(new ConvertCondition[] {
-                            condPronounsGeneral,
-                            newCond(Util.AuxiliaryVerb, "じゃ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("じゃ"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("@1ですの")
                     .setConditions(new ConvertCondition[] {
-                            condPronounsGeneral,
-                            newCond(Util.AuxiliaryVerb, "だ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("だ"),
                     })
                     .setEnableKutenToExclamation(true),
             new ContinuousConditionsConvertRule()
                     .setValue("@1ですの")
                     .setConditions(new ConvertCondition[] {
-                            condPronounsGeneral,
-                            newCond(Util.AuxiliaryVerb, "や"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("や"),
                     })
                     .setEnableKutenToExclamation(true),
             // 名詞＋した＋終助詞は文の終わり
             new ContinuousConditionsConvertRule()
                     .setValue("@1をいたしましたわ")
                     .setConditions(new ConvertCondition[] {
-                            condNounsGeneral,
-                            newCond(Util.VerbIndependence, "し"),
-                            newCond(Util.AuxiliaryVerb, "た"),
-                            new ConvertCondition().setFeatures(Util.SentenceEndingParticle),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.VerbIndependence)
+                                    .setSurface("し"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("た"),
+                            new ConvertCondition().setFeatures(Pos.SentenceEndingParticle),
                     })
                     .setEnableKutenToExclamation(true),
             // 名詞＋やる＋終助詞は文の終わり
             new ContinuousConditionsConvertRule()
                     .setValue("@1をいたしましたわ")
                     .setConditions(new ConvertCondition[] {
-                            condNounsGeneral,
-                            newCond(Util.VerbIndependence, "やっ"),
-                            newCond(Util.AuxiliaryVerb, "た"),
-                            new ConvertCondition().setFeatures(Util.SentenceEndingParticle),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.VerbIndependence)
+                                    .setSurface("やっ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("た"),
+                            new ConvertCondition().setFeatures(Pos.SentenceEndingParticle),
                     })
                     .setEnableKutenToExclamation(true),
     };
@@ -381,16 +436,25 @@ public class ConvertRule {
      * ExcludeRules は変換処理を無視するルール。
      * このルールは ConvertRules よりも優先して評価される。
      */
-    public static ConvertRule[] ExcludeRules = new ConvertRule[] {
-            new ConvertRule()
-                    .setConditions(new ConvertCondition[] {
-                    newCond(Util.SpecificGeneral, "カス"),
-            }),
-            new ConvertRule()
-                    .setConditions(new ConvertCondition[] {
-                    newCondRe(Util.NounsGeneral, Pattern.compile("^(ー+|～+)$")),
-            }),
-    };
+    public static final ConvertRule[] ExcludeRules;
+
+    static {
+        Pattern surfaceRe = Pattern.compile("^(ー+|～+)$");
+        ExcludeRules = new ConvertRule[] {
+                new ConvertRule()
+                        .setConditions(new ConvertCondition[] {
+                        new ConvertCondition()
+                                .setFeatures(Pos.SpecificGeneral)
+                                .setSurface("カス"),
+                }),
+                new ConvertRule()
+                        .setConditions(new ConvertCondition[] {
+                        new ConvertCondition()
+                                .setFeatures(Pos.NounsGeneral)
+                                .setSurfaceRe(surfaceRe),
+                }),
+        };
+    }
 
     /**
      * ConvertRules は 単独のTokenに対して、Conditionsがすべてマ ッチしたときに変換するルール。
@@ -399,32 +463,130 @@ public class ConvertRule {
      */
     public static ConvertRule[] ConvertRules = new ConvertRule[] {
             // 一人称
-            newRulePronounGeneral("俺", "私"),
-            newRulePronounGeneral("オレ", "ワタクシ"),
-            newRulePronounGeneral("おれ", "わたくし"),
-            newRulePronounGeneral("僕", "私"),
-            newRulePronounGeneral("ボク", "ワタクシ"),
-            newRulePronounGeneral("ぼく", "わたくし"),
-            newRulePronounGeneral("あたし", "わたくし"),
-            newRulePronounGeneral("わたし", "わたくし"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("俺")
+                    })
+                    .setValue("私"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("オレ")
+                    })
+                    .setValue("ワタクシ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("おれ")
+                    })
+                    .setValue("わたくし"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("僕")
+                    })
+                    .setValue("私"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("ボク")
+                    })
+                    .setValue("ワタクシ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("ぼく")
+                    })
+                    .setValue("わたくし"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("あたし")
+                    })
+                    .setValue("わたくし"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("わたし")
+                    })
+                    .setValue("わたくし"),
 
             // 二人称
-            newRulePronounGeneral("あなた", "貴方"),
-            newRulePronounGeneral("あんた", "貴方"),
-            newRulePronounGeneral("おまえ", "貴方"),
-            newRulePronounGeneral("お前", "貴方"),
-            newRulePronounGeneral("てめぇ", "貴方"),
-            newRulePronounGeneral("てめえ", "貴方"),
-            newRuleNounsGeneral("貴様", "貴方").setDisablePrefix(true),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("あなた")
+                    })
+                    .setValue("貴方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("あんた")
+                    })
+                    .setValue("貴方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("おまえ")
+                    })
+                    .setValue("貴方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("お前")
+                    })
+                    .setValue("貴方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("てめぇ")
+                    })
+                    .setValue("貴方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("てめえ")
+                    })
+                    .setValue("貴方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral)
+                                    .setSurface("貴様")
+                    })
+                    .setValue("貴方").setDisablePrefix(true),
             // newRulePronounGeneral("きさま", "貴方"),
             // newRulePronounGeneral("そなた", "貴方"),
-            newRulePronounGeneral("君", "貴方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("君")
+                    })
+                    .setValue("貴方"),
 
             // 三人称
             // TODO: AfterIgnore系も簡単に定義できるようにしたい
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.NounsGeneral, "パパ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral)
+                                    .setSurface("パパ"),
                     })
                     .setAfterIgnoreConditions(new ConvertCondition[] {
                             new ConvertCondition().setSurface("上"),
@@ -432,61 +594,181 @@ public class ConvertRule {
                     .setValue("パパ上"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.NounsGeneral, "ママ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral)
+                                    .setSurface("ママ"),
                     })
                     .setAfterIgnoreConditions(new ConvertCondition[] {
                             new ConvertCondition().setSurface("上"),
                     })
                     .setValue("ママ上"),
-            newRulePronounGeneral("皆", "皆様方"),
-            newRuleNounsGeneral("皆様", "皆様方").setDisablePrefix(true),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("皆")
+                    })
+                    .setValue("皆様方"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NounsGeneral)
+                                    .setSurface("皆様")
+                    })
+                    .setValue("皆様方").setDisablePrefix(true),
 
             // こそあど言葉
-            newRulePronounGeneral("これ", "こちら"),
-            newRulePronounGeneral("それ", "そちら"),
-            newRulePronounGeneral("あれ", "あちら"),
-            newRulePronounGeneral("どれ", "どちら"),
-            newRuleAdnominalAdjective("この", "こちらの"),
-            newRuleAdnominalAdjective("その", "そちらの"),
-            newRuleAdnominalAdjective("あの", "あちらの"),
-            newRuleAdnominalAdjective("どの", "どちらの"),
-            newRulePronounGeneral("ここ", "こちら"),
-            newRulePronounGeneral("そこ", "そちら"),
-            newRulePronounGeneral("あそこ", "あちら"),
-            newRulePronounGeneral("どこ", "どちら"),
-            newRuleAdnominalAdjective("こんな", "このような"),
-            newRuleAdnominalAdjective("そんな", "そのような"),
-            newRuleAdnominalAdjective("あんな", "あのような"),
-            newRuleAdnominalAdjective("どんな", "どのような"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("これ")
+                    })
+                    .setValue("こちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("それ")
+                    })
+                    .setValue("そちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("あれ")
+                    })
+                    .setValue("あちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("どれ")
+                    })
+                    .setValue("どちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("この")
+                    })
+                    .setValue("こちらの"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("その")
+                    })
+                    .setValue("そちらの"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("あの")
+                    })
+                    .setValue("あちらの"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("どの")
+                    })
+                    .setValue("どちらの"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("ここ")
+                    })
+                    .setValue("こちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("そこ")
+                    })
+                    .setValue("そちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("あそこ")
+                    })
+                    .setValue("あちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.PronounGeneral)
+                                    .setSurface("どこ")
+                    })
+                    .setValue("どちら"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("こんな")
+                    })
+                    .setValue("このような"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("そんな")
+                    })
+                    .setValue("そのような"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("あんな")
+                    })
+                    .setValue("あのような"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdnominalAdjective)
+                                    .setSurface("どんな")
+                    })
+                    .setValue("どのような"),
 
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.NotIndependenceGeneral, "もん"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.NotIndependenceGeneral)
+                                    .setSurface("もん"),
                     })
                     .setValue("もの"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.AuxiliaryVerb, "です"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("です"),
                     })
                     .setAfterIgnoreConditions(new ConvertCondition[] {
-                            new ConvertCondition().setFeatures(Util.SubParEndParticle),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.SubParEndParticle),
                     })
                     .setAppendLongNote(true)
                     .setEnableKutenToExclamation(true)
                     .setValue("ですわ"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.AuxiliaryVerb, "だ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("だ"),
                     })
                     .setAfterIgnoreConditions(new ConvertCondition[] {
-                            new ConvertCondition().setFeatures(Util.SubParEndParticle),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.SubParEndParticle),
                     })
                     .setAppendLongNote(true)
                     .setEnableKutenToExclamation(true)
                     .setValue("ですわ"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.VerbIndependence, "する"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.VerbIndependence)
+                                    .setSurface("する"),
                     })
                     .setEnableWhenSentenceSeparation(true)
                     .setAppendLongNote(true)
@@ -494,7 +776,9 @@ public class ConvertRule {
                     .setValue("いたしますわ"),
             new ConvertRule().setConditions(
                             new ConvertCondition[] {
-                                    newCond(Util.VerbIndependence, "なる"),
+                                    new ConvertCondition()
+                                            .setFeatures(Pos.VerbIndependence)
+                                            .setSurface("なる"),
                             })
                     .setEnableWhenSentenceSeparation(true)
                     .setAppendLongNote(true)
@@ -502,70 +786,94 @@ public class ConvertRule {
                     .setValue("なりますわ"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.VerbIndependence, "ある"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.VerbIndependence)
+                                    .setSurface("ある"),
                     })
                     .setValue("あります"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.SubPostpositionalParticle, "じゃ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.SubPostpositionalParticle)
+                                    .setSurface("じゃ"),
                     })
                     .setValue("では"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.SubParEndParticle, "か"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.SubParEndParticle)
+                                    .setSurface("か"),
                     })
                     .setValue("の"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.SentenceEndingParticle, "わ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.SentenceEndingParticle)
+                                    .setSurface("わ"),
                     })
                     .setAppendLongNote(true)
                     .setEnableKutenToExclamation(true)
                     .setValue("ですわ"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.SentenceEndingParticle, "な")
+                            new ConvertCondition()
+                                    .setFeatures(Pos.SentenceEndingParticle)
+                                    .setSurface("な")
                     })
                     .setValue("ね"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.SentenceEndingParticle, "さ")
+                            new ConvertCondition()
+                                    .setFeatures(Pos.SentenceEndingParticle)
+                                    .setSurface("さ")
                     })
                     .setValue(""),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.ConnAssistant, "から")
+                            new ConvertCondition()
+                                    .setFeatures(Pos.ConnAssistant)
+                                    .setSurface("から")
                     })
                     .setValue("ので"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.ConnAssistant, "けど")
+                            new ConvertCondition()
+                                    .setFeatures(Pos.ConnAssistant)
+                                    .setSurface("けど")
                     })
                     .setValue("けれど"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.ConnAssistant, "し")
+                            new ConvertCondition()
+                                    .setFeatures(Pos.ConnAssistant)
+                                    .setSurface("し")
                     })
                     .setValue("ですし"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.AuxiliaryVerb, "まし"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("まし"),
                     })
                     .setBeforeIgnoreConditions(new ConvertCondition[] {
-                            new ConvertCondition().setFeatures(Util.VerbIndependence),
+                            new ConvertCondition().setFeatures(Pos.VerbIndependence),
                     })
                     .setValue("おりまし"),
             new ConvertRule()
                     .setConditions(
                             new ConvertCondition[] {
-                                    newCond(Util.AuxiliaryVerb, "ます"),
+                                    new ConvertCondition()
+                                            .setFeatures(Pos.AuxiliaryVerb)
+                                            .setSurface("ます"),
                             })
                     .setAppendLongNote(true)
                     .setEnableKutenToExclamation(true)
                     .setValue("ますわ"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.AuxiliaryVerb, "た"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("た"),
                     })
                     .setEnableWhenSentenceSeparation(true)
                     .setAppendLongNote(true)
@@ -573,50 +881,127 @@ public class ConvertRule {
                     .setValue("たわ"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.AuxiliaryVerb, "だろ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("だろ"),
                     })
                     .setValue("でしょう"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(Util.AuxiliaryVerb, "ない"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AuxiliaryVerb)
+                                    .setSurface("ない"),
                     })
                     .setBeforeIgnoreConditions(new ConvertCondition[] {
-                            new ConvertCondition().setFeatures(Util.VerbIndependence),
+                            new ConvertCondition().setFeatures(Pos.VerbIndependence),
                     })
                     .setValue("ありません"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(VerbNotIndependence, "ください"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.VerbNotIndependence)
+                                    .setSurface("ください"),
                     })
                     .setEnableKutenToExclamation(true)
                     .setValue("くださいまし"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(VerbNotIndependence, "くれ"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.VerbNotIndependence)
+                                    .setSurface("くれ"),
                     })
                     .setEnableKutenToExclamation(true)
                     .setValue("くださいまし"),
-            newRuleInterjection("ありがとう", "ありがとうございますわ"),
-            newRuleInterjection("じゃぁ", "それでは"),
-            newRuleInterjection("じゃあ", "それでは"),
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            newCond(VerbNotIndependence, "くれる"),
+                            new ConvertCondition()
+                                    .setFeatures(Pos.Interjection)
+                                    .setSurface("ありがとう")
+                    })
+                    .setValue("ありがとうございますわ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.Interjection)
+                                    .setSurface("じゃぁ")
+                    })
+                    .setValue("それでは"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.Interjection)
+                                    .setSurface("じゃあ")
+                    })
+                    .setValue("それでは"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.VerbNotIndependence)
+                                    .setSurface("くれる"),
                     })
                     .setValue("くれます"),
-            newRuleAdjectivesSelfSupporting("汚い", "きったねぇ"),
-            newRuleAdjectivesSelfSupporting("きたない", "きったねぇ"),
-            newRuleAdjectivesSelfSupporting("臭い", "くっせぇ"),
-            newRuleAdjectivesSelfSupporting("くさい", "くっせぇ"),
-            newRuleInterjection("うふ", "おほ"),
-            newRuleInterjection("うふふ", "おほほ"),
-            newRuleInterjection("う", "お"),
-            newRuleInterjection("ふふふ", "ほほほ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdjectivesSelfSupporting)
+                                    .setSurface("汚い")
+                    })
+                    .setValue("きったねぇ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdjectivesSelfSupporting)
+                                    .setSurface("きたない")
+                    })
+                    .setValue("きったねぇ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdjectivesSelfSupporting)
+                                    .setSurface("臭い")
+                    })
+                    .setValue("くっせぇ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdjectivesSelfSupporting)
+                                    .setSurface("くさい")
+                    })
+                    .setValue("くっせぇ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.Interjection)
+                                    .setSurface("うふ")
+                    })
+                    .setValue("おほ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.Interjection)
+                                    .setSurface("うふふ")
+                    })
+                    .setValue("おほほ"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.Interjection)
+                                    .setSurface("う")
+                    })
+                    .setValue("お"),
+            new ConvertRule()
+                    .setConditions(new ConvertCondition[] {
+                            new ConvertCondition()
+                                    .setFeatures(Pos.Interjection)
+                                    .setSurface("ふふふ")
+                    })
+                    .setValue("ほほほ"),
 
             // 形容詞文。形容詞で文が終わる時に変換する
             new ConvertRule()
                     .setConditions(new ConvertCondition[] {
-                            new ConvertCondition().setFeatures(AdjectivesSelfSupporting)
+                            new ConvertCondition()
+                                    .setFeatures(Pos.AdjectivesSelfSupporting)
                     })
                     .setEnableWhenSentenceSeparation(true)
                     .setEnableKutenToExclamation(true)

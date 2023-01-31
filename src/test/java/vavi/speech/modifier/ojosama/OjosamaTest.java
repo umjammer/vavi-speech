@@ -27,7 +27,9 @@ import static vavi.speech.modifier.ojosama.UtilTest.setFinalStatic;
 
 
 /**
- * TODO some tests don't work because the dictionary is not the same as the original
+ * TODO some tests don't work
+ *  because the dictionary is not the same as the original
+ *  or miss porting
  */
 class OjosamaTest {
 
@@ -57,7 +59,8 @@ class OjosamaTest {
     }
 
     /**
-     * TestRandomizer は強制的に波線や感嘆符や疑問符を任意の数追加するための設定。
+     * TestRandomizer is a mock for
+     * 強制的に波線や感嘆符や疑問符を任意の数追加するための設定。
      * <p>
      * 波線や感嘆符の付与には乱数が絡むため、単体テスト実行時に確実に等しい結果を得
      * ることが難しい。この問題を回避するために、このパラメータを差し込むことで乱数
@@ -81,7 +84,7 @@ class OjosamaTest {
         }
     }
 
-    /** */
+    /** mock */
     static class TestShuffler extends EQMark.Shuffler {
         int pos;
         TestShuffler(int pos) {
@@ -580,13 +583,13 @@ Debug.println(Level.FINE, "forceAppendLongNote: " + getFinalStatic(OjosamaEosMid
 
         ConvertOption opt = new ConvertOption().setDisableKutenToExclamation(topt == null);
         String got = new OjosamaEosMidifier().convert(src, opt);
-        if (wantErr) {
-            assertNotEquals(want, got);
-        } else {
-Debug.println("---");
+Debug.println((wantErr ? "\uD83D\uDD34" : "\uD83D\uDFE2"));
 Debug.println("SOURCE:   " + src);
 Debug.println("EXPECTED: " + want);
 Debug.println("ACTUAL:   " + got);
+        if (wantErr) {
+            assertNotEquals(want, got);
+        } else {
             assertEquals(want, got);
         }
     }

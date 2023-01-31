@@ -16,6 +16,7 @@ import vavi.speech.modifier.ojosama.ConvertRule.MeaningType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static vavi.speech.modifier.ojosama.ConvertRule.getMeaningType;
+import static vavi.speech.modifier.ojosama.Util.Feature;
 
 
 class ConvertRuleTest {
@@ -28,21 +29,21 @@ class ConvertRuleTest {
                             put(MeaningType.Coercion,
                                     new ConvertCondition[] {
                                             new ConvertCondition()
-                                                    .setFeatures(new String[] {"名詞"})
+                                                    .setFeatures(new Feature("名詞"))
                                                     .setReading("a"),
                                             new ConvertCondition()
-                                                    .setFeatures(new String[] {"名詞"})
+                                                    .setFeatures(new Feature("名詞"))
                                                     .setReading("b"),
                                     });
                             put(MeaningType.Hope,
                                     new ConvertCondition[] {
                                             new ConvertCondition()
-                                                    .setFeatures(new String[] {"名詞"})
+                                                    .setFeatures(new Feature("名詞"))
                                                     .setReading("c"),
                                     });
                         }},
                         new TokenData()
-                                .setFeatures(new String[] {"名詞"})
+                                .setFeatures(new Feature("名詞"))
                                 .setReading("b"),
                         MeaningType.Coercion,
                         true),
@@ -52,15 +53,15 @@ class ConvertRuleTest {
                             put(MeaningType.Coercion,
                                     new ConvertCondition[] {
                                             new ConvertCondition()
-                                                    .setFeatures(new String[] {"名詞"})
+                                                    .setFeatures(new Feature("名詞"))
                                                     .setReading("z"),
                                             new ConvertCondition()
-                                                    .setFeatures(new String[] {"名詞"})
+                                                    .setFeatures(new Feature("名詞"))
                                                     .setReading("z"),
                                     });
                         }},
                         new TokenData()
-                                .setFeatures(new String[] {"名詞"})
+                                .setFeatures(new Feature("名詞"))
                                 .setReading("b"),
                         MeaningType.Unknown,
                         false)

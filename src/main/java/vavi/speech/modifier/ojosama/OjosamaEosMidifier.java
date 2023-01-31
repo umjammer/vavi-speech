@@ -23,6 +23,9 @@ import static vavi.speech.modifier.ojosama.EQMark.sampleExclamationQuestionByVal
 import static vavi.speech.modifier.ojosama.Util.containsFeatures;
 import static vavi.speech.modifier.ojosama.Util.containsString;
 import static vavi.speech.modifier.ojosama.Util.equalsFeatures;
+import static vavi.speech.modifier.ojosama.Util.Feat;
+import static vavi.speech.modifier.ojosama.Util.Feature;
+import static vavi.speech.modifier.ojosama.Util.Pos;
 import static vavi.speech.modifier.ojosama.ConvertRule.ContinuousConditionsConvertRule;
 import static vavi.speech.modifier.ojosama.ConvertRule.ContinuousConditionsConvertRules;
 import static vavi.speech.modifier.ojosama.ConvertRule.ConvertRules;
@@ -205,8 +208,8 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
             }
             String s = data.surface;
             // TODO: ベタ書きしててよくない
-            if (equalsFeatures(data.features, Util.NounsGeneral) ||
-                    equalsFeatures(Arrays.copyOfRange(data.features, 0, 2), Util.NounsSaDynamic)) {
+            if (equalsFeatures(data.features, Pos.NounsGeneral) ||
+                    equalsFeatures(new Feature(data.features, 0, 2), Pos.NounsSaDynamic)) {
                 s = "お" + s;
             }
             result.append(s);
@@ -427,8 +430,8 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
 
     /** */
     private boolean appendablePrefix(TokenData data) {
-        if (!equalsFeatures(data.features, new String[] {"名詞", "一般"}) &&
-                !equalsFeatures(Arrays.copyOfRange(data.features, 0, 2), new String[] {"名詞", "固有名詞"})) {
+        if (!equalsFeatures(data.features, new Feature("名詞", "一般")) &&
+                !equalsFeatures(new Feature(data.features, 0, 2), new Feature("名詞", "固有名詞"))) {
             return false;
         }
 
@@ -457,7 +460,7 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
         // 例: プレイする
         if (i + 1 < tokens.length) {
             data = new TokenData(tokens[i + 1]);
-            if (equalsFeatures(data.features, new String[] {"動詞", "自立"})) {
+            if (equalsFeatures(data.features, new Feature("動詞", "自立"))) {
                 return new AppendResult(surface, nounKeep);
             }
         }
@@ -471,13 +474,13 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
             data = new TokenData(tokens[i - 1]);
 
             // 手前のトークンが「お」の場合は付与しない
-            if (equalsFeatures(data.features, new String[] {"接頭詞", "名詞接続"})) {
+            if (equalsFeatures(data.features, new Feature("接頭詞", "名詞接続"))) {
                 return new AppendResult(surface, false);
             }
 
             // サ変接続が来ても付与しない。
             // 例: 横断歩道、解体新書
-            if (equalsFeatures(data.features, new String[] {"名詞", "サ変接続"})) {
+            if (equalsFeatures(data.features, new Feature("名詞", "サ変接続"))) {
                 return new AppendResult(surface, false);
             }
         }
@@ -487,7 +490,7 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
 
     /** isSentenceSeparation は data が文の区切りに使われる token かどうかを判定する。 */
     private boolean isSentenceSeparation(TokenData data) {
-        return containsFeatures(new String[][] {Util.Kuten, Util.Toten}, data.features) ||
+        return containsFeatures(new Feat[] {Feat.Kuten, Feat.Toten}, data.features) ||
                 containsString(new String[] {"！", "!", "？", "?"}, data.surface);
     }
 

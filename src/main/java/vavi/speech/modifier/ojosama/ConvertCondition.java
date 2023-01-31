@@ -9,12 +9,18 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import static vavi.speech.modifier.ojosama.Util.equalsFeatures;
+import static vavi.speech.modifier.ojosama.Util.Feat;
 
 
-/** ConvertCondition は変換に使う条件。 */
+/**
+ * ConvertCondition は変換に使う条件。
+ *
+ * ConvertCondition[] は変換条件のスライス。
+ * ANDで評価するかORで評価するかは、この型を使う側に依存する
+ */
 public class ConvertCondition {
 
-    String[] features;
+    Feat features;
     String reading;
     /** オプション。設定されてる時だけ使う */
     Pattern readingRe;
@@ -34,7 +40,7 @@ public class ConvertCondition {
     }
 
     public boolean equalsTokenData(TokenData data) {
-        if (this.features != null && 0 < this.features.length && !equalsFeatures(data.features, this.features)) {
+        if (this.features != null && 0 < this.features.elements().length && !equalsFeatures(data.features, this.features)) {
             return false;
         }
         if (isNotEmptyStringAndDoesntEqualString(this.surface, data.surface)) {
@@ -61,7 +67,7 @@ public class ConvertCondition {
 
     // builders
 
-    public ConvertCondition setFeatures(String[] features) {
+    public ConvertCondition setFeatures(Feat features) {
         this.features = features;
         return this;
     }
@@ -96,43 +102,8 @@ public class ConvertCondition {
         return this;
     }
 
-    // convenient instanciators
-
-    public static ConvertCondition newCond(String[] features, String surface) {
-        return new ConvertCondition()
-                .setFeatures(features)
-                .setSurface(surface);
-    }
-
-    public static ConvertCondition newCondRe(String[] features, Pattern surfaceRe) {
-        return new ConvertCondition()
-                .setFeatures(features)
-                .setSurfaceRe(surfaceRe);
-    }
-
-    public static ConvertCondition newCondSentenceEndingParticle(String surface) {
-        return new ConvertCondition()
-                .setFeatures(Util.SentenceEndingParticle)
-                .setSurface(surface);
-    }
-
-    public static ConvertCondition newCondAuxiliaryVerb(String surface) {
-        return new ConvertCondition()
-                .setFeatures(Util.AuxiliaryVerb)
-                .setSurface(surface);
-    }
-
-    /**
-     * ConvertCondition[] は変換条件のスライス。
-     *
-     * ANDで評価するかORで評価するかは、この型を使う側に依存する
-     */
-    public static ConvertCondition[] newConds(String[] surfaces) {
-        List<ConvertCondition> c = new ArrayList<>();
-        for (String s : surfaces) {
-            ConvertCondition cc = new ConvertCondition().setSurface(s);
-            c.add(cc);
-        }
-        return c.toArray(new ConvertCondition[0]);
+    @Override
+    public String toString() {
+        return '"' + surface + '"';
     }
 }
