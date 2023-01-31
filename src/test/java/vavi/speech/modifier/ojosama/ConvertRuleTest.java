@@ -11,12 +11,12 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import vavi.speech.modifier.ojosama.ConvertRule.MeaningType;
+import vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.MeaningType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static vavi.speech.modifier.ojosama.ConvertRule.getMeaningType;
-import static vavi.speech.modifier.ojosama.Util.Feature;
+import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.getMeaningType;
+import static vavi.speech.modifier.ojosama.Feature.Feat;
 
 
 class ConvertRuleTest {
@@ -26,44 +26,49 @@ class ConvertRuleTest {
                 arguments(
                         "正常系: 一致したmeaningTypeを返却いたしますわ",
                         new HashMap<MeaningType, ConvertCondition[]>() {{
-                            put(MeaningType.Coercion,
+                            put(Rule.SentenceEndingParticleConvertRule.MeaningType.Coercion,
                                     new ConvertCondition[] {
-                                            new ConvertCondition()
-                                                    .setFeatures(new Feature("名詞"))
-                                                    .setReading("a"),
-                                            new ConvertCondition()
-                                                    .setFeatures(new Feature("名詞"))
-                                                    .setReading("b"),
+                                            new ConvertCondition() {{
+                                                    feature = new Feat().setElements("名詞");
+                                                    reading = "a";
+                                            }},
+                                            new ConvertCondition() {{
+                                                    feature = new Feat().setElements("名詞");
+                                                    reading = "b";
+                                            }}
                                     });
-                            put(MeaningType.Hope,
+                            put(Rule.SentenceEndingParticleConvertRule.MeaningType.Hope,
                                     new ConvertCondition[] {
-                                            new ConvertCondition()
-                                                    .setFeatures(new Feature("名詞"))
-                                                    .setReading("c"),
+                                            new ConvertCondition() {{
+                                                    feature = new Feat().setElements("名詞");
+                                                    reading = "c";
+                                            }}
                                     });
                         }},
                         new TokenData()
-                                .setFeatures(new Feature("名詞"))
+                                .setFeatures(new Feat().setElements("名詞"))
                                 .setReading("b"),
-                        MeaningType.Coercion,
+                        Rule.SentenceEndingParticleConvertRule.MeaningType.Coercion,
                         true),
                 arguments(
                         "正常系: いずれとも一致しない場合はunknownですわ",
                         new HashMap<MeaningType, ConvertCondition[]>() {{
-                            put(MeaningType.Coercion,
+                            put(Rule.SentenceEndingParticleConvertRule.MeaningType.Coercion,
                                     new ConvertCondition[] {
-                                            new ConvertCondition()
-                                                    .setFeatures(new Feature("名詞"))
-                                                    .setReading("z"),
-                                            new ConvertCondition()
-                                                    .setFeatures(new Feature("名詞"))
-                                                    .setReading("z"),
+                                            new ConvertCondition() {{
+                                                    feature = new Feat().setElements("名詞");
+                                                    reading = "z";
+                                            }},
+                                            new ConvertCondition() {{
+                                                    feature = new Feat().setElements("名詞");
+                                                    reading = "z";
+                                            }}
                                     });
                         }},
                         new TokenData()
-                                .setFeatures(new Feature("名詞"))
+                                .setFeatures(new Feat().setElements("名詞"))
                                 .setReading("b"),
-                        MeaningType.Unknown,
+                        Rule.SentenceEndingParticleConvertRule.MeaningType.Unknown,
                         false)
         );
     }
@@ -79,6 +84,6 @@ class ConvertRuleTest {
 
         MeaningType gotMT = getMeaningType(typeMap, data);
         assertEquals(wantMT, gotMT);
-        assertEquals(wantOK, gotMT != MeaningType.Unknown);
+        assertEquals(wantOK, gotMT != Rule.SentenceEndingParticleConvertRule.MeaningType.Unknown);
     }
 }

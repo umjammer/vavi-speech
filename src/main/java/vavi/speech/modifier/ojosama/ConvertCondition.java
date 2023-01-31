@@ -4,12 +4,9 @@
 
 package vavi.speech.modifier.ojosama;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
-import static vavi.speech.modifier.ojosama.Util.equalsFeatures;
-import static vavi.speech.modifier.ojosama.Util.Feat;
+import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
 
 
 /**
@@ -20,7 +17,7 @@ import static vavi.speech.modifier.ojosama.Util.Feat;
  */
 public class ConvertCondition {
 
-    Feat features;
+    Feature feature;
     String reading;
     /** オプション。設定されてる時だけ使う */
     Pattern readingRe;
@@ -40,7 +37,7 @@ public class ConvertCondition {
     }
 
     public boolean equalsTokenData(TokenData data) {
-        if (this.features != null && 0 < this.features.elements().length && !equalsFeatures(data.features, this.features)) {
+        if (this.feature != null && 0 < this.feature.elements().length && !equalsFeatures(data.features, this.feature)) {
             return false;
         }
         if (isNotEmptyStringAndDoesntEqualString(this.surface, data.surface)) {
@@ -65,45 +62,16 @@ public class ConvertCondition {
         return true;
     }
 
-    // builders
-
-    public ConvertCondition setFeatures(Feat features) {
-        this.features = features;
-        return this;
-    }
-
-    public ConvertCondition setReading(String reading) {
-        this.reading = reading;
-        return this;
-    }
-
-    public ConvertCondition setReadingRe(Pattern readingRe) {
-        this.readingRe = readingRe;
-        return this;
-    }
-
-    public ConvertCondition setSurface(String surface) {
-        this.surface = surface;
-        return this;
-    }
-
-    public ConvertCondition setSurfaceRe(Pattern surfaceRe) {
-        this.surfaceRe = surfaceRe;
-        return this;
-    }
-
-    public ConvertCondition setBaseForm(String baseForm) {
-        this.baseForm = baseForm;
-        return this;
-    }
-
-    public ConvertCondition setBaseFormRe(Pattern baseFormRe) {
-        this.baseFormRe = baseFormRe;
-        return this;
-    }
-
     @Override
     public String toString() {
-        return '"' + surface + '"';
+        return "ConvertCondition{" +
+                "feature=" + feature +
+                ", reading='" + reading + '\'' +
+                ", readingRe=" + readingRe +
+                ", surface='" + surface + '\'' +
+                ", surfaceRe=" + surfaceRe +
+                ", baseForm='" + baseForm + '\'' +
+                ", baseFormRe=" + baseFormRe +
+                '}';
     }
 }

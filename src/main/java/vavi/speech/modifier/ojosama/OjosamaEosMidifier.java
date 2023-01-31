@@ -6,6 +6,8 @@ package vavi.speech.modifier.ojosama;
 
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +15,15 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
 import vavi.util.Debug;
@@ -20,20 +31,18 @@ import vavi.util.Debug;
 import static vavi.speech.modifier.ojosama.EQMark.findExclamationQuestionByStyleAndMeaning;
 import static vavi.speech.modifier.ojosama.EQMark.isExclamationQuestionMark;
 import static vavi.speech.modifier.ojosama.EQMark.sampleExclamationQuestionByValue;
-import static vavi.speech.modifier.ojosama.Util.containsFeatures;
-import static vavi.speech.modifier.ojosama.Util.containsString;
-import static vavi.speech.modifier.ojosama.Util.equalsFeatures;
-import static vavi.speech.modifier.ojosama.Util.Feat;
-import static vavi.speech.modifier.ojosama.Util.Feature;
-import static vavi.speech.modifier.ojosama.Util.Pos;
-import static vavi.speech.modifier.ojosama.ConvertRule.ContinuousConditionsConvertRule;
-import static vavi.speech.modifier.ojosama.ConvertRule.ContinuousConditionsConvertRules;
-import static vavi.speech.modifier.ojosama.ConvertRule.ConvertRules;
-import static vavi.speech.modifier.ojosama.ConvertRule.ExcludeRules;
-import static vavi.speech.modifier.ojosama.ConvertRule.MeaningType;
-import static vavi.speech.modifier.ojosama.ConvertRule.SentenceEndingParticleConvertRule;
-import static vavi.speech.modifier.ojosama.ConvertRule.SentenceEndingParticleConvertRules;
-import static vavi.speech.modifier.ojosama.ConvertRule.getMeaningType;
+import static vavi.speech.modifier.ojosama.Feature.containsFeatures;
+import static vavi.speech.modifier.ojosama.Feature.containsString;
+import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
+import static vavi.speech.modifier.ojosama.Feature.Feat;
+import static vavi.speech.modifier.ojosama.Feature.Pos;
+import static vavi.speech.modifier.ojosama.Feature.newPos;
+import static vavi.speech.modifier.ojosama.Feature.slice;
+import static vavi.speech.modifier.ojosama.Rule.ConvertRule;
+import static vavi.speech.modifier.ojosama.Rule.ContinuousConditionsConvertRule;
+import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.MeaningType;
+import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule;
+import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.getMeaningType;
 
 
 /**
@@ -103,11 +112,84 @@ public class OjosamaEosMidifier {
         }
     }
 
-    /** */
+    /** input source */
     private Token[] tokens;
 
     /** */
     private ConvertOption opt;
+
+    /** rule database */
+    private Rule rule;
+
+    /* gson */
+    public static final JsonSerializer<Pattern> patternJsonSerializer = (in, type, context) ->
+            context.serialize(in.pattern());
+
+    /* gson */
+    static class FeatureConditionJsonSerDes implements JsonSerializer<Feature>, JsonDeserializer<Feature> {
+        @Override
+        public Feature deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            if (json.getAsJsonObject().get("pos") != null)
+                return newPos(json.getAsJsonObject().get("pos").getAsString());
+            return new Feat() {{
+                if (json.getAsJsonObject().get("elements") != null)
+                    elements = context.deserialize(json.getAsJsonObject().get("elements"), String[].class);
+            }};
+        }
+
+        @Override
+        public JsonElement serialize(Feature src, Type typeOfSrc, JsonSerializationContext context) {
+            return context.serialize(src.elements(), String[].class);
+        }
+    }
+
+        /* gson */
+    static class ConvertConditionJsonSerDes implements JsonSerializer<ConvertCondition>, JsonDeserializer<ConvertCondition> {
+
+        @Override
+        public ConvertCondition deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            return new ConvertCondition() {{
+                    if (json.getAsJsonObject().get("feature") != null)
+                        feature = context.deserialize(json.getAsJsonObject().get("feature"), Feature.class);
+                    if (json.getAsJsonObject().get("reading") != null)
+                        reading = json.getAsJsonObject().get("reading").getAsString();
+                    if (json.getAsJsonObject().get("readingRe") != null)
+                        readingRe = Pattern.compile(json.getAsJsonObject().get("readingRe").getAsString());
+                    if (json.getAsJsonObject().get("surface") != null)
+                        surface = json.getAsJsonObject().get("surface").getAsString();
+                    if (json.getAsJsonObject().get("surfaceRe") != null)
+                        surfaceRe = Pattern.compile(json.getAsJsonObject().get("surfaceRe").getAsString());
+                    if (json.getAsJsonObject().get("baseForm") != null)
+                        baseForm = json.getAsJsonObject().get("baseForm").getAsString();
+                    if (json.getAsJsonObject().get("baseFormRe") != null)
+                        baseFormRe = Pattern.compile(json.getAsJsonObject().get("baseFormRe").getAsString());
+                }};
+        }
+
+        @Override
+        public JsonElement serialize(ConvertCondition src, Type typeOfSrc, JsonSerializationContext context) {
+            // TODO doesn't work
+            return context.serialize(src, Object.class);
+        }
+    }
+
+    /* */
+    {
+        try {
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Pattern.class, patternJsonSerializer)
+                    .registerTypeAdapter(Feature.class, new FeatureConditionJsonSerDes())
+                    .registerTypeAdapter(ConvertCondition.class, new ConvertConditionJsonSerDes())
+                    .create();
+            rule = gson.fromJson(new InputStreamReader(OjosamaEosMidifier.class.getResourceAsStream("salome.json")), Rule.class);
+            assert 1 == rule.sentenceEndingParticleConvertRules.length;
+            assert 18 == rule.continuousConditionsConvertRules.length;
+            assert 72 == rule.convertRules.length;
+            assert 2 == rule.excludeRules.length;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
     /**
      * Convert はテキストを壱百満天原サロメお嬢様風の口調に変換して返却する。
@@ -194,7 +276,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
      * その他にも「野球するな」だと「お野球をしてはいけませんわ」になる。
      */
     private StringResult convertSentenceEndingParticle(int tokenPos) {
-        for (SentenceEndingParticleConvertRule r : SentenceEndingParticleConvertRules) {
+        for (SentenceEndingParticleConvertRule r : rule.sentenceEndingParticleConvertRules) {
             StringBuilder result = new StringBuilder();
             int p = tokenPos;
             TokenData data = new TokenData(tokens[p]);
@@ -209,7 +291,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
             String s = data.surface;
             // TODO: ベタ書きしててよくない
             if (equalsFeatures(data.features, Pos.NounsGeneral) ||
-                    equalsFeatures(new Feature(data.features, 0, 2), Pos.NounsSaDynamic)) {
+                    equalsFeatures(slice(data.features, 0, 2), Pos.NounsSaDynamic)) {
                 s = "お" + s;
             }
             result.append(s);
@@ -266,7 +348,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
      * 第三引数は変換ルールにマッチしたかどうかを返す。
      */
     StringResult convertContinuousConditions(int tokenPos) {
-        for (ContinuousConditionsConvertRule mc : ContinuousConditionsConvertRules) {
+        for (ContinuousConditionsConvertRule mc : rule.continuousConditionsConvertRules) {
             if (!matchContinuousConditions(tokenPos, mc.conditions)) {
                 continue;
             }
@@ -325,7 +407,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
 
     /** matchExcludeRule は除外ルールと一致するものが存在するかを判定する。 */
     private boolean matchExcludeRule(TokenData data) {
-        for (ConvertRule c : ExcludeRules) {
+        for (ConvertRule c : rule.excludeRules) {
             if (!data.matchAllTokenData(c.conditions)) {
                 continue;
             }
@@ -396,7 +478,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
             afterTokenOK = true;
         }
 
-        for (ConvertRule c : ConvertRules) {
+        for (ConvertRule c : rule.convertRules) {
             if (!data.matchAllTokenData(c.conditions)) {
 Debug.println(Level.FINER, "skipped: " + c.value);
                 continue;
@@ -430,8 +512,8 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
 
     /** */
     private boolean appendablePrefix(TokenData data) {
-        if (!equalsFeatures(data.features, new Feature("名詞", "一般")) &&
-                !equalsFeatures(new Feature(data.features, 0, 2), new Feature("名詞", "固有名詞"))) {
+        if (!equalsFeatures(data.features, new Feat().setElements("名詞", "一般")) &&
+                !equalsFeatures(slice(data.features, 0, 2), new Feat().setElements("名詞", "固有名詞"))) {
             return false;
         }
 
@@ -460,7 +542,7 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
         // 例: プレイする
         if (i + 1 < tokens.length) {
             data = new TokenData(tokens[i + 1]);
-            if (equalsFeatures(data.features, new Feature("動詞", "自立"))) {
+            if (equalsFeatures(data.features, new Feat().setElements("動詞", "自立"))) {
                 return new AppendResult(surface, nounKeep);
             }
         }
@@ -474,13 +556,13 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
             data = new TokenData(tokens[i - 1]);
 
             // 手前のトークンが「お」の場合は付与しない
-            if (equalsFeatures(data.features, new Feature("接頭詞", "名詞接続"))) {
+            if (equalsFeatures(data.features, new Feat().setElements("接頭詞", "名詞接続"))) {
                 return new AppendResult(surface, false);
             }
 
             // サ変接続が来ても付与しない。
             // 例: 横断歩道、解体新書
-            if (equalsFeatures(data.features, new Feature("名詞", "サ変接続"))) {
+            if (equalsFeatures(data.features, new Feat().setElements("名詞", "サ変接続"))) {
                 return new AppendResult(surface, false);
             }
         }
@@ -490,7 +572,7 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
 
     /** isSentenceSeparation は data が文の区切りに使われる token かどうかを判定する。 */
     private boolean isSentenceSeparation(TokenData data) {
-        return containsFeatures(new Feat[] {Feat.Kuten, Feat.Toten}, data.features) ||
+        return containsFeatures(new Feature[] {Feature.Kuten, Feature.Toten}, data.features) ||
                 containsString(new String[] {"！", "!", "？", "?"}, data.surface);
     }
 

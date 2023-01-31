@@ -8,29 +8,45 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.geometry.Pos;
 
-public class Util {
 
-    interface Feat {
-        String[] elements();
-        /**  。 */
-        Feat Kuten = new Feature("記号", "句点");
-        /** 、 */
-        Feat Toten = new Feature("記号", "読点");
+public interface Feature {
+
+    /**  。 */
+    Feature Kuten = new Feat().setElements("記号", "句点");
+
+    /** 、 */
+    Feature Toten = new Feat().setElements("記号", "読点");
+
+    /** */
+    String[] elements();
+
+    static Feature slice(Feature f, int s, int e) { return new Feat().setElements(Arrays.copyOfRange(f.elements(), s, e)); }
+
+    static Feature newPos(String pos) {
+        if (pos.startsWith("Pos.")) {
+            return Pos.valueOf(pos.substring(4));
+//Debug.println(Arrays.toString(this.elements));
+        } else {
+            throw new IllegalArgumentException(pos);
+        }
     }
 
-    static class Feature implements Feat {
+    /** */
+    class Feat implements Feature {
+        static Feat NULL = new Feat() {{ elements = new String[0]; }};
         String[] elements;
-        Feature(String... elements) { this.elements = elements; }
-        Feature(Feat f, int s, int e) { this.elements = Arrays.copyOfRange(f.elements(), s, e); }
+        Feat setElements(String... elements) { this.elements = elements; return this; }
         public String[] elements() { return elements;}
+        @Override public String toString() { return "Feat{" + "elements=" + Arrays.toString(elements) + '}'; }
     }
 
     /**
      * 英語 文法 品詞
      * @see "https://ja.wikibooks.org/wiki/%E8%8B%B1%E8%AA%9E/%E6%96%87%E6%B3%95/%E5%93%81%E8%A9%9E"
      */
-    enum Pos implements Feat {
+    enum Pos implements Feature {
         PronounGeneral("名詞", "代名詞", "一般"),
         NounsGeneral("名詞", "一般"),
         SpecificGeneral("名詞", "固有名詞", "一般"),
@@ -61,7 +77,7 @@ public class Util {
      * ライスを完全一致で比較すると false になるが、この関数に関しては * 以降を無視
      * するため true になる。
      */
-    public static boolean equalsFeatures(Feat a, Feat b) {
+    static boolean equalsFeatures(Feature a, Feature b) {
         List<String> a2 = new ArrayList<>();
         for (String v : a.elements()) {
             if (v == null || v.equals("*")) {
@@ -70,7 +86,7 @@ public class Util {
             a2.add(v);
         }
 
-        a = new Feature(a2.toArray(new String[0]));
+        a = new Feat().setElements(a2.toArray(new String[0]));
         if (a.elements().length != b.elements().length) {
             return false;
         }
@@ -90,8 +106,8 @@ public class Util {
      *
      * features用。
      */
-    public static boolean containsFeatures(Feat[] a, Feat b) {
-        for (Feat a2 : a) {
+    static boolean containsFeatures(Feature[] a, Feature b) {
+        for (Feature a2 : a) {
             if (equalsFeatures(b, a2)) {
                 return true;
             }
@@ -100,7 +116,7 @@ public class Util {
     }
 
     /** ContainsString は a の中に b が含まれるかを判定する。 */
-    public static boolean containsString(String[] a, String b) {
+    static boolean containsString(String[] a, String b) {
         for (String a2 : a) {
             if (a2.equals(b)) {
                 return true;

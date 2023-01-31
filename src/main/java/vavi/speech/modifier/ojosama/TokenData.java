@@ -5,9 +5,9 @@
 package vavi.speech.modifier.ojosama;
 
 import net.java.sen.Token;
-import static vavi.speech.modifier.ojosama.Util.Feature;
-import static vavi.speech.modifier.ojosama.Util.Feat;
-import static vavi.speech.modifier.ojosama.Util.Pos;
+import static vavi.speech.modifier.ojosama.Feature.Feat;
+import static vavi.speech.modifier.ojosama.Feature.Pos;
+import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
 
 
 /**
@@ -23,7 +23,7 @@ public class TokenData {
     String base_form;
     String reading;
     String pronunciation;
-    Feat features;
+    Feature features;
 
     /** matchAnyTokenData は  data がいずれかの c と一致した時に true を返す。*/
     public boolean matchAnyTokenData(ConvertCondition[] c) {
@@ -54,7 +54,7 @@ public class TokenData {
     }
 
     public boolean isKuten() {
-        return Util.equalsFeatures(this.features, Pos.Kuten) && this.surface.equals("。");
+        return equalsFeatures(this.features, Pos.Kuten) && this.surface.equals("。");
     }
 
     public TokenData setSurface(String surface) {
@@ -72,7 +72,7 @@ public class TokenData {
         return this;
     }
 
-    public TokenData setFeatures(Feat features) {
+    public TokenData setFeatures(Feature features) {
         this.features = features;
         return this;
     }
@@ -88,9 +88,9 @@ public class TokenData {
         end = t.end();
         surface = t.getSurface();
         pos = t.getPos().split("-");
-        features = t.getTermInfo() != null ? new Feature(t.getTermInfo().split(",")) : null;
+        features = t.getTermInfo() != null ? new Feat().setElements(t.getTermInfo().split(",")) : null;
         if (features == null) {
-            features = new Feature();
+            features = Feat.NULL;
         }
         base_form = t.getBasicString();
         reading = t.getReading();
