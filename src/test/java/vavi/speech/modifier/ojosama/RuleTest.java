@@ -6,15 +6,18 @@
 
 package vavi.speech.modifier.ojosama;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
+import vavi.speech.modifier.simple.SimpleEosModifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static vavi.speech.modifier.ojosama.OjosamaEosMidifier.gson;
+import static vavi.speech.modifier.ojosama.YakuwarigoModifier.gson;
 
 
 /**
@@ -27,7 +30,7 @@ public class RuleTest {
 
     @Test
     void test1() throws Exception {
-        Rule rule = gson.fromJson(new InputStreamReader(OjosamaEosMidifier.class.getResourceAsStream("salome.json")), Rule.class);
+        Rule rule = gson.fromJson(new InputStreamReader(YakuwarigoModifier.class.getResourceAsStream("salome.json")), Rule.class);
         assertEquals("名詞", rule.sentenceEndingParticleConvertRules[0].conditions1[0].feature.elements()[0]);
 //System.out.println("---- sentenceEndingParticleConvertRules ----");
 //Arrays.stream(rule.sentenceEndingParticleConvertRules).forEach(System.out::println);
@@ -46,5 +49,21 @@ System.out.println(gson.toJson(rule));
 //        System.out.println(gson.toJson(rule.convertRules[0].conditions[0], ConvertCondition.class));
 //        System.out.println(gson.toJson(rule.convertRules[0].conditions, ConvertCondition[].class));
         Files.write(Paths.get("tmp", "out.json"), gson.toJson(rule).getBytes());
+    }
+
+    @Test
+    void test2() throws IOException {
+        YakuwarigoModifier.ConvertOption option = new YakuwarigoModifier.ConvertOption();
+        option.name = "zundamon";
+        option.disableLongNote = true;
+        option.disablePrefix = true;
+        option.disableKutenToExclamation = true;
+        YakuwarigoModifier midifier = new YakuwarigoModifier(option);
+
+        Scanner s = new Scanner(SimpleEosModifier.class.getResourceAsStream("/speech.txt"));
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
+            System.out.println(midifier.convert(line));
+        }
     }
 }

@@ -97,7 +97,7 @@ public class EQMark {
     /** */
     public static class Shuffler {
         EQMark getFirst(List<EQMark> s) {
-            Collections.shuffle(s, OjosamaEosMidifier.random);
+            Collections.shuffle(s, YakuwarigoModifier.random);
             return s.get(0);
         }
     }

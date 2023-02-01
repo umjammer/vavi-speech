@@ -1,0 +1,778 @@
+{
+  "sentenceEndingParticleConvertRules": [
+    {
+      "conditions1": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.NounsSaDynamic"
+          }
+        }
+      ],
+      "conditions2": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "baseForm": "する"
+        },
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "baseForm": "やる"
+        }
+      ],
+      "sentenceEndingParticle": {
+        "Hope": [
+          {
+            "feature": {
+              "pos": "Pos.SentenceEndingParticle"
+            },
+            "surface": "ぜ"
+          },
+          {
+            "feature": {
+              "pos": "Pos.SentenceEndingParticle"
+            },
+            "surface": "よ"
+          },
+          {
+            "feature": {
+              "pos": "Pos.SentenceEndingParticle"
+            },
+            "surface": "べ"
+          }
+        ],
+        "Poem": [
+          {
+            "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ これだけ特殊",
+            "feature": {
+              "elements": [
+                "助詞",
+                "副助詞／並立助詞／終助詞"
+              ]
+            },
+            "surface": "か"
+          }
+        ],
+        "Prohibition": [
+          {
+            "feature": {
+              "pos": "Pos.SentenceEndingParticle"
+            },
+            "surface": "な"
+          }
+        ],
+        "Coercion": [
+          {
+            "feature": {
+              "pos": "Pos.SentenceEndingParticle"
+            },
+            "surface": "ぞ"
+          },
+          {
+            "feature": {
+              "pos": "Pos.SentenceEndingParticle"
+            },
+            "surface": "の"
+          }
+        ]
+      },
+      "auxiliaryVerb": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ],
+      "value": {
+        "Hope": [
+          "をしたいのだ"
+        ],
+        "Poem": [
+          "をするのだ"
+        ],
+        "Prohibition": [
+          "をしたらいけないのだ"
+        ],
+        "Coercion": [
+          "をするのだ"
+        ]
+      }
+    }
+  ],
+  "continuousConditionsConvertRules": [
+    {
+      "value": "ずんだもん",
+      "conditions": [
+        {
+          "surface": "ずんだもん"
+        }
+      ]
+    },
+    {
+      "value": "するのだ",
+      "appendLongNote": true,
+      "conditions": [
+        {
+          "feature": {
+            "elements": [
+              "動詞",
+              "自立"
+            ]
+          },
+          "surface": "し"
+        },
+        {
+          "feature": {
+            "elements": [
+              "助動詞"
+            ]
+          },
+          "surface": "ます"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "なんなのだ",
+      "conditions": [
+        {
+          "feature": {
+            "elements": [
+              "助動詞"
+            ]
+          },
+          "surface": "な"
+        },
+        {
+          "feature": {
+            "elements": [
+              "名詞",
+              "非自立",
+              "一般"
+            ]
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "elements": [
+              "助動詞"
+            ]
+          },
+          "surface": "だ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "elements": [
+              "助動詞"
+            ]
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "elements": [
+              "助詞",
+              "終助詞"
+            ]
+          },
+          "surface": "よ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubPostpositionalParticle"
+          },
+          "surface": "じゃ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AssistantParallelParticle"
+          },
+          "surface": "や"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "じゃ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "@1だのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "や"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "じゃ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "@1だのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "や"
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋した＋終助詞は文の終わり",
+      "value": "@1をしたのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "surface": "し"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ],
+      "enableKutenToExclamation": true
+    },
+    {
+      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋やる＋終助詞は文の終わり",
+      "value": "@1をやったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "surface": "やっ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ],
+      "enableKutenToExclamation": true
+    }
+  ],
+  "convertRules": [
+    {
+      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 一人称",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "俺"
+        }
+      ],
+      "value": "僕"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "オレ"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "おれ"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "あたし"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "わたし"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 二人称",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "あなた"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "あんた"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          }
+        }
+      ],
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "なのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          }
+        }
+      ],
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "なのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "surface": "する"
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "するのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "surface": "なる"
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "なるのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "surface": "ある"
+        }
+      ],
+      "value": "あるのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.SubPostpositionalParticle"
+          },
+          "surface": "じゃ"
+        }
+      ],
+      "value": "ではなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          },
+          "surface": "わ"
+        }
+      ],
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "なのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          },
+          "surface": "な"
+        }
+      ],
+      "value": "なのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          },
+          "surface": "さ"
+        }
+      ],
+      "value": "なのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        }
+      ],
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "ますのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "たのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        }
+      ],
+      "value": "なのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ない"
+        }
+      ],
+      "beforeIgnoreConditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        }
+      ],
+      "value": "ないのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surface": "ください"
+        }
+      ],
+      "enableKutenToExclamation": true,
+      "value": "くださいなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surface": "くれ"
+        }
+      ],
+      "enableKutenToExclamation": true,
+      "value": "くれなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "ありがとう"
+        }
+      ],
+      "value": "ありがとうなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "じゃぁ"
+        }
+      ],
+      "value": "じゃあなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "じゃあ"
+        }
+      ],
+      "value": "じゃあなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surface": "くれる"
+        }
+      ],
+      "value": "くれるのだ"
+    },
+    {
+      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕⭕ 形容詞文。形容詞で文が終わる時に変換する",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "appendLongNote": true,
+      "enableKutenToExclamation": true,
+      "value": "@1なのだ"
+    }
+  ],
+  "excludeRules": [
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.SpecificGeneral"
+          },
+          "surface": "カス"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          },
+          "surfaceRe": "^(ー+|～+)$"
+        }
+      ]
+    }
+  ]
+}

@@ -15,7 +15,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-import com.google.api.client.json.JsonString;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -34,22 +33,22 @@ import vavi.util.Debug;
 import static vavi.speech.modifier.ojosama.EQMark.findExclamationQuestionByStyleAndMeaning;
 import static vavi.speech.modifier.ojosama.EQMark.isExclamationQuestionMark;
 import static vavi.speech.modifier.ojosama.EQMark.sampleExclamationQuestionByValue;
+import static vavi.speech.modifier.ojosama.Feature.Feat;
+import static vavi.speech.modifier.ojosama.Feature.Pos;
 import static vavi.speech.modifier.ojosama.Feature.containsFeatures;
 import static vavi.speech.modifier.ojosama.Feature.containsString;
 import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
-import static vavi.speech.modifier.ojosama.Feature.Feat;
-import static vavi.speech.modifier.ojosama.Feature.Pos;
 import static vavi.speech.modifier.ojosama.Feature.newPos;
 import static vavi.speech.modifier.ojosama.Feature.slice;
-import static vavi.speech.modifier.ojosama.Rule.ConvertRule;
 import static vavi.speech.modifier.ojosama.Rule.ContinuousConditionsConvertRule;
-import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.MeaningType;
+import static vavi.speech.modifier.ojosama.Rule.ConvertRule;
 import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule;
+import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.MeaningType;
 import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.getMeaningType;
 
 
 /**
- * ojosama はお嬢様言葉への変換ロジックを管理する。
+ * YakuwarigoModifier.
  * <p>
  * 関数や構造体のアクセス範囲に関する方針
  * <p>
@@ -80,25 +79,34 @@ import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRul
  * 理由は、変換ルールの生成にしか使わないプライベート関数や、
  * 変換条件の判定関数と、その内部実装用のプライベート関数などが増えてきたため、
  * それらのプライベート関数に変換ロジック関数からアクセスさせないためにパッケージを分けている。
+ *
+ * @see "https://ja.wikipedia.org/wiki/%E5%BD%B9%E5%89%B2%E8%AA%9E"
  */
-public class OjosamaEosMidifier {
+public class YakuwarigoModifier {
 
-    /** ConvertOption はお嬢様変換時のオプショナルな設定。 */
+    /** Settings */
     public static class ConvertOption {
         /**
          * 句点を！に変換する機能をOFFにする。
          * 句点を！に変換してしまうと変換元の文章のニュアンスを破壊する可能性があるため、
          * オプションパラメータで無効にできるようにする。
          */
-        boolean disableKutenToExclamation;
+        public boolean disableKutenToExclamation;
 
-        public ConvertOption setDisableKutenToExclamation(boolean disableKutenToExclamation) {
-            this.disableKutenToExclamation = disableKutenToExclamation;
-            return this;
-        }
+        /** disable adding "〜" randomly */
+        public boolean disableLongNote;
+
+        /**
+         * disable adding the prefix "お"
+         * TODO out source
+         */
+        public boolean disablePrefix;
+
+        /** rule name */
+        public String name;
     }
 
-    /** */
+    /** alphabet */
     private static final Pattern alnumRegexp = Pattern.compile("^[a-zA-Z0-9]+$");
 
     /** */
@@ -118,28 +126,28 @@ public class OjosamaEosMidifier {
     /** input source */
     private Token[] tokens;
 
-    /** */
+    /** settings */
     private ConvertOption opt;
 
     /** rule database */
     private Rule rule;
 
-    /* gson */
+    /* gson: not serialize when false  */
     public static final JsonSerializer<Boolean> booleanJsonSerializer = (in, type, context) ->
             in ? new JsonPrimitive(true) : null;
 
-    /* gson */
+    /* gson: regex to string */
     public static final JsonSerializer<Pattern> patternJsonSerializer = (in, type, context) ->
             context.serialize(in.pattern());
 
-    /* gson */
+    /* gson: TODO why needed??? */
     public static final JsonSerializer<ConvertCondition[]> convertConditionArrayJsonSerializer = (in, type, context) -> {
         JsonArray result = new JsonArray();
         Arrays.stream(in).forEach(c -> result.add(context.serialize(c, ConvertCondition.class)));
         return result;
     };
 
-    /* gson */
+    /* gson: special value "Pos." + name */
     static class FeatureConditionJsonSerDes implements JsonSerializer<Feature>, JsonDeserializer<Feature> {
         @Override
         public Feature deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -165,7 +173,7 @@ public class OjosamaEosMidifier {
         }
     }
 
-    /* gson */
+    /* gson: ConvertCondition TODO really needed??? */
     static class ConvertConditionJsonSerDes implements JsonSerializer<ConvertCondition>, JsonDeserializer<ConvertCondition> {
 
         @Override
@@ -209,6 +217,7 @@ public class OjosamaEosMidifier {
         }
     }
 
+    /** json serdes */
     static Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(ConvertCondition[].class, convertConditionArrayJsonSerializer)
@@ -218,17 +227,28 @@ public class OjosamaEosMidifier {
             .registerTypeAdapter(Boolean.class, booleanJsonSerializer)
             .create();
 
-    /* load rule */
-    {
-        try {
-            rule = gson.fromJson(new InputStreamReader(OjosamaEosMidifier.class.getResourceAsStream("salome.json")), Rule.class);
-            assert 1 == rule.sentenceEndingParticleConvertRules.length;
-            assert 18 == rule.continuousConditionsConvertRules.length;
-            assert 72 == rule.convertRules.length;
-            assert 2 == rule.excludeRules.length;
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+    /** load rule */
+    private Rule getRule(String name) {
+        return gson.fromJson(new InputStreamReader(YakuwarigoModifier.class.getResourceAsStream(name + ".json")), Rule.class);
+    }
+
+    /** japanese takenizer */
+    private StringTagger tokenizer;
+
+    /** w/o settings */
+    public YakuwarigoModifier() throws IOException {
+        this(null);
+    }
+
+    /**
+     * @param opt は挙動を微調整するためのオプショナルなパラメータ。
+     *            不要であれば null を渡せば良い。
+     */
+    public YakuwarigoModifier(ConvertOption opt) throws IOException {
+        this.opt = opt;
+        this.rule = getRule(opt != null && opt.name != null ? opt.name : "salome");
+
+        this.tokenizer = StringTagger.getInstance(); // TODO OmitBosEos
     }
 
     /**
@@ -239,16 +259,9 @@ public class OjosamaEosMidifier {
      * <p>
      * 一部変換の途中でランダムに要素を選択するため、
      * 呼び出し側で乱数のシードの初期化を行うこと。
-     *
-     * @param opt は挙動を微調整するためのオプショナルなパラメータ。
-     *            不要であれば null を渡せば良い。
      */
-    public String convert(String src, ConvertOption opt) throws IOException {
-        this.opt = opt;
-
-        StringTagger tokenizer = StringTagger.getInstance(); // TODO OmitBosEos
-
-        // tokenize;
+    public String convert(String src) throws IOException {
+        // tokenize
         this.tokens = tokenizer.analyze(src);
         StringBuilder result = new StringBuilder();
         boolean nounKeep = false;
@@ -284,7 +297,7 @@ public class OjosamaEosMidifier {
                 continue;
             }
 
-            // お嬢様言葉に変換
+            // convert yakuwarigo
             ConversionResult cr = convert(data, p, buf, nounKeep);
             buf = cr.buf;
             nounKeep = cr.nounKeep;
@@ -329,9 +342,9 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
                 continue;
             }
             String s = data.surface;
-            // TODO: ベタ書きしててよくない
-            if (equalsFeatures(data.features, Pos.NounsGeneral) ||
-                    equalsFeatures(slice(data.features, 0, 2), Pos.NounsSaDynamic)) {
+            // TODO ベタ書きしててよくない
+            if ((opt == null || !opt.disablePrefix) && (equalsFeatures(data.features, Pos.NounsGeneral) ||
+                    equalsFeatures(slice(data.features, 0, 2), Pos.NounsSaDynamic))) {
                 s = "お" + s;
             }
             result.append(s);
@@ -369,7 +382,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
             }
 
             // 意味分類に該当する変換候補の文字列を返す
-            // TODO: 現状1個だけなので決め打ちで最初の1つ目を返す。
+            // TODO 現状1個だけなので決め打ちで最初の1つ目を返す。
             result.append(r.value.get(mt)[0]);
             return new StringResult(result.toString(), p);
         }
@@ -377,7 +390,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
     }
 
     /**
-     * convertContinuousConditions は連続する条件による変換ルールにマッチした変換結果を返す。
+     * 連続する条件による変換ルールにマッチした変換結果を返す。
      * <p>
      * 例えば「壱百満天原サロメ」や「横断歩道」のように、複数のTokenがこの順序で連続
      * して初めて1つの意味になるような条件をすべて満たした時に結果を返す。
@@ -396,10 +409,10 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
             int p = tokenPos + mc.conditions.length - 1;
             String result = mc.value;
 
-            // FIXME: 書き方が汚い
+            // FIXME 書き方が汚い
             TokenData data = new TokenData(tokens[tokenPos]);
             String surface = data.surface;
-            if (appendablePrefix(data)) {
+            if ((opt == null || !opt.disablePrefix) && appendablePrefix(data)) {
                 surface = "お" + surface;
             }
             result = result.replaceAll("@1", surface);
@@ -426,7 +439,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
     }
 
     /**
-     * matchContinuousConditions は tokens の tokenPos の位置からのトークンが、連続する条件にすべてマッチするかを判定する。
+     * tokens の tokenPos の位置からのトークンが、連続する条件にすべてマッチするかを判定する。
      * <p>
      * 次のトークンが存在しなかったり、1つでも条件が不一致になった場合 false を返す。
      */
@@ -445,7 +458,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
         return true;
     }
 
-    /** matchExcludeRule は除外ルールと一致するものが存在するかを判定する。 */
+    /** 除外ルールと一致するものが存在するかを判定する。 */
     private boolean matchExcludeRule(TokenData data) {
         for (ConvertRule c : rule.excludeRules) {
             if (!data.matchAllTokenData(c.conditions)) {
@@ -471,7 +484,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
         }
     }
 
-    /** convert は基本的な変換を行う。 */
+    /** 基本的な変換を行う。 */
     private ConversionResult convert(TokenData data, int p, String surface, boolean nounKeep) {
         ConvertRule c = matchConvertRule(data, p);
         if (c == null) {
@@ -484,7 +497,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
         result = result.replaceAll("@1", data.surface);
 
         // 波線伸ばしをランダムに追加する
-        if (c.appendLongNote) {
+        if (opt == null || !opt.disableLongNote && c.appendLongNote) {
             StringResult sr = newLongNote(pos);
             if (sr != null) {
                 result += sr.str;
@@ -493,7 +506,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
         }
 
         // 手前に「お」を付ける
-        if (!c.disablePrefix) {
+        if (opt == null || !opt.disablePrefix && !c.disablePrefix) {
             AppendResult ar = appendPrefix(data, pos, result, nounKeep);
             result = ar.result;
             nounKeep = ar.nounKeep;
@@ -572,7 +585,7 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
         }
     }
 
-    /** appendPrefix は surface の前に「お」を付ける。 */
+    /** surface の前に「お」を付ける。 */
     private AppendResult appendPrefix(TokenData data, int i, String surface, boolean nounKeep) {
         if (!appendablePrefix(data)) {
             return new AppendResult(surface, false);
@@ -607,7 +620,7 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
             }
         }
 
-        return new AppendResult("お" + surface, true);
+        return new AppendResult((opt == null || !opt.disablePrefix ? "お" : "") + surface, true);
     }
 
     /** isSentenceSeparation は data が文の区切りに使われる token かどうかを判定する。 */
@@ -631,7 +644,7 @@ Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].ge
 
     /**
      * 乱数が絡むと単体テストがやりづらくなるので、
-     * sub class をここに設定して任意の数付与できるようにしてください。
+     * set mock sub class here for fixed fixture.
      */
     private static final Randomizer randomizer = new Randomizer();
 
