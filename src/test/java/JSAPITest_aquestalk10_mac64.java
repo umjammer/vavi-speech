@@ -11,6 +11,8 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
@@ -31,34 +33,54 @@ class JSAPITest_aquestalk10_mac64 {
         speak("すもももももももものうち");
     }
 
-    /** */
-    public void speak(String text) throws Exception {
+    SynthesizerModeDesc desc;
+
+    Synthesizer synthesizer;
+
+    @BeforeEach
+    void setup() throws Exception {
         // シンセザイザのモードを指定
-        SynthesizerModeDesc desc = new AquesTalk10SynthesizerModeDesc("AquesTalk10EngineCentral", "general", Locale.JAPAN);
+        desc = new AquesTalk10SynthesizerModeDesc("AquesTalk10EngineCentral", "general", Locale.JAPAN);
 System.err.println("---- voices ----");
 Arrays.asList(desc.getVoices()).forEach(v -> System.err.println(v.getName()));
 System.err.println("---");
         // シンセザイザを作成
-        Synthesizer synthesizer = Central.createSynthesizer(desc);
+        synthesizer = Central.createSynthesizer(desc);
         synthesizer.allocate();
         synthesizer.resume();
 
         synthesizer.getSynthesizerProperties().setVolume(0.01f);
+    }
 
-        synthesizer.speakPlainText("ハローワールド", null);
-        synthesizer.speakPlainText("ゆっくりしていってね", null);
-        synthesizer.speakPlainText("そんなことよりおうどんたべたい", null);
-        synthesizer.speakPlainText("漢字読めるの？", null);
-        synthesizer.speakPlainText(text, null);
-
+    @AfterEach
+    void teardown() throws Exception {
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
         synthesizer.deallocate();
+    }
+
+    public void speak(String text) throws Exception {
+        synthesizer.speakPlainText(text, null);
     }
 
     /** */
     public static void main(String[] args) throws Exception {
         JSAPITest_aquestalk10_mac64 app = new JSAPITest_aquestalk10_mac64();
-        app.speak(args[0]);
+        app.setup();
+        Arrays.asList(
+                "ハローワールド",
+                "ゆっくりしていってね",
+                "そんなことよりおうどんたべたい",
+                "漢字読めるの？",
+                args[0]
+        ).forEach(t -> {
+            try {
+                System.err.println(t);
+                app.speak(t);
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+        });
+        app.teardown();
     }
 }
 

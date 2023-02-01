@@ -142,6 +142,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
      * remaining some unit tests
      * extract rules as json
    * ずんだもん
+ * unify japanese talknizer (lucene-gosen?)
 
 ### Morphological Analyzer
 

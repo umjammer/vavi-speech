@@ -6,7 +6,6 @@
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Optional;
 
 import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
