@@ -6,7 +6,6 @@
 
 import java.util.Enumeration;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;

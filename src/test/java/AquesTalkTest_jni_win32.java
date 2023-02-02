@@ -7,7 +7,6 @@
 import java.io.ByteArrayInputStream;
 import java.util.Enumeration;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/tokendata/util_test.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -14,9 +14,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static vavi.speech.modifier.ojosama.Util.containsFeatures;
-import static vavi.speech.modifier.ojosama.Util.containsString;
-import static vavi.speech.modifier.ojosama.Util.equalsFeatures;
+import static vavi.speech.modifier.yakuwarigo.Feature.Feat;
+import static vavi.speech.modifier.yakuwarigo.Feature.Pos;
+import static vavi.speech.modifier.yakuwarigo.Feature.containsFeatures;
+import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
+import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
 
 
 class UtilTest {
@@ -44,13 +46,13 @@ class UtilTest {
                 arguments(
                         "正常系: 句点の場合はtrueですわ",
                         new TokenData()
-                                .setFeatures(Util.Kuten)
+                                .setFeatures(Pos.Kuten)
                                 .setSurface("。"),
                         true),
                 arguments(
                         "正常系: 句点でない場合はfalseですわ",
                         new TokenData()
-                                .setFeatures(Util.Kuten)
+                                .setFeatures(Pos.Kuten)
                                 .setSurface("、"),
                         false)
         );
@@ -95,20 +97,20 @@ class UtilTest {
         return Stream.of(
                 arguments(
                         "正常系: * 以降は無視されますわ",
-                        new String[] {"名詞", "代名詞", "一般", "*", "*"},
-                        new String[] {"名詞", "代名詞", "一般"},
+                        new Feat().setElements("名詞", "代名詞", "一般", "*", "*"),
+                        new Feat().setElements("名詞", "代名詞", "一般"),
                         true
                 ),
                 arguments(
                         "正常系: 途中までしかあっていない場合はfalseですわ",
-                        new String[] {"名詞", "代名詞", "一般", "*", "*"},
-                        new String[] {"名詞", "代名詞"},
+                        new Feat().setElements("名詞", "代名詞", "一般", "*", "*"),
+                        new Feat().setElements("名詞", "代名詞"),
                         false
                 ),
                 arguments(
                         "正常系: 1つでもずれてたらfalseですわ",
-                        new String[] {"名詞", "代名詞", "一般", "*", "*"},
-                        new String[] {"名詞", "寿司", "一般"},
+                        new Feat().setElements("名詞", "代名詞", "一般", "*", "*"),
+                        new Feat().setElements("名詞", "寿司", "一般"),
                         false
                 )
         );
@@ -118,7 +120,7 @@ class UtilTest {
     @MethodSource("sourceEqualsFeatures")
     void testEqualsFeatures(
             String desc,
-            String[] a, String[] b,
+            Feature a, Feature b,
             boolean want
     ) {
         boolean got = equalsFeatures(a, b);
@@ -129,21 +131,21 @@ class UtilTest {
         return Stream.of(
                 arguments(
                         "正常系: どれか1つと一致すればOKですわ",
-                        new String[][] {
-                                {"名詞", "代名詞"},
-                                {"名詞", "一般"},
-                                {"名詞", "固有名詞"},
+                        new Feat[] {
+                                new Feat().setElements("名詞", "代名詞"),
+                                new Feat().setElements("名詞", "一般"),
+                                new Feat().setElements("名詞", "固有名詞"),
                         },
-                        new String[] {"名詞", "一般", "*", "*", "*"},
+                        new Feat().setElements("名詞", "一般", "*", "*", "*"),
                         true
                 ),
                 arguments(
                         "正常系: 1つも一致しなければfalseですわ",
-                        new String[][] {
-                                {"名詞", "代名詞"},
-                                {"名詞", "固有名詞"},
+                        new Feat[] {
+                                new Feat().setElements("名詞", "代名詞"),
+                                new Feat().setElements("名詞", "固有名詞"),
                         },
-                        new String[] {"名詞", "一般", "*", "*", "*"},
+                        new Feat().setElements("名詞", "一般", "*", "*", "*"),
                         false
                 )
         );
@@ -153,8 +155,8 @@ class UtilTest {
     @MethodSource("sourceContainsFeatures")
     void testContainsFeatures(
             String desc,
-            String[][] a,
-            String[] b,
+            Feature[] a,
+            Feature b,
             boolean want
     ) {
         boolean got = containsFeatures(a, b);

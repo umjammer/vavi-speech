@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/ojosama_test.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -16,54 +16,57 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import vavi.speech.modifier.ojosama.OjosamaEosMidifier.ConvertOption;
+import vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.ConvertOption;
 import vavi.util.Debug;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static vavi.speech.modifier.ojosama.UtilTest.getFinalStatic;
-import static vavi.speech.modifier.ojosama.UtilTest.setFinalStatic;
+import static vavi.speech.modifier.yakuwarigo.UtilTest.getFinalStatic;
+import static vavi.speech.modifier.yakuwarigo.UtilTest.setFinalStatic;
 
 
 /**
- * TODO some tests don't work because the dictionary is not the same as the original
+ * TODO some tests don't work
+ *  because the dictionary is not the same as the original
+ *  or miss porting
  */
 class OjosamaTest {
 
     static String[] original;
-    static OjosamaEosMidifier.Randomizer originalRandomizer;
+    static YakuwarigoModifier.Randomizer originalRandomizer;
     static EQMark.Shuffler originalShuffler;
 
     @BeforeAll
     static void setup() throws Exception {
-        original = ((String[]) getFinalStatic(OjosamaEosMidifier.class.getDeclaredField("shuffleElementsKutenToExclamation"))).clone();
-        originalRandomizer = (OjosamaEosMidifier.Randomizer) getFinalStatic(OjosamaEosMidifier.class.getDeclaredField("randomizer"));
+        original = ((String[]) getFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"))).clone();
+        originalRandomizer = (YakuwarigoModifier.Randomizer) getFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer"));
         originalShuffler = (EQMark.Shuffler) getFinalStatic(EQMark.class.getDeclaredField("shuffler"));
     }
 
     @AfterEach
     void teardown() throws Exception {
-        setFinalStatic(OjosamaEosMidifier.class.getDeclaredField("shuffleElementsKutenToExclamation"), original);
-        setFinalStatic(OjosamaEosMidifier.class.getDeclaredField("randomizer"), originalRandomizer);
+        setFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"), original);
+        setFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer"), originalRandomizer);
         setFinalStatic(EQMark.class.getDeclaredField("shuffler"), originalShuffler);
     }
 
     @Test
     void exampleConvert() throws IOException {
-        String got = new OjosamaEosMidifier().convert("ハーブです", null);
+        String got = new YakuwarigoModifier().convert("ハーブです");
 
         assertEquals("おハーブですわ", got);
     }
 
     /**
-     * TestRandomizer は強制的に波線や感嘆符や疑問符を任意の数追加するための設定。
+     * TestRandomizer is a mock for
+     * 強制的に波線や感嘆符や疑問符を任意の数追加するための設定。
      * <p>
      * 波線や感嘆符の付与には乱数が絡むため、単体テスト実行時に確実に等しい結果を得
      * ることが難しい。この問題を回避するために、このパラメータを差し込むことで乱数
      * の影響を受けないように制御する。
      */
-    static class TestRandomizer extends OjosamaEosMidifier.Randomizer {
+    static class TestRandomizer extends YakuwarigoModifier.Randomizer {
         int w;
         int e;
         TestRandomizer(int w, int e) {
@@ -81,7 +84,7 @@ class OjosamaTest {
         }
     }
 
-    /** */
+    /** mock */
     static class TestShuffler extends EQMark.Shuffler {
         int pos;
         TestShuffler(int pos) {
@@ -324,8 +327,7 @@ class OjosamaTest {
                         "私は。ワタクシは。わたくしは。私は。ワタクシは。わたくしは。わたくしは。わたくしは。",
                         null,
                         false),
-                // FIXME: 話しますわね、にしたいけれど「話す」で1単語と判定されているの
-                // で変換が難しい
+                // FIXME: 話しますわね、にしたいけれど「話す」で1単語と判定されているので変換が難しい
                 arguments(
                         "正常系: 小説の一文をテストしますわ",
                         "俺の体験した怖い話、聞いてくれるか？ありがとう。じゃぁ、話すよ。",
@@ -534,8 +536,7 @@ class OjosamaTest {
                         null,
                         true),
                 arguments(
-                        // FIXME: 「幽霊が怖い」で終わるべきところを
-                        // 「幽霊が怖」で終わった場合も変換されてしまう
+                        // FIXME: 「幽霊が怖い」で終わるべきところを「幽霊が怖」で終わった場合も変換されてしまう
                         "正常系: 形容詞＋自立の後に「ですわ」を付与する場合、「。」をランダムに！に変換いたしますわ。変換記号の@1を誤って変換したりはしませんわ",
                         "@1悲しいことはとても悲しい。幽霊が怖い。幽霊が怖。",
                         "@1悲しいことはとても悲しいですわ❗お幽霊が怖いですわ❗お幽霊が怖ですわ❗",
@@ -568,25 +569,26 @@ Debug.println(Level.FINE, "forceCharsTestMode: " + ((EQMark[]) getFinalStatic(EQ
         }
 
         if (topt != null && topt.forceKutenToExclamation) {
-            setFinalStatic(OjosamaEosMidifier.class.getDeclaredField("shuffleElementsKutenToExclamation"), new String[]{"❗", "❗"});
-Debug.println(Level.FINE, "forceKutenToExclamation: " + Arrays.toString((String[]) getFinalStatic(OjosamaEosMidifier.class.getDeclaredField("shuffleElementsKutenToExclamation"))));
+            setFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"), new String[]{"❗", "❗"});
+Debug.println(Level.FINE, "forceKutenToExclamation: " + Arrays.toString((String[]) getFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"))));
         }
 
         // forceAppendLongNote がある場合に限って任意の数付与できる。
         if (topt != null && topt.forceAppendLongNote != null) {
-            setFinalStatic(OjosamaEosMidifier.class.getDeclaredField("randomizer"), topt.forceAppendLongNote);
-Debug.println(Level.FINE, "forceAppendLongNote: " + getFinalStatic(OjosamaEosMidifier.class.getDeclaredField("randomizer")));
+            setFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer"), topt.forceAppendLongNote);
+Debug.println(Level.FINE, "forceAppendLongNote: " + getFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer")));
         }
 
-        ConvertOption opt = new ConvertOption().setDisableKutenToExclamation(topt == null);
-        String got = new OjosamaEosMidifier().convert(src, opt);
-        if (wantErr) {
-            assertNotEquals(want, got);
-        } else {
-Debug.println("---");
+        ConvertOption opt = new ConvertOption();
+        opt.disableKutenToExclamation = topt == null;
+        String got = new YakuwarigoModifier(opt).convert(src);
+Debug.println((wantErr ? "\uD83D\uDD34" : "\uD83D\uDFE2"));
 Debug.println("SOURCE:   " + src);
 Debug.println("EXPECTED: " + want);
 Debug.println("ACTUAL:   " + got);
+        if (wantErr) {
+            assertNotEquals(want, got);
+        } else {
             assertEquals(want, got);
         }
     }

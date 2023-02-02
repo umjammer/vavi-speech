@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/chars/chars.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class EQMark {
     /** */
     public static class Shuffler {
         EQMark getFirst(List<EQMark> s) {
-            Collections.shuffle(s, OjosamaEosMidifier.random);
+            Collections.shuffle(s, YakuwarigoModifier.random);
             return s.get(0);
         }
     }

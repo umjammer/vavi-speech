@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/converter/convert_condition_test.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 
 import java.util.regex.Pattern;
@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static vavi.speech.modifier.yakuwarigo.Feature.Feat;
 
 
 class ConvertConditionTest {
@@ -22,53 +23,54 @@ class ConvertConditionTest {
         return Stream.of(
                 arguments(
                         "正常系: 複数の条件が定義されている場合ANDで評価いたしますわ",
-                        new ConvertCondition()
-                                .setFeatures(new String[] {"名詞"})
-                                .setReading("a")
-                                .setSurface("b")
-                                .setBaseForm("c")
-                                .setReadingRe(Pattern.compile("a+"))
-                                .setSurfaceRe(Pattern.compile("b+"))
-                                .setBaseFormRe(Pattern.compile("c+")),
+                        new ConvertCondition() {{
+                                feature = new Feat().setElements("名詞");
+                                reading = "a";
+                                surface = "b";
+                                baseForm = "c";
+                                readingRe = Pattern.compile("a+");
+                                surfaceRe = Pattern.compile("b+");
+                                baseFormRe = Pattern.compile("c+");
+                        }},
                         new TokenData()
-                                .setFeatures(new String[] {"名詞"})
+                                .setFeatures(new Feat().setElements("名詞"))
                                 .setReading("a")
                                 .setSurface("b")
                                 .setBaseForm("c"),
                         true),
                 arguments(
                         "正常系: Featuresが存在して、且つ不一致な場合は false ですわ",
-                        new ConvertCondition().setFeatures(new String[] {"名詞"}),
-                        new TokenData().setFeatures(new String[] {"動詞"}),
+                        new ConvertCondition() {{ feature = new Feat().setElements("名詞"); }},
+                        new TokenData().setFeatures(new Feat().setElements("動詞")),
                         false),
                 arguments(
                         "正常系: Surfaceが存在して、且つ不一致な場合は false ですわ",
-                        new ConvertCondition().setSurface("a"),
+                        new ConvertCondition() {{ surface = "a"; }},
                         new TokenData().setSurface("b"),
                         false),
                 arguments(
                         "正常系: Readingが存在して、且つ不一致な場合は false ですわ",
-                        new ConvertCondition().setReading("a"),
+                        new ConvertCondition() {{ reading = "a"; }},
                         new TokenData().setReading("b"),
                         false),
                 arguments(
                         "正常系: BaseFormが存在して、且つ不一致な場合は false ですわ",
-                        new ConvertCondition().setBaseForm("a"),
+                        new ConvertCondition() {{ baseForm = "a"; }},
                         new TokenData().setBaseForm("b"),
                         false),
                 arguments(
                         "正常系: SurfaceReが存在して、且つ不一致な場合は false ですわ",
-                        new ConvertCondition().setSurfaceRe(Pattern.compile("a+")),
+                        new ConvertCondition() {{ surfaceRe = Pattern.compile("a+"); }},
                         new TokenData().setSurface("b"),
                         false),
                 arguments(
                         "正常系: ReadingReが存在して、且つ不一致な場合は false ですわ",
-                        new ConvertCondition().setReadingRe(Pattern.compile("a+")),
+                        new ConvertCondition() {{ readingRe = Pattern.compile("a+"); }},
                         new TokenData().setReading("b"),
                         false),
                 arguments(
                         "正常系: BaseFormReが存在して、且つ不一致な場合は false ですわ",
-                        new ConvertCondition().setBaseFormRe(Pattern.compile("a+")),
+                        new ConvertCondition() {{ baseFormRe = Pattern.compile("a+"); }},
                         new TokenData().setBaseForm("b"),
                         false)
         );
@@ -91,15 +93,17 @@ class ConvertConditionTest {
                 arguments(
                         "正常系: すべての評価がtrueの場合にtrueを返しますわ",
                         new ConvertCondition[] {
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setReading("a"),
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setSurface("b"),
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        reading = "a";
+                                }},
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        surface = "b";
+                                }}
                         },
                         new TokenData()
-                                .setFeatures(new String[] {"名詞"})
+                                .setFeatures(new Feat().setElements("名詞"))
                                 .setReading("a")
                                 .setSurface("b")
                                 .setBaseForm("c"),
@@ -107,15 +111,17 @@ class ConvertConditionTest {
                 arguments(
                         "正常系: 一つで不一致の場合はfalseですわ",
                         new ConvertCondition[] {
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setReading("a"),
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setSurface("c"),
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        reading = "a";
+                                }},
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        surface = "c";
+                                }}
                         },
                         new TokenData()
-                                .setFeatures(new String[] {"名詞"})
+                                .setFeatures(new Feat().setElements("名詞"))
                                 .setReading("a")
                                 .setSurface("b")
                                 .setBaseForm("c"),
@@ -140,15 +146,17 @@ class ConvertConditionTest {
                 arguments(
                         "正常系: どれか1つがtrueになればtrueですわ",
                         new ConvertCondition[] {
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setReading("z"),
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setSurface("b"),
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        reading = "z";
+                                }},
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        surface = "b";
+                                }}
                         },
                         new TokenData()
-                                .setFeatures(new String[] {"名詞"})
+                                .setFeatures(new Feat().setElements("名詞"))
                                 .setReading("a")
                                 .setSurface("b")
                                 .setBaseForm("c"),
@@ -156,15 +164,17 @@ class ConvertConditionTest {
                 arguments(
                         "正常系: すべて不一致の場合はfalseですわ",
                         new ConvertCondition[] {
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setReading("z"),
-                                new ConvertCondition()
-                                        .setFeatures(new String[] {"名詞"})
-                                        .setSurface("z"),
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        reading = "z";
+                                }},
+                                new ConvertCondition() {{
+                                        feature = new Feat().setElements("名詞");
+                                        surface = "z";
+                                }}
                         },
                         new TokenData()
-                                .setFeatures(new String[] {"名詞"})
+                                .setFeatures(new Feat().setElements("名詞"))
                                 .setReading("a")
                                 .setSurface("b")
                                 .setBaseForm("c"),

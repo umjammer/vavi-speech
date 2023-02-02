@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/chars/chars_test.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.util.stream.Stream;
 
@@ -15,16 +15,14 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static vavi.speech.modifier.ojosama.EQMark.MeaningType;
-import static vavi.speech.modifier.ojosama.EQMark.Shuffler;
-import static vavi.speech.modifier.ojosama.EQMark.StyleType;
-import static vavi.speech.modifier.ojosama.EQMark.findExclamationQuestionByStyleAndMeaning;
-import static vavi.speech.modifier.ojosama.EQMark.isExclamationQuestionMark;
-import static vavi.speech.modifier.ojosama.EQMark.newExcl;
-import static vavi.speech.modifier.ojosama.EQMark.newQues;
-import static vavi.speech.modifier.ojosama.EQMark.sampleExclamationQuestionByValue;
-import static vavi.speech.modifier.ojosama.UtilTest.getFinalStatic;
-import static vavi.speech.modifier.ojosama.UtilTest.setFinalStatic;
+import static vavi.speech.modifier.yakuwarigo.EQMark.MeaningType;
+import static vavi.speech.modifier.yakuwarigo.EQMark.Shuffler;
+import static vavi.speech.modifier.yakuwarigo.EQMark.StyleType;
+import static vavi.speech.modifier.yakuwarigo.EQMark.findExclamationQuestionByStyleAndMeaning;
+import static vavi.speech.modifier.yakuwarigo.EQMark.isExclamationQuestionMark;
+import static vavi.speech.modifier.yakuwarigo.EQMark.newExcl;
+import static vavi.speech.modifier.yakuwarigo.EQMark.newQues;
+import static vavi.speech.modifier.yakuwarigo.EQMark.sampleExclamationQuestionByValue;
 
 
 class TestChars {
@@ -33,12 +31,12 @@ class TestChars {
 
     @BeforeAll
     static void setup() throws Exception {
-        original = ((Shuffler) getFinalStatic(EQMark.class.getDeclaredField("shuffler")));
+        original = ((Shuffler) UtilTest.getFinalStatic(EQMark.class.getDeclaredField("shuffler")));
     }
 
     @AfterEach
     void teardown() throws Exception {
-        setFinalStatic(EQMark.class.getDeclaredField("shuffler"), original);
+        UtilTest.setFinalStatic(EQMark.class.getDeclaredField("shuffler"), original);
     }
 
     static Stream<Arguments> sourceIsExclamationQuestionMark() {
@@ -75,7 +73,7 @@ class TestChars {
                                               EQMark want,
                                               boolean wantNull) throws Exception {
         Shuffler mock = new OjosamaTest.TestShuffler(pos);
-        setFinalStatic(EQMark.class.getDeclaredField("shuffler"), mock);
+        UtilTest.setFinalStatic(EQMark.class.getDeclaredField("shuffler"), mock);
         EQMark got = sampleExclamationQuestionByValue(v);
         if (wantNull) {
             assertNull(got);
