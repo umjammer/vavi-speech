@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/converter/convert_condition_test.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 
 import java.util.regex.Pattern;
@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static vavi.speech.modifier.ojosama.Feature.Feat;
+import static vavi.speech.modifier.yakuwarigo.Feature.Feat;
 
 
 class ConvertConditionTest {

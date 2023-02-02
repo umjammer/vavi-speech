@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/tokendata/util.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.util.ArrayList;
 import java.util.Arrays;

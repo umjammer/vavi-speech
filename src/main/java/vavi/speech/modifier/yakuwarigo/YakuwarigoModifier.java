@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/main/ojosama.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 
 import java.io.IOException;
@@ -30,21 +30,21 @@ import net.java.sen.StringTagger;
 import net.java.sen.Token;
 import vavi.util.Debug;
 
-import static vavi.speech.modifier.ojosama.EQMark.findExclamationQuestionByStyleAndMeaning;
-import static vavi.speech.modifier.ojosama.EQMark.isExclamationQuestionMark;
-import static vavi.speech.modifier.ojosama.EQMark.sampleExclamationQuestionByValue;
-import static vavi.speech.modifier.ojosama.Feature.Feat;
-import static vavi.speech.modifier.ojosama.Feature.Pos;
-import static vavi.speech.modifier.ojosama.Feature.containsFeatures;
-import static vavi.speech.modifier.ojosama.Feature.containsString;
-import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
-import static vavi.speech.modifier.ojosama.Feature.newPos;
-import static vavi.speech.modifier.ojosama.Feature.slice;
-import static vavi.speech.modifier.ojosama.Rule.ContinuousConditionsConvertRule;
-import static vavi.speech.modifier.ojosama.Rule.ConvertRule;
-import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule;
-import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.MeaningType;
-import static vavi.speech.modifier.ojosama.Rule.SentenceEndingParticleConvertRule.getMeaningType;
+import static vavi.speech.modifier.yakuwarigo.EQMark.findExclamationQuestionByStyleAndMeaning;
+import static vavi.speech.modifier.yakuwarigo.EQMark.isExclamationQuestionMark;
+import static vavi.speech.modifier.yakuwarigo.EQMark.sampleExclamationQuestionByValue;
+import static vavi.speech.modifier.yakuwarigo.Feature.Feat;
+import static vavi.speech.modifier.yakuwarigo.Feature.Pos;
+import static vavi.speech.modifier.yakuwarigo.Feature.containsFeatures;
+import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
+import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
+import static vavi.speech.modifier.yakuwarigo.Feature.newPos;
+import static vavi.speech.modifier.yakuwarigo.Feature.slice;
+import static vavi.speech.modifier.yakuwarigo.Rule.ContinuousConditionsConvertRule;
+import static vavi.speech.modifier.yakuwarigo.Rule.ConvertRule;
+import static vavi.speech.modifier.yakuwarigo.Rule.SentenceEndingParticleConvertRule;
+import static vavi.speech.modifier.yakuwarigo.Rule.SentenceEndingParticleConvertRule.MeaningType;
+import static vavi.speech.modifier.yakuwarigo.Rule.SentenceEndingParticleConvertRule.getMeaningType;
 
 
 /**

@@ -2,12 +2,9 @@
  * https://github.com/ikawaha/kagome/blob/v2/tokenizer/token.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import net.java.sen.Token;
-import static vavi.speech.modifier.ojosama.Feature.Feat;
-import static vavi.speech.modifier.ojosama.Feature.Pos;
-import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
 
 
 /**
@@ -54,7 +51,7 @@ public class TokenData {
     }
 
     public boolean isKuten() {
-        return equalsFeatures(this.features, Pos.Kuten) && this.surface.equals("。");
+        return Feature.equalsFeatures(this.features, Feature.Pos.Kuten) && this.surface.equals("。");
     }
 
     public TokenData setSurface(String surface) {
@@ -88,9 +85,9 @@ public class TokenData {
         end = t.end();
         surface = t.getSurface();
         pos = t.getPos().split("-");
-        features = t.getTermInfo() != null ? new Feat().setElements(t.getTermInfo().split(",")) : null;
+        features = t.getTermInfo() != null ? new Feature.Feat().setElements(t.getTermInfo().split(",")) : null;
         if (features == null) {
-            features = Feat.NULL;
+            features = Feature.Feat.NULL;
         }
         base_form = t.getBasicString();
         reading = t.getReading();

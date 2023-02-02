@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/tokendata/util_test.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -14,11 +14,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static vavi.speech.modifier.ojosama.Feature.containsFeatures;
-import static vavi.speech.modifier.ojosama.Feature.containsString;
-import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
-import static vavi.speech.modifier.ojosama.Feature.Pos;
-import static vavi.speech.modifier.ojosama.Feature.Feat;
+import static vavi.speech.modifier.yakuwarigo.Feature.Feat;
+import static vavi.speech.modifier.yakuwarigo.Feature.Pos;
+import static vavi.speech.modifier.yakuwarigo.Feature.containsFeatures;
+import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
+import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
 
 
 class UtilTest {

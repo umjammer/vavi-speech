@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.util.Arrays;
 import java.util.Map;

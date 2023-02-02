@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import vavi.speech.modifier.simple.SimpleEosModifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static vavi.speech.modifier.ojosama.YakuwarigoModifier.gson;
+import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.gson;
 
 
 /**

@@ -2,11 +2,9 @@
  * https://github.com/jiro4989/ojosama/blob/converter/convert_condition.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.util.regex.Pattern;
-
-import static vavi.speech.modifier.ojosama.Feature.equalsFeatures;
 
 
 /**
@@ -37,7 +35,7 @@ public class ConvertCondition {
     }
 
     public boolean equalsTokenData(TokenData data) {
-        if (this.feature != null && 0 < this.feature.elements().length && !equalsFeatures(data.features, this.feature)) {
+        if (this.feature != null && 0 < this.feature.elements().length && !Feature.equalsFeatures(data.features, this.feature)) {
             return false;
         }
         if (isNotEmptyStringAndDoesntEqualString(this.surface, data.surface)) {

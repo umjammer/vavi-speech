@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/ojosama_test.go
  */
 
-package vavi.speech.modifier.ojosama;
+package vavi.speech.modifier.yakuwarigo;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -16,14 +16,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import vavi.speech.modifier.ojosama.YakuwarigoModifier.ConvertOption;
+import vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.ConvertOption;
 import vavi.util.Debug;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static vavi.speech.modifier.ojosama.UtilTest.getFinalStatic;
-import static vavi.speech.modifier.ojosama.UtilTest.setFinalStatic;
+import static vavi.speech.modifier.yakuwarigo.UtilTest.getFinalStatic;
+import static vavi.speech.modifier.yakuwarigo.UtilTest.setFinalStatic;
 
 
 /**
