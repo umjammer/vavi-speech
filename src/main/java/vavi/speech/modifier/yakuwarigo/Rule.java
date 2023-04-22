@@ -35,14 +35,14 @@ public class Rule {
         ConvertCondition[] afterIgnoreConditions;
         /** 文の区切り（単語の後に句点か読点がくる、あるいは何もない）場合だけ有効にする */
         boolean enableWhenSentenceSeparation;
-        /** 波線を追加する */
-        boolean appendLongNote;
-        /** 「お」を手前に付与しない */
-        boolean disablePrefix;
-        /** 直後に句点が来たとき確率で！に変換する */
-        boolean enableKutenToExclamation;
+        /** class#method */
+        public String extraRule3;
+        /** class#method */
+        public String extraRule;
+        /** boolean */
+        public String extraRule2;
         /** この文字列に置換する */
-        String value;
+        public String value;
         @Override public String toString() {
             return "ConvertRule{" +
                     "disabled=" + disabled +
@@ -50,9 +50,9 @@ public class Rule {
                     ", beforeIgnoreConditions=" + Arrays.toString(beforeIgnoreConditions) +
                     ", afterIgnoreConditions=" + Arrays.toString(afterIgnoreConditions) +
                     ", enableWhenSentenceSeparation=" + enableWhenSentenceSeparation +
-                    ", appendLongNote=" + appendLongNote +
-                    ", disablePrefix=" + disablePrefix +
-                    ", enableKutenToExclamation=" + enableKutenToExclamation +
+                    ", extraRule3=" + extraRule3 +
+                    ", extraRule=" + extraRule +
+                    ", extraRule2=" + extraRule2 +
                     ", value='" + value + '\'' +
                     '}';
         }
@@ -60,15 +60,17 @@ public class Rule {
 
     /** ContinuousConditionsConvertRule は連続する条件がすべてマッチしたときに変換するルール。 */
     public static class ContinuousConditionsConvertRule {
-        String value;
-        boolean appendLongNote;
-        ConvertCondition[] conditions;
-        boolean enableKutenToExclamation;
+        public String value;
+        /** class#method */
+        public String extraRule3;
+        public ConvertCondition[] conditions;
+        /** class#method */
+        String extraRule;
         @Override public String toString() {
             return "ContinuousConditionsConvertRule{" +
                     "conditions=" + Arrays.toString(conditions) +
-                    ", appendLongNote=" + appendLongNote +
-                    ", enableKutenToExclamation=" + enableKutenToExclamation +
+                    ", extraRule3=" + extraRule3 +
+                    ", extraRule=" + extraRule +
                     ", value='" + value + '\'' +
                     '}';
         }

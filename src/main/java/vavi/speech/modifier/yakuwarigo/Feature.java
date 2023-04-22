@@ -35,8 +35,8 @@ public interface Feature {
     class Feat implements Feature {
         static Feat NULL = new Feat() {{ elements = new String[0]; }};
         String[] elements;
-        Feat setElements(String... elements) { this.elements = elements; return this; }
-        public String[] elements() { return elements;}
+        public Feat setElements(String... elements) { this.elements = elements; return this; }
+        @Override public String[] elements() { return elements;}
         @Override public String toString() { return "Feat{" + "elements=" + Arrays.toString(elements) + '}'; }
     }
 

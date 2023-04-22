@@ -118,7 +118,6 @@
     },
     {
       "value": "するのだ",
-      "appendLongNote": true,
       "conditions": [
         {
           "feature": {
@@ -137,8 +136,7 @@
           },
           "surface": "ます"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "なんなのだ",
@@ -169,8 +167,7 @@
           },
           "surface": "だ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "なのだ",
@@ -192,8 +189,7 @@
           },
           "surface": "よ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "なのだ",
@@ -210,8 +206,7 @@
           },
           "surface": "じゃ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "なのだ",
@@ -228,8 +223,7 @@
           },
           "surface": "だ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "なのだ",
@@ -246,8 +240,7 @@
           },
           "surface": "や"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "@1なのだ",
@@ -263,8 +256,7 @@
           },
           "surface": "じゃ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "@1だのだ",
@@ -280,8 +272,7 @@
           },
           "surface": "だ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "@1なのだ",
@@ -297,8 +288,7 @@
           },
           "surface": "や"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "@1なのだ",
@@ -314,8 +304,7 @@
           },
           "surface": "じゃ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "@1だのだ",
@@ -331,8 +320,7 @@
           },
           "surface": "だ"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "value": "@1なのだ",
@@ -348,8 +336,7 @@
           },
           "surface": "や"
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋した＋終助詞は文の終わり",
@@ -377,8 +364,7 @@
             "pos": "Pos.SentenceEndingParticle"
           }
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     },
     {
       "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋やる＋終助詞は文の終わり",
@@ -405,8 +391,7 @@
             "pos": "Pos.SentenceEndingParticle"
           }
         }
-      ],
-      "enableKutenToExclamation": true
+      ]
     }
   ],
   "convertRules": [
@@ -505,8 +490,6 @@
           }
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "なのだ"
     },
     {
@@ -525,8 +508,6 @@
           }
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "なのだ"
     },
     {
@@ -539,8 +520,6 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "するのだ"
     },
     {
@@ -553,8 +532,6 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "なるのだ"
     },
     {
@@ -588,8 +565,6 @@
           "surface": "わ"
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "なのだ"
     },
     {
@@ -623,8 +598,6 @@
           "surface": "ます"
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "ますのだ"
     },
     {
@@ -637,8 +610,6 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "たのだ"
     },
     {
@@ -679,7 +650,6 @@
           "surface": "ください"
         }
       ],
-      "enableKutenToExclamation": true,
       "value": "くださいなのだ"
     },
     {
@@ -691,7 +661,6 @@
           "surface": "くれ"
         }
       ],
-      "enableKutenToExclamation": true,
       "value": "くれなのだ"
     },
     {
@@ -748,8 +717,6 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
       "value": "@1なのだ"
     }
   ],

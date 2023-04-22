@@ -15,9 +15,10 @@ import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 import vavi.speech.modifier.simple.SimpleEosModifier;
+import vavi.speech.modifier.yakuwarigo.salome.SalomeProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.gson;
+import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.ConvertOption;
 
 
 /**
@@ -30,7 +31,7 @@ public class RuleTest {
 
     @Test
     void test1() throws Exception {
-        Rule rule = gson.fromJson(new InputStreamReader(YakuwarigoModifier.class.getResourceAsStream("salome.json")), Rule.class);
+        Rule rule = Provider.gson.fromJson(new InputStreamReader(SalomeProvider.class.getResourceAsStream("rule.json")), Rule.class);
         assertEquals("名詞", rule.sentenceEndingParticleConvertRules[0].conditions1[0].feature.elements()[0]);
 //System.out.println("---- sentenceEndingParticleConvertRules ----");
 //Arrays.stream(rule.sentenceEndingParticleConvertRules).forEach(System.out::println);
@@ -45,15 +46,15 @@ public class RuleTest {
 //System.out.println("---- excludeRules ----");
 //Arrays.stream(rule.excludeRules).forEach(System.out::println);
         assertEquals(2, rule.excludeRules.length);
-System.out.println(gson.toJson(rule));
+System.out.println(Provider.gson.toJson(rule));
 //        System.out.println(gson.toJson(rule.convertRules[0].conditions[0], ConvertCondition.class));
 //        System.out.println(gson.toJson(rule.convertRules[0].conditions, ConvertCondition[].class));
-        Files.write(Paths.get("tmp", "out.json"), gson.toJson(rule).getBytes());
+        Files.write(Paths.get("tmp", "out.json"), Provider.gson.toJson(rule).getBytes());
     }
 
     @Test
     void test2() throws IOException {
-        YakuwarigoModifier.ConvertOption option = new YakuwarigoModifier.ConvertOption();
+        ConvertOption option = new ConvertOption();
         option.name = "zundamon";
         option.disableLongNote = true;
         option.disablePrefix = true;

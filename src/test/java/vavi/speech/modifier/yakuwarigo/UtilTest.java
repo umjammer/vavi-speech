@@ -21,7 +21,7 @@ import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
 import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
 
 
-class UtilTest {
+public class UtilTest {
 
     static void setSecurityLow(Field field) throws Exception {
         field.setAccessible(true);
@@ -31,12 +31,12 @@ class UtilTest {
     }
 
     /** modify a static final field */
-    static void setFinalStatic(Field field, Object newValue) throws Exception {
+    public static void setFinalStatic(Field field, Object newValue) throws Exception {
         setSecurityLow(field);
         field.set(null, newValue);
     }
 
-    static Object getFinalStatic(Field field) throws Exception {
+    public static Object getFinalStatic(Field field) throws Exception {
         setSecurityLow(field);
         return field.get(null);
     }

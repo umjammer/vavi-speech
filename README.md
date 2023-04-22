@@ -150,8 +150,8 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
  * [yakuwarigo](https://en.wikipedia.org/wiki/Yakuwarigo) modifier
    * ~~[お嬢様言葉](https://github.com/jiro4989/ojosama)~~ done
      * remaining some unit tests
-     * extract rules as json
-   * ずんだもん
+     * ~~extract rules as json~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/salome/rule.json))
+   * ずんだもん ([wip](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
  * unify japanese tokenizer (lucene-gosen?)
 
 ### Morphological Analyzer
