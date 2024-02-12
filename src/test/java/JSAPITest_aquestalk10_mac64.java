@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
 
 
@@ -25,6 +26,7 @@ import vavi.speech.aquestalk10.jsapi.AquesTalk10SynthesizerModeDesc;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@EnabledIfSystemProperty(named = "os.arch", matches = "x86_64")
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
 class JSAPITest_aquestalk10_mac64 {
 
