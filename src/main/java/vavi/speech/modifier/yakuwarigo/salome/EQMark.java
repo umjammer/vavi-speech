@@ -2,13 +2,14 @@
  * https://github.com/jiro4989/ojosama/blob/chars/chars.go
  */
 
-package vavi.speech.modifier.yakuwarigo;
+package vavi.speech.modifier.yakuwarigo.salome;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 
 public class EQMark {
@@ -17,7 +18,7 @@ public class EQMark {
     StyleType style;
     MeaningType meaning;
 
-    public EQMark(String value, StyleType style, MeaningType meaning) {
+    EQMark(String value, StyleType style, MeaningType meaning) {
         this.value = value;
         this.style = style;
         this.meaning = meaning;
@@ -55,37 +56,25 @@ public class EQMark {
 
     enum MeaningType {
         Unknown,
-        Excl,    // !
-        Ques,    // ?
-        EQ      // !?
+        Excl, // !
+        Ques, // ?
+        EQ // !?
     }
 
     static final EQMark[] eqMarks = new EQMark[] {
-            newExcl("！", StyleType.FullWidth),
-            newExcl("!", StyleType.HalfWidth),
-            newExcl("❗", StyleType.Emoji),
-            newExcl("‼", StyleType.DoubleEmoji),
-            newQues("？", StyleType.FullWidth),
-            newQues("?", StyleType.HalfWidth),
-            newQues("❓", StyleType.Emoji),
-            newEQ("!?", StyleType.HalfWidth),
-            newEQ("⁉", StyleType.Emoji),
+            new EQMark("！", StyleType.FullWidth, MeaningType.Excl),
+            new EQMark("!", StyleType.HalfWidth, MeaningType.Excl),
+            new EQMark("❗", StyleType.Emoji, MeaningType.Excl),
+            new EQMark("‼", StyleType.DoubleEmoji, MeaningType.Excl),
+            new EQMark("？", StyleType.FullWidth, MeaningType.Ques),
+            new EQMark("?", StyleType.HalfWidth, MeaningType.Ques),
+            new EQMark("❓", StyleType.Emoji, MeaningType.Ques),
+            new EQMark("!?", StyleType.HalfWidth, MeaningType.EQ),
+            new EQMark("⁉", StyleType.Emoji, MeaningType.EQ),
     };
 
-    static EQMark newExcl(String v, StyleType t) {
-        return new EQMark(v, t, MeaningType.Excl);
-    }
-
-    static EQMark newQues(String v, StyleType t) {
-        return new EQMark(v, t, MeaningType.Ques);
-    }
-
-    static EQMark newEQ(String v, StyleType t) {
-        return new EQMark(v, t, MeaningType.EQ);
-    }
-
     /** */
-    public static EQMark isExclamationQuestionMark(String s) {
+    static EQMark isExclamationQuestionMark(String s) {
         for (EQMark v : eqMarks) {
             if (v.value.equals(s)) {
                 return v;
@@ -95,9 +84,12 @@ public class EQMark {
     }
 
     /** */
-    public static class Shuffler {
-        EQMark getFirst(List<EQMark> s) {
-            Collections.shuffle(s, YakuwarigoModifier.random);
+    static class Shuffler {
+        /** */
+        public static final Random random = new Random(System.currentTimeMillis());
+
+        public EQMark getFirst(List<EQMark> s) {
+            Collections.shuffle(s, random);
             return s.get(0);
         }
     }
@@ -106,7 +98,7 @@ public class EQMark {
     private static final Shuffler shuffler = new Shuffler();
 
     /** */
-    public static EQMark sampleExclamationQuestionByValue(String v) {
+    static EQMark sampleExclamationQuestionByValue(String v) {
         EQMark got = isExclamationQuestionMark(v);
         if (got == null) {
             return null;
@@ -127,7 +119,7 @@ public class EQMark {
     }
 
     /** */
-    public static EQMark findExclamationQuestionByStyleAndMeaning(StyleType s, MeaningType m) {
+    static EQMark findExclamationQuestionByStyleAndMeaning(StyleType s, MeaningType m) {
         List<EQMark> eq = new ArrayList<>();
         for (EQMark mark : eqMarks) {
             if (mark.style == s) {

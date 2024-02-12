@@ -161,7 +161,7 @@
     },
     {
       "value": "いたしますわ",
-      "appendLongNote": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
       "conditions": [
         {
           "feature": {
@@ -181,7 +181,7 @@
           "surface": "ます"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "ですので",
@@ -204,7 +204,7 @@
           "surface": "から"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "なんですの",
@@ -236,7 +236,7 @@
           "surface": "だ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "ですわ",
@@ -259,7 +259,7 @@
           "surface": "よ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "なんですの",
@@ -277,7 +277,7 @@
           "surface": "じゃ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "なんですの",
@@ -295,7 +295,7 @@
           "surface": "だ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "なんですの",
@@ -313,7 +313,7 @@
           "surface": "や"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "@1ですの",
@@ -330,7 +330,7 @@
           "surface": "じゃ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "@1ですの",
@@ -347,7 +347,7 @@
           "surface": "だ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "@1ですの",
@@ -364,7 +364,7 @@
           "surface": "や"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "@1ですの",
@@ -381,7 +381,7 @@
           "surface": "じゃ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "@1ですの",
@@ -398,7 +398,7 @@
           "surface": "だ"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "value": "@1ですの",
@@ -415,7 +415,7 @@
           "surface": "や"
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋した＋終助詞は文の終わり",
@@ -444,7 +444,7 @@
           }
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     },
     {
       "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋やる＋終助詞は文の終わり",
@@ -472,7 +472,7 @@
           }
         }
       ],
-      "enableKutenToExclamation": true
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation"
     }
   ],
   "convertRules": [
@@ -641,7 +641,7 @@
           "surface": "貴様"
         }
       ],
-      "disablePrefix": true,
+      "extraRule2": "disablePrefix",
       "value": "貴方"
     },
     {
@@ -732,7 +732,7 @@
           "surface": "皆様"
         }
       ],
-      "disablePrefix": true,
+      "extraRule2": "disablePrefix",
       "value": "皆様方"
     },
     {
@@ -939,8 +939,8 @@
           }
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "ですわ"
     },
     {
@@ -959,8 +959,8 @@
           }
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "ですわ"
     },
     {
@@ -973,8 +973,8 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "いたしますわ"
     },
     {
@@ -987,8 +987,8 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "なりますわ"
     },
     {
@@ -1033,8 +1033,8 @@
           "surface": "わ"
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "ですわ"
     },
     {
@@ -1119,8 +1119,8 @@
           "surface": "ます"
         }
       ],
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "ますわ"
     },
     {
@@ -1133,8 +1133,8 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "たわ"
     },
     {
@@ -1175,7 +1175,7 @@
           "surface": "ください"
         }
       ],
-      "enableKutenToExclamation": true,
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "くださいまし"
     },
     {
@@ -1187,7 +1187,7 @@
           "surface": "くれ"
         }
       ],
-      "enableKutenToExclamation": true,
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "くださいまし"
     },
     {
@@ -1332,8 +1332,8 @@
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "appendLongNote": true,
-      "enableKutenToExclamation": true,
+      "extraRule3": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#newLongNote",
+      "extraRule": "vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomKutenToExclamation",
       "value": "@1ですわ"
     }
   ],

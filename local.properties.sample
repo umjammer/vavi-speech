@@ -17,3 +17,5 @@ docomo.goo.hiragana.apiKey=123456789
 recruit.proofreading.apiKey=abcdefg
 
 yahoo.japan.apiKey=abc123
+
+aquesTalk2font=foo/bar/aq_f1b.phont

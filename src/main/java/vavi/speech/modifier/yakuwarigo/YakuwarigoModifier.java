@@ -6,40 +6,15 @@ package vavi.speech.modifier.yakuwarigo;
 
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
 import vavi.util.Debug;
 
-import static vavi.speech.modifier.yakuwarigo.EQMark.findExclamationQuestionByStyleAndMeaning;
-import static vavi.speech.modifier.yakuwarigo.EQMark.isExclamationQuestionMark;
-import static vavi.speech.modifier.yakuwarigo.EQMark.sampleExclamationQuestionByValue;
-import static vavi.speech.modifier.yakuwarigo.Feature.Feat;
-import static vavi.speech.modifier.yakuwarigo.Feature.Pos;
 import static vavi.speech.modifier.yakuwarigo.Feature.containsFeatures;
 import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
-import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
-import static vavi.speech.modifier.yakuwarigo.Feature.newPos;
-import static vavi.speech.modifier.yakuwarigo.Feature.slice;
 import static vavi.speech.modifier.yakuwarigo.Rule.ContinuousConditionsConvertRule;
 import static vavi.speech.modifier.yakuwarigo.Rule.ConvertRule;
 import static vavi.speech.modifier.yakuwarigo.Rule.SentenceEndingParticleConvertRule;
@@ -50,35 +25,6 @@ import static vavi.speech.modifier.yakuwarigo.Rule.SentenceEndingParticleConvert
 /**
  * YakuwarigoModifier.
  * <p>
- * 関数や構造体のアクセス範囲に関する方針
- * <p>
- * 基本的にライブラリ用途としては Convert 関数1つのみを公開する。
- * Convert関数の挙動の微調整はConvertOption構造体で制御する。
- * <p>
- * ユーザ側で独自に変換ルールを追加出来たほうが良いかもしれないが、
- * パッケージ構成や型名を変更する可能性が高いため、
- * 破壊的変更として影響しないように公開する機能を必要最小限にする。
- * <p>
- * 「ライブラリ呼び出し側で独自に変換ルールを追加したい」という人は
- * おそらく現れないと想定しているが、要望がきた時に改めて考える。
- * <p>
- * それまでは好き勝手パッケージ構成や名前を変更しまくれるように
- * 公開範囲を極小にする。
- * ゆえにConvert関数内の処理で関数を分割したくなった場合、
- * すべてプライベート関数として実装する。
- * <p>
- * 内部実装の都合でパッケージ等が必要になった場合は、
- * すべて internal パッケージ配下にパッケージを切って配置する。
- * <p>
- * 変換ルールの実装方針
- * <p>
- * 変換ルールは converter で定義する。
- * 変換ロジックと変換ルールが密結合してるので
- * 同じパッケージの方が自然にも感じるけれど分離している。
- * <p>
- * 理由は、変換ルールの生成にしか使わないプライベート関数や、
- * 変換条件の判定関数と、その内部実装用のプライベート関数などが増えてきたため、
- * それらのプライベート関数に変換ロジック関数からアクセスさせないためにパッケージを分けている。
  *
  * @see "https://ja.wikipedia.org/wiki/%E5%BD%B9%E5%89%B2%E8%AA%9E"
  */
@@ -110,12 +56,9 @@ public class YakuwarigoModifier {
     private static final Pattern alnumRegexp = Pattern.compile("^[a-zA-Z0-9]+$");
 
     /** */
-    private static final String[] shuffleElementsKutenToExclamation = {"。", "。", "！", "❗"};
-
-    /** */
-    private static class StringResult {
-        String str;
-        int pos;
+    public static class StringResult {
+        public String str;
+        public int pos;
 
         public StringResult(String s, int pos) {
             this.str = s;
@@ -124,115 +67,18 @@ public class YakuwarigoModifier {
     }
 
     /** input source */
-    private Token[] tokens;
+    public Token[] tokens;
 
     /** settings */
-    private ConvertOption opt;
+    public ConvertOption opt;
+
+    /** */
+    private Provider provider;
 
     /** rule database */
     private Rule rule;
 
-    /* gson: not serialize when false  */
-    public static final JsonSerializer<Boolean> booleanJsonSerializer = (in, type, context) ->
-            in ? new JsonPrimitive(true) : null;
-
-    /* gson: regex to string */
-    public static final JsonSerializer<Pattern> patternJsonSerializer = (in, type, context) ->
-            context.serialize(in.pattern());
-
-    /* gson: TODO why needed??? */
-    public static final JsonSerializer<ConvertCondition[]> convertConditionArrayJsonSerializer = (in, type, context) -> {
-        JsonArray result = new JsonArray();
-        Arrays.stream(in).forEach(c -> result.add(context.serialize(c, ConvertCondition.class)));
-        return result;
-    };
-
-    /* gson: special value "Pos." + name */
-    static class FeatureConditionJsonSerDes implements JsonSerializer<Feature>, JsonDeserializer<Feature> {
-        @Override
-        public Feature deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            if (json.getAsJsonObject().get("pos") != null)
-                return newPos(json.getAsJsonObject().get("pos").getAsString());
-            return new Feat() {{
-                if (json.getAsJsonObject().get("elements") != null)
-                    elements = context.deserialize(json.getAsJsonObject().get("elements"), String[].class);
-            }};
-        }
-
-        @Override
-        public JsonElement serialize(Feature src, Type typeOfSrc, JsonSerializationContext context) {
-            if (src instanceof Pos) {
-                JsonObject result = new JsonObject();
-                result.add("pos", new JsonPrimitive("Pos." + ((Pos) src).name()));
-                return result;
-            } else {
-                JsonObject result = new JsonObject();
-                result.add("elements", context.serialize(src.elements(), String[].class));
-                return result;
-            }
-        }
-    }
-
-    /* gson: ConvertCondition TODO really needed??? */
-    static class ConvertConditionJsonSerDes implements JsonSerializer<ConvertCondition>, JsonDeserializer<ConvertCondition> {
-
-        @Override
-        public ConvertCondition deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            return new ConvertCondition() {{
-                    if (json.getAsJsonObject().get("feature") != null)
-                        feature = context.deserialize(json.getAsJsonObject().get("feature"), Feature.class);
-                    if (json.getAsJsonObject().get("reading") != null)
-                        reading = json.getAsJsonObject().get("reading").getAsString();
-                    if (json.getAsJsonObject().get("readingRe") != null)
-                        readingRe = Pattern.compile(json.getAsJsonObject().get("readingRe").getAsString());
-                    if (json.getAsJsonObject().get("surface") != null)
-                        surface = json.getAsJsonObject().get("surface").getAsString();
-                    if (json.getAsJsonObject().get("surfaceRe") != null)
-                        surfaceRe = Pattern.compile(json.getAsJsonObject().get("surfaceRe").getAsString());
-                    if (json.getAsJsonObject().get("baseForm") != null)
-                        baseForm = json.getAsJsonObject().get("baseForm").getAsString();
-                    if (json.getAsJsonObject().get("baseFormRe") != null)
-                        baseFormRe = Pattern.compile(json.getAsJsonObject().get("baseFormRe").getAsString());
-                }};
-        }
-
-        @Override
-        public JsonElement serialize(ConvertCondition src, Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject result = new JsonObject();
-            if (src.feature != null)
-                result.add("feature", context.serialize(src.feature, Feature.class));
-            if (src.reading != null)
-                result.add("reading", new JsonPrimitive(src.reading));
-            if (src.surface != null)
-                result.add("surface", new JsonPrimitive(src.surface));
-            if (src.baseForm != null)
-                result.add("baseForm", new JsonPrimitive(src.baseForm));
-            if (src.surfaceRe != null)
-                result.add("surfaceRe", context.serialize(src.surfaceRe, Pattern.class));
-            if (src.readingRe != null)
-                result.add("readingRe", context.serialize(src.readingRe, Pattern.class));
-            if (src.baseFormRe != null)
-                result.add("baseFormRe", context.serialize(src.baseFormRe, Pattern.class));
-            return result;
-        }
-    }
-
-    /** json serdes */
-    static Gson gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(ConvertCondition[].class, convertConditionArrayJsonSerializer)
-            .registerTypeAdapter(ConvertCondition.class, new ConvertConditionJsonSerDes())
-            .registerTypeAdapter(Feature.class, new FeatureConditionJsonSerDes())
-            .registerTypeAdapter(Pattern.class, patternJsonSerializer)
-            .registerTypeAdapter(Boolean.class, booleanJsonSerializer)
-            .create();
-
-    /** load rule */
-    private Rule getRule(String name) {
-        return gson.fromJson(new InputStreamReader(YakuwarigoModifier.class.getResourceAsStream(name + ".json")), Rule.class);
-    }
-
-    /** japanese takenizer */
+    /** japanese tokenizer */
     private StringTagger tokenizer;
 
     /** w/o settings */
@@ -246,7 +92,8 @@ public class YakuwarigoModifier {
      */
     public YakuwarigoModifier(ConvertOption opt) throws IOException {
         this.opt = opt;
-        this.rule = getRule(opt != null && opt.name != null ? opt.name : "salome");
+        this.provider = Provider.getProvider(opt != null && opt.name != null ? opt.name : "salome");
+        this.rule = provider.getRule();
 
         this.tokenizer = StringTagger.getInstance(); // TODO OmitBosEos
     }
@@ -263,6 +110,8 @@ public class YakuwarigoModifier {
     public String convert(String src) throws IOException {
         // tokenize
         this.tokens = tokenizer.analyze(src);
+        provider.setContext(this);
+
         StringBuilder result = new StringBuilder();
         boolean nounKeep = false;
         for (int p = 0; p < tokens.length; p++) {
@@ -302,8 +151,8 @@ public class YakuwarigoModifier {
             buf = cr.buf;
             nounKeep = cr.nounKeep;
             p = cr.pos;
-            if (cr.kutenToEx) {
-                s = randomKutenToExclamation(p);
+            if (cr.extraRule != null) {
+                s = provider.execExtraRule(cr.extraRule, p);
                 if (s != null) {
                     buf += s.str;
                     p = s.pos;
@@ -341,12 +190,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
             if (tokens.length <= p + 1) {
                 continue;
             }
-            String s = data.surface;
-            // TODO ベタ書きしててよくない
-            if ((opt == null || !opt.disablePrefix) && (equalsFeatures(data.features, Pos.NounsGeneral) ||
-                    equalsFeatures(slice(data.features, 0, 2), Pos.NounsSaDynamic))) {
-                s = "お" + s;
-            }
+            String s = provider.convert(data); // TODO location
             result.append(s);
             p++;
             data = new TokenData(tokens[p]);
@@ -406,34 +250,7 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
                 continue;
             }
 
-            int p = tokenPos + mc.conditions.length - 1;
-            String result = mc.value;
-
-            // FIXME 書き方が汚い
-            TokenData data = new TokenData(tokens[tokenPos]);
-            String surface = data.surface;
-            if ((opt == null || !opt.disablePrefix) && appendablePrefix(data)) {
-                surface = "お" + surface;
-            }
-            result = result.replaceAll("@1", surface);
-
-            // 句点と～が同時に発生することは無いので早期リターンで良い
-            StringResult sr = randomKutenToExclamation(p);
-            if (sr != null) {
-                result += sr.str;
-                p = sr.pos;
-                return new StringResult(result, p);
-            }
-
-            if (mc.appendLongNote) {
-                sr = newLongNote(p);
-                if (sr != null) {
-                    result += sr.str;
-                    p = sr.pos;
-                }
-            }
-
-            return new StringResult(result, p);
+            return provider.convert(mc, tokenPos);
         }
         return null;
     }
@@ -470,49 +287,24 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
     }
 
     /** */
-    private static class ConversionResult {
+    public static class ConversionResult {
         String buf;
         boolean nounKeep;
         int pos;
-        boolean kutenToEx;
+        String extraRule;
 
-        public ConversionResult(String buf, boolean nounKeep, int pos, boolean kutenToEx) {
+        public ConversionResult(String buf, boolean nounKeep, int pos, String extraRule) {
             this.buf = buf;
             this.nounKeep = nounKeep;
             this.pos = pos;
-            this.kutenToEx = kutenToEx;
+            this.extraRule = extraRule;
         }
     }
 
     /** 基本的な変換を行う。 */
     private ConversionResult convert(TokenData data, int p, String surface, boolean nounKeep) {
         ConvertRule c = matchConvertRule(data, p);
-        if (c == null) {
-            AppendResult ar = appendPrefix(data, p, surface, nounKeep);
-            return new ConversionResult(ar.result, ar.nounKeep, p, false);
-        }
-
-        String result = c.value;
-        int pos = p;
-        result = result.replaceAll("@1", data.surface);
-
-        // 波線伸ばしをランダムに追加する
-        if (opt == null || !opt.disableLongNote && c.appendLongNote) {
-            StringResult sr = newLongNote(pos);
-            if (sr != null) {
-                result += sr.str;
-                pos = sr.pos;
-            }
-        }
-
-        // 手前に「お」を付ける
-        if (opt == null || !opt.disablePrefix && !c.disablePrefix) {
-            AppendResult ar = appendPrefix(data, pos, result, nounKeep);
-            result = ar.result;
-            nounKeep = ar.nounKeep;
-        }
-
-        return new ConversionResult(result, nounKeep, pos, c.enableKutenToExclamation);
+        return provider.convert(c, data, p, surface, nounKeep);
     }
 
     /** @return nullable */
@@ -557,203 +349,15 @@ Debug.println(Level.FINE, "break cause sentence termination");
                 break;
             }
 
-Debug.println(Level.FINE, "select: " + c.value + " for surfece: " + tokens[p].getSurface());
+Debug.println(Level.FINE, "select: " + c.value + " for surface: " + tokens[p].getSurface());
             return c;
         }
         return null;
     }
 
-    /** */
-    private boolean appendablePrefix(TokenData data) {
-        if (!equalsFeatures(data.features, new Feat().setElements("名詞", "一般")) &&
-                !equalsFeatures(slice(data.features, 0, 2), new Feat().setElements("名詞", "固有名詞"))) {
-            return false;
-        }
-
-        // 丁寧語の場合は「お」を付けない
-        return !data.isPoliteWord();
-    }
-
-    /** */
-    private static class AppendResult {
-        String result;
-        boolean nounKeep;
-
-        public AppendResult(String result, boolean nounKeep) {
-            this.result = result;
-            this.nounKeep = nounKeep;
-        }
-    }
-
-    /** surface の前に「お」を付ける。 */
-    private AppendResult appendPrefix(TokenData data, int i, String surface, boolean nounKeep) {
-        if (!appendablePrefix(data)) {
-            return new AppendResult(surface, false);
-        }
-
-        // 次のトークンが動詞の場合は「お」を付けない。
-        // 例: プレイする
-        if (i + 1 < tokens.length) {
-            data = new TokenData(tokens[i + 1]);
-            if (equalsFeatures(data.features, new Feat().setElements("動詞", "自立"))) {
-                return new AppendResult(surface, nounKeep);
-            }
-        }
-
-        // すでに「お」を付与されているので、「お」を付与しない
-        if (nounKeep) {
-            return new AppendResult(surface, false);
-        }
-
-        if (0 < i) {
-            data = new TokenData(tokens[i - 1]);
-
-            // 手前のトークンが「お」の場合は付与しない
-            if (equalsFeatures(data.features, new Feat().setElements("接頭詞", "名詞接続"))) {
-                return new AppendResult(surface, false);
-            }
-
-            // サ変接続が来ても付与しない。
-            // 例: 横断歩道、解体新書
-            if (equalsFeatures(data.features, new Feat().setElements("名詞", "サ変接続"))) {
-                return new AppendResult(surface, false);
-            }
-        }
-
-        return new AppendResult((opt == null || !opt.disablePrefix ? "お" : "") + surface, true);
-    }
-
     /** isSentenceSeparation は data が文の区切りに使われる token かどうかを判定する。 */
-    private boolean isSentenceSeparation(TokenData data) {
+    private static boolean isSentenceSeparation(TokenData data) {
         return containsFeatures(new Feature[] {Feature.Kuten, Feature.Toten}, data.features) ||
                 containsString(new String[] {"！", "!", "？", "?"}, data.surface);
-    }
-
-    /** */
-    static final Random random = new Random(System.currentTimeMillis());
-
-    /** */
-    public static class Randomizer {
-        int wavyLineCount() {
-            return random.nextInt(3);
-        }
-        int exclamationMarkCount() {
-            return random.nextInt(3);
-        }
-    }
-
-    /**
-     * 乱数が絡むと単体テストがやりづらくなるので、
-     * set mock sub class here for fixed fixture.
-     */
-    private static final Randomizer randomizer = new Randomizer();
-
-    /**
-     * newLongNote は次の token が感嘆符か疑問符の場合に波線、感嘆符、疑問符をランダムに生成する。
-     *
-     * @param p tokens index
-     * @return nullable
-     */
-    private StringResult newLongNote(int p) {
-        String s = creatableLongNote(p);
-        if (s == null) {
-            return null;
-        }
-
-        int w = randomizer.wavyLineCount();
-        int e = randomizer.exclamationMarkCount();
-
-        StringBuilder suffix = new StringBuilder();
-        for (int i = 0; i < w; i++) {
-            suffix.append("～");
-        }
-
-        // ！or？をどれかからランダムに選択する
-        EQMark feq = sampleExclamationQuestionByValue(s);
-
-        // 次の token は必ず感嘆符か疑問符のどちらかであることが確定しているため
-        // -1 して数を調整している。
-        for (int i = 0; i < e - 1; i++) {
-            suffix.append(feq.value);
-        }
-
-        // 後ろに！や？が連続する場合、それらをすべて feq と同じ種類（半角、全角、
-        // 絵文字）の！や？に置き換えて返却する。
-        StringResult sr = getContinuousExclamationMark(p, feq);
-        suffix.append(sr.str);
-        return new StringResult(suffix.toString(), sr.pos);
-    }
-
-    /**
-     * @param p tokens index
-     * @return nullable
-     */
-    private String creatableLongNote(int p) {
-        if (tokens.length <= p + 1) {
-            return null;
-        }
-
-        Token data = tokens[p + 1];
-        for (String s : new String[] {"！", "？", "!", "?"}) {
-            if (!data.getSurface().equals(s)) {
-                continue;
-            }
-            return s;
-        }
-        return null;
-    }
-
-    /**
-     * @param p tokens index
-     */
-    private StringResult getContinuousExclamationMark(int p, EQMark feq) {
-        StringBuilder result = new StringBuilder();
-        int pos = p;
-
-        for (int i = p + 1; i < tokens.length; i++) {
-            TokenData token = new TokenData(tokens[i]);
-            for (char r : token.surface.toCharArray()) {
-                EQMark eq = isExclamationQuestionMark(String.valueOf(r));
-                if (eq == null) {
-                    return new StringResult(result.toString(), pos);
-                } else {
-                    // e は！か？のどちらかなので、同じスタイルの文字を取得して追加
-                    EQMark got = findExclamationQuestionByStyleAndMeaning(feq.style, eq.meaning);
-                    if (got != null) {
-                        result.append(got.value);
-                    }
-                }
-            }
-            // トークンの位置を制御する変数なので、forループ内では変更しない
-            pos = i;
-        }
-
-        return new StringResult(result.toString(), pos);
-    }
-
-    /**
-     * randomKutenToExclamation はランダムで句点を！に変換する。
-     *
-     * @return nullable
-     */
-    private StringResult randomKutenToExclamation(int tokenPos) {
-        if (opt != null && opt.disableKutenToExclamation) {
-            return null;
-        }
-
-        int pos = tokenPos + 1;
-        if (tokens.length <= pos) {
-            return null;
-        }
-
-        TokenData data = new TokenData(tokens[pos]);
-        if (!data.isKuten()) {
-            return null;
-        }
-
-        List<String> l = Arrays.asList(shuffleElementsKutenToExclamation);
-Debug.println(Level.FINER, "shuffleElementsKutenToExclamation: " + l);
-        Collections.shuffle(l, random);
-        return new StringResult(l.get(0), pos);
     }
 }

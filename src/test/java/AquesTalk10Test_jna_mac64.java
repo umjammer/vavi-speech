@@ -13,6 +13,7 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import com.sun.jna.Pointer;
 
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10;
@@ -31,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@EnabledIfSystemProperty(named = "os.arch", matches = "x86_64")
 @DisabledIfEnvironmentVariable(named = "GITHUB_WORKFLOW", matches = ".*")
 @PropsEntity(url = "file://${user.dir}/local.properties")
 public class AquesTalk10Test_jna_mac64 {

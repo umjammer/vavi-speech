@@ -15,12 +15,12 @@ public class TokenData {
     int id;
     int start;
     int end;
-    String surface;
+    public String surface;
     String[] pos;
     String base_form;
     String reading;
     String pronunciation;
-    Feature features;
+    public Feature features;
 
     /** matchAnyTokenData は  data がいずれかの c と一致した時に true を返す。*/
     public boolean matchAnyTokenData(ConvertCondition[] c) {

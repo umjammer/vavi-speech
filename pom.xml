@@ -8,7 +8,7 @@
 
   <groupId>vavi</groupId>
   <artifactId>vavi-speech</artifactId>
-  <version>0.1.6</version>
+  <version>0.1.7</version>
 
   <name>vavi-speech</name>
   <description>
@@ -24,7 +24,7 @@ TODO
   </issueManagement>
 
   <properties>
-    <rococoa.version>0.8.5</rococoa.version>
+    <rococoa.version>0.8.6</rococoa.version>
     <freetts.version>1.2.4</freetts.version>
   </properties>
 
@@ -72,9 +72,9 @@ TODO
             <!-- don't touch: this works well on local -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M7</version>
+            <version>3.2.2</version>
             <configuration>
-              <forkMode>always</forkMode>
+              <reuseForks>false</reuseForks>
               <trimStackTrace>false</trimStackTrace>
               <includes>
                 <include>**/*</include>
@@ -90,7 +90,9 @@ TODO
               </environmentVariables>
               <argLine>
                 -Dsudachi.dir=${sudachi.dir}
+                -Dsen.home=${sen.home}
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
+                --add-opens java.base/java.lang.reflect=ALL-UNNAMED
               </argLine>
             </configuration>
           </plugin>
@@ -108,11 +110,15 @@ TODO
         <plugins>
           <plugin>
             <!-- don't touch: this works well on github actions -->
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M7</version>
+            <version>3.2.2</version>
             <configuration>
-              <argLine>-Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties</argLine>
-              <forkMode>always</forkMode>
+              <argLine>
+                -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
+                --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+              </argLine>
+              <reuseForks>false</reuseForks>
               <trimStackTrace>false</trimStackTrace>
               <includes>
                 <include>**/*Test_*.java</include>
@@ -200,11 +206,9 @@ TODO
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>3.11.0</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <encoding>UTF-8</encoding>
+          <release>17</release>
         </configuration>
       </plugin>
 <!--
@@ -265,11 +269,11 @@ TODO
       <url>https://jitpack.io</url>
     </repository>
     <repository>
-      <id>gitlab-maven2</id> <!-- TODO idk why this is needed??? -->
+      <id>gitlab-maven2-vavi-sound-nda</id> <!-- TODO idk why this is needed??? -->
       <url>https://gitlab.com/api/v4/projects/30804899/packages/maven</url>
     </repository>
     <repository>
-      <id>gitlab-maven</id> <!-- sen -->
+      <id>gitlab-maven-sen</id>
       <url>https://gitlab.com/api/v4/projects/18523814/packages/maven</url>
     </repository>
   </repositories>
@@ -279,7 +283,7 @@ TODO
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>libraries-bom</artifactId>
-        <version>23.1.0</version>
+        <version>26.29.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -287,7 +291,7 @@ TODO
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.9.1</version>
+        <version>5.10.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -298,23 +302,18 @@ TODO
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.1.8</version>
+      <version>1.1.10</version>
     </dependency>
-    <dependency>
+    <dependency> <!-- JSAPI1 -->
       <groupId>javax.speech</groupId>
       <artifactId>speech</artifactId>
       <version>1.0.0</version>
     </dependency>
 
     <dependency>
-      <groupId>com.github.umjammer</groupId>
-      <artifactId>vavi-sound</artifactId>
-      <version>1.0.15</version>
-    </dependency>
-    <dependency>
-      <groupId>org.rococoa</groupId>
-      <artifactId>rococoa-contrib</artifactId>
-      <version>${rococoa.version}</version>
+      <groupId>vavi</groupId>
+      <artifactId>vavi-sound-sandbox</artifactId>
+      <version>1.0.6</version>
     </dependency>
     <dependency>
       <groupId>org.rococoa</groupId>
@@ -344,7 +343,7 @@ TODO
     <dependency>
       <groupId>com.worksap.nlp</groupId>
       <artifactId>sudachi</artifactId>
-      <version>0.7.0</version>
+      <version>0.7.1</version>
     </dependency>
 
     <dependency>
@@ -354,15 +353,9 @@ TODO
     </dependency>
 
     <dependency>
-      <groupId>vavi</groupId>
+      <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.11</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-codec</groupId>
-          <artifactId>commons-codec</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>1.0.13</version>
     </dependency>
 
     <dependency>

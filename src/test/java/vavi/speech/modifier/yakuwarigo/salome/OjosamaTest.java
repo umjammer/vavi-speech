@@ -2,7 +2,7 @@
  * https://github.com/jiro4989/ojosama/blob/ojosama_test.go
  */
 
-package vavi.speech.modifier.yakuwarigo;
+package vavi.speech.modifier.yakuwarigo.salome;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import vavi.speech.modifier.yakuwarigo.YakuwarigoModifier;
 import vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.ConvertOption;
 import vavi.util.Debug;
 
@@ -25,7 +26,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static vavi.speech.modifier.yakuwarigo.UtilTest.getFinalStatic;
 import static vavi.speech.modifier.yakuwarigo.UtilTest.setFinalStatic;
 
-
 /**
  * TODO some tests don't work
  *  because the dictionary is not the same as the original
@@ -34,20 +34,22 @@ import static vavi.speech.modifier.yakuwarigo.UtilTest.setFinalStatic;
 class OjosamaTest {
 
     static String[] original;
-    static YakuwarigoModifier.Randomizer originalRandomizer;
+    static SalomeProvider.Randomizer originalRandomizer;
     static EQMark.Shuffler originalShuffler;
 
     @BeforeAll
     static void setup() throws Exception {
-        original = ((String[]) getFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"))).clone();
-        originalRandomizer = (YakuwarigoModifier.Randomizer) getFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer"));
+        originalRandomizer = (SalomeProvider.Randomizer) getFinalStatic(SalomeProvider.class.getDeclaredField("randomizer"));
+Debug.println(originalRandomizer);
         originalShuffler = (EQMark.Shuffler) getFinalStatic(EQMark.class.getDeclaredField("shuffler"));
+Debug.println(originalRandomizer);
+        original = ((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"))).clone();
     }
 
     @AfterEach
     void teardown() throws Exception {
-        setFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"), original);
-        setFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer"), originalRandomizer);
+        setFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"), original);
+        setFinalStatic(SalomeProvider.class.getDeclaredField("randomizer"), originalRandomizer);
         setFinalStatic(EQMark.class.getDeclaredField("shuffler"), originalShuffler);
     }
 
@@ -66,17 +68,17 @@ class OjosamaTest {
      * ることが難しい。この問題を回避するために、このパラメータを差し込むことで乱数
      * の影響を受けないように制御する。
      */
-    static class TestRandomizer extends YakuwarigoModifier.Randomizer {
+    static class TestRandomizer extends SalomeProvider.Randomizer {
         int w;
         int e;
         TestRandomizer(int w, int e) {
             this.w = w;
             this.e = e;
         }
-        int wavyLineCount() {
+        @Override public int wavyLineCount() {
             return w;
         }
-        int exclamationMarkCount() {
+        @Override public int exclamationMarkCount() {
             return e;
         }
         @Override public String toString() {
@@ -90,7 +92,7 @@ class OjosamaTest {
         TestShuffler(int pos) {
             this.pos = pos;
         }
-        @Override EQMark getFirst(List<EQMark> s) {
+        @Override public EQMark getFirst(List<EQMark> s) {
             return s.get(pos);
         }
         @Override public String toString() {
@@ -569,14 +571,14 @@ Debug.println(Level.FINE, "forceCharsTestMode: " + ((EQMark[]) getFinalStatic(EQ
         }
 
         if (topt != null && topt.forceKutenToExclamation) {
-            setFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"), new String[]{"❗", "❗"});
-Debug.println(Level.FINE, "forceKutenToExclamation: " + Arrays.toString((String[]) getFinalStatic(YakuwarigoModifier.class.getDeclaredField("shuffleElementsKutenToExclamation"))));
+            setFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"), new String[]{"❗", "❗"});
+Debug.println(Level.FINE, "forceKutenToExclamation: " + Arrays.toString((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"))));
         }
 
         // forceAppendLongNote がある場合に限って任意の数付与できる。
         if (topt != null && topt.forceAppendLongNote != null) {
-            setFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer"), topt.forceAppendLongNote);
-Debug.println(Level.FINE, "forceAppendLongNote: " + getFinalStatic(YakuwarigoModifier.class.getDeclaredField("randomizer")));
+            setFinalStatic(SalomeProvider.class.getDeclaredField("randomizer"), topt.forceAppendLongNote);
+Debug.println(Level.FINE, "forceAppendLongNote: " + getFinalStatic(SalomeProvider.class.getDeclaredField("randomizer")));
         }
 
         ConvertOption opt = new ConvertOption();

@@ -4,13 +4,18 @@
 
 package vavi.speech.modifier.yakuwarigo;
 
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import sun.misc.Unsafe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -21,22 +26,37 @@ import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
 import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
 
 
-class UtilTest {
+public class UtilTest {
 
+    /** @see "https://stackoverflow.com/a/56043252" */
+    private static final VarHandle MODIFIERS;
+
+    /* @see "https://stackoverflow.com/a/56043252" */
+    static {
+        try {
+            var lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
+            MODIFIERS = lookup.findVarHandle(Field.class, "modifiers", int.class);
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * @see "https://stackoverflow.com/a/56043252"
+     */
     static void setSecurityLow(Field field) throws Exception {
+        // TODO this works Java 12 - 17
+        MODIFIERS.set(field, field.getModifiers() & ~Modifier.FINAL);
         field.setAccessible(true);
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
     }
 
     /** modify a static final field */
-    static void setFinalStatic(Field field, Object newValue) throws Exception {
+    public static void setFinalStatic(Field field, Object newValue) throws Exception {
         setSecurityLow(field);
         field.set(null, newValue);
     }
 
-    static Object getFinalStatic(Field field) throws Exception {
+    public static Object getFinalStatic(Field field) throws Exception {
         setSecurityLow(field);
         return field.get(null);
     }
