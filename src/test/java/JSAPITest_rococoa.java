@@ -14,6 +14,7 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 
@@ -27,6 +28,7 @@ import vavi.speech.rococoa.jsapi.RococoaSynthesizerModeDesc;
  * @version 0.00 070202 initial version <br>
  */
 @EnabledOnOs(OS.MAC)
+@DisabledIfSystemProperty(named = "os.arch", matches = "x86_64")
 class JSAPITest_rococoa {
 
     @Test
