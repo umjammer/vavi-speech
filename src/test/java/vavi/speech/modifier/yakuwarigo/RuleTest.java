@@ -46,7 +46,7 @@ public class RuleTest {
 //System.out.println("---- excludeRules ----");
 //Arrays.stream(rule.excludeRules).forEach(System.out::println);
         assertEquals(2, rule.excludeRules.length);
-System.out.println(Provider.gson.toJson(rule));
+//System.out.println(Provider.gson.toJson(rule));
 //        System.out.println(gson.toJson(rule.convertRules[0].conditions[0], ConvertCondition.class));
 //        System.out.println(gson.toJson(rule.convertRules[0].conditions, ConvertCondition[].class));
         Files.write(Paths.get("tmp", "out.json"), Provider.gson.toJson(rule).getBytes());

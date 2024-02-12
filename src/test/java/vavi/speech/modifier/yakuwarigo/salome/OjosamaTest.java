@@ -26,7 +26,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static vavi.speech.modifier.yakuwarigo.UtilTest.getFinalStatic;
 import static vavi.speech.modifier.yakuwarigo.UtilTest.setFinalStatic;
 
-
 /**
  * TODO some tests don't work
  *  because the dictionary is not the same as the original
@@ -40,9 +39,11 @@ class OjosamaTest {
 
     @BeforeAll
     static void setup() throws Exception {
-        original = ((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"))).clone();
         originalRandomizer = (SalomeProvider.Randomizer) getFinalStatic(SalomeProvider.class.getDeclaredField("randomizer"));
+Debug.println(originalRandomizer);
         originalShuffler = (EQMark.Shuffler) getFinalStatic(EQMark.class.getDeclaredField("shuffler"));
+Debug.println(originalRandomizer);
+        original = ((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"))).clone();
     }
 
     @AfterEach
