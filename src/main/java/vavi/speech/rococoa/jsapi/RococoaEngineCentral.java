@@ -19,11 +19,8 @@ import javax.speech.EngineModeDesc;
  * <pre>
  * RococoaEngineCentral = vavi.speech.rococoa.jsapi.RococoaEngineCentral
  * </pre>
- *
  */
 public class RococoaEngineCentral implements EngineCentral {
-
-//  private String engineName = "Rococoa Synthesizer";
 
     /**
      * Creates a RococoaEngineCentral

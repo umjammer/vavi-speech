@@ -36,10 +36,10 @@ public class RococoaJaPhonemizer implements JaPhonemizer {
 
         CFRange range = CFRange.make(0, input.length());
 
-        ID jaLocaleIdentifier = Foundation.cfLocaleCreateCanonicalLanguageIdentifierFromString(FoundationLibrary.kCFAllocatorDefault, "ja");
-        ID locale = Foundation.cfLocaleCreate(FoundationLibrary.kCFAllocatorDefault, jaLocaleIdentifier);
+        ID jaLocaleIdentifier = Foundation.cfLocaleCreateCanonicalLanguageIdentifierFromString(null, "ja");
+        ID locale = Foundation.cfLocaleCreate(null, jaLocaleIdentifier);
 
-        ID tokenizer = Foundation.cfStringTokenizerCreate(FoundationLibrary.kCFAllocatorDefault, input, range, FoundationLibrary.kCFStringTokenizerUnitWordBoundary, locale);
+        ID tokenizer = Foundation.cfStringTokenizerCreate(null, input, range, FoundationLibrary.kCFStringTokenizerUnitWordBoundary, locale);
         int tokenType = Foundation.cfStringTokenizerGoToTokenAtIndex(tokenizer, 0);
 
         List<String> result = new ArrayList<>();

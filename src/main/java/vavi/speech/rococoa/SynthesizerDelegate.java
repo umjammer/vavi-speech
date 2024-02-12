@@ -21,11 +21,14 @@ package vavi.speech.rococoa;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import org.rococoa.cocoa.foundation.NSRange;
-import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
 import vavi.util.Debug;
+import vavix.rococoa.avfoundation.AVSpeechSynthesizer;
+import vavix.rococoa.avfoundation.AVSpeechUtterance;
 
 
 /**
@@ -34,22 +37,16 @@ import vavi.util.Debug;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
-public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesizerDelegate {
+public class SynthesizerDelegate implements AVSpeechSynthesizer.AVSpeechSynthesizerDelegate {
 
     private volatile boolean success = false;
     private List<String> wordsSpoken = new ArrayList<>();
     private List<String> phonemesSpoken = new ArrayList<>();
     private String wordWaitingFor;
-    @SuppressWarnings("unused")
-    private int position = -1;
-    @SuppressWarnings("unused")
-    private String synchMark;
-    @SuppressWarnings("unused")
-    private String errorMessage;
-    private static final Object speechDoneMonitor = new Object();
-    private static final Object waitForSpeechWordMonitor = new Object();
+    private CountDownLatch speechDoneMonitor;
+    private CountDownLatch waitForSpeechWordMonitor;
 
-    public SynthesizerDelegate(NSSpeechSynthesizer ss) {
+    public SynthesizerDelegate(AVSpeechSynthesizer ss) {
         ss.setDelegate(this);
     }
 
@@ -58,9 +55,6 @@ public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesi
         wordsSpoken.clear();
         phonemesSpoken.clear();
         wordWaitingFor = null;
-        position = -1;
-        errorMessage = null;
-        synchMark = null;
     }
 
     public boolean isSuccess() {
@@ -75,44 +69,34 @@ public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesi
         return phonemesSpoken;
     }
 
-    public void speechSynthesizer_didFinishSpeaking(NSSpeechSynthesizer sender, boolean success) {
-        this.success = success;
-        synchronized (speechDoneMonitor) {
-            speechDoneMonitor.notify();
-        }
-    }
-
     public void waitForSpeechDone(long interval, boolean stoppedNormally) {
-        synchronized (speechDoneMonitor) {
-            try {
-                speechDoneMonitor.wait(interval);
-                if (stoppedNormally != isSuccess()) {
-                    throw new IllegalStateException("Success flag check failed");
-                }
-            } catch (InterruptedException ex) {
-                throw new IllegalStateException(ex);
+        try {
+            speechDoneMonitor = new CountDownLatch(1);
+            speechDoneMonitor.await(interval, TimeUnit.MILLISECONDS);
+            if (stoppedNormally != isSuccess()) {
+                throw new IllegalStateException("Success flag check failed");
             }
+        } catch (InterruptedException ex) {
+            throw new IllegalStateException(ex);
         }
     }
 
     public void waitForNextWord(long interval) {
-        synchronized (waitForSpeechWordMonitor) {
-            try {
-                waitForSpeechWordMonitor.wait(interval);
-            } catch (InterruptedException ex) {
-                throw new IllegalStateException(ex);
-            }
+        try {
+            waitForSpeechWordMonitor = new CountDownLatch(1);
+            waitForSpeechWordMonitor.await(interval, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException ex) {
+            throw new IllegalStateException(ex);
         }
     }
 
     public void waitForWord(long interval, String word) {
-        synchronized (waitForSpeechWordMonitor) {
-            wordWaitingFor = word;
-            try {
-                waitForSpeechWordMonitor.wait(interval);
-            } catch (InterruptedException ex) {
-                throw new IllegalStateException(ex);
-            }
+        wordWaitingFor = word;
+        try {
+            waitForSpeechWordMonitor = new CountDownLatch(1);
+            waitForSpeechWordMonitor.await(interval, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException ex) {
+            throw new IllegalStateException(ex);
         }
     }
 
@@ -127,35 +111,41 @@ public class SynthesizerDelegate implements NSSpeechSynthesizer.NSSpeechSynthesi
     }
 
     @Override
-    public void speechSynthesizer_didEncounterErrorAtIndex_ofString_message(NSSpeechSynthesizer sender,
-                                                                            Integer characterIndex,
-                                                                            String text,
-                                                                            String errorMessage) {
-Debug.println(Level.FINER, "speechSynthesizer_didEncounterErrorAtIndex_ofString_message: " + sender);
-        position = characterIndex;
-        this.errorMessage = errorMessage;
+    public void speechSynthesizer_didStartSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance avSpeechUtterance) {
+Debug.println(Level.FINEST, "didStartSpeechUtterance: " + synthesizer);
+        phonemesSpoken.add(avSpeechUtterance.speechString());
     }
 
     @Override
-    public void speechSynthesizer_didEncounterSyncMessage(NSSpeechSynthesizer sender, String synchMark) {
-Debug.println(Level.FINER, "speechSynthesizer_didEncounterSyncMessage: " + sender);
-        this.synchMark = synchMark;
-    }
-
-    @Override
-    public synchronized void speechSynthesizer_willSpeakPhoneme(NSSpeechSynthesizer sender, short phonemeOpcode) {
-Debug.println(Level.FINER, "speechSynthesizer_willSpeakPhoneme: " + sender);
-        phonemesSpoken.add(sender.opcodeToPhoneme(phonemeOpcode));
-    }
-
-    @Override
-    public void speechSynthesizer_willSpeakWord_ofString(NSSpeechSynthesizer sender, NSRange wordToSpeak, String text) {
-Debug.println(Level.FINER, "speechSynthesizer_willSpeakWord_ofString: " + sender);
-        wordsSpoken.add(text.substring((int) wordToSpeak.getLocation(), (int) wordToSpeak.getEndLocation()));
-        if (wordWaitingFor == null || wordsSpoken.get(wordsSpoken.size() - 1).equals(wordWaitingFor)) {
-            synchronized (waitForSpeechWordMonitor) {
-                waitForSpeechWordMonitor.notify();
-            }
+    public void speechSynthesizer_willSpeakRangeOfSpeechString_utterance(AVSpeechSynthesizer synthesizer, NSRange characterRange, AVSpeechUtterance utterance) {
+Debug.println(Level.FINEST, "willSpeakRangeOfSpeechString_utterance: " + synthesizer);
+        wordsSpoken.add(utterance.speechString().substring((int) characterRange.getLocation(), (int) characterRange.getEndLocation()));
+        if (wordWaitingFor == null && waitForSpeechWordMonitor != null || wordsSpoken.get(wordsSpoken.size() - 1).equals(wordWaitingFor)) {
+            waitForSpeechWordMonitor.countDown();
         }
+    }
+
+    @Override
+    public void speechSynthesizer_didPauseSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
+Debug.println(Level.FINEST, "didPauseSpeechUtterance: " + synthesizer);
+    }
+
+    @Override
+    public void speechSynthesizer_didContinueSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
+Debug.println(Level.FINEST, "didContinueSpeechUtterance: " + synthesizer);
+    }
+
+    @Override
+    public void speechSynthesizer_didFinishSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
+Debug.println(Level.FINEST, "didFinishSpeechUtterance: " + synthesizer);
+        this.success = true;
+        speechDoneMonitor.countDown();
+    }
+
+    @Override
+    public void speechSynthesizer_didCancelSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
+Debug.println(Level.FINEST, "didCancelSpeechUtterance: " + synthesizer);
+        this.success = false;
+        speechDoneMonitor.countDown();
     }
 }

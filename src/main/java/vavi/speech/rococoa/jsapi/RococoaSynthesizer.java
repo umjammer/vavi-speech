@@ -8,7 +8,6 @@ package vavi.speech.rococoa.jsapi;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,7 +20,6 @@ import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
-
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
 import javax.speech.EngineException;
@@ -38,15 +36,16 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
+import com.sun.jna.Callback;
 import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
-import org.rococoa.cocoa.appkit.NSSpeechSynthesizer;
-import org.rococoa.cocoa.appkit.NSSpeechSynthesizer.NSSpeechBoundary;
-import org.rococoa.cocoa.appkit.NSSpeechSynthesizer.NSSpeechStatus;
-
+import org.rococoa.ObjCObject;
+import org.rococoa.Rococoa;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 import vavi.speech.rococoa.SynthesizerDelegate;
 import vavi.util.Debug;
+import vavix.rococoa.avfoundation.AVSpeechSynthesizer;
+import vavix.rococoa.avfoundation.AVSpeechUtterance;
 
 
 /**
@@ -91,14 +90,14 @@ public class RococoaSynthesizer implements Synthesizer {
 
     @Override
     public void cancel() throws EngineStateError {
-        synthesizer.stopSpeaking();
+        synthesizer.stopSpeakingAtBoundary(AVSpeechSynthesizer.AVSpeechBoundaryImmediate);
     }
 
     @Override
     public void cancel(Object source)
         throws IllegalArgumentException, EngineStateError {
 
-        synthesizer.stopSpeaking();
+        synthesizer.stopSpeakingAtBoundary(AVSpeechSynthesizer.AVSpeechBoundaryImmediate);
     }
 
     @Override
@@ -118,7 +117,7 @@ public class RococoaSynthesizer implements Synthesizer {
 
     @Override
     public String phoneme(String text) throws EngineStateError {
-        return synthesizer.phonemesFromText(text);
+        return text;
     }
 
     @Override
@@ -136,7 +135,7 @@ public class RococoaSynthesizer implements Synthesizer {
 
     @Override
     public void speak(URL JSMLurl, SpeakableListener listener)
-        throws JSMLException, MalformedURLException, IOException, EngineStateError {
+        throws JSMLException, IOException, EngineStateError {
 
         throw new UnsupportedOperationException();
     }
@@ -163,7 +162,7 @@ public class RococoaSynthesizer implements Synthesizer {
     }
 
     /** */
-    private List<EngineListener> listeners = new ArrayList<>();
+    private final List<EngineListener> listeners = new ArrayList<>();
 
     @Override
     public void addEngineListener(EngineListener listener) {
@@ -171,7 +170,7 @@ public class RococoaSynthesizer implements Synthesizer {
     }
 
     /** */
-    private NSSpeechSynthesizer synthesizer;
+    private AVSpeechSynthesizer synthesizer;
 
     /** */
     private SynthesizerDelegate delegate;
@@ -191,7 +190,7 @@ public class RococoaSynthesizer implements Synthesizer {
     @Override
     public void allocate() throws EngineException, EngineStateError {
         try {
-            synthesizer = NSSpeechSynthesizer.synthesizerWithVoice(null);
+            synthesizer = AVSpeechSynthesizer.newInstance();
             delegate = new SynthesizerDelegate(synthesizer);
             properties.setVolume(1f);
             executer.execute(() -> {
@@ -202,11 +201,15 @@ public class RococoaSynthesizer implements Synthesizer {
                             if (pair.listener != null) {
                                 pair.listener.speakableStarted(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
                             }
-                            playing = true;
+                            if (false) { // TODO block
+                                playing = true;
 Debug.println(Level.FINE, "\n" + pair.text);
-                            player.setVolume(properties.getVolume());
-                            player.play(synthe(pair.text));
-                            playing = false;
+                                player.setVolume(properties.getVolume());
+                                player.play(synthe(pair.text));
+                                playing = false;
+                            } else {
+                                synthe2(pair.text);
+                            }
                             if (pair.listener != null) {
                                 pair.listener.speakableEnded(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
                             }
@@ -223,13 +226,32 @@ e.printStackTrace();
     }
 
     /** */
+    private void synthe2(String text) {
+        AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
+        utterance.setVolume(getSynthesizerProperties().getVolume());
+        synthesizer.speakUtterance(utterance);
+        delegate.waitForSpeechDone(10000, true);
+    }
+
+    /** */
     private byte[] synthe(String text) {
         try {
 //Debug.println(Level.FINER, "vioce: " + getSynthesizerProperties().getVoice());
-//            synthesizer.setVoice(toNativeVoice(getSynthesizerProperties().getVoice()));
             Path path = Files.createTempFile(getClass().getName(), ".aiff");
-            synthesizer.startSpeakingStringToURL(text, path.toUri());
-            // wait to finish writing whole data
+            AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
+
+
+            synthesizer.speakUtterance(utterance);
+
+            // TODO objc block doesn't work
+            Callback bufferCallback = new Callback() {
+            };
+            ObjCObject bufferCallbackProxy = Rococoa.proxy(bufferCallback);
+
+            synthesizer.writeUtterance_toBufferCallback(utterance, bufferCallbackProxy.id());
+
+
+
             delegate.waitForSpeechDone(10000, true);
             byte[] wav = Files.readAllBytes(path);
             return wav;
@@ -264,9 +286,8 @@ e.printStackTrace();
 
     @Override
     public long getEngineState() {
-        NSSpeechStatus status = synthesizer.getStatus();
         return (synthesizer != null ? Synthesizer.ALLOCATED : 0) |
-               (status.isOutputPaused() ? Synthesizer.PAUSED : 0) |
+               (synthesizer.isPaused() ? Synthesizer.PAUSED : 0) |
                (queue.isEmpty() ? Synthesizer.QUEUE_EMPTY : 0) |
                (!queue.isEmpty() ? Synthesizer.QUEUE_NOT_EMPTY : 0);
     }
@@ -279,7 +300,7 @@ e.printStackTrace();
 
     @Override
     public void pause() throws EngineStateError {
-        synthesizer.pauseSpeakingAtBoundary(NSSpeechBoundary.ImmediateBoundary);
+        synthesizer.pauseSpeakingAtBoundary(AVSpeechSynthesizer.AVSpeechBoundaryWord);
     }
 
     @Override
