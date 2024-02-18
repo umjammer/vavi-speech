@@ -11,10 +11,7 @@
   <version>0.1.7</version>
 
   <name>vavi-speech</name>
-  <description>
-TODO
-
-    use macos framework</description>
+  <description/>
   <url>https//github.com/umjammer/vavi-speech</url>
   <scm>
     <url>https//github.com/umjammer/vavi-speech</url>
@@ -24,16 +21,8 @@ TODO
   </issueManagement>
 
   <properties>
-    <rococoa.version>0.8.6</rococoa.version>
     <freetts.version>1.2.4</freetts.version>
   </properties>
-
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <url>https://maven.pkg.github.com/umjammer/vavi-speech</url>
-    </repository>
-  </distributionManagement>
 
   <profiles>
     <profile>
@@ -99,6 +88,7 @@ TODO
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>github workflow</id>
       <activation>
@@ -128,6 +118,7 @@ TODO
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>32bit</id>
       <activation>
@@ -211,8 +202,7 @@ TODO
           <release>17</release>
         </configuration>
       </plugin>
-<!--
--->
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native2ascii-maven-plugin</artifactId>
@@ -230,40 +220,10 @@ TODO
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.3.0</version>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.rococoa</groupId>
-                  <artifactId>rococoa-core</artifactId>
-                  <type>dylib</type>
-                  <overWrite>false</overWrite>
-                  <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
-                  <destFileName>librococoa.dylib</destFileName>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 
   <repositories>
-    <repository>
-      <id>github</id>
-      <url>https://maven.pkg.github.com/umjammer/*</url>
-    </repository>
     <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
@@ -311,14 +271,14 @@ TODO
     </dependency>
 
     <dependency>
-      <groupId>vavi</groupId>
+      <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-sound-sandbox</artifactId>
-      <version>1.0.6</version>
+      <version>1.0.7</version>
     </dependency>
     <dependency>
-      <groupId>org.rococoa</groupId>
+      <groupId>com.github.umjammer.rococoa</groupId> <!-- org.rococoa / com.github.umjammer.rococoa -->
       <artifactId>rococoa-core</artifactId>
-      <version>${rococoa.version}</version>
+      <version>0.8.7</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
