@@ -32,7 +32,7 @@ class FreeTTSTest {
         // シンセザイザのモードを指定
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         SynthesizerModeDesc desc = new SynthesizerModeDesc(Locale.US);
-        Central.registerEngineCentral("com.sun.speech.freetts.jsapi.FreeTTSEngineCentral");
+        Central.registerEngineCentral("com.sun.speech.engine.freetts.jsapi.FreeTTSEngineCentral");
         Synthesizer synthesizer = Central.createSynthesizer(desc);
 
         synthesizer.allocate();

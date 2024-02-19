@@ -21,7 +21,8 @@
   </issueManagement>
 
   <properties>
-    <freetts.version>1.2.4</freetts.version>
+    <freetts.groupId>com.github.umjammer.FreeTTS</freetts.groupId> <!-- org.jvoicexml / com.github.umjammer.FreeTTS -->
+    <freetts.version>1.2.5</freetts.version>
   </properties>
 
   <profiles>
@@ -319,8 +320,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jvoicexml</groupId>
-      <artifactId>freetts_jsapi10</artifactId>
+      <groupId>${freetts.groupId}</groupId>
+      <artifactId>freetts-jsapi10</artifactId>
       <version>${freetts.version}</version>
     </dependency>
 
@@ -353,7 +354,7 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jvoicexml</groupId>
+      <groupId>${freetts.groupId}</groupId>
       <artifactId>freetts</artifactId>
       <version>${freetts.version}</version>
       <scope>test</scope>
@@ -377,19 +378,19 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.jvoicexml</groupId>
+      <groupId>${freetts.groupId}</groupId>
       <artifactId>cmulex</artifactId>
       <version>${freetts.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jvoicexml</groupId>
+      <groupId>${freetts.groupId}</groupId>
       <artifactId>en_us</artifactId>
       <version>${freetts.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jvoicexml</groupId>
+      <groupId>${freetts.groupId}</groupId>
       <artifactId>cmu_us_kal</artifactId>
       <version>${freetts.version}</version>
       <scope>test</scope>
