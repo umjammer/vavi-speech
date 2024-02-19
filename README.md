@@ -1,5 +1,5 @@
-[![GitHub Packages](https://github.com/umjammer/vavi-speech/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/umjammer?tab=packages&repo_name=vavi-speech)
-[![Java CI with Maven](https://github.com/umjammer/vavi-speech/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/umjammer/vavi-speech/actions)
+[![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech)
+[![Java CI](https://github.com/umjammer/vavi-speech/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/umjammer/vavi-speech/actions)
 [![CodeQL](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml)
 ![Java](https://img.shields.io/badge/Java-17-b07219)
 [![Parent](https://img.shields.io/badge/Parent-vavi--speech2-pink)](https://github.com/umjammer/vavi-speech2)
@@ -8,15 +8,15 @@
 
 Text to Speech (JSAPI) engines for Java and Japanese phonemeizers
 
-| **Type** | **Description**                                                                                                                                                                                   | **Staus** | **SPI Status** | **Quality** | **Comment**  |
-|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------:|:--------------:|:-----------:|:-------------|
-| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only   |
-| AquesTalk | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only   |
-| AquesTalk2 | JNI                                                                                                                                                                                               | - | - | |              |
-| AquesTalk10 | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 |              |
-| Google Cloud Text To Speech | [Google Cloud Text To Speech](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)                                                                                           | ✅ | ✅ | 👑 |              |
-| Rococoa | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA | ✅ | ✅ | 😃 |              |
-| FreeTTS | [FreeTTS](https://github.com/umjammer/FreeTTS/)                                                                                                                             | - | ✅ | 💩 | not included |
+| **Type** | **Description**                                                                                                                                                                                   | **Staus** | **SPI Status** | **Quality** | **Comment**              |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------:|:--------------:|:-----------:|:-------------------------|
+| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only               |
+| AquesTalk | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only               |
+| AquesTalk2 | JNI                                                                                                                                                                                               | - | - | | mac: intel only          |
+| AquesTalk10 | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 | mac: intel only          |
+| Google Cloud Text To Speech | [Google Cloud Text To Speech](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)                                                                                           | ✅ | ✅ | 👑 |                          |
+| Rococoa | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA | ✅ | ✅ | 😃 |                          |
+| FreeTTS | [FreeTTS](https://github.com/umjammer/FreeTTS/)                                                                                                                                                   | - | ✅ | 💩 | not included (test only) |
 
 ## Kanji -> Kana converter
 
@@ -44,9 +44,7 @@ selected by `aquestalk10.properties`
 
 ### meven
 
- * https://github.com/umjammer/vavi-speech/packages/1691244
- * this project uses gitlab package registry. add a personal access token to `~/.m2/settings.xml`
- * see https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#authenticate-to-the-package-registry-with-maven
+ * https://jitpack.io/#umjammer/vavi-speech
 
 ### AquesTalk10
 
@@ -58,12 +56,6 @@ selected by `aquestalk10.properties`
 
  * [get token as json](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)
  * set environment variable `"GOOGLE_APPLICATION_CREDENTIALS"` `your_json_path`
-
-### Rococoa
-
- * locate `librococoa.dylib` into class path
-   * if you use maven it's already done, you can find it at `target/test-classes`.
- * ~~rococoa doesn't work w/ current jna version 5.5.0, run w/ version 3.4.0~~
 
 ### Sen
 
@@ -153,7 +145,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
      * ~~extract rules as json~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/salome/rule.json))
    * ずんだもん ([wip](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
  * unify japanese tokenizer (lucene-gosen?)
- * AVSpeechSynthesizer needs block
+ * AVSpeechSynthesizer needs obj-c block
 
 ### Morphological Analyzer
 
@@ -179,7 +171,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
 
 ### Kanji -> Kana
 
- * chawan (lost in the internet)
+ * chawan (faded away from the internet)
  * ~~[open jtalk](https://github.com/r9y9/open_jtalk) njd*~~ -> [Gyutan](https://github.com/umjammer/Gyutan)
  * http://kakasi.namazu.org/index.html.ja
  * https://github.com/nicolas-raoul/kakasi-java (predecessor of jakaroma)
