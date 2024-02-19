@@ -275,6 +275,12 @@
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-sound-sandbox</artifactId>
       <version>1.0.7</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>jmf</artifactId>
+          <groupId>javax.media</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.umjammer.rococoa</groupId> <!-- org.rococoa / com.github.umjammer.rococoa -->
@@ -304,19 +310,25 @@
     <dependency>
       <groupId>com.worksap.nlp</groupId>
       <artifactId>sudachi</artifactId>
-      <version>0.7.1</version>
+      <version>0.7.3</version>
     </dependency>
 
     <dependency>
       <groupId>com.ibm.icu</groupId>
       <artifactId>icu4j</artifactId>
-      <version>72.1</version>
+      <version>74.1</version>
     </dependency>
 
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
       <version>1.0.13</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>vavi-net-auth-amazon</artifactId>
+          <groupId>com.github.umjammer.vavi-net-auth</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
