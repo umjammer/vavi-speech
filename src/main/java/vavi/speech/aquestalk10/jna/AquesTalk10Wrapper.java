@@ -61,7 +61,7 @@ public class AquesTalk10Wrapper {
     private AquesTalk10Wrapper() {}
 
     /** */
-    public static final Map<String, AQTK_VOICE> voices = new HashMap<String, AQTK_VOICE>() {
+    public static final Map<String, AQTK_VOICE> voices = new HashMap<>() {
         {
             put("F1", AquesTalk10.gVoice_F1);
             put("F2", AquesTalk10.gVoice_F2);

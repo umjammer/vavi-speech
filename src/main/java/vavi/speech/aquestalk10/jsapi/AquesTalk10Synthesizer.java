@@ -176,7 +176,7 @@ logger.info("use " + phonemizer);
     }
 
     /** */
-    private List<EngineListener> listeners = new ArrayList<>();
+    private final List<EngineListener> listeners = new ArrayList<>();
 
     @Override
     public void addEngineListener(EngineListener listener) {
@@ -195,8 +195,8 @@ logger.info("use " + phonemizer);
     /** */
     private boolean playing;
 
-    /** */
-    private Player player = new vavi.speech.JavaSoundPlayer();
+    /** TODO outsource? */
+    private final Player player = new vavi.speech.JavaSoundPlayer();
 
     @Override
     public void allocate() throws EngineException, EngineStateError {
@@ -222,7 +222,7 @@ Debug.println(Level.FINE, "\n" + pair.text);
                         }
                         Thread.sleep(100);
                     } catch (Exception e) {
-e.printStackTrace();
+Debug.printStackTrace(e);
                     }
                 }
             });

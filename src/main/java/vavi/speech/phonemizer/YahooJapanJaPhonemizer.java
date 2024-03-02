@@ -69,16 +69,16 @@ public class YahooJapanJaPhonemizer implements JaPhonemizer {
                     roman;
             return sb;
         }
-        static final String BODY = "" +
-                "{\n" +
-                "  \"id\": \"{0}\",\n" +
-                "  \"jsonrpc\": \"2.0\",\n" +
-                "  \"method\": \"jlp.furiganaservice.furigana\",\n" +
-                "  \"params\": {\n" +
-                "    \"q\": \"{1}\",\n" +
-                "    \"grade\": 1\n" +
-                "  }\n" +
-                "}";
+        static final String BODY = """
+                {
+                  "id": "{0}",
+                  "jsonrpc": "2.0",
+                  "method": "jlp.furiganaservice.furigana",
+                  "params": {
+                    "q": "{1}",
+                    "grade": 1
+                  }
+                }""";
         static final String UA = "Yahoo AppID: %s";
     }
 

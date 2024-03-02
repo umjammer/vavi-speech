@@ -25,10 +25,10 @@ class SenTest {
     @Test
     void test() throws Exception {
         SenTest app = new SenTest();
-        app.test("すもももももももものうち");
+        SenTest.test("すもももももももものうち");
     }
 
-    void test(String text) throws Exception {
+    static void test(String text) throws Exception {
         StringTagger tagger = StringTagger.getInstance();
         Token[] token = tagger.analyze(text);
         if (token != null) {

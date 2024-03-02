@@ -101,7 +101,7 @@ public class SynthesizerDelegate implements AVSpeechSynthesizer.AVSpeechSynthesi
     }
 
     @SuppressWarnings("unused")
-    private String getCallerName() {
+    private static String getCallerName() {
         for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
             if (ste.getMethodName().startsWith("test")) {
                 return ste.getMethodName();

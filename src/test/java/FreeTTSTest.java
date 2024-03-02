@@ -28,7 +28,7 @@ class FreeTTSTest {
         speak("She sells seashells by the seashore.");
     }
 
-    void speak(String text) throws Exception {
+    static void speak(String text) throws Exception {
         // シンセザイザのモードを指定
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         SynthesizerModeDesc desc = new SynthesizerModeDesc(Locale.US);
@@ -60,7 +60,7 @@ System.err.println("---");
         FreeTTSTest app = new FreeTTSTest();
         Arrays.asList("Hello World", "Make yourself at home.", "By the way, I want to eat udon", "Do you speak English?", args[0]).forEach(t -> {
             try {
-                app.speak(t);
+                FreeTTSTest.speak(t);
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }

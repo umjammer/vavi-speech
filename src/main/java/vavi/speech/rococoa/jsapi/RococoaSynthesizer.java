@@ -55,10 +55,10 @@ import vavix.rococoa.avfoundation.AVSpeechUtterance;
 public class RococoaSynthesizer implements Synthesizer {
 
     /** */
-    private SynthesizerModeDesc desc;
+    private final SynthesizerModeDesc desc;
 
     /** */
-    private SynthesizerProperties properties = new BaseSynthesizerProperties();
+    private final SynthesizerProperties properties = new BaseSynthesizerProperties();
 
     /**
      * Creates a new Synthesizer in the DEALLOCATED state.
@@ -81,7 +81,7 @@ public class RococoaSynthesizer implements Synthesizer {
     }
 
     /** */
-    private Queue<Pair> queue = new LinkedList<>();
+    private final Queue<Pair> queue = new LinkedList<>();
 
     @Override
     public Enumeration<?> enumerateQueue() throws EngineStateError {
@@ -176,7 +176,7 @@ public class RococoaSynthesizer implements Synthesizer {
     private SynthesizerDelegate delegate;
 
     /** */
-    private ExecutorService executer = Executors.newSingleThreadExecutor();
+    private final ExecutorService executer = Executors.newSingleThreadExecutor();
 
     /** */
     private boolean looping = true;
@@ -185,7 +185,7 @@ public class RococoaSynthesizer implements Synthesizer {
     private boolean playing;
 
     /** */
-    private Player player = new JavaSoundPlayer();
+    private final Player player = new JavaSoundPlayer();
 
     @Override
     public void allocate() throws EngineException, EngineStateError {
@@ -205,10 +205,10 @@ public class RococoaSynthesizer implements Synthesizer {
                                 playing = true;
 Debug.println(Level.FINE, "\n" + pair.text);
                                 player.setVolume(properties.getVolume());
-                                player.play(synthe(pair.text));
+                                player.play(synthesis(pair.text));
                                 playing = false;
                             } else {
-                                synthe2(pair.text);
+                                synthesis2(pair.text);
                             }
                             if (pair.listener != null) {
                                 pair.listener.speakableEnded(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
@@ -216,7 +216,7 @@ Debug.println(Level.FINE, "\n" + pair.text);
                         }
                         Thread.sleep(300);
                     } catch (Exception e) {
-e.printStackTrace();
+Debug.printStackTrace(e);
                     }
                 }
             });
@@ -226,7 +226,7 @@ e.printStackTrace();
     }
 
     /** */
-    private void synthe2(String text) {
+    private void synthesis2(String text) {
         AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
         utterance.setVolume(getSynthesizerProperties().getVolume());
         synthesizer.speakUtterance(utterance);
@@ -234,12 +234,11 @@ e.printStackTrace();
     }
 
     /** */
-    private byte[] synthe(String text) {
+    private byte[] synthesis(String text) {
         try {
-//Debug.println(Level.FINER, "vioce: " + getSynthesizerProperties().getVoice());
+//Debug.println(Level.FINER, "voice: " + getSynthesizerProperties().getVoice());
             Path path = Files.createTempFile(getClass().getName(), ".aiff");
             AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
-
 
             synthesizer.speakUtterance(utterance);
 
@@ -287,7 +286,7 @@ e.printStackTrace();
     @Override
     public long getEngineState() {
         return (synthesizer != null ? Synthesizer.ALLOCATED : 0) |
-               (synthesizer.isPaused() ? Synthesizer.PAUSED : 0) |
+               (synthesizer != null && synthesizer.isPaused() ? Synthesizer.PAUSED : 0) |
                (queue.isEmpty() ? Synthesizer.QUEUE_EMPTY : 0) |
                (!queue.isEmpty() ? Synthesizer.QUEUE_NOT_EMPTY : 0);
     }
@@ -335,5 +334,3 @@ e.printStackTrace();
         }
     }
 }
-
-/* */

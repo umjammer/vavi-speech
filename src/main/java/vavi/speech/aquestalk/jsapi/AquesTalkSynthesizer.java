@@ -47,10 +47,10 @@ public class AquesTalkSynthesizer implements Synthesizer {
     private AquesTalkDa aquesTalkDa;
 
     /** */
-    private SynthesizerModeDesc desc;
+    private final SynthesizerModeDesc desc;
 
     /** */
-    private SynthesizerProperties properties = new BaseSynthesizerProperties();
+    private final SynthesizerProperties properties = new BaseSynthesizerProperties();
 
     /**
      * Creates a new Synthesizer in the DEALLOCATED state.
@@ -62,8 +62,8 @@ public class AquesTalkSynthesizer implements Synthesizer {
         this.desc = desc;
     }
 
-    /** */
-    private Phonemizer phonemizer = new SenJaPhonemizer();
+    /** TODO outsource? */
+    private final Phonemizer phonemizer = new SenJaPhonemizer();
 
     /**
      * <pre>
@@ -194,7 +194,7 @@ public class AquesTalkSynthesizer implements Synthesizer {
 
     @Override
     public void resume() throws AudioException, EngineStateError {
-        while (queue.size() > 0) {
+        while (!queue.isEmpty()) {
             Pair pair = queue.poll();
             if (pair.listener != null) {
                 pair.listener.speakableStarted(new SpeakableEvent(this, 0));
@@ -222,5 +222,3 @@ e.printStackTrace(System.err);
     public void waitEngineState(long state) throws InterruptedException, IllegalArgumentException {
     }
 }
-
-/* */
