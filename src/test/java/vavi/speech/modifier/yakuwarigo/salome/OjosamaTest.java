@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
+import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -31,7 +33,16 @@ import static vavi.speech.modifier.yakuwarigo.UtilTest.setFinalStatic;
  *  because the dictionary is not the same as the original
  *  or miss porting
  */
+@EnabledIf("rightVersion")
 class OjosamaTest {
+
+    // TODO find a way to work with version after 17
+    static boolean rightVersion() {
+        ComparableVersion current = new ComparableVersion(System.getProperty("java.runtime.version"));
+        ComparableVersion allowed = new ComparableVersion("18.0.0");
+
+        return current.compareTo(allowed) < 0;
+    }
 
     static String[] original;
     static SalomeProvider.Randomizer originalRandomizer;

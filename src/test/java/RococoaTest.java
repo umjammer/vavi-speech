@@ -39,6 +39,7 @@ class RococoaTest {
         SynthesizerDelegate sd = new SynthesizerDelegate(ss);
 Debug.println(Locale.getDefault().toString());
         AVSpeechSynthesisVoice voice = AVSpeechSynthesisVoice.withLanguage(Locale.getDefault().toString());
+Debug.println(voice.name());
         AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
         utterance.setVoice(voice);
         utterance.setVolume(.2f);

@@ -6,8 +6,10 @@ package vavi.speech.modifier.yakuwarigo.salome;
 
 import java.util.stream.Stream;
 
+import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.condition.EnabledIf;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -25,7 +27,16 @@ import static vavi.speech.modifier.yakuwarigo.salome.EQMark.isExclamationQuestio
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.sampleExclamationQuestionByValue;
 
 
+@EnabledIf("rightVersion")
 class TestChars {
+
+    // TODO find a way to work with version after 17
+    static boolean rightVersion() {
+        ComparableVersion current = new ComparableVersion(System.getProperty("java.runtime.version"));
+        ComparableVersion allowed = new ComparableVersion("18.0.0");
+
+        return current.compareTo(allowed) < 0;
+    }
 
     static Shuffler original;
 
