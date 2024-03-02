@@ -86,7 +86,7 @@ public class AquesTalk10Wrapper {
 
     /** text replacement table before speaking */
     private static final FormattedPropertiesFactory.Basic replaceMap =
-            new FormattedPropertiesFactory.Basic("/aquestalk.properties", "text.replace.%s");
+            new FormattedPropertiesFactory.Basic("/aquestalk10.properties", "text.replace.%s");
 
     /**
      * @return PCM wave format
