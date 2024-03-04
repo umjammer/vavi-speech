@@ -8,7 +8,7 @@
 
   <groupId>vavi</groupId>
   <artifactId>vavi-speech</artifactId>
-  <version>0.1.8</version>
+  <version>0.1.9</version>
 
   <name>vavi-speech</name>
   <description/>
@@ -234,7 +234,7 @@
       <url>https://gitlab.com/api/v4/projects/30804899/packages/maven</url>
     </repository>
     <repository>
-      <id>gitlab-maven-sen</id>
+      <id>gitlab-maven2-sen</id>
       <url>https://gitlab.com/api/v4/projects/18523814/packages/maven</url>
     </repository>
   </repositories>
@@ -252,7 +252,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.1</version>
+        <version>5.10.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -405,6 +405,13 @@
       <groupId>${freetts.groupId}</groupId>
       <artifactId>cmu_us_kal</artifactId>
       <version>${freetts.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>3.9.6</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

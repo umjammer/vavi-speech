@@ -166,18 +166,14 @@ public class SalomeProvider implements Provider {
         int e = randomizer.exclamationMarkCount();
 
         StringBuilder suffix = new StringBuilder();
-        for (int i = 0; i < w; i++) {
-            suffix.append("～");
-        }
+        suffix.append("～".repeat(Math.max(0, w)));
 
         // ！or？をどれかからランダムに選択する
         EQMark feq = sampleExclamationQuestionByValue(s);
 
         // 次の token は必ず感嘆符か疑問符のどちらかであることが確定しているため
         // -1 して数を調整している。
-        for (int i = 0; i < e - 1; i++) {
-            suffix.append(feq.value);
-        }
+        suffix.append(String.valueOf(feq.value).repeat(Math.max(0, e - 1)));
 
         // 後ろに！や？が連続する場合、それらをすべて feq と同じ種類（半角、全角、
         // 絵文字）の！や？に置き換えて返却する。
@@ -262,7 +258,7 @@ Debug.println(Level.FINER, "shuffleElementsKutenToExclamation: " + l);
     //----
 
     /** */
-    private boolean isPrefixAppendable(TokenData data) {
+    private static boolean isPrefixAppendable(TokenData data) {
         if (!equalsFeatures(data.features, new Feature.Feat().setElements("名詞", "一般")) &&
                 !equalsFeatures(slice(data.features, 0, 2), new Feature.Feat().setElements("名詞", "固有名詞"))) {
             return false;

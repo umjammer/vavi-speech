@@ -161,7 +161,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     }
 
     /** */
-    private List<EngineListener> listeners = new ArrayList<>();
+    private final List<EngineListener> listeners = new ArrayList<>();
 
     @Override
     public void addEngineListener(EngineListener listener) {
@@ -178,7 +178,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     private boolean playing;
 
     /** */
-    private Player player = new JavaSoundPlayer();
+    private final Player player = new JavaSoundPlayer();
 
     @Override
     public void allocate() throws EngineException, EngineStateError {
@@ -196,7 +196,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
                             playing = true;
 Debug.println(Level.FINE, "\n" + pair.text);
                             player.setVolume(properties.getVolume());
-                            player.play(synthe(pair.text));
+                            player.play(synthesis(pair.text));
                             playing = false;
                             if (pair.listener != null) {
                                 pair.listener.speakableEnded(new SpeakableEvent(GoogleCloudTextToSpeechSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
@@ -204,7 +204,7 @@ Debug.println(Level.FINE, "\n" + pair.text);
                         }
                         Thread.sleep(300);
                     } catch (Exception e) {
-e.printStackTrace();
+Debug.printStackTrace(e);
                     }
                 }
             });
@@ -214,7 +214,7 @@ e.printStackTrace();
     }
 
     /** */
-    private byte[] synthe(String text) {
+    private byte[] synthesis(String text) {
         SynthesisInput input = SynthesisInput.newBuilder().setText(text).build();
 
         VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()

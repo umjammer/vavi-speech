@@ -60,7 +60,7 @@ Debug.println(Level.FINE, "model: " + model);
         return convert(input);
     }
 
-    private boolean isX(String x) {
+    private static boolean isX(String x) {
         return x.equals("ました") || x.equals("ります");
     }
 

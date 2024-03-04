@@ -111,7 +111,7 @@ public class EQMark {
             }
         }
         // 到達しないはずだけれど一応いれてる;
-        if (s.size() < 1) {
+        if (s.isEmpty()) {
             return null;
         }
 
@@ -126,7 +126,7 @@ public class EQMark {
                 eq.add(mark);
             }
         }
-        if (eq.size() < 1) {
+        if (eq.isEmpty()) {
             return null;
         }
 

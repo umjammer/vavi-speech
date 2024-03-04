@@ -217,7 +217,7 @@ System.err.printf("%sD: %04d%s\t%s\t%s%s%s\t\t%s%f\t%s%s\n", c1, l, c0, a.word, 
         dict.close();
     }
 
-    boolean containsJaCharacters(String str) {
+    static boolean containsJaCharacters(String str) {
         for (int i = 0;i < str.length(); i++) {
             int code = str.charAt(i);
             if (code >= 0x4e00 && code <= 0x9fcf) { // kanji

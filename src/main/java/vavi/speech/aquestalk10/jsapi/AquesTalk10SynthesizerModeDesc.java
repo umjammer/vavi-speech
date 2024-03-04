@@ -65,12 +65,12 @@ public class AquesTalk10SynthesizerModeDesc extends SynthesizerModeDesc implemen
 
     /** */
     private static int toGender(AQTK_VOICE voice) {
-        switch (voice.bas) {
-        case 0: return Voice.GENDER_FEMALE;
-        case 1: return Voice.GENDER_FEMALE;
-        case 2: return Voice.GENDER_MALE;
-        default: return Voice.GENDER_DONT_CARE;
-        }
+        return switch (voice.bas) {
+            case 0 -> Voice.GENDER_FEMALE;
+            case 1 -> Voice.GENDER_FEMALE;
+            case 2 -> Voice.GENDER_MALE;
+            default -> Voice.GENDER_DONT_CARE;
+        };
     }
 
     /**

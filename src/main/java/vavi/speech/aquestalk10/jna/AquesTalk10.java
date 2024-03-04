@@ -136,7 +136,7 @@ public interface AquesTalk10 extends Library {
     int AquesTalk_SetUsrKey(byte[] key);
 
     /** メソッドが返すエラーコードの内容 */
-    Map<Integer, String> errors = new HashMap<Integer, String>() {{
+    Map<Integer, String> errors = new HashMap<>() {{
         put(100, "その他のエラー");
         put(101, "メモリ不足");
         put(103, "音声記号列指定エラー(語頭の長音、促音の連続など)");

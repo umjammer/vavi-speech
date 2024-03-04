@@ -388,7 +388,7 @@ public class DigitJaPhonemizer implements JaPhonemizer {
      */
     public String convertFrom(String src) {
         Matcher matcher = rexNumber.matcher(src);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while (matcher.find()) {
             matcher.appendReplacement(sb, phoneme(matcher.group(1)));
         }
@@ -409,7 +409,7 @@ public class DigitJaPhonemizer implements JaPhonemizer {
         String[] numParts = getNumberParts(src);
 
         // 小数部の有無
-        boolean remainExist = numParts.length >= 2 && numParts[1].length() > 0;
+        boolean remainExist = numParts.length >= 2 && !numParts[1].isEmpty();
 
         // 整数部の読み仮名をバッファに追加
         appendNumberPhonetic(numParts[0], remainExist, dest);
@@ -428,7 +428,7 @@ public class DigitJaPhonemizer implements JaPhonemizer {
      * @param src 数字を表す文字列。
      * @return 整数部文字列と小数部文字列の配列。
      */
-    private String[] getNumberParts(String src) {
+    private static String[] getNumberParts(String src) {
         // 全角を半角に変換
         String text = CharNormalizerJa.ToHalf.normalize(src);
 
@@ -551,7 +551,7 @@ Debug.println(Level.FINE, "too big: " + src);
         if (len == 0) {
             // "0" のみだった場合
             String zero = decideNumberKana(NumberPhoneType.Digit0, lastType, baseType);
-            if (zero.length() > 0) {
+            if (!zero.isEmpty()) {
                 dest.append(zero);
                 lastType = NumberPhoneType.Digit0;
             }
@@ -579,7 +579,7 @@ Debug.println(Level.FINE, "too big: " + src);
                 NumberPhoneType t = types.get(i);
                 NumberPhoneType next = i + 1 < types.size() ? types.get(i + 1) : baseType;
                 String s = decideNumberKana(t, lastType, next);
-                if (s.length() > 0) {
+                if (!s.isEmpty()) {
                     dest.append(s);
                     lastType = t;
                 }
@@ -591,7 +591,7 @@ Debug.println(Level.FINE, "too big: " + src);
         // - 1文字以上追加があった
         if (baseType.isPoint() || dest.length() > oldLen) {
             String baseText = decideNumberKana(baseType, lastType, NumberPhoneType.None);
-            if (baseText.length() > 0) {
+            if (!baseText.isEmpty()) {
                 dest.append(baseText);
                 lastType = baseType;
             }
@@ -606,7 +606,7 @@ Debug.println(Level.FINE, "too big: " + src);
      * @param c 文字。
      * @return 数値。変換できなければ 0 。
      */
-    private int parseChar(char c) {
+    private static int parseChar(char c) {
         return Character.isDigit(c) ? Integer.parseInt(String.valueOf(c)) : 0;
     }
 }

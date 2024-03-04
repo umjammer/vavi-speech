@@ -38,7 +38,7 @@ class GoogleCTTSTest {
     }
 
     /** */
-    void speak(String text) throws Exception {
+    static void speak(String text) throws Exception {
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
             // Set the text input to be synthesized
@@ -71,7 +71,7 @@ class GoogleCTTSTest {
     /** */
     public static void main(String[] args) throws Exception {
         GoogleCTTSTest app = new GoogleCTTSTest();
-        app.speak(args[0]);
+        GoogleCTTSTest.speak(args[0]);
     }
 }
 

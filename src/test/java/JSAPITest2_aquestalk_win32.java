@@ -30,7 +30,7 @@ class JSAPITest2_aquestalk_win32 {
         speak("すもももももももものうち");
     }
 
-    void speak(String text) throws Exception {
+    static void speak(String text) throws Exception {
         // シンセザイザのモードを指定
         SynthesizerModeDesc desc = new AquesTalkSynthesizerModeDesc("AquesTalkEngineCentral", "general", Locale.JAPAN);
         // シンセザイザを作成
@@ -53,7 +53,7 @@ class JSAPITest2_aquestalk_win32 {
     /** */
     public static void main(String[] args) throws Exception {
         JSAPITest2_aquestalk_win32 app = new JSAPITest2_aquestalk_win32();
-        app.speak(args[0]);
+        JSAPITest2_aquestalk_win32.speak(args[0]);
     }
 }
 

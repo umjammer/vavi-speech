@@ -1,5 +1,5 @@
 [![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech)
-[![Java CI](https://github.com/umjammer/vavi-speech/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/umjammer/vavi-speech/actions)
+[![Java CI](https://github.com/umjammer/vavi-speech/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/maven.yml)
 [![CodeQL](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml)
 ![Java](https://img.shields.io/badge/Java-17-b07219)
 [![Parent](https://img.shields.io/badge/Parent-vavi--speech2-pink)](https://github.com/umjammer/vavi-speech2)
@@ -18,7 +18,7 @@ Text to Speech (JSAPI) engines for Java and Japanese phonemeizers
 | Rococoa | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA | ✅ | ✅ | 😃 |                          |
 | FreeTTS | [FreeTTS](https://github.com/umjammer/FreeTTS/)                                                                                                                                                   | - | ✅ | 💩 | not included (test only) |
 
-## Kanji -> Kana converter
+## Kanji to Kana converter
 
 | **Type** | **Description** | **Staus** | **Quality** | **Comment** |
 |:---------|:----------------|:---------:|:-----------:|:------------|
@@ -146,6 +146,9 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
    * ずんだもん ([wip](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
  * unify japanese tokenizer (lucene-gosen?)
  * AVSpeechSynthesizer needs obj-c block
+ * access private
+   * reflection -> JEP 193: Variable Handles https://qiita.com/yoshioterada/items/319ed0dec4b847d2b1ed
+   * https://github.com/FabricMC/access-widener
 
 ### Morphological Analyzer
 

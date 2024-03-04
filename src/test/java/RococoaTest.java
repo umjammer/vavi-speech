@@ -34,11 +34,12 @@ class RococoaTest {
         speak("すもももももももものうち");
     }
 
-    void speak(String text) throws Exception {
+    static void speak(String text) throws Exception {
         AVSpeechSynthesizer ss = AVSpeechSynthesizer.newInstance();
         SynthesizerDelegate sd = new SynthesizerDelegate(ss);
 Debug.println(Locale.getDefault().toString());
         AVSpeechSynthesisVoice voice = AVSpeechSynthesisVoice.withLanguage(Locale.getDefault().toString());
+Debug.println(voice.name());
         AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
         utterance.setVoice(voice);
         utterance.setVolume(.2f);
@@ -48,7 +49,7 @@ Debug.println(Locale.getDefault().toString());
 
     public static void main(String[] args) throws Exception {
         RococoaTest app = new RococoaTest();
-        app.speak(args[0]);
+        RococoaTest.speak(args[0]);
     }
 }
 

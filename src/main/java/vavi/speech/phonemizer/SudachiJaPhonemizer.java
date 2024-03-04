@@ -39,7 +39,7 @@ public class SudachiJaPhonemizer implements JaPhonemizer {
     public SudachiJaPhonemizer() {
         try {
             Config config = Config.fromClasspath("sudachi.json");
-            Dictionary dict = new DictionaryFactory().create(config);
+            Dictionary dict = new DictionaryFactory().create(config); // DON'T CLOSE in this block
             tokenizer = dict.create();
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 try { dict.close(); } catch (IOException e) { throw new UncheckedIOException(e); }
