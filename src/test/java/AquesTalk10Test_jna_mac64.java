@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
@@ -82,6 +83,7 @@ Debug.println(Level.FINEST, "setkey: " + result + ", " + aquesTalk10DevKey);
     void test02() throws Exception {
         int[] size = new int[1];
         assertNotNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "あいうえお", size));
+        assertNotNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "アイウエオ", size));
         assertNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "　", size));
         assertNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, " ", size));
         assertNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, "！", size));
@@ -100,6 +102,18 @@ Debug.println(Level.FINEST, "setkey: " + result + ", " + aquesTalk10DevKey);
         assertEquals("あいう<NUM VAL=-1.234>えお", result);
         int[] size = new int[1];
         assertNotNull(AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(AquesTalk10.gVoice_F1, result, size));
+    }
+
+    @Test
+    @Disabled("this is properties generator")
+    void testX() throws Exception {
+        int s = 9;
+        char c = 'a';
+        for (int i = s; i < s + 26; i++) {
+            System.out.printf("text.replace.%d.src=%c%n", i, c);
+            System.out.printf("text.replace.%d.dest=%c%n", i, c);
+            c++;
+        }
     }
 }
 
