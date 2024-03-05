@@ -68,6 +68,8 @@ if (Debug.isLoggable(Level.INFO)) {
                 } else {
                     sb.append(m.readingForm());
                 }
+            } else if (m.partOfSpeech().get(0).equals("空白")) {
+                sb.append(" ");
             } else {
                 sb.append(m.readingForm());
             }

@@ -9,10 +9,12 @@ package vavi.speech.aquestalk10.jna;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import com.sun.jna.Pointer;
-
 import vavi.speech.aquestalk10.jna.AquesTalk10.AQTK_VOICE;
+import vavi.util.CharNormalizerJa;
+import vavi.util.Debug;
 import vavi.util.properties.FormattedPropertiesFactory;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
@@ -23,7 +25,9 @@ import vavi.util.properties.annotation.PropsEntity;
  * <p>
  * property file
  * <ul>
- * <li> local.properties ... "aquesTalk10DevKey" aquestalk dev key, locate at "user.dir" directory
+ *  <li>local.properties ... "aquesTalk10DevKey" aquestalk dev key, locate at "user.dir" directory</li>
+ *  <li>aquestalk10.properties ... set phonemizer</li>
+ *  <li>aquestalk_normalizer.properties ... definitions for replacing not supported char by aquestalk (internal)</li>
  * </ul>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
@@ -86,26 +90,30 @@ public class AquesTalk10Wrapper {
 
     /** text replacement table before speaking */
     private static final FormattedPropertiesFactory.Basic replaceMap =
-            new FormattedPropertiesFactory.Basic("/aquestalk10.properties", "text.replace.%s");
+            new FormattedPropertiesFactory.Basic("/aquestalk_normalizer.properties", "text.replace.%s");
 
     /**
      * @return PCM wave format
      * @throws IllegalArgumentException with error message
      * @see "https://docs.google.com/viewer?url=https%3A%2F%2Fwww.a-quest.com%2Farchive%2Fmanual%2Fsiyo_onseikigou.pdf"
      */
-    public byte[] synthe(String text) {
+    public byte[] synthesize(String text) {
         free();
 
-        int[] size = new int[1];
+        text = CharNormalizerJa.ToHiragana.normalize(text);
+
         // omit unsupported chars.
         int i = 1;
         while (replaceMap.get(i + ".src") != null) {
-//Debug.println(replaceMap.get(i + ".src") + ", " + replaceMap.get(i + ".dest"));
+Debug.println(Level.FINEST, "\"" + replaceMap.get(i + ".src") + "\"->\"" + replaceMap.get(i + ".dest") + "\"");
             text = text.replaceAll(replaceMap.get(i + ".src"), replaceMap.get(i + ".dest"));
             i++;
         }
+Debug.println(Level.FINER, "text: " + text);
+        int[] size = new int[1];
         wav = AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(voice, text, size);
         if (wav == null) {
+Debug.println(Level.SEVERE, "wave: " + AquesTalk10.errors.get(size[0]) + "\n" + text);
             StringBuilder sb = new StringBuilder();
             for (char c : text.toCharArray()) {
                 wav = AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(voice, String.valueOf(c), size);
@@ -117,6 +125,7 @@ public class AquesTalk10Wrapper {
             }
             throw new IllegalArgumentException(AquesTalk10.errors.get(size[0]) + "\n" + text + "\n" + sb);
         }
+Debug.println(Level.FINER, "wave: " + size[0]);
         return wav.getByteArray(0, size[0]);
     }
 
@@ -126,11 +135,4 @@ public class AquesTalk10Wrapper {
             AquesTalk10.INSTANCE.AquesTalk_FreeWave(wav);
         }
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        free();
-    }
 }
-
-/* */

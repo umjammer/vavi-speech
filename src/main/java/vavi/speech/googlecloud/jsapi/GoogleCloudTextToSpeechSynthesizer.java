@@ -196,7 +196,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
                             playing = true;
 Debug.println(Level.FINE, "\n" + pair.text);
                             player.setVolume(properties.getVolume());
-                            player.play(synthesis(pair.text));
+                            player.play(synthesize(pair.text));
                             playing = false;
                             if (pair.listener != null) {
                                 pair.listener.speakableEnded(new SpeakableEvent(GoogleCloudTextToSpeechSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
@@ -214,7 +214,7 @@ Debug.printStackTrace(e);
     }
 
     /** */
-    private byte[] synthesis(String text) {
+    private byte[] synthesize(String text) {
         SynthesisInput input = SynthesisInput.newBuilder().setText(text).build();
 
         VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()

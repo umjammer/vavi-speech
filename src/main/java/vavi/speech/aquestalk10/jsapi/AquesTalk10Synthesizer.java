@@ -20,7 +20,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
 import javax.speech.EngineException;
@@ -214,7 +213,7 @@ logger.info("use " + phonemizer);
 Debug.println(Level.FINE, "\n" + pair.text);
                             playing = true;
                             player.setVolume(properties.getVolume());
-                            player.play(aquesTalk10.synthe(phonemizer.phoneme(pair.text)));
+                            player.play(aquesTalk10.synthesize(phonemizer.phoneme(pair.text)));
                             playing = false;
                             if (pair.listener != null) {
                                 pair.listener.speakableEnded(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
@@ -222,7 +221,8 @@ Debug.println(Level.FINE, "\n" + pair.text);
                         }
                         Thread.sleep(100);
                     } catch (Exception e) {
-Debug.printStackTrace(e);
+Debug.printStackTrace(Level.WARNING, e);
+                        looping = false;
                     }
                 }
             });

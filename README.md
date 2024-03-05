@@ -124,6 +124,10 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
  * https://a3rt.recruit.co.jp/product/proofreadingAPI/registered/
  * set client id by email into 'local.properties'
 
+## References
+
+ * https://www.a-quest.com/archive/manual/siyo_onseikigou.pdf
+
 ## TODO
 
  * ~~implement parameters~~
