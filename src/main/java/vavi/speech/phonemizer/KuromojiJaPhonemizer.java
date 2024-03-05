@@ -25,16 +25,16 @@ import vavi.util.Locales;
 @Locales(countries = "Japan", languages = "Japanese")
 public class KuromojiJaPhonemizer implements JaPhonemizer {
 
-    private Tokenizer tokenizer = new Tokenizer();
+    private final Tokenizer tokenizer = new Tokenizer();
 
-    private DigitJaPhonemizer digitConverter = new DigitJaPhonemizer();
-    private AlphabetJaPhonemizer alphabetConverter = new AlphabetJaPhonemizer();
+    private final DigitJaPhonemizer digitConverter = new DigitJaPhonemizer();
+    private final AlphabetJaPhonemizer alphabetConverter = new AlphabetJaPhonemizer();
 
     @Override
     public String phoneme(String text) {
         StringBuilder sb = new StringBuilder();
         for (Token token : tokenizer.tokenize(CharNormalizerJa.ToHalfDigit.normalize(text))) {
-if (Debug.isLoggable(Level.FINE)) {
+if (Debug.isLoggable(Level.FINER)) {
  System.err.println(token.getSurface() + "\t("
            + token.getBaseForm() + ")" + "\t" + token.getAllFeaturesArray()[0] + "-" + token.getAllFeaturesArray()[1]
            + "(" + token.getPosition() + ")\t" + token.getReading() + "\t"

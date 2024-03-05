@@ -205,10 +205,10 @@ public class RococoaSynthesizer implements Synthesizer {
                                 playing = true;
 Debug.println(Level.FINE, "\n" + pair.text);
                                 player.setVolume(properties.getVolume());
-                                player.play(synthesis(pair.text));
+                                player.play(synthesize(pair.text));
                                 playing = false;
                             } else {
-                                synthesis2(pair.text);
+                                synthesize2(pair.text);
                             }
                             if (pair.listener != null) {
                                 pair.listener.speakableEnded(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
@@ -226,7 +226,7 @@ Debug.printStackTrace(e);
     }
 
     /** */
-    private void synthesis2(String text) {
+    private void synthesize2(String text) {
         AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
         utterance.setVolume(getSynthesizerProperties().getVolume());
         synthesizer.speakUtterance(utterance);
@@ -234,7 +234,7 @@ Debug.printStackTrace(e);
     }
 
     /** */
-    private byte[] synthesis(String text) {
+    private byte[] synthesize(String text) {
         try {
 //Debug.println(Level.FINER, "voice: " + getSynthesizerProperties().getVoice());
             Path path = Files.createTempFile(getClass().getName(), ".aiff");
