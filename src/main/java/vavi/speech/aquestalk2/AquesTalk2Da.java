@@ -152,5 +152,3 @@ public class AquesTalk2Da {
      */
     private native int isPlay(long instance);
 }
-
-/* */

@@ -116,5 +116,3 @@ Debug.println(Level.FINEST, "setkey: " + result + ", " + aquesTalk10DevKey);
         }
     }
 }
-
-/* */

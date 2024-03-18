@@ -68,5 +68,3 @@ if (Debug.isLoggable(Level.FINE)) {
         return true;
     }
 }
-
-/* */

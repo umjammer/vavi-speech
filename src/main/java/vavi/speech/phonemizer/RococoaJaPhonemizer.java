@@ -77,5 +77,3 @@ Debug.println(Level.FINER, "roman: " + roman);
         return hiragana;
     }
 }
-
-/* */

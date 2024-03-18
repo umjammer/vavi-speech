@@ -56,5 +56,3 @@ class JSAPITest2_aquestalk_win32 {
         JSAPITest2_aquestalk_win32.speak(args[0]);
     }
 }
-
-/* */

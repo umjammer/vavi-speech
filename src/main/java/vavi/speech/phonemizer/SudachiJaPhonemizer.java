@@ -80,5 +80,3 @@ if (Debug.isLoggable(Level.INFO)) {
         return sb.toString();
     }
 }
-
-/* */

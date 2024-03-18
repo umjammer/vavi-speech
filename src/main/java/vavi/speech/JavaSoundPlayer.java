@@ -72,5 +72,3 @@ Debug.printf(Level.FINE, "gain: %3.2f, dB: %3.2f", volume, dB);
         this.volume = volume;
     }
 }
-
-/* */

@@ -46,5 +46,3 @@ public class AlphabetJaPhonemizer implements JaPhonemizer {
         return result == null ? text : result;
     }
 }
-
-/* */

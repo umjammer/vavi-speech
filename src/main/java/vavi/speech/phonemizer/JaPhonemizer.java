@@ -23,5 +23,3 @@ import vavi.util.Locales;
 public interface JaPhonemizer extends Phonemizer {
 
 }
-
-/* */

@@ -61,5 +61,3 @@ if (Debug.isLoggable(Level.FINE)) {
         return converter.convertFrom(sb.toString());
     }
 }
-
-/* */

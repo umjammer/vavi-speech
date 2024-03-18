@@ -84,5 +84,3 @@ Debug.println(Level.WARNING, text);
         }
     }
 }
-
-/* */
