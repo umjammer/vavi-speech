@@ -30,7 +30,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @see "https://developer.yahoo.co.jp/webapi/jlp/furigana/v2/furigana.html"
  */
 @PropsEntity
-@Locales(countries = "Japan", languages = "Japanese")
+@Locales(languages = "Japanese")
 public class YahooJapanJaPhonemizer implements JaPhonemizer {
 
     private DigitJaPhonemizer converter = new DigitJaPhonemizer();

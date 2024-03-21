@@ -31,7 +31,7 @@ import vavi.util.Locales;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/02/27 umjammer initial version <br>
  */
-@Locales(countries = "Japan", languages = "Japanese")
+@Locales(languages = "Japanese")
 public class SudachiJaPhonemizer implements JaPhonemizer {
 
     private final Tokenizer tokenizer;

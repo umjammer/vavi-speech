@@ -28,7 +28,7 @@ import vavi.util.Locales;
  * @version 0.00 2022/01/19 umjammer initial version <br>
  * @see "https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293"
  */
-@Locales(countries = "Japan", languages = "Japanese")
+@Locales(languages = "Japanese")
 public class RococoaJaPhonemizer implements JaPhonemizer {
 
     @Override
