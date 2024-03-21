@@ -6,7 +6,11 @@
 
 # vavi-speech
 
+<a href="https://www.oracle.com/sa/java/duke/"><img alt="ゆっくりDuke" src="https://github.com/umjammer/vavi-speech/assets/493908/de182ee2-e503-4e7b-a986-9aa337efe483" width="160" /></a>
+
 Text to Speech (JSAPI) engines for Java and Japanese phonemeizers
+
+### Staus
 
 | **Type** | **Description**                                                                                                                                                                                   | **Staus** | **SPI Status** | **Quality** | **Comment**              |
 |:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------:|:--------------:|:-----------:|:-------------------------|
@@ -18,7 +22,7 @@ Text to Speech (JSAPI) engines for Java and Japanese phonemeizers
 | Rococoa | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA | ✅ | ✅ | 😃 |                          |
 | FreeTTS | [FreeTTS](https://github.com/umjammer/FreeTTS/)                                                                                                                                                   | - | ✅ | 💩 | not included (test only) |
 
-## Kanji to Kana converter
+### Kanji to Kana converter
 
 | **Type** | **Description** | **Staus** | **Quality** | **Comment** |
 |:---------|:----------------|:---------:|:-----------:|:------------|
@@ -32,7 +36,7 @@ Text to Speech (JSAPI) engines for Java and Japanese phonemeizers
 
 selected by `aquestalk10.properties`
 
-## Yakuwarigo Converter
+### Yakuwarigo Converter
 
 | name     | type                | status | qyality | comment |
 |----------|---------------------|--------|---------|---------|
@@ -127,6 +131,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
 ## References
 
  * https://www.a-quest.com/archive/manual/siyo_onseikigou.pdf
+ * https://github.com/Luigi-Pizzolito/English2KanaTransliteration
 
 ## TODO
 
@@ -149,7 +154,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
      * ~~extract rules as json~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/salome/rule.json))
    * ずんだもん ([wip](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
  * unify japanese tokenizer (lucene-gosen?)
- * AVSpeechSynthesizer needs obj-c block
+ * AVSpeechSynthesizer needs [obj-c block](https://github.com/umjammer/rococoa/discussions/23)
  * access private
    * reflection -> JEP 193: Variable Handles https://qiita.com/yoshioterada/items/319ed0dec4b847d2b1ed
    * https://github.com/FabricMC/access-widener

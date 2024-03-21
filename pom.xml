@@ -263,7 +263,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.1.10</version>
+      <version>1.1.11</version>
     </dependency>
     <dependency> <!-- JSAPI1 -->
       <groupId>com.github.umjammer</groupId>
