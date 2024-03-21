@@ -233,5 +233,3 @@ System.err.printf("%sD: %04d%s\t%s\t%s%s%s\t\t%s%f\t%s%s\n", c1, l, c0, a.word, 
         return false;
     }
 }
-
-/* */

@@ -75,5 +75,3 @@ Debug.println(text);
         assertEquals("Amazon カ ヤフー ドッチデオカイモノシヨウカナ？", text);
     }
 }
-
-/* */

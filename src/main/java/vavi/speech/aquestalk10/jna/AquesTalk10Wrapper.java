@@ -129,7 +129,7 @@ Debug.println(Level.FINER, "wave: " + size[0]);
         return wav.getByteArray(0, size[0]);
     }
 
-    /* */
+    /** free allocation for {@link #wav} */
     private void free() {
         if (wav != null) {
             AquesTalk10.INSTANCE.AquesTalk_FreeWave(wav);

@@ -18,5 +18,3 @@ public interface Phonemizer {
     /** */
     String phoneme(String text);
 }
-
-/* */

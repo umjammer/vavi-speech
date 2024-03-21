@@ -40,5 +40,3 @@ public interface AquesTalk2 extends Library {
      */
     void AquesTalk2_FreeWave(Pointer wav);
 }
-
-/* */

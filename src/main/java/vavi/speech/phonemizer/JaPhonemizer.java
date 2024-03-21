@@ -19,9 +19,7 @@ import vavi.util.Locales;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2021/01/25 umjammer initial version <br>
  */
-@Locales(countries = "Japan", languages = "Japanese")
+@Locales(languages = "Japanese")
 public interface JaPhonemizer extends Phonemizer {
 
 }
-
-/* */

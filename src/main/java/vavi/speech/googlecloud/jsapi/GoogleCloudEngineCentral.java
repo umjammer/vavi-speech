@@ -79,5 +79,3 @@ public class GoogleCloudEngineCentral implements EngineCentral {
         return el;
     }
 }
-
-/* */

@@ -74,5 +74,3 @@ class GoogleCTTSTest {
         GoogleCTTSTest.speak(args[0]);
     }
 }
-
-/* */

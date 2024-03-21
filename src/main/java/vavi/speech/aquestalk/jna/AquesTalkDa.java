@@ -74,5 +74,3 @@ public interface AquesTalkDa extends Library {
      */
     int AquesTalkDa_IsPlay(int hMe);
 }
-
-/* */

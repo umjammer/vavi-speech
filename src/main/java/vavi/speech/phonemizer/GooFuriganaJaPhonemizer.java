@@ -29,7 +29,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @version 0.00 2020/03/03 umjammer initial version <br>
  */
 @PropsEntity
-@Locales(countries = "Japan", languages = "Japanese")
+@Locales(languages = "Japanese")
 public class GooFuriganaJaPhonemizer implements JaPhonemizer {
 
     @Env(name = "DOCOMO_GOO_HIRAGANA_API_KEY")
@@ -84,5 +84,3 @@ Debug.println(Level.WARNING, text);
         }
     }
 }
-
-/* */

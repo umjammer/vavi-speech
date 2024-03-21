@@ -22,7 +22,7 @@ import vavi.util.Locales;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
-@Locales(countries = "Japan", languages = "Japanese")
+@Locales(languages = "Japanese")
 public class KuromojiJaPhonemizer implements JaPhonemizer {
 
     private final Tokenizer tokenizer = new Tokenizer();
@@ -68,5 +68,3 @@ if (Debug.isLoggable(Level.FINE)) {
         return true;
     }
 }
-
-/* */

@@ -64,5 +64,3 @@ Debug.println("Japanese: " + name);
         }
     }
 }
-
-/* */

@@ -23,5 +23,3 @@ public interface Player {
     /** 0.0 ~ 1.0 */
     void setVolume(double volume);
 }
-
-/* */

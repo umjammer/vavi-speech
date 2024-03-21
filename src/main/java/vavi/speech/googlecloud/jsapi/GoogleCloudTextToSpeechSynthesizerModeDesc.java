@@ -112,5 +112,3 @@ public class GoogleCloudTextToSpeechSynthesizerModeDesc extends SynthesizerModeD
         return s;
     }
 }
-
-/* */

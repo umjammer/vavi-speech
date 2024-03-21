@@ -19,29 +19,29 @@ import com.sun.jna.Structure;
 
 
 /**
- * 規則音声合成エンジン AquesTalk10
+ * Ruled speech synthesis engine AquesTalk10
  *
- * 音声記号列から音声波形データをメモリ上に生成する
- * 出力音声波形は、16KHz, 16bit,モノラル,WAVフォーマット。
- * サンプリング周波数は、声種パラメータfscにより変化
+ * Generate audio waveform data in memory from audio symbol string
+ * The output audio waveform is 16KHz, 16bit, monaural, WAV format.
+ * Sampling frequency changes depending on voice type parameter {@code fsc}
  *
  * @author N.Yamazaki (AQUEST)
- * @date 2017/11/01 N.Yamazaki Creation for mac
+ * @version 2017/11/01 N.Yamazaki Creation for mac
  */
 public interface AquesTalk10 extends Library {
 
     AquesTalk10 INSTANCE = Native.load("AquesTalk10", AquesTalk10.class);
 
-    /** 声質パラメータ */
+    /** Voice type parameters */
     class AQTK_VOICE extends Structure {
         /**
-         * @param bas
-         * @param spd
-         * @param vol
-         * @param pit
-         * @param acc
-         * @param lmd
-         * @param fsc
+         * @param bas voice base F1E/F2E/M1E (0/1/2)
+         * @param spd speech speed 50-300, default: 100
+         * @param vol volume 0-300, default: 100
+         * @param pit key 20-200, default: depends on a {@code bas}
+         * @param acc accent 0-200, default: depends on a {@code bas}
+         * @param lmd pitch 1 0-200, default: 100
+         * @param fsc pitch 2 (sampling frequency) 50-200, default: 100
          */
         AQTK_VOICE(VoiceBase bas, int spd, int vol, int pit, int acc, int lmd, int fsc) {
             super();
@@ -53,19 +53,19 @@ public interface AquesTalk10 extends Library {
             this.lmd = lmd;
             this.fsc = fsc;
         }
-        /** 基本素片 F1E/F2E/M1E (0/1/2) */
+        /** voice base */
         public int bas;
-        /** 話速 50-300 default:100 */
+        /** speech speed */
         public int spd;
-        /** 音量 0-300 default:100 */
+        /** volume */
         public int vol;
-        /** 高さ 20-200 default:基本素片に依存 */
+        /** pitch */
         public int pit;
-        /** アクセント 0-200 default:基本素片に依存 */
+        /** accent */
         public int acc;
-        /** 音程１ 0-200 default:100 */
+        /** pitch 1 */
         public int lmd;
-        /** 音程２(サンプリング周波数) 50-200 default:100 */
+        /** pitch 2 (sampling frequency) */
         public int fsc;
         @Override
         protected List<String> getFieldOrder() {
@@ -73,80 +73,84 @@ public interface AquesTalk10 extends Library {
         }
     }
 
-    /** 基本素片 */
+    /** Voice base */
     enum VoiceBase {
         F1E,
         F2E,
         M1E
     }
 
-    // プリセット声種
+    // Preset voices
 
-    /** 女声 F1 */
+    /** female F1 */
     AQTK_VOICE gVoice_F1 = new AQTK_VOICE(VoiceBase.F1E, 100, 100, 100, 100, 100, 100);
-    /** 女声 F2 */
+    /** female F2 */
     AQTK_VOICE gVoice_F2 = new AQTK_VOICE(VoiceBase.F2E, 100, 100, 77, 150, 100, 100);
-    /** 女声 F3 */
+    /** female F3 */
     AQTK_VOICE gVoice_F3 = new AQTK_VOICE(VoiceBase.F1E, 80, 100, 100, 100, 61, 148);
-    /** 男声 M1 */
+    /** male M1 */
     AQTK_VOICE gVoice_M1 = new AQTK_VOICE(VoiceBase.M1E, 100, 100, 30, 100, 100, 100);
-    /** 男声 M2 */
+    /** male M2 */
     AQTK_VOICE gVoice_M2 = new AQTK_VOICE(VoiceBase.M1E, 105, 100, 45, 130, 120, 100);
-    /** ロボット R1 */
+    /** robot R1 */
     AQTK_VOICE gVoice_R1 = new AQTK_VOICE(VoiceBase.M1E, 100, 100, 30, 20, 190, 100);
-    /** ロボット R2 */
+    /** robot R2 */
     AQTK_VOICE gVoice_R2 = new AQTK_VOICE(VoiceBase.F2E, 70, 100, 50, 50, 50, 180);
 
     /**
-     * 音声記号列から音声波形を生成
-     * 音声波形データは内部で領域確保される。
-     * 音声波形データの解放は本関数の呼び出し側でAquesTalk_FreeWave()にて行うこと
+     * Generates audio waveform from phonetic symbol string.
+     * An area is allocated internally for the audio waveform data.
+     * The voice waveform data should be released using {@link #AquesTalk_FreeWave(Pointer)}
+     * on the caller side of this function.
      *
-     * @param pParam [in] 声質パラメータ (AQTK_VOICE構造体のアドレス)
-     * @param koe [in] 音声記号列（UTF8 NULL終端 BOM無し）
-     * @param pSize [out] 生成した音声データのサイズ[byte]（エラーの場合はエラーコードが返る）
-     * @return WAVフォーマットの音声データの先頭アドレス。エラー時はNULLが返る
+     * @param pParam [in] voice type parameters (AQTK_VOICE structure address)
+     * @param koe [in] phonetic symbol string（UTF8, NULL ended, w/o BOM）
+     * @param pSize [out] size of synthesized audio data [byte]（In case of error, error code is returned）
+     * @return start address of audio data in WAV format. In case of error, NULL is returned
      */
     Pointer AquesTalk_Synthe_Utf8(AQTK_VOICE pParam, String koe, int[] pSize);
 
     /**
-     * 音声データの領域を開放
-     * @param wav [in] AquesTalk_Synthe()で返されたアドレスを指定
+     * Free up space for audio data.
+     * @param wav [in] specify the address returned by {@link #AquesTalk_Synthe_Utf8(AQTK_VOICE, String, int[])} ()}
      */
     void AquesTalk_FreeWave(Pointer wav);
 
     /**
-     * 開発ライセンスキー設定
-     * 音声波形を生成する前に一度呼び出す。
-     * これにより評価版の制限がなくなる。
-     * @param key [in] ライセンスキーを指定
-     * @return ライセンスキーが正しければ0、正しくなければ1が返る
-     * キーの解析を防ぐため不正なキーでも0を返す場合がある。このとき制限は解除されない。
+     * Sets development license key.
+     * Call once before synthesizing audio waveform.
+     * This removes the limitations of the evaluation version.
+     * @param key [in] specify license key
+     * @return returns 0 if the license key is correct, 1 if not.
+     * In order to prevent key analysis, 0 may be returned even if the key is invalid.
+     * In this case, the restriction will not be lifted.
      */
     int AquesTalk_SetDevKey(byte[] key);
 
     /**
-     * 使用ライセンスキー設定
-     * 音声波形を生成する前に一度呼び出す。
-     * 以降、合成音声データに含まれる透かしが、使用ライセンス無しから取得済みに変化する
-     * @param key [in] ライセンスキーを指定
-     * @return ライセンスキーが正しければ0、正しくなければ1が返る
-     * キーの解析を防ぐため不正なキーでも0を返す場合がある。この場合、ライセンス無のままである。
+     * Sets use license key.
+     * Call once before synthesizing audio waveform.
+     * After that, the watermark included in the synthesized voice data will change from
+     * "no license" to "use to licensed".
+     * @param key [in] specify license key
+     * @return returns 0 if the license key is correct, 1 if not.
+     * In order to prevent key analysis, 0 may be returned even if the key is invalid.
+     * In this case, it remains unlicensed.
      */
     int AquesTalk_SetUsrKey(byte[] key);
 
-    /** メソッドが返すエラーコードの内容 */
+    /** Contents of the error code returned by the method */
     Map<Integer, String> errors = new HashMap<>() {{
-        put(100, "その他のエラー");
-        put(101, "メモリ不足");
-        put(103, "音声記号列指定エラー(語頭の長音、促音の連続など)");
-        put(104, "音声記号列に有効な読みがない");
-        put(105, "音声記号列に未定義の読み記号が指定された");
-        put(106, "音声記号列のタグの指定が正しくない");
-        put(107, "タグの長さが制限を越えている（または[>]がみつからない）");
-        put(108, "タグ内の値の指定が正しくない");
-        put(120, "音声記号列が長すぎる");
-        put(121, "１つのフレーズ中の読み記号が多すぎる");
-        put(122, "音声記号列が長い（内部バッファオーバー1）");
+        put(100, "Other errors");
+        put(101, "Insufficient memory");
+        put(103, "Errors in specifying phonetic symbol strings (long sounds at the beginning of words, consecutive consonants, etc.)");
+        put(104, "There is no valid reading for the phonetic symbol string.");
+        put(105, "An undefined phonetic symbol was specified in the phonetic symbol string.");
+        put(106, "The tag specification for the phonetic symbol string is incorrect.");
+        put(107, "Tag length exceeds limit (or [>] is missing)");
+        put(108, "Invalid value specification in tag");
+        put(120, "Phonetic string too long");
+        put(121, "Too many phonetic symbols in one phrase");
+        put(122, "Long phonetic symbol string (internal buffer over 1)");
     }};
 }

@@ -47,5 +47,3 @@ public class AquesTalkTest_jna_win32 {
         aquesTalk.AquesTalk_FreeWave(wave);
     }
 }
-
-/* */

@@ -36,5 +36,3 @@ public class AquesTalk {
      */
     private native byte[] synthe(String koe, int speed);
 }
-
-/* */
