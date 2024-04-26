@@ -285,7 +285,7 @@
     <dependency>
       <groupId>com.github.umjammer.rococoa</groupId> <!-- org.rococoa / com.github.umjammer.rococoa -->
       <artifactId>rococoa-core</artifactId>
-      <version>0.8.7</version>
+      <version>0.8.13</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
