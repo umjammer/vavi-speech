@@ -36,16 +36,17 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
-import com.sun.jna.Callback;
 import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
-import org.rococoa.ObjCObject;
-import org.rococoa.Rococoa;
+import org.rococoa.ObjCBlock;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 import vavi.speech.rococoa.SynthesizerDelegate;
 import vavi.util.Debug;
 import vavix.rococoa.avfoundation.AVSpeechSynthesizer;
+import vavix.rococoa.avfoundation.AVSpeechSynthesizer.AVSpeechSynthesizerBufferCallback;
 import vavix.rococoa.avfoundation.AVSpeechUtterance;
+
+import static org.rococoa.ObjCBlocks.block;
 
 
 /**
@@ -243,11 +244,10 @@ Debug.printStackTrace(e);
             synthesizer.speakUtterance(utterance);
 
             // TODO objc block doesn't work
-            Callback bufferCallback = new Callback() {
+            ObjCBlock bufferCallback = (AVSpeechSynthesizerBufferCallback) (blockLiteral, id) -> {
             };
-            ObjCObject bufferCallbackProxy = Rococoa.proxy(bufferCallback);
 
-            synthesizer.writeUtterance_toBufferCallback(utterance, bufferCallbackProxy.id());
+            synthesizer.writeUtterance_toBufferCallback(utterance, block(bufferCallback));
 
 
 

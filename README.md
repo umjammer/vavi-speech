@@ -36,7 +36,7 @@ Text to Speech (JSAPI) engines for Java and Japanese phonemeizers
 
 selected by `aquestalk10.properties`
 
-### Yakuwarigo Converter
+### [Yakuwarigo](https://en.wikipedia.org/wiki/Yakuwarigo) Converter
 
 | name     | type                | status | qyality | comment |
 |----------|---------------------|--------|---------|---------|
@@ -148,7 +148,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
  * https://www.google.co.jp/ime/cgiapi.html
  * ~~text analytics + nicotalk character emotion~~ -> [vavi-speech2](https://github.com/umjammer/vavi-speech2) (wip)
  * tacotron2
- * [yakuwarigo](https://en.wikipedia.org/wiki/Yakuwarigo) modifier
+ * yakuwarigo modifier
    * ~~[お嬢様言葉](https://github.com/jiro4989/ojosama)~~ done
      * remaining some unit tests
      * ~~extract rules as json~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/salome/rule.json))
@@ -156,7 +156,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
  * unify japanese tokenizer (lucene-gosen?)
  * AVSpeechSynthesizer needs [obj-c block](https://github.com/umjammer/rococoa/discussions/23)
  * access private
-   * reflection -> JEP 193: Variable Handles https://qiita.com/yoshioterada/items/319ed0dec4b847d2b1ed
+   * ~~reflection -> JEP 193: Variable Handles https://qiita.com/yoshioterada/items/319ed0dec4b847d2b1ed~~ <= 17
    * https://github.com/FabricMC/access-widener
 
 ### Morphological Analyzer
