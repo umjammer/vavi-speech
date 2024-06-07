@@ -91,5 +91,3 @@ public class AquesTalk10SynthesizerModeDesc extends SynthesizerModeDesc implemen
         return s;
     }
 }
-
-/* */

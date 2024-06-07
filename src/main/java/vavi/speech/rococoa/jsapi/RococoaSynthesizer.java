@@ -51,7 +51,7 @@ import static org.rococoa.ObjCBlocks.block;
 
 /**
  * Provides  partial support for a JSAPI 1.0 synthesizer for the
- * AquesTalk speech synthesis system.
+ * Rococoa speech synthesis system.
  */
 public class RococoaSynthesizer implements Synthesizer {
 

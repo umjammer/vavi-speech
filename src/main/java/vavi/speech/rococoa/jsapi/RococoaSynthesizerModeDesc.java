@@ -95,5 +95,3 @@ Debug.println(Level.FINEST, nativeVoice.name() + ": " + nativeVoice.identifier()
         return s;
     }
 }
-
-/* */

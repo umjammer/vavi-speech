@@ -27,6 +27,7 @@ import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.ConvertOption;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2023-01-31 nsano initial version <br>
  */
+@SuppressWarnings("DataFlowIssue")
 public class RuleTest {
 
     @Test
@@ -59,12 +60,12 @@ public class RuleTest {
         option.disableLongNote = true;
         option.disablePrefix = true;
         option.disableKutenToExclamation = true;
-        YakuwarigoModifier midifier = new YakuwarigoModifier(option);
+        YakuwarigoModifier modifier = new YakuwarigoModifier(option);
 
         Scanner s = new Scanner(SimpleEosModifier.class.getResourceAsStream("/speech.txt"));
         while (s.hasNextLine()) {
             String line = s.nextLine();
-            System.out.println(midifier.convert(line));
+            System.out.println(modifier.convert(line));
         }
     }
 }

@@ -78,5 +78,3 @@ public class AquesTalkSynthesizerModeDesc extends SynthesizerModeDesc implements
         return s;
     }
 }
-
-/* */
