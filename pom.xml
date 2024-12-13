@@ -62,16 +62,13 @@
             <!-- don't touch: this works well on local -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.2.2</version>
+            <version>3.2.5</version>
             <configuration>
               <reuseForks>false</reuseForks>
               <trimStackTrace>false</trimStackTrace>
               <includes>
                 <include>**/*</include>
               </includes>
-              <systemProperties>
-                <sen.home>${sen.home}</sen.home>
-              </systemProperties>
               <environmentVariables>
                 <GOOGLE_APPLICATION_CREDENTIALS>${google.credential}</GOOGLE_APPLICATION_CREDENTIALS>
                 <DOCOMO_GOO_HIRAGANA_API_KEY>${docomo.goo.hiragana.apiKey}</DOCOMO_GOO_HIRAGANA_API_KEY>
@@ -79,10 +76,10 @@
                 <YAHOOJAPAN_API_KEY>${yahoo.japan.apiKey}</YAHOOJAPAN_API_KEY>
               </environmentVariables>
               <argLine>
-                -Dsudachi.dir=${sudachi.dir}
-                -Dsen.home=${sen.home}
-                -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
                 --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
+                -Dsudachi.dir=@{sudachi.dir}
+                -Dsen.home=@{sen.home}
               </argLine>
             </configuration>
           </plugin>
@@ -103,11 +100,11 @@
             <!-- don't touch: this works well on github actions -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.2.2</version>
+            <version>3.2.5</version>
             <configuration>
               <argLine>
-                -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
                 --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
               </argLine>
               <reuseForks>false</reuseForks>
               <trimStackTrace>false</trimStackTrace>
@@ -198,7 +195,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>3.12.1</version>
         <configuration>
           <release>17</release>
         </configuration>
@@ -244,7 +241,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>libraries-bom</artifactId>
-        <version>26.29.0</version>
+        <version>26.43.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -252,7 +249,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.2</version>
+        <version>5.10.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -263,7 +260,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.1.12</version>
+      <version>1.1.14</version>
     </dependency>
     <dependency> <!-- JSAPI1 -->
       <groupId>com.github.umjammer</groupId>
@@ -322,7 +319,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.13</version>
+      <version>1.0.14</version>
       <exclusions>
         <exclusion>
           <artifactId>vavi-net-auth-amazon</artifactId>
@@ -372,19 +369,11 @@
       <scope>test</scope>
       <exclusions>
         <exclusion>
-          <groupId>javax.speech</groupId>
-          <artifactId>speech</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jvoicexml</groupId>
+          <groupId>com.github.umjammer.jsapi</groupId>
           <artifactId>javax.speech</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>org.jvoicexml</groupId>
-          <artifactId>org.jvoicexml.jsapi2</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jvoicexml</groupId>
+          <groupId>com.github.umjammer.jsapi</groupId>
           <artifactId>org.jvoicexml.jsapi2.freetts</artifactId>
         </exclusion>
       </exclusions>
@@ -409,9 +398,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
-      <version>3.9.6</version>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-commons</artifactId>
+      <version>9.7</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
