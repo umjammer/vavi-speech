@@ -6,10 +6,11 @@
 
 package vavi.speech.rococoa.jsapi;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
 
 import javax.speech.Engine;
 import javax.speech.EngineCreate;
@@ -19,8 +20,9 @@ import javax.speech.synthesis.Voice;
 
 import org.rococoa.Rococoa;
 import org.rococoa.cocoa.foundation.NSObject;
-import vavi.util.Debug;
 import vavix.rococoa.avfoundation.AVSpeechSynthesisVoice;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -28,6 +30,8 @@ import vavix.rococoa.avfoundation.AVSpeechSynthesisVoice;
  * AquesTalkSynthesizerModeDesc adds an audio player to the standard mode items.
  */
 public class RococoaSynthesizerModeDesc extends SynthesizerModeDesc implements EngineCreate {
+
+    private static final Logger logger = getLogger(RococoaSynthesizerModeDesc.class.getName());
 
     /**
      * Creates a fully-specified descriptor. Any of the features may be
@@ -53,7 +57,7 @@ public class RococoaSynthesizerModeDesc extends SynthesizerModeDesc implements E
         int count = 0;
         for (NSObject o : AVSpeechSynthesisVoice.speechVoices()) {
             AVSpeechSynthesisVoice nativeVoice = Rococoa.cast(o, AVSpeechSynthesisVoice.class);
-Debug.println(Level.FINEST, nativeVoice.name() + ": " + nativeVoice.identifier());
+logger.log(Level.TRACE, nativeVoice.name() + ": " + nativeVoice.identifier());
             Voice voice = new Voice(nativeVoice.name(),
                                     toGenger(nativeVoice.gender()),
                                     Voice.AGE_DONT_CARE,

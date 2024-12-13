@@ -4,15 +4,15 @@
 
 package vavi.speech.modifier.yakuwarigo;
 
-
 import java.io.IOException;
-import java.util.logging.Level;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.regex.Pattern;
 
 import net.java.sen.StringTagger;
 import net.java.sen.Token;
-import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
 import static vavi.speech.modifier.yakuwarigo.Feature.containsFeatures;
 import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
 import static vavi.speech.modifier.yakuwarigo.Rule.ContinuousConditionsConvertRule;
@@ -29,6 +29,8 @@ import static vavi.speech.modifier.yakuwarigo.Rule.SentenceEndingParticleConvert
  * @see "https://ja.wikipedia.org/wiki/%E5%BD%B9%E5%89%B2%E8%AA%9E"
  */
 public class YakuwarigoModifier {
+
+    private static final Logger logger = getLogger(YakuwarigoModifier.class.getName());
 
     /** Settings */
     public static class ConvertOption {
@@ -158,7 +160,7 @@ public class YakuwarigoModifier {
                     p = s.pos;
                 }
             }
-Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
+logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
             result.append(buf);
         }
         return result.toString();
@@ -325,19 +327,19 @@ Debug.printf(Level.FINER, "token[%d] result: %s", p, buf);
 
         for (ConvertRule c : rule.convertRules) {
             if (!data.matchAllTokenData(c.conditions)) {
-Debug.println(Level.FINER, "skipped: " + c.value);
+logger.log(Level.TRACE, "skipped: " + c.value);
                 continue;
             }
 
             // 前に続く単語をみて変換を無視する
             if (beforeTokenOK && c.beforeIgnoreConditions != null && beforeToken.matchAnyTokenData(c.beforeIgnoreConditions)) {
-Debug.println(Level.FINE, "break cause before token");
+logger.log(Level.DEBUG, "break cause before token");
                 break;
             }
 
             // 次に続く単語をみて変換を無視する
             if (afterTokenOK && c.afterIgnoreConditions != null && afterToken.matchAnyTokenData(c.afterIgnoreConditions)) {
-Debug.println(Level.FINE, "break cause after token");
+logger.log(Level.DEBUG, "break cause after token");
                 break;
             }
 
@@ -345,11 +347,11 @@ Debug.println(Level.FINE, "break cause after token");
             // 次のトークンが存在して、且つ次のトークンが文を区切るトークンでない時
             // は変換しない。
             if (c.enableWhenSentenceSeparation && afterTokenOK && !isSentenceSeparation(afterToken)) {
-Debug.println(Level.FINE, "break cause sentence termination");
+logger.log(Level.DEBUG, "break cause sentence termination");
                 break;
             }
 
-Debug.println(Level.FINE, "select: " + c.value + " for surface: " + tokens[p].getSurface());
+logger.log(Level.DEBUG, "select: " + c.value + " for surface: " + tokens[p].getSurface());
             return c;
         }
         return null;

@@ -6,9 +6,10 @@
 
 package vavi.speech.phonemizer;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.rococoa.Foundation;
 import org.rococoa.ID;
@@ -17,8 +18,9 @@ import org.rococoa.cocoa.foundation.NSString;
 import org.rococoa.internal.FoundationLibrary;
 
 import com.ibm.icu.text.Transliterator;
-import vavi.util.Debug;
 import vavi.util.Locales;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -30,6 +32,8 @@ import vavi.util.Locales;
  */
 @Locales(languages = "Japanese")
 public class RococoaJaPhonemizer implements JaPhonemizer {
+
+    private static final Logger logger = getLogger(RococoaJaPhonemizer.class.getName());
 
     @Override
     public String phoneme(String input) {
@@ -47,13 +51,13 @@ public class RococoaJaPhonemizer implements JaPhonemizer {
         while (tokenType != FoundationLibrary.kCFStringTokenizerTokenNone) {
             ID latin = Foundation.cfStringTokenizerCopyCurrentTokenAttribute(tokenizer, FoundationLibrary.kCFStringTokenizerAttributeLatinTranscription);
 
-Debug.println(Level.FINER, "latin: " + latin + ", " + latin.isNull());
+logger.log(Level.TRACE, "latin: " + latin + ", " + latin.isNull());
             if (!latin.isNull()) {
                 NSString roman = NSString.stringWithString(Foundation.toString(latin));
-Debug.println(Level.FINER, "roman: " + roman);
+logger.log(Level.TRACE, "roman: " + roman);
                 // TODO doesn't work, help me
 //                NSString hiragana = roman.stringByApplyingTransform(NSStringTransform.NSStringTransformLatinToHiragana, false);
-//Debug.println(Level.FINER, "hiragana: " + hiragana);
+//logger.log(Level.TRACE, "hiragana: " + hiragana);
 //
 //                result.add(hiragana.toString());
                 result.add(roman.toString());

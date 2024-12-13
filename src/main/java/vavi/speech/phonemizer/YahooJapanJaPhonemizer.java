@@ -7,9 +7,9 @@
 package vavi.speech.phonemizer;
 
 import java.io.IOException;
-import java.util.logging.Level;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
-import vavi.util.Debug;
 import vavi.util.Locales;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
@@ -18,6 +18,8 @@ import vavix.util.screenscrape.annotation.JsonPathParser;
 import vavix.util.screenscrape.annotation.PostInputHandler;
 import vavix.util.screenscrape.annotation.Target;
 import vavix.util.screenscrape.annotation.WebScraper;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -33,7 +35,9 @@ import vavix.util.screenscrape.annotation.WebScraper;
 @Locales(languages = "Japanese")
 public class YahooJapanJaPhonemizer implements JaPhonemizer {
 
-    private DigitJaPhonemizer converter = new DigitJaPhonemizer();
+    private static final Logger logger = getLogger(YahooJapanJaPhonemizer.class.getName());
+
+    private final DigitJaPhonemizer converter = new DigitJaPhonemizer();
 
     @Env(name = "YAHOOJAPAN_API_KEY")
     String apiKey;
@@ -88,7 +92,7 @@ public class YahooJapanJaPhonemizer implements JaPhonemizer {
             StringBuilder sb = new StringBuilder();
             System.setProperty("vavix.util.screenscrape.annotation.PostInputHandler.userAgent", String.format(Result.UA, apiKey));
             WebScraper.Util.foreach(Result.class, m -> {
-Debug.println(Level.FINER, m);
+logger.log(Level.TRACE, m);
                 // TODO 助詞 は、へ
                 if (m.furigana != null && !m.furigana.isEmpty()) {
                     sb.append(m.furigana);
@@ -96,7 +100,7 @@ Debug.println(Level.FINER, m);
                     sb.append(m.surface);
                 }
             }, Result.BODY, "application/json", "1234-1", text);
-Debug.println(Level.FINER, sb);
+logger.log(Level.TRACE, sb);
             return converter.convertFrom(sb.toString());
         } catch (IOException e) {
             throw new IllegalStateException(e);

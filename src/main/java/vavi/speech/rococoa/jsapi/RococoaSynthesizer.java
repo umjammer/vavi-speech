@@ -8,6 +8,8 @@ package vavi.speech.rococoa.jsapi;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,7 +21,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
 import javax.speech.EngineException;
@@ -41,11 +42,11 @@ import org.rococoa.ObjCBlock;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 import vavi.speech.rococoa.SynthesizerDelegate;
-import vavi.util.Debug;
 import vavix.rococoa.avfoundation.AVSpeechSynthesizer;
 import vavix.rococoa.avfoundation.AVSpeechSynthesizer.AVSpeechSynthesizerBufferCallback;
 import vavix.rococoa.avfoundation.AVSpeechUtterance;
 
+import static java.lang.System.getLogger;
 import static org.rococoa.ObjCBlocks.block;
 
 
@@ -54,6 +55,8 @@ import static org.rococoa.ObjCBlocks.block;
  * Rococoa speech synthesis system.
  */
 public class RococoaSynthesizer implements Synthesizer {
+
+    private static final Logger logger = getLogger(RococoaSynthesizer.class.getName());
 
     /** */
     private final SynthesizerModeDesc desc;
@@ -204,7 +207,7 @@ public class RococoaSynthesizer implements Synthesizer {
                             }
                             if (false) { // TODO block
                                 playing = true;
-Debug.println(Level.FINE, "\n" + pair.text);
+logger.log(Level.DEBUG, "\n" + pair.text);
                                 player.setVolume(properties.getVolume());
                                 player.play(synthesize(pair.text));
                                 playing = false;
@@ -217,7 +220,7 @@ Debug.println(Level.FINE, "\n" + pair.text);
                         }
                         Thread.sleep(300);
                     } catch (Exception e) {
-Debug.printStackTrace(e);
+logger.log(Level.DEBUG, e.getMessage(), e);
                     }
                 }
             });
@@ -237,7 +240,7 @@ Debug.printStackTrace(e);
     /** */
     private byte[] synthesize(String text) {
         try {
-//Debug.println(Level.FINER, "voice: " + getSynthesizerProperties().getVoice());
+//logger.log(Level.TRACE, "voice: " + getSynthesizerProperties().getVoice());
             Path path = Files.createTempFile(getClass().getName(), ".aiff");
             AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
 

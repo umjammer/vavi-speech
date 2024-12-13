@@ -19,16 +19,18 @@
 
 package vavi.speech.rococoa;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 
 import org.rococoa.cocoa.foundation.NSRange;
-import vavi.util.Debug;
 import vavix.rococoa.avfoundation.AVSpeechSynthesizer;
 import vavix.rococoa.avfoundation.AVSpeechUtterance;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -38,6 +40,8 @@ import vavix.rococoa.avfoundation.AVSpeechUtterance;
  * @version 0.00 2019/09/18 umjammer initial version <br>
  */
 public class SynthesizerDelegate implements AVSpeechSynthesizer.AVSpeechSynthesizerDelegate {
+
+    private static final Logger logger = getLogger(SynthesizerDelegate.class.getName());
 
     private volatile boolean success = false;
     private List<String> wordsSpoken = new ArrayList<>();
@@ -112,13 +116,13 @@ public class SynthesizerDelegate implements AVSpeechSynthesizer.AVSpeechSynthesi
 
     @Override
     public void speechSynthesizer_didStartSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance avSpeechUtterance) {
-Debug.println(Level.FINEST, "didStartSpeechUtterance: " + synthesizer);
+logger.log(Level.TRACE, "didStartSpeechUtterance: " + synthesizer);
         phonemesSpoken.add(avSpeechUtterance.speechString());
     }
 
     @Override
     public void speechSynthesizer_willSpeakRangeOfSpeechString_utterance(AVSpeechSynthesizer synthesizer, NSRange characterRange, AVSpeechUtterance utterance) {
-Debug.println(Level.FINEST, "willSpeakRangeOfSpeechString_utterance: " + synthesizer);
+logger.log(Level.TRACE, "willSpeakRangeOfSpeechString_utterance: " + synthesizer);
         wordsSpoken.add(utterance.speechString().substring((int) characterRange.getLocation(), (int) characterRange.getEndLocation()));
         if (wordWaitingFor == null && waitForSpeechWordMonitor != null || wordsSpoken.get(wordsSpoken.size() - 1).equals(wordWaitingFor)) {
             waitForSpeechWordMonitor.countDown();
@@ -127,24 +131,24 @@ Debug.println(Level.FINEST, "willSpeakRangeOfSpeechString_utterance: " + synthes
 
     @Override
     public void speechSynthesizer_didPauseSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
-Debug.println(Level.FINEST, "didPauseSpeechUtterance: " + synthesizer);
+logger.log(Level.TRACE, "didPauseSpeechUtterance: " + synthesizer);
     }
 
     @Override
     public void speechSynthesizer_didContinueSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
-Debug.println(Level.FINEST, "didContinueSpeechUtterance: " + synthesizer);
+logger.log(Level.TRACE, "didContinueSpeechUtterance: " + synthesizer);
     }
 
     @Override
     public void speechSynthesizer_didFinishSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
-Debug.println(Level.FINEST, "didFinishSpeechUtterance: " + synthesizer);
+logger.log(Level.TRACE, "didFinishSpeechUtterance: " + synthesizer);
         this.success = true;
         speechDoneMonitor.countDown();
     }
 
     @Override
     public void speechSynthesizer_didCancelSpeechUtterance(AVSpeechSynthesizer synthesizer, AVSpeechUtterance utterance) {
-Debug.println(Level.FINEST, "didCancelSpeechUtterance: " + synthesizer);
+logger.log(Level.TRACE, "didCancelSpeechUtterance: " + synthesizer);
         this.success = false;
         speechDoneMonitor.countDown();
     }

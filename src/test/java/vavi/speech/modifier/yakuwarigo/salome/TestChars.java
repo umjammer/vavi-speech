@@ -6,19 +6,20 @@ package vavi.speech.modifier.yakuwarigo.salome;
 
 import java.util.stream.Stream;
 
-import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledForJreRange;
+import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import vavi.speech.modifier.yakuwarigo.UtilTest;
 import vavi.util.Debug;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static vavi.speech.modifier.yakuwarigo.SFModifier.getFinalStatic;
+import static vavi.speech.modifier.yakuwarigo.SFModifier.setFinalStatic;
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.MeaningType;
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.Shuffler;
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.StyleType;
@@ -27,28 +28,20 @@ import static vavi.speech.modifier.yakuwarigo.salome.EQMark.isExclamationQuestio
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.sampleExclamationQuestionByValue;
 
 
-@EnabledIf("rightVersion")
+@EnabledForJreRange(max = JRE.JAVA_17)
 class TestChars {
-
-    // TODO find a way to work with version after 17
-    static boolean rightVersion() {
-        ComparableVersion current = new ComparableVersion(System.getProperty("java.runtime.version"));
-        ComparableVersion allowed = new ComparableVersion("18.0.0");
-
-        return current.compareTo(allowed) < 0;
-    }
 
     static Shuffler original;
 
     @BeforeAll
     static void setup() throws Exception {
-        original = ((Shuffler) UtilTest.getFinalStatic(EQMark.class.getDeclaredField("shuffler")));
+        original = ((Shuffler) getFinalStatic(EQMark.class.getDeclaredField("shuffler")));
 Debug.println(original);
     }
 
     @AfterEach
-    void teardown() throws Exception {
-        UtilTest.setFinalStatic(EQMark.class.getDeclaredField("shuffler"), original);
+    void tearDown() throws Exception {
+        setFinalStatic(EQMark.class.getDeclaredField("shuffler"), original);
     }
 
     static Stream<Arguments> sourceIsExclamationQuestionMark() {
@@ -85,7 +78,7 @@ Debug.println(original);
                                               EQMark want,
                                               boolean wantNull) throws Exception {
         Shuffler mock = new OjosamaTest.TestShuffler(pos);
-        UtilTest.setFinalStatic(EQMark.class.getDeclaredField("shuffler"), mock);
+        setFinalStatic(EQMark.class.getDeclaredField("shuffler"), mock);
         EQMark got = sampleExclamationQuestionByValue(v);
         if (wantNull) {
             assertNull(got);

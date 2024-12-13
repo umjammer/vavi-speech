@@ -6,18 +6,19 @@
 
 package vavi.speech.modifier.yakuwarigo.salome;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
 
 import net.java.sen.Token;
 import vavi.speech.modifier.yakuwarigo.Feature;
 import vavi.speech.modifier.yakuwarigo.Provider;
 import vavi.speech.modifier.yakuwarigo.TokenData;
 import vavi.speech.modifier.yakuwarigo.YakuwarigoModifier;
-import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.Shuffler.random;
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.findExclamationQuestionByStyleAndMeaning;
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.isExclamationQuestionMark;
@@ -38,6 +39,8 @@ import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.ConvertOption;
  * @version 0.00 2023-04-23 nsano initial version <br>
  */
 public class SalomeProvider implements Provider {
+
+    private static final Logger logger = getLogger(SalomeProvider.class.getName());
 
     /** */
     private Token[] tokens;
@@ -250,7 +253,7 @@ public class SalomeProvider implements Provider {
         }
 
         List<String> l = Arrays.asList(shuffleElementsKutenToExclamation);
-Debug.println(Level.FINER, "shuffleElementsKutenToExclamation: " + l);
+logger.log(Level.TRACE, "shuffleElementsKutenToExclamation: " + l);
         Collections.shuffle(l, random);
         return new StringResult(l.get(0), pos);
     }
