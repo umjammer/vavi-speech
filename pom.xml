@@ -197,7 +197,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.12.1</version>
         <configuration>
-          <release>17</release>
+          <release>21</release>
         </configuration>
       </plugin>
 
@@ -271,7 +271,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-sound-sandbox</artifactId>
-      <version>1.0.8</version> <!-- 1.0.9 is for java21 -->
+      <version>1.0.9</version>
       <exclusions>
         <exclusion>
           <artifactId>jmf</artifactId>
