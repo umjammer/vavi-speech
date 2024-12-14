@@ -4,12 +4,13 @@
 
 package vavi.speech.modifier.simple;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
 
-import vavi.util.Debug;
+import static java.lang.System.getLogger;
 
 
 /**
@@ -18,6 +19,8 @@ import vavi.util.Debug;
  * @author kssfilo@gmail.com
  */
 public class SimpleEosModifier {
+
+    private static final Logger logger = getLogger(SimpleEosModifier.class.getName());
 
     /** */
     private List<String[]> dict = new ArrayList<>();
@@ -35,7 +38,7 @@ public class SimpleEosModifier {
         if (model == null) {
             throw new NullPointerException("model");
         }
-Debug.println(Level.FINE, "model: " + model);
+logger.log(Level.DEBUG, "model: " + model);
         Scanner s = new Scanner(SimpleEosModifier.class.getResourceAsStream("/modifier/" + model + ".txt"));
         while (s.hasNextLine()) {
             String l = s.nextLine();

@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Locale;
-
 import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
@@ -17,7 +16,6 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import vavi.speech.googlecloud.jsapi.GoogleCloudTextToSpeechSynthesizerModeDesc;
 import vavi.util.Debug;
@@ -53,7 +51,7 @@ class JSAPITest_google {
             PropsEntity.Util.bind(this);
         }
         Path p = Paths.get(json);
-Debug.printf("google.json: exists: %s, size: %s, env: %s", Files.exists(p), Files.size(p), System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
+Debug.printf("google.json: exists: %s, size: %s, env: %s".formatted(Files.exists(p), Files.size(p), System.getenv("GOOGLE_APPLICATION_CREDENTIALS")));
 
         // シンセザイザのモードを指定
         desc = new GoogleCloudTextToSpeechSynthesizerModeDesc("GoogleCloudtextToSpeechEngineCentral", "general", Locale.JAPAN);

@@ -7,17 +7,19 @@
 package vavi.speech.aquestalk10.jna;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 import com.sun.jna.Pointer;
 import vavi.speech.aquestalk10.jna.AquesTalk10.AQTK_VOICE;
 import vavi.util.CharNormalizerJa;
-import vavi.util.Debug;
 import vavi.util.properties.FormattedPropertiesFactory;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -35,6 +37,8 @@ import vavi.util.properties.annotation.PropsEntity;
  */
 @PropsEntity(url = "file://${user.dir}/local.properties")
 public class AquesTalk10Wrapper {
+
+    private static final Logger logger = getLogger(AquesTalk10Wrapper.class.getName());
 
     /** */
     @Property
@@ -105,15 +109,15 @@ public class AquesTalk10Wrapper {
         // omit unsupported chars.
         int i = 1;
         while (replaceMap.get(i + ".src") != null) {
-Debug.println(Level.FINEST, "\"" + replaceMap.get(i + ".src") + "\"->\"" + replaceMap.get(i + ".dest") + "\"");
+logger.log(Level.TRACE, "\"" + replaceMap.get(i + ".src") + "\"->\"" + replaceMap.get(i + ".dest") + "\"");
             text = text.replaceAll(replaceMap.get(i + ".src"), replaceMap.get(i + ".dest"));
             i++;
         }
-Debug.println(Level.FINER, "text: " + text);
+logger.log(Level.TRACE, "text: " + text);
         int[] size = new int[1];
         wav = AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(voice, text, size);
         if (wav == null) {
-Debug.println(Level.SEVERE, "wave: " + AquesTalk10.errors.get(size[0]) + "\n" + text);
+logger.log(Level.ERROR, "wave: " + AquesTalk10.errors.get(size[0]) + "\n" + text);
             StringBuilder sb = new StringBuilder();
             for (char c : text.toCharArray()) {
                 wav = AquesTalk10.INSTANCE.AquesTalk_Synthe_Utf8(voice, String.valueOf(c), size);
@@ -125,7 +129,7 @@ Debug.println(Level.SEVERE, "wave: " + AquesTalk10.errors.get(size[0]) + "\n" + 
             }
             throw new IllegalArgumentException(AquesTalk10.errors.get(size[0]) + "\n" + text + "\n" + sb);
         }
-Debug.println(Level.FINER, "wave: " + size[0]);
+logger.log(Level.TRACE, "wave: " + size[0]);
         return wav.getByteArray(0, size[0]);
     }
 

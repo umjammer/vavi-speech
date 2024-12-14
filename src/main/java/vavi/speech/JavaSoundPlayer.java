@@ -8,7 +8,8 @@ package vavi.speech;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.logging.Level;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -19,8 +20,7 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.speech.EngineStateError;
 
-import vavi.util.Debug;
-
+import static java.lang.System.getLogger;
 import static vavi.sound.SoundUtil.volume;
 
 
@@ -31,6 +31,8 @@ import static vavi.sound.SoundUtil.volume;
  * @version 0.00 2019/09/19 umjammer initial version <br>
  */
 public class JavaSoundPlayer implements Player {
+
+    private static final Logger logger = getLogger(JavaSoundPlayer.class.getName());
 
     /** */
     private double volume = .2;
@@ -48,7 +50,7 @@ public class JavaSoundPlayer implements Player {
             line.start();
 
 double dB = Math.log(volume) / Math.log(10.0) * 20.0;
-Debug.printf(Level.FINE, "gain: %3.2f, dB: %3.2f", volume, dB);
+logger.log(Level.DEBUG, "gain: %3.2f, dB: %3.2f".formatted(volume, dB));
             volume(line, volume);
 
             int r = 0;

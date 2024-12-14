@@ -4,12 +4,10 @@
 
 package vavi.speech.modifier.yakuwarigo;
 
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.VarHandle;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.condition.EnabledForJreRange;
+import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,40 +21,8 @@ import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
 import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
 
 
+@EnabledForJreRange(max = JRE.JAVA_17)
 public class UtilTest {
-
-    /** @see "https://stackoverflow.com/a/56043252" */
-    private static final VarHandle MODIFIERS;
-
-    /* @see "https://stackoverflow.com/a/56043252" */
-    static {
-        try {
-            var lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
-            MODIFIERS = lookup.findVarHandle(Field.class, "modifiers", int.class);
-        } catch (IllegalAccessException | NoSuchFieldException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    /**
-     * @see "https://stackoverflow.com/a/56043252"
-     */
-    static void setSecurityLow(Field field) throws Exception {
-        // TODO this works Java 12 - 17
-        MODIFIERS.set(field, field.getModifiers() & ~Modifier.FINAL);
-        field.setAccessible(true);
-    }
-
-    /** modify a static final field */
-    public static void setFinalStatic(Field field, Object newValue) throws Exception {
-        setSecurityLow(field);
-        field.set(null, newValue);
-    }
-
-    public static Object getFinalStatic(Field field) throws Exception {
-        setSecurityLow(field);
-        return field.get(null);
-    }
 
     static Stream<Arguments> sourceIsKuten() {
         return Stream.of(

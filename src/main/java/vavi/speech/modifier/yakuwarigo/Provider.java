@@ -7,13 +7,14 @@
 package vavi.speech.modifier.yakuwarigo;
 
 import java.io.InputStreamReader;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.ServiceLoader;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
@@ -27,10 +28,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
 import static vavi.speech.modifier.yakuwarigo.Feature.newPos;
-
 import static vavi.speech.modifier.yakuwarigo.Rule.ContinuousConditionsConvertRule;
 import static vavi.speech.modifier.yakuwarigo.Rule.ConvertRule;
 import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.ConversionResult;
@@ -44,6 +44,8 @@ import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.StringResult;
  * @version 0.00 2023-04-23 nsano initial version <br>
  */
 public interface Provider {
+
+    Logger logger = getLogger(ConvertConditionJsonSerDes.class.getName());
 
     /* gson: not serialize when false  */
     JsonSerializer<Boolean> booleanJsonSerializer = (in, type, context) ->
@@ -164,7 +166,7 @@ public interface Provider {
 
     /** executes a method written in the json */
     default StringResult execExtraRule(String rule, Object... args) {
-Debug.println(Level.FINE, "extraRule: " + rule);
+logger.log(Level.DEBUG, "extraRule: " + rule);
         String[] parts = rule.split("#");
         String className = parts[0];
         String methodName = parts[1];

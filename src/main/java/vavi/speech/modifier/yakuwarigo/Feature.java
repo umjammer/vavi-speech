@@ -25,7 +25,7 @@ public interface Feature {
     static Feature newPos(String pos) {
         if (pos.startsWith("Pos.")) {
             return Pos.valueOf(pos.substring(4));
-//Debug.println(Arrays.toString(this.elements));
+//logger.log(Level.DEBUGArrays.toString(this.elements));
         } else {
             throw new IllegalArgumentException(pos);
         }

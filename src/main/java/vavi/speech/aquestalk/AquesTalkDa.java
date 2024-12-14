@@ -6,19 +6,21 @@
 
 package vavi.speech.aquestalk;
 
+import java.io.Closeable;
+
 
 /**
- * 音声記号列から音声波形データを生成し、サウンドデバイスに出力する
+ * Generates audio waveform data from a sequence of phonetic symbols and outputs it to a sound device.
  *
  * 32 bit mode only
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class AquesTalkDa {
+public class AquesTalkDa implements Closeable {
 
     /** */
-    private long instance;
+    private final long instance;
 
     static {
         System.loadLibrary("AquesTalkWrapper");
@@ -41,11 +43,11 @@ public class AquesTalkDa {
     }
 
     /**
-     * 音声を合成して出力（同期タイプ）
-     * 音声の再生が終了するまで戻らない
-     * @param koe 音声記号列
-     * @param iSpeed 発話速度 [%] 50-300 の間で指定
-     * @return 0: 正常終了、それ以外: エラーコード
+     * Synthesize and output audio (synchronous type)
+     * It will not return until the audio finishes playing.
+     * @param koe Phonetic string
+     * @param iSpeed Speech rate [%] Specify between 50-300
+     * @return 0: Normal end, other: Error code
      */
     private native int playSync(String koe, int iSpeed);
 
@@ -55,19 +57,19 @@ public class AquesTalkDa {
     }
 
     /**
-     * 音声合成エンジンのインスタンスを生成（非同期タイプ）
-     * @return 音声合成エンジンのハンドルを返す
+     * Create an instance of a speech synthesis engine (asynchronous type)
+     * @return Returns the handle to the speech synthesis engine.
      */
     private native long create();
 
-    /** */
-    protected void finalize() throws Throwable {
+    @Override
+    public void close() {
         release(instance);
     }
 
     /**
-     * 音声合成エンジンのインスタンスを解放 (非同期タイプ)
-     * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
+     * Returns the handle to the speech synthesis engine.
+     * @param instance Handle to a speech synthesis engine. Created with {@link #create()}
      */
     private native void release(long instance);
 
@@ -84,18 +86,18 @@ public class AquesTalkDa {
     }
 
     /**
-     * 音声を合成して出力 (非同期タイプ)
-     * 音声波形生成後に、すぐに戻る
-     * hWndを指定すると再生終了後、msgに指定したメッセージがPostされる。
-     * 再生終了前に {@link #play(String)}を呼び出して、連続的に再生させることも可能。
+     * Synthesize and output voice (asynchronous type)
+     * Return immediately after generating the audio waveform
+     * If you specify hWnd, the message specified in msg will be posted after playback ends.
+     * It is also possible to play continuously by calling {@link #play(String)} before playback ends.
      *
-     * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
-     * @param koe 音声記号列
-     * @param speed 発話速度 [%] 50-300 の間で指定 (default 100)
-     * @param handle 終了メッセージ送出先ウィンドウハンドル
-     * @param message 終了メッセージ (default 0)
-     * @param param 任意のユーザパラメータ(メッセージのlParam に設定される) (default 0)
-     * @return 0:正常終了　それ以外：エラーコード
+     * @param instance Handle to a speech synthesis engine. Created with {@link #create()}
+     * @param koe Phonetic string
+     * @param speed Speech rate [%] Specify between 50-300 (default 100)
+     * @param handle Destination window handle for the end message
+     * @param message Exit message (default 0)
+     * @param param Any user parameters (set in the message's lParam) (default 0)
+     * @return 0: Normal end. Other: Error code.
      */
     private native int play(long instance, String koe, int speed, int handle, String message, int param);
 
@@ -105,11 +107,11 @@ public class AquesTalkDa {
     }
 
     /**
-     * 再生の中止
-     * {@link #play(String)}で再生中に、再生を中断する。
-     * 再生中(再生待ちを含む）であり、終了メッセージ送出先が指定されていたなら、
-     * 終了メッセージがPostされる。
-     * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
+     * Stop playback
+     * During playback with {@link #play(String)}, pauses playback.
+     * If playback is in progress (including playback waiting),
+     * and a destination for sending an end message has been specified, the end message will be posted.
+     * @param instance Handle to a speech synthesis engine. Created with {@link #create()}
      */
     private native void stop(long instance);
 
@@ -119,9 +121,9 @@ public class AquesTalkDa {
     }
 
     /**
-     * 再生中か否か
-     * @param instance 音声合成エンジンのハンドル {@link #create()} で生成
-     * @return 1:再生中 0:再生中でない
+     * Playing or not
+     * @param instance Handle to a speech synthesis engine. Created with {@link #create()}
+     * @return 1: Playing 0: Not playing
      */
     private native int isPlay(long instance);
 }

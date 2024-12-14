@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2008 by Naohide Sano, All rights reserved.
  *
@@ -15,6 +14,7 @@ import com.google.cloud.texttospeech.v1.TextToSpeechClient;
 import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
 import com.google.protobuf.ByteString;
 
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 
@@ -30,6 +30,7 @@ import vavi.speech.Player;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
+@EnabledIfEnvironmentVariable(named = "GOOGLE_APPLICATION_CREDENTIALS", matches = ".*")
 class GoogleCTTSTest {
 
     @Test

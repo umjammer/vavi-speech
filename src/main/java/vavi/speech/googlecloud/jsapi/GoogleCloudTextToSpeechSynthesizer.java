@@ -8,6 +8,8 @@ package vavi.speech.googlecloud.jsapi;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,7 +20,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
 import javax.speech.EngineException;
@@ -45,7 +46,8 @@ import com.google.protobuf.ByteString;
 import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
-import vavi.util.Debug;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -57,6 +59,8 @@ import vavi.util.Debug;
  * </p>
  */
 public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
+
+    private static final Logger logger = getLogger(GoogleCloudTextToSpeechSynthesizer.class.getName());
 
     /** */
     private TextToSpeechClient client;
@@ -194,7 +198,7 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
                                 pair.listener.speakableStarted(new SpeakableEvent(GoogleCloudTextToSpeechSynthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
                             }
                             playing = true;
-Debug.println(Level.FINE, "\n" + pair.text);
+logger.log(Level.DEBUG, "\n" + pair.text);
                             player.setVolume(properties.getVolume());
                             player.play(synthesize(pair.text));
                             playing = false;
@@ -204,7 +208,7 @@ Debug.println(Level.FINE, "\n" + pair.text);
                         }
                         Thread.sleep(300);
                     } catch (Exception e) {
-Debug.printStackTrace(e);
+logger.log(Level.DEBUG, e.getMessage(), e);
                     }
                 }
             });

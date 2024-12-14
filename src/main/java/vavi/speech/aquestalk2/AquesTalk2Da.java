@@ -7,6 +7,7 @@
 package vavi.speech.aquestalk2;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +20,7 @@ import java.nio.file.Files;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
  */
-public class AquesTalk2Da {
+public class AquesTalk2Da implements Closeable {
 
     /** */
     private long instance;
@@ -87,8 +88,8 @@ public class AquesTalk2Da {
      */
     private native long create();
 
-    /** */
-    protected void finalize() throws Throwable {
+    @Override
+    public void close() {
         release(instance);
     }
 

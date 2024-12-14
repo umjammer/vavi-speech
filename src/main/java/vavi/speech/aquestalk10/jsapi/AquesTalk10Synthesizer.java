@@ -8,6 +8,8 @@ package vavi.speech.aquestalk10.jsapi;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,8 +20,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
 import javax.speech.EngineException;
@@ -41,7 +41,6 @@ import vavi.beans.InstanciationBinder;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10Wrapper;
 import vavi.speech.phonemizer.JaPhonemizer;
-import vavi.util.Debug;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
 
@@ -63,7 +62,7 @@ import vavi.util.properties.annotation.PropsEntity;
 @PropsEntity(url = "classpath:aquestalk10.properties")
 public class AquesTalk10Synthesizer implements Synthesizer {
 
-    private static final Logger logger = Logger.getLogger(AquesTalk10Synthesizer.class.getName());
+    private static final Logger logger = System.getLogger(AquesTalk10Synthesizer.class.getName());
 
     /** */
     private SynthesizerModeDesc desc;
@@ -81,7 +80,7 @@ public class AquesTalk10Synthesizer implements Synthesizer {
         this.desc = desc;
         try {
             PropsEntity.Util.bind(this);
-logger.info("use " + phonemizer);
+logger.log(Level.INFO, "use " + phonemizer);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -210,7 +209,7 @@ logger.info("use " + phonemizer);
                             if (pair.listener != null) {
                                 pair.listener.speakableStarted(new SpeakableEvent(AquesTalk10Synthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
                             }
-Debug.println(Level.FINE, "\n" + pair.text);
+logger.log(Level.DEBUG, "\n" + pair.text);
                             playing = true;
                             player.setVolume(properties.getVolume());
                             player.play(aquesTalk10.synthesize(phonemizer.phoneme(pair.text)));
@@ -221,7 +220,7 @@ Debug.println(Level.FINE, "\n" + pair.text);
                         }
                         Thread.sleep(100);
                     } catch (Exception e) {
-Debug.printStackTrace(Level.WARNING, e);
+logger.log(Level.WARNING, e);
                         looping = false;
                     }
                 }

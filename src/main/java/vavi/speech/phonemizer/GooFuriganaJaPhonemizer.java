@@ -7,9 +7,9 @@
 package vavi.speech.phonemizer;
 
 import java.io.IOException;
-import java.util.logging.Level;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
-import vavi.util.Debug;
 import vavi.util.Locales;
 import vavi.util.properties.annotation.Env;
 import vavi.util.properties.annotation.PropsEntity;
@@ -18,6 +18,8 @@ import vavix.util.screenscrape.annotation.JsonPathParser;
 import vavix.util.screenscrape.annotation.PostInputHandler;
 import vavix.util.screenscrape.annotation.Target;
 import vavix.util.screenscrape.annotation.WebScraper;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -31,6 +33,8 @@ import vavix.util.screenscrape.annotation.WebScraper;
 @PropsEntity
 @Locales(languages = "Japanese")
 public class GooFuriganaJaPhonemizer implements JaPhonemizer {
+
+    private static final Logger logger = getLogger(GooFuriganaJaPhonemizer.class.getName());
 
     @Env(name = "DOCOMO_GOO_HIRAGANA_API_KEY")
     String apiKey;
@@ -75,11 +79,11 @@ public class GooFuriganaJaPhonemizer implements JaPhonemizer {
                             "application/json",
                             apiKey,
                             text.replace("\n", "")).get(0);
-Debug.println(Level.FINE, result);
+logger.log(Level.DEBUG, result);
             // TODO 助詞 は、へ, space
             return result.converted;
         } catch (IOException e) {
-Debug.println(Level.WARNING, text);
+logger.log(Level.WARNING, text);
             throw new IllegalStateException(e);
         }
     }

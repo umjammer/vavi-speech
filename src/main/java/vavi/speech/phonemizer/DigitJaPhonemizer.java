@@ -4,19 +4,21 @@
 
 package vavi.speech.phonemizer;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import vavi.util.CharNormalizerJa;
-import vavi.util.Debug;
 import vavi.util.Locales;
+
+import static java.lang.System.getLogger;
 
 
 /**
- * 文字列中の数字列を読み仮名に変換するクラス。
+ * A class that converts a string of numbers into kana readings.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/02/28 umjammer initial version <br>
@@ -24,8 +26,10 @@ import vavi.util.Locales;
 @Locales(languages = "Japanese")
 public class DigitJaPhonemizer implements JaPhonemizer {
 
+    private static final Logger logger = getLogger(DigitJaPhonemizer.class.getName());
+
     /**
-     * 整数部の読み仮名の構成要素。
+     * The phonetic component of the integer part.
      */
     private enum NumberPhoneType {
 
@@ -249,16 +253,16 @@ public class DigitJaPhonemizer implements JaPhonemizer {
         static final int End = Infinity.ordinal();
 
         /**
-         * 自身が有効な値であるか否かを取得する。
+         * Gets whether or not this value is valid.
          *
-         * @return 有効な値ならば true 。
+         * @return true if the value is valid.
          */
         public boolean isDefined() {
             return ordinal() >= NumberPhoneType.Begin && ordinal() < NumberPhoneType.End;
         }
 
         /**
-         * 自身が None を表すか否かを取得する。
+         * Checks whether this represents None.
          *
          * @return None ならば true 。
          */
@@ -267,27 +271,27 @@ public class DigitJaPhonemizer implements JaPhonemizer {
         }
 
         /**
-         * 自身が Point を表すか否かを取得する。
+         * Gets whether this represents a Point.
          *
-         * @return Point ならば true 。
+         * @return Returns true if it is a Point.
          */
         public boolean isPoint() {
             return this == NumberPhoneType.Point;
         }
 
         /**
-         * 自身が None または Point を表すか否かを取得する。
+         * Gets whether this represents None or a Point.
          *
-         * @return None または Point ならば true 。
+         * @return true if None or Point.
          */
         public boolean isNoneOrPoint() {
             return isNone() || isPoint();
         }
 
         /**
-         * 自身が 0 ～ 9 の数字を表すか否かを取得する拡張メソッド。
+         * An extension method to get whether or not this represents a digit between 0 and 9.
          *
-         * @return Digit0 ～ Digit9 ならば true 。
+         * @return True if Digit0 through Digit9.
          */
         @SuppressWarnings("unused")
         public boolean isDigit() {
@@ -295,36 +299,36 @@ public class DigitJaPhonemizer implements JaPhonemizer {
         }
 
         /**
-         * 自身が十の位～千の位を表すか否かを取得する拡張メソッド。
+         * An extension method to get whether the number represents the tens to thousands digits.
          *
-         * @return Ten, Hundred, Thousand のいずれかならば true 。
+         * @return True if the result is Ten, Hundred, or Thousand.
          */
         public boolean isBase() {
             return ordinal() >= NumberPhoneType.BaseBegin && ordinal() < NumberPhoneType.BaseEnd;
         }
 
         /**
-         * 自身が10000の乗算桁を表すか否かを取得する拡張メソッド。
+         * An extension method that gets whether this represents a multiplication digit of 10000.
          *
-         * @return Man ～ Infinity のいずれかならば true 。
+         * @return True if the value is one of Man through Infinity.
          */
         public boolean isBig() {
             return ordinal() >= NumberPhoneType.BigBegin && ordinal() < NumberPhoneType.BigEnd;
         }
 
         /**
-         * 整数部の構成要素の読み仮名を決定するデリゲート。
+         * A delegate that determines the pronunciation of the integer component.
          *
-         * @param type 対象の種別。
-         * @param prevType 先行要素の種別。
-         * @param nextType 後続要素の種別。
-         * @return 読み仮名。
+         * @param type Type of target.
+         * @param prevType The type of the preceding element.
+         * @param nextType The type of the following element.
+         * @return Pronunciation kana.
          */
         abstract String numberKanaDecider(NumberPhoneType type, NumberPhoneType prevType, NumberPhoneType nextType);
     }
 
     /**
-     * NumberPhoneType に対応する規定の読み仮名。
+     * The default pronunciation for the NumberPhoneType.
      */
     private static final String[] DefaultNumberKanas = {
         "", "てん",
@@ -337,41 +341,41 @@ public class DigitJaPhonemizer implements JaPhonemizer {
     };
 
     /**
-     * 整数部の構成要素の既定の読みを取得する。
+     * Gets the default reading of the integer component.
      * 
-     * @param type 対象の種別。
-     * @return 読み仮名。
+     * @param type Type of target.
+     * @return Pronunciation kana.
      */
     private static String getDefaultNumberKana(NumberPhoneType type) {
         return DefaultNumberKanas[type.ordinal()];
     }
 
     /**
-     * 小数部の各桁数字(最終桁を除く)の読み仮名。
+     * The pronunciation of each digit in the decimal part (except the last digit).
      */
     private static final String[] RemainKanas = {
         "ぜろ", "いち", "にー", "さん", "よん", "ごー", "ろく", "なな", "はち", "きゅう",
     };
 
     /**
-     * 小数部の最終桁数字の読み仮名。小数部がちょうど2桁の場合は用いない。
+     * The pronunciation of the last digit in the decimal place. Not used when there are exactly two digits in the decimal place.
      */
     private static final String[] LastRemainKanas = {
         "ぜろ", "いち", "に", "さん", "よん", "ご", "ろく", "なな", "はち", "きゅう",
     };
 
     /**
-     * 数字にマッチする正規表現。
+     * A regular expression that matches numbers.
      */
     private static final Pattern rexNumber = Pattern.compile("([1-9１-９][0-9０-９]*|[0０])([\\.\\．][0-9０-９]+)?");
 
     /**
-     * 整数部要素の読み仮名を決定する。
+     * Determine the pronunciation of the integer part element.
      *
-     * @param type 対象種別。
-     * @param prevType 先行要素の種別。
-     * @param nextType 後続要素の種別。
-     * @return 読み仮名。
+     * @param type Target type.
+     * @param prevType The type of the preceding element.
+     * @param nextType The type of the following element.
+     * @return Pronunciation kana.
      */
     private static String decideNumberKana(NumberPhoneType type, NumberPhoneType prevType, NumberPhoneType nextType) {
         if (!type.isDefined()) {
@@ -381,10 +385,10 @@ public class DigitJaPhonemizer implements JaPhonemizer {
     }
 
     /**
-     * 文字列中の数字列を読み仮名に変換する。
+     * Converts a string of numbers into kana readings.
      *
-     * @param src 文字列。
-     * @return 変換された文字列。
+     * @param src A string.
+     * @return The converted string.
      */
     public String convertFrom(String src) {
         Matcher matcher = rexNumber.matcher(src);
@@ -397,25 +401,25 @@ public class DigitJaPhonemizer implements JaPhonemizer {
     }
 
     /**
-     * 数字を表す文字列の読み仮名を取得する。
+     * Gets the pronunciation of a string that represents a number.
      *
-     * @param src 数字を表す文字列。
-     * @return 文字列の読み仮名。
+     * @param src A string representing a number.
+     * @return The phonetic pronunciation of the string.
      */
     public String phoneme(String src) {
         StringBuilder dest = new StringBuilder();
 
-        // 整数部と小数部の半角文字列を取得
+        // Get the integer and decimal part of the half-width string
         String[] numParts = getNumberParts(src);
 
-        // 小数部の有無
+        // With or without decimal point
         boolean remainExist = numParts.length >= 2 && !numParts[1].isEmpty();
 
-        // 整数部の読み仮名をバッファに追加
+        // Add the reading of the integer part to the buffer
         appendNumberPhonetic(numParts[0], remainExist, dest);
 
         if (remainExist) {
-            // 小数部の読み仮名をバッファに追加
+            // Add the reading of the decimal point to the buffer
             appednRemainPhonetic(numParts[1], dest);
         }
 
@@ -423,32 +427,33 @@ public class DigitJaPhonemizer implements JaPhonemizer {
     }
 
     /**
-     * 数字を表す文字列を半角化、カンマ除去し、整数部と小数部に分ける。
+     * The string representing a number is converted to half-width characters, commas are removed,
+     * and the string is divided into an integer part and a decimal part.
      *
-     * @param src 数字を表す文字列。
-     * @return 整数部文字列と小数部文字列の配列。
+     * @param src A string representing a number.
+     * @return An array of integer and fractional strings.
      */
     private static String[] getNumberParts(String src) {
-        // 全角を半角に変換
+        // Convert full-width to half-width
         String text = CharNormalizerJa.ToHalf.normalize(src);
 
-        // カンマを削除
+        // Remove comma
         text = text.replace(",", "");
 
-        // ピリオドで区切る
+        // Separated by a period
         return text.split("\\.");
     }
 
-    /** 最後に追加された要素種別の設定先。 何も追加されなかった場合は prevType が設定される。 */
+    /** The type of the last added element to be set to. If nothing was added, prevType is set. */
     private NumberPhoneType lastType;
 
     /**
-     * 整数部を表す文字列の読み仮名をバッファに追加する。
+     * The pronunciation of the string representing the integer part is added to the buffer.
      *
-     * @param src 数字列。
-     * @param remainExist 小数部に続くならば true 。
-     * @param dest 追加先の文字列バッファ。
-     * @return 追加された文字列長。
+     * @param src A string of digits.
+     * @param remainExist True if a fraction follows.
+     * @param dest The string buffer to append to.
+     * @return The length of the added string.
      */
     private int appendNumberPhonetic(String src, boolean remainExist, StringBuilder dest) {
         int appendLen = 0;
@@ -457,41 +462,41 @@ public class DigitJaPhonemizer implements JaPhonemizer {
         NumberPhoneType prevType = NumberPhoneType.None;
 
         for (int i = 0; i < len;) {
-            // 4桁単位の位置を算出
+            // Calculate the position to 4 digits
             int bigPos = (len - 1 - i) / 4;
 
-            // 4桁単位で区切って取得
+            // Obtained in 4-digit units
             String part = src.substring(i, len - bigPos * 4);
 
-            // 取得した文字数分だけ位置を進める
+            // Advance the position by the number of characters obtained
             i += part.length();
 
-            // 4桁単位種別を決定
+            // Determine the 4-digit unit type
             NumberPhoneType baseType;
             if (bigPos == 0) {
                 baseType = remainExist ? NumberPhoneType.Point : NumberPhoneType.None;
             } else {
                 if (NumberPhoneType.BigBegin + bigPos - 1 > NumberPhoneType.BigEnd) {
-                    // 大きすぎるのでスキップ
-Debug.println(Level.FINE, "too big: " + src);
+                    // Skip because it's too big
+logger.log(Level.DEBUG, "too big: " + src);
                     continue;
                 }
                 baseType = NumberPhoneType.values()[NumberPhoneType.BigBegin + bigPos - 1];
                 if (!baseType.isBig()) {
-                    // 大きすぎるのでスキップ
-Debug.println(Level.FINE, "too big: " + src);
+                    // Skip because it's too big
+logger.log(Level.DEBUG, "too big: " + src);
                     continue;
                 }
             }
 
-            // 読みを追加
+            // Add reading
             lastType = NumberPhoneType.None;
             appendLen += appendThousandPartPhonetic(part,
                                                     prevType,
                                                     baseType,
                                                     dest);
 
-            // 先行種別を更新
+            // Update the leading type
             prevType = lastType;
         }
 
@@ -499,18 +504,18 @@ Debug.println(Level.FINE, "too big: " + src);
     }
 
     /**
-     * 小数部を表す文字列の読み仮名をバッファに追加する。
+     * The pronunciation of the string representing the fractional part is added to the buffer.
      *
-     * @param src 数字列。
-     * @param dest 追加先の文字列バッファ。
-     * @return 追加された文字列長。
+     * @param src A string of digits.
+     * @param dest The string buffer to append to.
+     * @return The length of the added string.
      */
     private int appednRemainPhonetic(String src, StringBuilder dest) {
         int oldLen = dest.length();
 
         int len = src.length();
         for (int i = 0; i < len; ++i) {
-            // 2桁以外の最終桁は読み方が異なる
+            // The final digit is pronounced differently except for the two digits.
             // 0.2 … れーてんに
             // 0.22 … れーてんにーにー
             // 0.222 … れーてんにーにーに
@@ -524,14 +529,14 @@ Debug.println(Level.FINE, "too big: " + src);
     }
 
     /**
-     * 4桁単位での読み仮名をバッファに追加する。
+     * Add the reading in four-digit units to the buffer.
      *
-     * @param src 数字列。1～4文字。
-     * @param prevType 先行要素の種別。
-     * @param baseType 4桁単位要素の種別。
-     * @param dest 追加先の文字列バッファ。
+     * @param src A string of numbers. 1 to 4 characters.
+     * @param prevType The type of the preceding element.
+     * @param baseType Type of 4-digit unit element.
+     * @param dest The string buffer to append to.
      *
-     * @return 追加された文字列長。
+     * @return The length of the added string.
      */
     private int appendThousandPartPhonetic(String src,
                                            NumberPhoneType prevType,
@@ -539,42 +544,42 @@ Debug.println(Level.FINE, "too big: " + src);
                                            StringBuilder dest) {
         int oldLen = dest.length();
 
-        // とりあえず prevType を設定しておく
+        // For now, set prevType
         lastType = prevType;
 
-        // 頭の "0" を削除
+        // Remove leading "0"
         String text = src.replaceFirst("^0*", "");
 
-        // 長さを算出
+        // Calculate the length
         int len = text.length();
 
         if (len == 0) {
-            // "0" のみだった場合
+            // If there is only "0"
             String zero = decideNumberKana(NumberPhoneType.Digit0, lastType, baseType);
             if (!zero.isEmpty()) {
                 dest.append(zero);
                 lastType = NumberPhoneType.Digit0;
             }
         } else {
-            // 種別配列を作成(baseType は含めない)
+            // Create a type array (does not include baseType)
             List<NumberPhoneType> types = new ArrayList<>();
             for (int i = 0; i < len; ++i) {
-                // 数字
+                // Numbers
                 int d = parseChar(text.charAt(i));
                 if (d == 0) {
-                    // "0" ならば後続も含めてスキップ
+                    // If "0", skip including the following
                     continue;
                 }
                 types.add(NumberPhoneType.values()[NumberPhoneType.DigitBegin + d]);
 
-                // 数字の後続
+                // Trailing digits
                 int pos = (len - 1) - i - 1; // 0:十, 1:百, 2:千
                 if (pos >= 0) {
                     types.add(NumberPhoneType.values()[NumberPhoneType.BaseBegin + pos]);
                 }
             }
 
-            // 順番に処理
+            // Process in order
             for (int i = 0; i < types.size(); ++i) {
                 NumberPhoneType t = types.get(i);
                 NumberPhoneType next = i + 1 < types.size() ? types.get(i + 1) : baseType;
@@ -586,9 +591,9 @@ Debug.println(Level.FINE, "too big: " + src);
             }
         }
 
-        // 以下のいずれかの場合は baseType を処理
+        // Process baseType if either
         // - baseType == NumberPhoneType.Point
-        // - 1文字以上追加があった
+        // - One or more characters were added
         if (baseType.isPoint() || dest.length() > oldLen) {
             String baseText = decideNumberKana(baseType, lastType, NumberPhoneType.None);
             if (!baseText.isEmpty()) {
@@ -601,10 +606,10 @@ Debug.println(Level.FINE, "too big: " + src);
     }
 
     /**
-     * 文字を数値に変換する。
+     * Converts characters to numbers.
      *
-     * @param c 文字。
-     * @return 数値。変換できなければ 0 。
+     * @param c character.
+     * @return A number, or 0 if conversion is not possible.
      */
     private static int parseChar(char c) {
         return Character.isDigit(c) ? Integer.parseInt(String.valueOf(c)) : 0;
