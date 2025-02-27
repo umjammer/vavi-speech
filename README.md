@@ -1,7 +1,7 @@
 [![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech)
 [![Java CI](https://github.com/umjammer/vavi-speech/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/maven.yml)
 [![CodeQL](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml)
-![Java](https://img.shields.io/badge/Java-17-b07219)
+![Java](https://img.shields.io/badge/Java-21-b07219)
 [![Parent](https://img.shields.io/badge/Parent-vavi--speech2-pink)](https://github.com/umjammer/vavi-speech2)
 
 # vavi-speech
