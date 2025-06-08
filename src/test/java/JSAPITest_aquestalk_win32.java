@@ -28,11 +28,11 @@ import vavi.speech.aquestalk.jsapi.AquesTalkSynthesizerModeDesc;
 class JSAPITest_aquestalk_win32 {
 
     @Test
-    void test01(String file) throws Exception {
+    void test01() throws Exception {
         speak("すもももももももものうち");
     }
 
-    public static void speak(String file) throws Exception {
+    static void speak(String file) throws Exception {
         SynthesizerModeDesc desc = new AquesTalkSynthesizerModeDesc("AquesTalkSynthEngineCentral", "general", Locale.JAPAN);
         Synthesizer synthesizer = Central.createSynthesizer(desc);
 

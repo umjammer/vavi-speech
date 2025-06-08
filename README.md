@@ -158,6 +158,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
  * access private
    * ~~reflection -> JEP 193: Variable Handles https://qiita.com/yoshioterada/items/319ed0dec4b847d2b1ed~~ <= 17
    * https://github.com/FabricMC/access-widener
+ * https://github.com/praveen-hari/Thamizh-Pesi
 
 ### Morphological Analyzer
 
