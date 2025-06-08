@@ -249,7 +249,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.3</version>
+        <version>5.12.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -319,7 +319,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId> <!-- com.github.umjammer / vavi -->
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.16</version>
+      <version>1.0.17</version>
       <exclusions>
         <exclusion>
           <artifactId>vavi-net-auth-amazon</artifactId>
@@ -400,7 +400,7 @@
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-commons</artifactId>
-      <version>9.7</version>
+      <version>9.7.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
