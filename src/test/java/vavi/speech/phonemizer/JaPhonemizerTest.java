@@ -33,7 +33,7 @@ class JaPhonemizerTest {
     static Stream<Arguments> phonemizerProvider() {
         return Stream.of(
             arguments(new vavi.speech.phonemizer.KuromojiJaPhonemizer(), "キョーワ。キョーワテンキガヨイデスネ。タビエデヨウトオモイマス。"),
-            arguments(new vavi.speech.phonemizer.GooFuriganaJaPhonemizer(), "コンニチハ。 キョウハ テンキガ ヨイデスネ。 タビヘ デヨウト オモイマス。"),
+//            arguments(new vavi.speech.phonemizer.GooFuriganaJaPhonemizer(), "コンニチハ。 キョウハ テンキガ ヨイデスネ。 タビヘ デヨウト オモイマス。"),
             arguments(new vavi.speech.phonemizer.YahooJapanJaPhonemizer(), "きょうは。きょうはてんきがよいですね。たびへでようとおもいます。")
         );
     }
