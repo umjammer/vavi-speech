@@ -241,7 +241,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>libraries-bom</artifactId>
-        <version>26.54.0</version>
+        <version>26.73.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -249,7 +249,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.12.2</version>
+        <version>5.14.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -260,7 +260,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.1.14</version>
+      <version>1.1.16</version>
     </dependency>
     <dependency> <!-- JSAPI1 -->
       <groupId>com.github.umjammer</groupId>
@@ -269,20 +269,28 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.umjammer</groupId>
+      <groupId>com.github.umjammer</groupId> <!-- vavi / com.github.umjammer -->
       <artifactId>vavi-sound-sandbox</artifactId>
-      <version>1.0.9</version>
+      <version>1.0.11</version>
       <exclusions>
         <exclusion>
           <artifactId>jmf</artifactId>
           <groupId>javax.media</groupId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.github.umjammer.rococoa</groupId>
+          <artifactId>rococoa-cocoa</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.rococoa</groupId>
+          <artifactId>rococoa-cocoa</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.umjammer.rococoa</groupId> <!-- org.rococoa / com.github.umjammer.rococoa -->
       <artifactId>rococoa-core</artifactId>
-      <version>0.8.13</version>
+      <version>0.8.14</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
@@ -313,13 +321,13 @@
     <dependency>
       <groupId>com.ibm.icu</groupId>
       <artifactId>icu4j</artifactId>
-      <version>74.1</version>
+      <version>77.1</version>
     </dependency>
 
     <dependency>
       <groupId>com.github.umjammer</groupId> <!-- com.github.umjammer / vavi -->
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.17</version>
+      <version>1.0.18</version>
       <exclusions>
         <exclusion>
           <artifactId>vavi-net-auth-amazon</artifactId>
