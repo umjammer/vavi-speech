@@ -8,6 +8,7 @@ package vavi.speech.rococoa.jsapi;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.net.URL;
@@ -19,8 +20,10 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.speech.AudioException;
 import javax.speech.AudioManager;
 import javax.speech.EngineException;
@@ -36,12 +39,17 @@ import javax.speech.synthesis.SpeakableListener;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
-
 import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
-import org.rococoa.ObjCBlock;
+
+import org.rococoa.ObjCBlocks.BlockLiteral;
+import org.rococoa.Rococoa;
+import org.rococoa.cocoa.foundation.NSError;
 import vavi.speech.JavaSoundPlayer;
 import vavi.speech.Player;
 import vavi.speech.rococoa.SynthesizerDelegate;
+import vavix.rococoa.avfoundation.AVAudioFile;
+import vavix.rococoa.avfoundation.AVAudioFormat;
+import vavix.rococoa.avfoundation.AVAudioPCMBuffer;
 import vavix.rococoa.avfoundation.AVSpeechSynthesizer;
 import vavix.rococoa.avfoundation.AVSpeechSynthesizer.AVSpeechSynthesizerBufferCallback;
 import vavix.rococoa.avfoundation.AVSpeechUtterance;
@@ -195,7 +203,7 @@ public class RococoaSynthesizer implements Synthesizer {
     public void allocate() throws EngineException, EngineStateError {
         try {
             synthesizer = AVSpeechSynthesizer.newInstance();
-            delegate = new SynthesizerDelegate(synthesizer);
+//            delegate = new SynthesizerDelegate(synthesizer);
             properties.setVolume(1f);
             executer.execute(() -> {
                 while (looping) {
@@ -205,15 +213,11 @@ public class RococoaSynthesizer implements Synthesizer {
                             if (pair.listener != null) {
                                 pair.listener.speakableStarted(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_STARTED));
                             }
-                            if (false) { // TODO block
-                                playing = true;
+                            playing = true;
 logger.log(Level.DEBUG, "\n" + pair.text);
-                                player.setVolume(properties.getVolume());
-                                player.play(synthesize(pair.text));
-                                playing = false;
-                            } else {
-                                synthesize2(pair.text);
-                            }
+                            player.setVolume(properties.getVolume());
+                            player.play(synthesize(pair.text));
+                            playing = false;
                             if (pair.listener != null) {
                                 pair.listener.speakableEnded(new SpeakableEvent(RococoaSynthesizer.this, SpeakableEvent.SPEAKABLE_ENDED));
                             }
@@ -230,34 +234,71 @@ logger.log(Level.DEBUG, e.getMessage(), e);
     }
 
     /** */
-    private void synthesize2(String text) {
-        AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
-        utterance.setVolume(getSynthesizerProperties().getVolume());
-        synthesizer.speakUtterance(utterance);
-        delegate.waitForSpeechDone(10000, true);
-    }
-
-    /** */
     private byte[] synthesize(String text) {
-        try {
 //logger.log(Level.TRACE, "voice: " + getSynthesizerProperties().getVoice());
-            Path path = Files.createTempFile(getClass().getName(), ".aiff");
-            AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
+        try {
+            Path path = Files.createTempFile(getClass().getName(), ".wav");
+            try {
+                AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
+                utterance.setVolume(properties.getVolume());
 
-            synthesizer.speakUtterance(utterance);
+                CountDownLatch cdl = new CountDownLatch(1);
+                AtomicReference<AVAudioFile> audioFile = new AtomicReference<>();
 
-            // TODO objc block doesn't work
-            ObjCBlock bufferCallback = (AVSpeechSynthesizerBufferCallback) (blockLiteral, id) -> {
-            };
+                BlockLiteral bufferCallback = block((AVSpeechSynthesizerBufferCallback) (blockLiteral, id) -> {
+logger.log(Level.TRACE, "block enter");
+                    try {
+                        AVAudioPCMBuffer audioBuffer = Rococoa.wrap(id, AVAudioPCMBuffer.class);
+                        if (audioBuffer == null) {
+logger.log(Level.ERROR, "buffer is not pcm");
+                            cdl.countDown();
+                            throw new IllegalStateException("buffer is not pcm");
+                        }
+logger.log(Level.TRACE, "frameLength: " + audioBuffer.frameLength());
+                        if (audioBuffer.frameLength() == 0) {
+                            // done
+                            cdl.countDown();
+logger.log(Level.TRACE, "file write done");
+                        } else {
+                            if (audioFile.get() == null) {
+                                AVAudioFormat format16 = AVAudioFormat.init(3, audioBuffer.format().sampleRate(), 1, true);
+logger.log(Level.INFO, "file: " + path + ", " + format16.settings());
+                                audioFile.set(AVAudioFile.init(path.toUri(), format16.settings(), audioBuffer.format().commonFormat(), audioBuffer.format().isInterleaved()));
+                                if (audioFile.get() == null) {
+logger.log(Level.ERROR, "file creation failed");
+                                    cdl.countDown();
+                                    throw new IllegalStateException("file creation failed");
+                                }
+                            }
+logger.log(Level.TRACE, "write: " + audioBuffer.frameLength());
+                            NSError error = null;
+                            audioFile.get().writeFromBuffer_error(audioBuffer, error);
+                            if (error != null) {
+logger.log(Level.ERROR, error.description());
+                                cdl.countDown();
+                                throw new IllegalStateException(error.description());
+                            }
+                        }
+                    } catch (IOException e) {
+logger.log(Level.ERROR, e.getMessage(), e);
+                        cdl.countDown();
+                        throw new UncheckedIOException(e);
+                    }
+                });
 
-            synthesizer.writeUtterance_toBufferCallback(utterance, block(bufferCallback));
+                synthesizer.writeUtterance_toBufferCallback(utterance, bufferCallback);
+                cdl.await();
 
+                if (audioFile.get() != null) {
+                    audioFile.get().close();
+                }
 
-
-            delegate.waitForSpeechDone(10000, true);
-            byte[] wav = Files.readAllBytes(path);
-            return wav;
-        } catch (IOException e) {
+logger.log(Level.TRACE, "synthesize exit");
+                return Files.readAllBytes(path);
+            } finally {
+                Files.deleteIfExists(path);
+            }
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }
