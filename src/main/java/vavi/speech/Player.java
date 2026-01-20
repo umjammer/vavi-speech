@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public interface Player {
 
-    /** */
+    /** @param data format is not defined */
     void play(byte[] data) throws IOException;
 
     /** 0.0 ~ 1.0 */
