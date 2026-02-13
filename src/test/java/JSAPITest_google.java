@@ -42,6 +42,11 @@ class JSAPITest_google {
         return Files.exists(Paths.get("local.properties"));
     }
 
+    static {
+        System.setProperty("vavi.speech.googlecloud.credential", System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
+Debug.println("vavi.speech.googlecloud.credential: " + System.getProperty("vavi.speech.googlecloud.credential"));
+    }
+
     @Property(name = "google.credential")
     String json = "tmp/google.json";
 

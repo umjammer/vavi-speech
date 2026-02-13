@@ -59,7 +59,7 @@ selected by `aquestalk10.properties`
 ### Google Cloud Text To Speech
 
  * [get token as json](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)
- * set environment variable `"GOOGLE_APPLICATION_CREDENTIALS"` `your_json_path`
+ * set system property `"vavi.speech.googlecloud.credential"` `your_json_path`
 
 ### Sen
 
