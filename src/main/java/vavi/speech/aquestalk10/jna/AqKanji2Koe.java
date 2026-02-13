@@ -13,65 +13,68 @@ import com.sun.jna.Pointer;
 
 
 /**
- * AquesTalk(2)用言語処理部
+ * AquesTalk(2) language processor
  *
- * 漢字かな混じりテキスト->音声記号列
+ * Kanji/Kana mixed text -> phonetic symbol string
  *
  * @author N.Yamazaki (Aquest)
- * @date 2010/12/27 N.Yamazaki Creation
- * @date 2013/06/11 N.Yamazaki Ver.2
- * @date 2017/11/12 N.Yamazaki Ver.3
+ * @version 2010/12/27 N.Yamazaki Creation
+ *          2013/06/11 N.Yamazaki Ver.2
+ *          2017/11/12 N.Yamazaki Ver.3
  */
 public interface AqKanji2Koe extends Library {
 
     AqKanji2Koe INSTANCE = Native.load("AqKanji2Koe", AqKanji2Koe.class);
 
     /**
-     * 言語処理インスタンス生成（初期化）
+     * Language processing instance creation (initialization)
      * 
-     * @param pathDic [in] 辞書のディレクトリを指定(最後に/が有っても無くても良い）
-     * @param pErr [out] エラー時にはエラーコードが入る 正常終了時は不定値
-     * @return インスタンスハンドル エラーの時は０が返る
+     * @param pathDic [in] Specify the dictionary directory (with or without the / at the end)
+     * @param pErr [out] If an error occurs, an error code is entered. If the operation is successful,
+     *            an undefined value is entered.
+     * @return Instance handle. Returns 0 if an error occurs.
      */
     Pointer AqKanji2Koe_Create(String pathDic, int[] pErr);
 
     /**
-     * 言語処理インスタンス生成 （初期化）その２
-     * 呼び出し側で辞書データ(バイナリ)をメモリに読み込んでから指定
-     * 初期化を高速化するためのメモリマップトファイルなどが使える
+     * Language processing instance creation (initialization) part 2
+     * The caller loads the dictionary data (binary) into memory and then specifies
+     * You can use memory-mapped files to speed up initialization.
      * 
-     * @param pSysDic [in] システム辞書データ先頭アドレス(必須)
-     * @param pUserDic [in] ユーザ辞書データ先頭アドレス（使用しないときは0を指定）
-     * @param pErr [out] エラー時にはエラーコードが入る 正常終了時は不定値
-     * @return インスタンスハンドル エラーの時は０が返る
+     * @param pSysDic [in] System dictionary data start address (required)
+     * @param pUserDic [in] User dictionary data start address (specify 0 if not used)
+     * @param pErr [out] If an error occurs, an error code is entered. If the operation is successful,
+     *            an undefined value is entered.
+     * @return Instance handle. Returns 0 if an error occurs.
      */
     Pointer AqKanji2Koe_Create_Ptr(Pointer pSysDic, Pointer pUserDic, int[] pErr);
 
     /**
-     * インスタンス解放
-     * param hAqKanji2Koe[in] AqKanji2Koe_Create()で返されたインスタンスハンドル
+     * Instance release
+     * param hAqKanji2Koe[in] Instance handle returned by AqKanji2Koe_Create()
      */
     void AqKanji2Koe_Release(Pointer hAqKanji2Koe);
 
     /**
-     * 言語処理 マルチバイト文字(UTF8)版
+     * Language processing Multibyte character (UTF8) version
      *
-     * @param hAqKanji2Koe [in] AqKanji2Koe_Create()で返されたインスタンスハンドル
-     * @param kanji [in] 漢字かな混じり文テキスト（UTF8)
-     * @param koe [out] 音声記号列（UTF8)
-     * @param nBufKoe [in] koeのバッファサイズ[byte]
-     * @return 0:正常終了 それ以外：エラーコード
+     * @param hAqKanji2Koe [in] Instance handle returned by AqKanji2Koe_Create()
+     * @param kanji [in] Kanji-Kana mixed text (UTF8)
+     * @param koe [out] Phonetic symbol string (UTF8)
+     * @param nBufKoe [in] koe buffer size [byte]
+     * @return 0: Normal completion Other: Error code
      */
     int AqKanji2Koe_Convert(Pointer hAqKanji2Koe, String kanji, String koe, int nBufKoe);
 
     /**
-     * 開発ライセンスキー設定
-     * 音声波形を生成する前に一度呼び出す。
-     * これにより評価版の制限がなくなる。
+     * Development license key settings
+     * Call once before generating an audio waveform.
+     * This removes the limitations of the evaluation version.
      *
-     * @param devKey [in] 開発ライセンスキーを指定
-     * @return ライセンスキーが正しければ0、正しくなければ1が返る
-     *         キーの解析を防ぐため不正なキーでも0を返す場合がある。このとき制限は解除されない。
+     * @param devKey [in] Specify the development license key
+     * @return If the license key is correct, 0 is returned; if not, 1 is returned.
+     *         To prevent key analysis, the function may return 0 even for invalid keys.
+     *         In this case, the restriction will not be lifted.
      */
     int AqKanji2Koe_SetDevKey(byte[] devKey);
 }

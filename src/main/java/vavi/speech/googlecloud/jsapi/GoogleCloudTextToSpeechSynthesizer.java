@@ -7,6 +7,7 @@
 package vavi.speech.googlecloud.jsapi;
 
 import java.beans.PropertyVetoException;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -36,11 +37,14 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
+import com.google.api.gax.core.FixedCredentialsProvider;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.texttospeech.v1.AudioConfig;
 import com.google.cloud.texttospeech.v1.AudioEncoding;
 import com.google.cloud.texttospeech.v1.SynthesisInput;
 import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
 import com.google.cloud.texttospeech.v1.TextToSpeechClient;
+import com.google.cloud.texttospeech.v1.TextToSpeechSettings;
 import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
 import com.google.protobuf.ByteString;
 import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
@@ -54,8 +58,8 @@ import static java.lang.System.getLogger;
  * Provides  partial support for a JSAPI 1.0 synthesizer for the 
  * Google Cloud Text To speech synthesis system.
  * <p>
- * specify the environment variable "GOOGLE_APPLICATION_CREDENTIALS"
- * for google credential json.
+ * system property
+ * <li>{@code vavi.speech.googlecloud.credential} ... path to credential default {@code google-app-credentials.json}
  * </p>
  */
 public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
@@ -187,7 +191,13 @@ public class GoogleCloudTextToSpeechSynthesizer implements Synthesizer {
     @Override
     public void allocate() throws EngineException, EngineStateError {
         try {
-            this.client = TextToSpeechClient.create();
+            String serviceAccountKeyPath = System.getProperty("vavi.speech.googlecloud.credential", "google-app-credentials.json");
+logger.log(Level.DEBUG, "vavi.speech.googlecloud.credential: " + System.getProperty("vavi.speech.googlecloud.credential"));
+            GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(serviceAccountKeyPath));
+            TextToSpeechSettings settings = TextToSpeechSettings.newBuilder()
+                    .setCredentialsProvider(FixedCredentialsProvider.create(credentials))
+                    .build();
+            this.client = TextToSpeechClient.create(settings);
             properties.setVolume(1f);
             executer.execute(() -> {
                 while (looping) {

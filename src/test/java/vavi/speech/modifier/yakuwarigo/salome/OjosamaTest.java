@@ -66,11 +66,11 @@ Debug.println(originalRandomizer);
 
     /**
      * TestRandomizer is a mock for
-     * 強制的に波線や感嘆符や疑問符を任意の数追加するための設定。
+     * Settings to force adding wavy lines or any number of exclamation or question marks.
      * <p>
-     * 波線や感嘆符の付与には乱数が絡むため、単体テスト実行時に確実に等しい結果を得
-     * ることが難しい。この問題を回避するために、このパラメータを差し込むことで乱数
-     * の影響を受けないように制御する。
+     * Because random numbers are involved in adding wavy lines and exclamation marks,
+     * it is difficult to reliably obtain equal results when running unit tests.
+     * To avoid this problem, this parameter is inserted to control the effects of random numbers.
      */
     static class TestRandomizer extends SalomeProvider.Randomizer {
         int w;
@@ -106,11 +106,11 @@ Debug.println(originalRandomizer);
 
     /** */
     static class TestOption {
-        /** 単体テスト用のパラメータ */
+        /** Unit Test Parameters */
         TestRandomizer forceAppendLongNote;
-        /** 単体テスト用のパラメータ */
+        /** Unit Test Parameters */
         Integer forceCharsTestMode;
-        /** KutenToExclamationで強制的に3番目の要素を選択する */
+        /** Forcing KutenToExclamation to select the third element */
         boolean forceKutenToExclamation;
 
         TestOption setForceAppendLongNote(TestRandomizer forceAppendLongNote) {
@@ -579,7 +579,7 @@ Debug.println(Level.FINE, "forceCharsTestMode: " + ((EQMark[]) getFinalStatic(EQ
 Debug.println(Level.FINE, "forceKutenToExclamation: " + Arrays.toString((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"))));
         }
 
-        // forceAppendLongNote がある場合に限って任意の数付与できる。
+        // Any number can be added only if forceAppendLongNote is present.
         if (topt != null && topt.forceAppendLongNote != null) {
             setFinalStatic(SalomeProvider.class.getDeclaredField("randomizer"), topt.forceAppendLongNote);
 Debug.println(Level.FINE, "forceAppendLongNote: " + getFinalStatic(SalomeProvider.class.getDeclaredField("randomizer")));

@@ -59,7 +59,7 @@ selected by `aquestalk10.properties`
 ### Google Cloud Text To Speech
 
  * [get token as json](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)
- * set environment variable `"GOOGLE_APPLICATION_CREDENTIALS"` `your_json_path`
+ * set system property `"vavi.speech.googlecloud.credential"` `your_json_path`
 
 ### Sen
 
@@ -154,7 +154,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
      * ~~extract rules as json~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/salome/rule.json))
    * ずんだもん ([wip](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
  * unify japanese tokenizer (lucene-gosen?)
- * AVSpeechSynthesizer needs [obj-c block](https://github.com/umjammer/rococoa/discussions/23)
+ * ~~AVSpeechSynthesizer needs [obj-c block](https://github.com/umjammer/rococoa/discussions/23)~~
  * access private
    * ~~reflection -> JEP 193: Variable Handles https://qiita.com/yoshioterada/items/319ed0dec4b847d2b1ed~~ <= 17
    * https://github.com/FabricMC/access-widener

@@ -8,22 +8,22 @@ import java.util.regex.Pattern;
 
 
 /**
- * ConvertCondition は変換に使う条件。
+ * ConvertCondition is the condition to use for conversion.
  *
- * ConvertCondition[] は変換条件のスライス。
- * ANDで評価するかORで評価するかは、この型を使う側に依存する
+ * ConvertCondition[] is a slice of conversion conditions.
+ * Whether it is evaluated as AND or OR depends on the user of this type.
  */
 public class ConvertCondition {
 
     Feature feature;
     String reading;
-    /** オプション。設定されてる時だけ使う */
+    /** Optional, only used if set */
     Pattern readingRe;
     String surface;
-    /** オプション。設定されてる時だけ使う */
+    /** Optional, only used if set */
     Pattern surfaceRe;
     String baseForm;
-    /** オプション。設定されてる時だけ使う */
+    /** Optional, only used if set */
     Pattern baseFormRe;
 
     private static boolean isNotEmptyStringAndDoesntEqualString(String a, String b) {

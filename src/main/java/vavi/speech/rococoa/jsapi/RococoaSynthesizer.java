@@ -41,7 +41,9 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
 
+import org.rococoa.Foundation;
 import org.rococoa.ObjCBlocks.BlockLiteral;
+import org.rococoa.ObjCObjectByReference;
 import org.rococoa.Rococoa;
 import org.rococoa.cocoa.foundation.NSError;
 import vavi.speech.JavaSoundPlayer;
@@ -238,6 +240,7 @@ logger.log(Level.DEBUG, e.getMessage(), e);
 //logger.log(Level.TRACE, "voice: " + getSynthesizerProperties().getVoice());
         try {
             Path path = Files.createTempFile(getClass().getName(), ".wav");
+            BlockLiteral bufferCallback = null;
             try {
                 AVSpeechUtterance utterance = AVSpeechUtterance.of(text);
                 utterance.setVolume(properties.getVolume());
@@ -245,10 +248,10 @@ logger.log(Level.DEBUG, e.getMessage(), e);
                 CountDownLatch cdl = new CountDownLatch(1);
                 AtomicReference<AVAudioFile> audioFile = new AtomicReference<>();
 
-                BlockLiteral bufferCallback = block((AVSpeechSynthesizerBufferCallback) (blockLiteral, id) -> {
+                bufferCallback = block((AVSpeechSynthesizerBufferCallback) (block, audioBufferId) -> {
 logger.log(Level.TRACE, "block enter");
                     try {
-                        AVAudioPCMBuffer audioBuffer = Rococoa.wrap(id, AVAudioPCMBuffer.class);
+                        AVAudioPCMBuffer audioBuffer = Rococoa.wrap(audioBufferId, AVAudioPCMBuffer.class);
                         if (audioBuffer == null) {
 logger.log(Level.ERROR, "buffer is not pcm");
                             cdl.countDown();
@@ -271,8 +274,9 @@ logger.log(Level.ERROR, "file creation failed");
                                 }
                             }
 logger.log(Level.TRACE, "write: " + audioBuffer.frameLength());
-                            NSError error = null;
-                            audioFile.get().writeFromBuffer_error(audioBuffer, error);
+                            ObjCObjectByReference outError = new ObjCObjectByReference();
+                            audioFile.get().writeFromBuffer_error(audioBuffer, outError);
+                            NSError error = outError.getValueAs(NSError.class);
                             if (error != null) {
 logger.log(Level.ERROR, error.description());
                                 cdl.countDown();
@@ -297,6 +301,8 @@ logger.log(Level.TRACE, "synthesize exit");
                 return Files.readAllBytes(path);
             } finally {
                 Files.deleteIfExists(path);
+                if (bufferCallback != null)
+                    Foundation.getRococoaLibrary().releaseObjCBlock(bufferCallback.getPointer());
             }
         } catch (Exception e) {
             throw new IllegalStateException(e);

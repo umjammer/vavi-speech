@@ -264,7 +264,7 @@ public class DigitJaPhonemizer implements JaPhonemizer {
         /**
          * Checks whether this represents None.
          *
-         * @return None ならば true 。
+         * @return true if None.
          */
         public boolean isNone() {
             return this == NumberPhoneType.None;

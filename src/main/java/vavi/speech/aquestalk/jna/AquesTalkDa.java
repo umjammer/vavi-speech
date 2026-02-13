@@ -1,5 +1,5 @@
 /*
- * 規則音声合成エンジン AquesTalk
+ * AquesTalk rule-based speech synthesis engine
  * 
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
@@ -11,7 +11,7 @@ import com.sun.jna.Native;
 
 
 /**
- * 音声記号列から音声波形データを生成し、サウンドデバイスに出力する
+ * Generates audio waveform data from a sequence of phonetic symbols and outputs it to a sound device.
  *
  * 32 bit mode only
  *
@@ -23,54 +23,54 @@ public interface AquesTalkDa extends Library {
     AquesTalkDa INSTANCE = Native.load("AquesTalkDa", AquesTalkDa.class);
 
     /**
-     * 音声を合成して出力（同期タイプ）
-     * 音声の再生が終了するまで戻らない
-     * @param koe [in] 音声記号列（NULL終端）
-     * @param iSpeed [in] 発話速度 [%] 50-300 の間で指定 (=100)
-     * @return 0:正常終了 それ以外：エラーコード
+     * Synthesizes and outputs audio (synchronous type)
+     * It won't return until the audio finishes playing.
+     * @param koe [in] Phonetic symbol string (NULL terminated)
+     * @param iSpeed [in] Speech rate [%] Specify between 50-300 (=100)
+     * @return 0: Normal completion Other: Error code
      */
     int AquesTalkDa_PlaySync(String koe, int iSpeed);
 
     /**
-     * 音声合成エンジンのインスタンスを生成（非同期タイプ）
-     * @return 音声合成エンジンのハンドルを返す
+     * Create an instance of a speech synthesis engine (asynchronous type)
+     * @return Returns the handle of the speech synthesis engine.
      */
     int AquesTalkDa_Create();
 
     /**
-     * 音声合成エンジンのインスタンスを解放（非同期タイプ）
-     * @param hMe [in] 音声合成エンジンのハンドル AquesTalkDa_Create()で生成
+     * Releases the speech synthesis engine instance (asynchronous type)
+     * @param hMe [in] Handle of speech synthesis engine Created by AquesTalkDa_Create()
      */
     void AquesTalkDa_Release(int hMe);
 
     /**
-     * 音声を合成して出力（非同期タイプ）
-     * 音声波形生成後に、すぐに戻る
-     * hWndを指定すると再生終了後、msgに指定したメッセージがPostされる。
-     * 再生終了前にAquesTalkDa_Play()を呼び出して、連続的に再生させることも可能。
-     * @param hMe [in] 音声合成エンジンのハンドル AquesTalkDa_Create()で生成
-     * @param koe [in] 音声記号列（NULL終端）
-     * @param iSpeed [in] 発話速度 [%] 50-300 の間で指定 (default 100)
-     * @param hWnd [in] 終了メッセージ送出先ウィンドウハンドル
-     * @param msg [in] 終了メッセージ (default 0)
-     * @param dwUser [in] 任意のユーザパラメータ(メッセージのlParam に設定される) (default 0)
-     * @return 0:正常終了 それ以外：エラーコード
+     * Synthesizes and outputs voice (asynchronous type)
+     * Return immediately after generating the audio waveform
+     * If you specify hWnd, the message specified in msg will be posted after playback ends.
+     * It is also possible to play continuously by calling AquesTalkDa_Play() before playback ends.
+     * @param hMe [in] Handle of speech synthesis engine Created by AquesTalkDa_Create()
+     * @param koe [in] Phonetic symbol string (NULL terminated)
+     * @param iSpeed [in] Speech rate [%] Specify between 50-300 (default 100)
+     * @param hWnd [in] Window handle to which the end message is sent
+     * @param msg [in] Exit message (default 0)
+     * @param dwUser [in] Any user parameter (set in lParam of the message) (default 0)
+     * @return 0: Normal completion Other: Error code
      */
     int AquesTalkDa_Play(int hMe, String koe, int iSpeed, int hWnd, int msg, int dwUser);
 
     /**
-     * 再生の中止
-     * AquesTalkDa_Play()で再生中に、再生を中断する。
-     * 再生中(再生待ちを含む）であり、終了メッセージ送出先が指定されていたなら、
-     * 終了メッセージがPostされる。
-     * @param hMe [in] 音声合成エンジンのハンドル AquesTalkDa_Create()で生成
+     * Stop playback
+     * Pauses playback while playing with AquesTalkDa_Play().
+     * If playback is in progress (including playback waiting),
+     * and a destination for sending an end message has been specified, an end message is posted.
+     * @param hMe [in] Handle of speech synthesis engine Created by AquesTalkDa_Create()
      */
     void AquesTalkDa_Stop(int hMe);
 
     /**
-     * 再生中か否か
-     * @param hMe [in] 音声合成エンジンのハンドル AquesTalkDa_Create()で生成
-     * @return 1:再生中 0:再生中でない
+     * Playing or not
+     * @param hMe [in] Handle of speech synthesis engine Created by AquesTalkDa_Create()
+     * @return 1: Playing 0: Not playing
      */
     int AquesTalkDa_IsPlay(int hMe);
 }

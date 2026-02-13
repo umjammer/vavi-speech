@@ -1,5 +1,5 @@
 /*
- * 規則音声合成エンジン AquesTalk
+ * AquesTalk rule-based speech synthesis engine
  *
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
@@ -12,8 +12,8 @@ import com.sun.jna.Pointer;
 
 
 /**
- * 音声記号列から音声波形データをメモリ上に生成する
- * 出力音声波形は、8HKzサンプリング, 16bit,モノラル,WAVフォーマット
+ * Generate speech waveform data in memory from speech symbol strings
+ * Output audio waveform is 8Hz sampling, 16bit, monaural, WAV format
  *
  * 32 bit mode only
  *
@@ -25,20 +25,20 @@ public interface AquesTalk extends Library {
     AquesTalk INSTANCE = Native.load("AquesTalk", AquesTalk.class);
 
     /**
-     * 音声記号列から音声波形を生成 音声波形データは内部で領域確保される。
-     * 音声波形データの解放は本関数の呼び出し側で{@link #AquesTalk_FreeWave(Pointer)}にて行う
+     * Generates audio waveforms from audio symbol strings. Space is allocated internally for audio waveform data.
+     * The voice waveform data is released by the caller of this function using {@link #AquesTalk_FreeWave(Pointer)}.
      *
-     * @param koe [in] 音声記号列
-     * @param iSpeed [in] 発話速度 [%] 50-300 の間で指定
-     * @param pSize [out] 生成した音声データのサイズ[byte]（エラーの場合はエラーコードが返る）
-     * @return WAVフォーマットの音声データの先頭アドレス。エラー時はnullが返る
+     * @param koe [in] Phonetic string
+     * @param iSpeed [in] Speech rate [%] Specify between 50-300
+     * @param pSize [out] Size of generated audio data [bytes] (If an error occurs, an error code will be returned)
+     * @return The start address of the WAV format audio data. If an error occurs, null is returned.
      */
     Pointer AquesTalk_Synthe(String koe, int iSpeed, int[] pSize);
 
     /**
-     * 音声データの領域を開放
+     * Free up space for audio data
      *
-     * @param wav [in] {@link #AquesTalk_Synthe(String, int, int[])}で返されたアドレスを指定
+     * @param wav [in] Specify the address returned by {@link #AquesTalk_Synthe(String, int, int[])}
      */
     void AquesTalk_FreeWave(Pointer wav);
 }

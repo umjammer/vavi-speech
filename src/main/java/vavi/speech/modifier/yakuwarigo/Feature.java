@@ -67,13 +67,13 @@ public interface Feature {
     }
 
     /**
-     * EqualsFeatures は Features が等しいかどうかを判定する。
+     * EqualsFeatures determines whether Features are equal.
      *
-     * featuresが空の時は * が設定されているため、 * が出現したら以降は無視する。
+     * When features is empty, * is set, so if * appears, everything after that will be ignored.
      *
-     * 例えば {名詞,代名詞,一般,*,*} と {名詞,代名詞,一般} を比較したとき、単純にス
-     * ライスを完全一致で比較すると false になるが、この関数に関しては * 以降を無視
-     * するため true になる。
+     * For example, when comparing {名詞,代名詞,一般,*,*} with {名詞,代名詞,一般},
+     * if you simply compare the slices for an exact match, the result will be false,
+     * but with this function, everything after the * is ignored, so the result will be true.
      */
     static boolean equalsFeatures(Feature a, Feature b) {
         List<String> a2 = new ArrayList<>();
@@ -100,9 +100,9 @@ public interface Feature {
     }
 
     /**
-     * ContainsFeatures は a の中に b が含まれるかを判定する。
+     * ContainsFeatures determines whether b is contained in a.
      *
-     * features用。
+     * For features.
      */
     static boolean containsFeatures(Feature[] a, Feature b) {
         for (Feature a2 : a) {
@@ -113,7 +113,7 @@ public interface Feature {
         return false;
     }
 
-    /** ContainsString は a の中に b が含まれるかを判定する。 */
+    /** ContainsString determines whether a contains b. */
     static boolean containsString(String[] a, String b) {
         for (String a2 : a) {
             if (a2.equals(b)) {

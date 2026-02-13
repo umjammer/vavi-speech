@@ -1,5 +1,5 @@
 /*
- * 規則音声合成エンジン AquesTalk2
+ * AquesTalk2 rule-based speech synthesis engine
  *
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */
@@ -8,8 +8,8 @@ package vavi.speech.aquestalk2;
 
 
 /**
- * 音声記号列から音声波形データをメモリ上に生成する
- * 出力音声波形は、8HKzサンプリング, 16bit,モノラル,WAVフォーマット
+ * Generate speech waveform data in memory from speech symbol strings
+ * Output audio waveform is 8Hz sampling, 16bit, monaural, WAV format
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070202 initial version <br>
@@ -26,11 +26,11 @@ public class AquesTalk2 {
     }
 
     /**
-     * 音声記号列から音声波形を生成。
+     * Generates speech waveforms from phonetic symbol sequences.
      *
-     * @param koe 音声記号列
-     * @param speed 発話速度 [%] 50-300 の間で指定
-     * @return WAVフォーマットの音声データ。エラー時はnullが返る
+     * @param koe Phonetic string
+     * @param speed Speech rate [%] Specify between 50-300
+     * @return WAV format audio data. Returns null if an error occurs.
      */
     private native byte[] synthe(String koe, int speed);
 }
