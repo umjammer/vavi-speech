@@ -35,9 +35,9 @@ public class YakuwarigoModifier {
     /** Settings */
     public static class ConvertOption {
         /**
-         * 句点を！に変換する機能をOFFにする。
-         * 句点を！に変換してしまうと変換元の文章のニュアンスを破壊する可能性があるため、
-         * オプションパラメータで無効にできるようにする。
+         * Turn off the feature that converts periods to "!"
+         * Converting periods to "!" can destroy the nuance of the original sentence,
+         * so this can be disabled with an optional parameter.
          */
         public boolean disableKutenToExclamation;
 
@@ -89,8 +89,8 @@ public class YakuwarigoModifier {
     }
 
     /**
-     * @param opt は挙動を微調整するためのオプショナルなパラメータ。
-     *            不要であれば null を渡せば良い。
+     * @param opt is an optional parameter for fine-tuning the behavior.
+     *           If you do not need it, just pass null.
      */
     public YakuwarigoModifier(ConvertOption opt) throws IOException {
         this.opt = opt;
@@ -101,13 +101,13 @@ public class YakuwarigoModifier {
     }
 
     /**
-     * Convert はテキストを壱百満天原サロメお嬢様風の口調に変換して返却する。
+     * Convert converts the text into a tone similar to that of 壱百満天原サロメお嬢様 and returns it.
      * <p>
-     * 簡単に説明すると「ハーブですわ！」を「おハーブですわ～～！！！」と変換する。
-     * それ以外にもいくつかバリエーションがある。
+     * To put it simply, it converts "ハーブですわ！" into "おハーブですわ～～！！！"
+     * There are several other variations as well.
      * <p>
-     * 一部変換の途中でランダムに要素を選択するため、
-     * 呼び出し側で乱数のシードの初期化を行うこと。
+     * Since elements are selected randomly during some conversions,
+     * the caller must initialize the random number seed.
      */
     public String convert(String src) throws IOException {
         // tokenize
@@ -120,13 +120,13 @@ public class YakuwarigoModifier {
             TokenData data = new TokenData(tokens[p]);
             String buf = data.surface;
 
-            // 英数字のみの単語の場合は何もしない
+            // If the word is alphanumeric only, do nothing
             if (alnumRegexp.matcher(buf).matches()) {
                 result.append(buf);
                 continue;
             }
 
-            // 名詞＋動詞＋終助詞の組み合わせに対して変換する
+            // Converts combinations of noun + verb + sentence-final particle
             StringResult s = convertSentenceEndingParticle(p);
             if (s != null) {
                 p = s.pos;
@@ -134,7 +134,7 @@ public class YakuwarigoModifier {
                 continue;
             }
 
-            // 連続する条件による変換を行う
+            // Performing transformations based on a series of conditions
             s = convertContinuousConditions(p);
             if (s != null) {
                 p = s.pos;
@@ -142,7 +142,7 @@ public class YakuwarigoModifier {
                 continue;
             }
 
-            // 特定条件は優先して無視する
+            // Prioritize and ignore specific conditions
             if (matchExcludeRule(data)) {
                 result.append(buf);
                 continue;
@@ -167,17 +167,19 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
     }
 
     /**
-     * convertSentenceEndingParticle は名詞＋動詞（＋助動詞）＋終助詞の組み合わせすべてを満たす場合に変換する。
+     * convertSentenceEndingParticle converts sentences that satisfy all combinations of
+     * noun + verb (+ auxiliary verb) + sentence-ending particle.
      * <p>
-     * 終助詞は文の終わりに、文を完結させつつ、文に「希望」「禁止」「詠嘆」「強意」等の意味を添える効果がある。
+     * Final particles are used at the end of a sentence to complete the sentence while adding meanings
+     * such as "希望" "禁止," "詠嘆," and "強意" to the sentence.
      * <p>
-     * 例えば「野球しようぜ」の場合、
-     * 「名詞：野球」「動詞：しよ」「助動詞：う」「終助詞：ぜ」という分解がされる。
+     * For example, "野球しようぜ" is broken down into "名詞：野球" "動詞：しよ" "助動詞：う" and "終助詞：ぜ"
      * <p>
-     * 終助詞の「ぜ」としては「希望」の意味合いが含まれるため、希望する意味合いのお嬢様言葉に変換する。
-     * 例：お野球をいたしませんこと
+     * As a sentence-final particle, "ぜ" has the connotation of "希望"
+     * so it is converted into a young lady's word with a hopeful meaning.
+     * Example: お野球をいたしませんこと
      * <p>
-     * その他にも「野球するな」だと「お野球をしてはいけませんわ」になる。
+     * Another example is "野球するな" which becomes "お野球をしてはいけませんわ"
      */
     private StringResult convertSentenceEndingParticle(int tokenPos) {
         for (SentenceEndingParticleConvertRule r : rule.sentenceEndingParticleConvertRules) {
@@ -185,7 +187,7 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
             int p = tokenPos;
             TokenData data = new TokenData(tokens[p]);
 
-            // 先頭が一致するならば次の単語に進む
+            // If the beginning matches, move to the next word
             if (!data.matchAnyTokenData(r.conditions1)) {
                 continue;
             }
@@ -198,10 +200,10 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
             data = new TokenData(tokens[p]);
 
             // NOTE:
-            // 2つ目以降は value の値で置き換えるため
-            // result.append(data.Surface) を実行しない。
+            // From the second onwards,
+            // do not execute result.append(data.Surface) as it will be replaced with the value of value.
 
-            // 2つ目は動詞のいずれかとマッチする。マッチしなければふりだしに戻る
+            // The second one matches any verb. If it doesn't match, we go back to the beginning.
             if (!data.matchAnyTokenData(r.conditions2)) {
                 continue;
             }
@@ -211,8 +213,8 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
             p++;
             data = new TokenData(tokens[p]);
 
-            // 助動詞があった場合は無視してトークンを進める。
-            // 別に無くても良い。
+            // If there is an auxiliary verb, ignore it and proceed with the token.
+            // It doesn't really have to be there.
             if (data.matchAllTokenData(r.auxiliaryVerb)) {
                 if (tokens.length <= p + 1) {
                     continue;
@@ -221,14 +223,14 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
                 data = new TokenData(tokens[p]);
             }
 
-            // 最後、終助詞がどの意味分類に該当するかを取得
+            // Finally, determine which semantic category the final particle belongs to.
             MeaningType mt = getMeaningType(r.sentenceEndingParticle, data);
             if (mt == MeaningType.Unknown) {
                 continue;
             }
 
-            // 意味分類に該当する変換候補の文字列を返す
-            // TODO 現状1個だけなので決め打ちで最初の1つ目を返す。
+            // Returns the conversion candidate string that matches the semantic classification
+            // TODO Currently there is only one, so just return the first one.
             result.append(r.value.get(mt)[0]);
             return new StringResult(result.toString(), p);
         }
@@ -236,15 +238,15 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
     }
 
     /**
-     * 連続する条件による変換ルールにマッチした変換結果を返す。
+     * Returns the conversion result that matches the conversion rules based on a series of conditions.
      * <p>
-     * 例えば「壱百満天原サロメ」や「横断歩道」のように、複数のTokenがこの順序で連続
-     * して初めて1つの意味になるような条件をすべて満たした時に結果を返す。
+     * For example, a result is returned when multiple tokens, such as "壱百満天原サロメ" or "横断歩道",
+     * meet all the conditions that make up a single meaning only when they are consecutively placed in this order.
      * <p>
-     * 連続する条件にマッチした場合は tokenPos をその分だけ進める必要があるため、進
-     * めた後の tokenPos を返却する。
+     * If consecutive conditions are matched, tokenPos must be advanced accordingly,
+     * so the advanced tokenPos is returned.
      * <p>
-     * 第三引数は変換ルールにマッチしたかどうかを返す。
+     * The third argument returns whether the conversion rule matches.
      */
     StringResult convertContinuousConditions(int tokenPos) {
         for (ContinuousConditionsConvertRule mc : rule.continuousConditionsConvertRules) {
@@ -258,9 +260,9 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
     }
 
     /**
-     * tokens の tokenPos の位置からのトークンが、連続する条件にすべてマッチするかを判定する。
+     * Determine whether the tokens from position tokenPos in tokens match all the consecutive conditions.
      * <p>
-     * 次のトークンが存在しなかったり、1つでも条件が不一致になった場合 false を返す。
+     * If the next token does not exist or if any of the conditions are not met, false is returned.
      */
     private boolean matchContinuousConditions(int tokenPos, ConvertCondition[] ccs) {
         int p = tokenPos;
@@ -277,7 +279,7 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
         return true;
     }
 
-    /** 除外ルールと一致するものが存在するかを判定する。 */
+    /** Determine if there is a match for the exclusion rule. */
     private boolean matchExcludeRule(TokenData data) {
         for (ConvertRule c : rule.excludeRules) {
             if (!data.matchAllTokenData(c.conditions)) {
@@ -303,7 +305,7 @@ logger.log(Level.TRACE, "token[%d] result: %s".formatted(p, buf));
         }
     }
 
-    /** 基本的な変換を行う。 */
+    /** Perform basic conversions. */
     private ConversionResult convert(TokenData data, int p, String surface, boolean nounKeep) {
         ConvertRule c = matchConvertRule(data, p);
         return provider.convert(c, data, p, surface, nounKeep);
@@ -331,21 +333,20 @@ logger.log(Level.TRACE, "skipped: " + c.value);
                 continue;
             }
 
-            // 前に続く単語をみて変換を無視する
+            // Ignore conversion based on preceding word
             if (beforeTokenOK && c.beforeIgnoreConditions != null && beforeToken.matchAnyTokenData(c.beforeIgnoreConditions)) {
 logger.log(Level.DEBUG, "break cause before token");
                 break;
             }
 
-            // 次に続く単語をみて変換を無視する
+            // Look at the next word and ignore the conversion
             if (afterTokenOK && c.afterIgnoreConditions != null && afterToken.matchAnyTokenData(c.afterIgnoreConditions)) {
 logger.log(Level.DEBUG, "break cause after token");
                 break;
             }
 
-            // 文の区切りか、文の終わりの時だけ有効にする。
-            // 次のトークンが存在して、且つ次のトークンが文を区切るトークンでない時
-            // は変換しない。
+            // It is only enabled at the end of a sentence or at the end of a sentence.
+            // If the next token exists and is not a token that separates a sentence, no conversion is performed.
             if (c.enableWhenSentenceSeparation && afterTokenOK && !isSentenceSeparation(afterToken)) {
 logger.log(Level.DEBUG, "break cause sentence termination");
                 break;
@@ -357,7 +358,7 @@ logger.log(Level.DEBUG, "select: " + c.value + " for surface: " + tokens[p].getS
         return null;
     }
 
-    /** isSentenceSeparation は data が文の区切りに使われる token かどうかを判定する。 */
+    /** isSentenceSeparation determines whether data is a token used to separate sentences. */
     private static boolean isSentenceSeparation(TokenData data) {
         return containsFeatures(new Feature[] {Feature.Kuten, Feature.Toten}, data.features) ||
                 containsString(new String[] {"！", "!", "？", "?"}, data.surface);

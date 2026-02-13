@@ -31,9 +31,9 @@ class JSAPITest2_aquestalk_win32 {
     }
 
     static void speak(String text) throws Exception {
-        // シンセザイザのモードを指定
+        // Specify the synthesizer mode
         SynthesizerModeDesc desc = new AquesTalkSynthesizerModeDesc("AquesTalkEngineCentral", "general", Locale.JAPAN);
-        // シンセザイザを作成
+        // Create a synthesizer
         Synthesizer synthesizer = Central.createSynthesizer(desc);
         synthesizer.allocate();
         synthesizer.resume();

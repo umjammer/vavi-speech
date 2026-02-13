@@ -29,7 +29,7 @@ class FreeTTSTest {
     }
 
     static void speak(String text) throws Exception {
-        // シンセザイザのモードを指定
+        // Specify the synthesizer mode
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         SynthesizerModeDesc desc = new SynthesizerModeDesc(Locale.US);
         Central.registerEngineCentral("com.sun.speech.engine.freetts.jsapi.FreeTTSEngineCentral");

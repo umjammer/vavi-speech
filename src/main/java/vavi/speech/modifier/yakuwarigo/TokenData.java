@@ -22,7 +22,7 @@ public class TokenData {
     String pronunciation;
     public Feature features;
 
-    /** matchAnyTokenData は  data がいずれかの c と一致した時に true を返す。*/
+    /** matchAnyTokenData returns true when data matches any of c. */
     public boolean matchAnyTokenData(ConvertCondition[] c) {
         for (ConvertCondition cond : c) {
             if (cond.equalsTokenData(this)) {
@@ -32,7 +32,7 @@ public class TokenData {
         return false;
     }
 
-    /** matchAllTokenData は data がすべての c と一致した時に true を返す。 */
+    /** matchAllTokenData returns true when data matches all c. */
     public boolean matchAllTokenData(ConvertCondition[] c) {
         for (ConvertCondition cond : c) {
             if (!cond.equalsTokenData(this)) {
@@ -43,8 +43,8 @@ public class TokenData {
     }
 
     /**
-     * isPoliteWord は丁寧語かどうかを判定する。
-     * 読みがオで始まる言葉も true になる。
+     * isPoliteWord determines whether the word is polite.
+     * Words that start with the reading "オ" will also be true.
      */
     public boolean isPoliteWord() {
         return this.reading != null && this.reading.startsWith("オ");

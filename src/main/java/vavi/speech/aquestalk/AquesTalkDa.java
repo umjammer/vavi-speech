@@ -1,5 +1,5 @@
 /*
- * 規則音声合成エンジン AquesTalk
+ * AquesTalk rule-based speech synthesis engine
  *
  * COPYRIGHT (C) 2006 AQUEST CORP.
  */

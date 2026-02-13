@@ -20,20 +20,20 @@ import java.util.Optional;
 public class Rule {
 
     /**
-     * ConvertRule は 単独のTokenに対して、Conditionsがすべてマッチしたときに変換するルール。
+     * ConvertRule is a rule that converts when all Conditions match for a single Token.
      * <p>
-     * 基本的な変換はこの型で定義する。
+     * Basic conversions are defined in this type.
      */
     public static class ConvertRule {
 
         boolean disabled;
-        /** 起点になる変換条件 */
+        /** Conversion conditions that serve as the starting point */
         ConvertCondition[] conditions;
-        /** 前のTokenで条件にマッチした場合は無視する */
+        /** Ignore if the previous Token matches the condition */
         ConvertCondition[] beforeIgnoreConditions;
-        /** 次のTokenで条件にマッチした場合は無視する */
+        /** Ignore if the next Token matches the condition */
         ConvertCondition[] afterIgnoreConditions;
-        /** 文の区切り（単語の後に句点か読点がくる、あるいは何もない）場合だけ有効にする */
+        /** Enable only when there is a sentence separator (a period or comma follows the word, or there is nothing) */
         boolean enableWhenSentenceSeparation;
         /** class#method */
         public String extraRule3;
@@ -41,7 +41,7 @@ public class Rule {
         public String extraRule;
         /** boolean */
         public String extraRule2;
-        /** この文字列に置換する */
+        /** Replace with this string */
         public String value;
         @Override public String toString() {
             return "ConvertRule{" +
@@ -58,7 +58,7 @@ public class Rule {
         }
     }
 
-    /** ContinuousConditionsConvertRule は連続する条件がすべてマッチしたときに変換するルール。 */
+    /** ContinuousConditionsConvertRule is a rule that converts when all consecutive conditions match. */
     public static class ContinuousConditionsConvertRule {
         public String value;
         /** class#method */
@@ -76,7 +76,7 @@ public class Rule {
         }
     }
 
-    /** SentenceEndingParticleConvertRule は「名詞」＋「動詞」＋「終助詞」の組み合わせによる変換ルール。 */
+    /** SentenceEndingParticleConvertRule is a conversion rule based on the combination of "Noun" + "Verb" + "Sentence-ending particle". */
     public static class SentenceEndingParticleConvertRule {
 
         public static MeaningType getMeaningType(Map<MeaningType, ConvertCondition[]> typeMap, TokenData data) {
@@ -89,7 +89,7 @@ public class Rule {
             }
         }
 
-        /** MeaningType は言葉の意味分類。 */
+        /** MeaningType is the semantic classification of words. */
         public enum MeaningType {
             Unknown,
             /** 希望 */
@@ -102,13 +102,13 @@ public class Rule {
             Coercion
         }
 
-        /** 一番最初に評価されるルール */
+        /** Rule evaluated first */
         ConvertCondition[] conditions1;
-        /** 二番目に評価されるルール */
+        /** Rule evaluated second */
         ConvertCondition[] conditions2;
-        /** 終助詞 */
+        /** Sentence-ending particle */
         Map<MeaningType, ConvertCondition[]> sentenceEndingParticle;
-        /** 助動詞。マッチしなくても次にすすむ */
+        /** Auxiliary verb. Proceed to the next even if it doesn't match */
         ConvertCondition[] auxiliaryVerb;
         Map<MeaningType, String[]> value;
 
@@ -126,23 +126,23 @@ public class Rule {
     public SentenceEndingParticleConvertRule[] sentenceEndingParticleConvertRules;
 
     /**
-     * continuousConditionsConvertRules は連続する条件がすべてマッチしたときに変換するルール。
+     * continuousConditionsConvertRules are rules that convert when all consecutive conditions match.
      * <p>
-     * 例えば「壱百満天原サロメ」や「横断歩道」のように、複数のTokenがこの順序で連続
-     * して初めて1つの意味になるような条件を定義する。
+     * For example, define conditions where multiple Tokens in this order form a single meaning,
+     * such as "壱百満天原サロメ" or "横断歩道".
      */
     public ContinuousConditionsConvertRule[] continuousConditionsConvertRules;
 
     /**
-     * ConvertRules は 単独のTokenに対して、Conditionsがすべてマ ッチしたときに変換するルール。
+     * ConvertRules are rules that convert when all Conditions match for a single Token.
      * <p>
-     * 基本的な変換はここに定義する。
+     * Basic conversions are defined here.
      */
     public ConvertRule[] convertRules;
 
     /**
-     * ExcludeRules は変換処理を無視するルール。
-     * このルールは ConvertRules よりも優先して評価される。
+     * ExcludeRules are rules to ignore conversion processing.
+     * This rule is evaluated with higher priority than ConvertRules.
      */
     public ConvertRule[] excludeRules;
 }

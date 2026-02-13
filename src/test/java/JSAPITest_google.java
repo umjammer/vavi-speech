@@ -58,12 +58,12 @@ Debug.println("vavi.speech.googlecloud.credential: " + System.getProperty("vavi.
         Path p = Paths.get(json);
 Debug.printf("google.json: exists: %s, size: %s, env: %s".formatted(Files.exists(p), Files.size(p), System.getenv("GOOGLE_APPLICATION_CREDENTIALS")));
 
-        // シンセザイザのモードを指定
+        // Specify the synthesizer mode
         desc = new GoogleCloudTextToSpeechSynthesizerModeDesc("GoogleCloudtextToSpeechEngineCentral", "general", Locale.JAPAN);
 System.err.println("---- voices ----");
 Arrays.asList(desc.getVoices()).forEach(v -> System.err.println(v.getName()));
 System.err.println("---");
-        // シンセザイザを作成
+        // Create a synthesizer
         synthesizer = Central.createSynthesizer(desc);
         synthesizer.allocate();
         synthesizer.resume();

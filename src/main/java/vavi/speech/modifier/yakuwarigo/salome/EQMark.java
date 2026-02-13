@@ -110,7 +110,7 @@ public class EQMark {
                 s.add(mark);
             }
         }
-        // 到達しないはずだけれど一応いれてる;
+        // It shouldn't reach it, but I've included it just in case
         if (s.isEmpty()) {
             return null;
         }

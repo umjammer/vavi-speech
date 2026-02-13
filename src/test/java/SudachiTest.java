@@ -176,8 +176,8 @@ System.err.printf("%sA: %04d%s\t%s\t%s%s%s\n", c1, l, c0, m.surface(), p1, p2, p
                             if (result.status == 1) {
                                 result.alerts.forEach(a -> {
                                     if (a.pos == m.begin()) {
-                                        // ひらがなは確実っぽい
-                                        // sensitivity=low なら許せる数
+                                        // ひらがな seems certain
+                                        // Acceptable number if sensitivity=low
 System.err.printf("%sB: %04d%s\t%s\t%s%s%s\t\t%s%f\t%s%s\n", c1, l, c0, m.surface(), p1, p2, p3, c1, a.score, a.suggestions, c0);
                                     } else {
                                         others.add(a);

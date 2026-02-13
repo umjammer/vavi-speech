@@ -41,12 +41,12 @@ class JSAPITest_aquestalk10_mac64 {
 
     @BeforeEach
     void setup() throws Exception {
-        // シンセザイザのモードを指定
+        // Specify the synthesizer mode
         desc = new AquesTalk10SynthesizerModeDesc("AquesTalk10EngineCentral", "general", Locale.JAPAN);
 System.err.println("---- voices ----");
 Arrays.asList(desc.getVoices()).forEach(v -> System.err.println(v.getName()));
 System.err.println("---");
-        // シンセザイザを作成
+        // Create a synthesizer
         synthesizer = Central.createSynthesizer(desc);
         synthesizer.allocate();
         synthesizer.resume();

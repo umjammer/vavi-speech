@@ -64,7 +64,7 @@ public class SalomeProvider implements Provider {
         int p = tokenPos + mc.conditions.length - 1;
         String result = mc.value;
 
-        // FIXME 書き方が汚い
+        // FIXME The writing is messy
         TokenData data = new TokenData(this.tokens[tokenPos]);
         String surface = data.surface;
         if ((this.opt == null || !this.opt.disablePrefix) && isPrefixAppendable(data)) {
@@ -72,7 +72,7 @@ public class SalomeProvider implements Provider {
         }
         result = result.replaceAll("@1", surface);
 
-        // 句点と～が同時に発生することは無いので早期リターンで良い
+        // A period and ~ do not occur at the same time, so an early return is fine.
         StringResult sr = randomKutenToExclamation(p);
         if (sr != null) {
             result += sr.str;
@@ -102,7 +102,7 @@ public class SalomeProvider implements Provider {
         int pos = p;
         result = result.replaceAll("@1", data.surface);
 
-        // 波線伸ばしをランダムに追加する
+        // Add wavy lines randomly
         if (this.opt == null || !this.opt.disableLongNote && c.extraRule3 != null) {
             StringResult sr = this.execExtraRule(c.extraRule3, pos);
             if (sr != null) {
@@ -111,7 +111,7 @@ public class SalomeProvider implements Provider {
             }
         }
 
-        // 手前に「お」を付ける
+        // Add "お" in front
         if (this.opt == null || !this.opt.disablePrefix && c.extraRule2 == null) {
             AppendResult ar = appendPrefix(data, pos, result, nounKeep);
             result = ar.result;
@@ -124,7 +124,7 @@ public class SalomeProvider implements Provider {
     @Override
     public String convert(TokenData data) {
         String s = data.surface;
-        // TODO ベタ書きしててよくない
+        // TODO It's not good not to abstract.
         if ((this.opt == null || !this.opt.disablePrefix) && (equalsFeatures(data.features, Feature.Pos.NounsGeneral) ||
                 equalsFeatures(slice(data.features, 0, 2), Feature.Pos.NounsSaDynamic))) {
             s = "お" + s;
@@ -148,13 +148,14 @@ public class SalomeProvider implements Provider {
     }
 
     /**
-     * 乱数が絡むと単体テストがやりづらくなるので、
+     * When random numbers are involved, it becomes difficult to perform unit testing, so
      * set mock sub class here for fixed fixture.
      */
     private static final Randomizer randomizer = new Randomizer();
 
     /**
-     * newLongNote は次の token が感嘆符か疑問符の場合に波線、感嘆符、疑問符をランダムに生成する。
+     * newLongNote randomly generates a wavy line, an exclamation mark,
+     * or a question mark if the next token is an exclamation mark or a question mark.
      *
      * @param p tokens index
      * @return nullable
@@ -171,15 +172,16 @@ public class SalomeProvider implements Provider {
         StringBuilder suffix = new StringBuilder();
         suffix.append("～".repeat(Math.max(0, w)));
 
-        // ！or？をどれかからランダムに選択する
+        // Randomly select either ! or ?
         EQMark feq = sampleExclamationQuestionByValue(s);
 
-        // 次の token は必ず感嘆符か疑問符のどちらかであることが確定しているため
-        // -1 して数を調整している。
+        // Since it is certain that the next token will always be either an exclamation mark
+        // or a question mark, the number is adjusted by -1.
         suffix.append(String.valueOf(feq.value).repeat(Math.max(0, e - 1)));
 
-        // 後ろに！や？が連続する場合、それらをすべて feq と同じ種類（半角、全角、
-        // 絵文字）の！や？に置き換えて返却する。
+        // If there are consecutive exclamation marks or question marks at the end,
+        // they will all be replaced with exclamation marks or question marks of the same type as feq
+        // (半角, 全角, 絵文字) and returned.
         StringResult sr = getContinuousExclamationMark(p, feq);
         suffix.append(sr.str);
         return new StringResult(suffix.toString(), sr.pos);
@@ -218,14 +220,14 @@ public class SalomeProvider implements Provider {
                 if (eq == null) {
                     return new StringResult(result.toString(), pos);
                 } else {
-                    // e は！か？のどちらかなので、同じスタイルの文字を取得して追加
+                    // The e is either an ! or a ?, so take the same style character and add it.
                     EQMark got = findExclamationQuestionByStyleAndMeaning(feq.style, eq.meaning);
                     if (got != null) {
                         result.append(got.value);
                     }
                 }
             }
-            // トークンの位置を制御する変数なので、forループ内では変更しない
+            // This variable controls the position of the token, so it should not be changed within the for loop.
             pos = i;
         }
 
@@ -233,7 +235,7 @@ public class SalomeProvider implements Provider {
     }
 
     /**
-     * randomKutenToExclamation はランダムで句点を！に変換する。
+     * randomKutenToExclamation randomly converts periods to !
      *
      * @return nullable
      */
@@ -267,7 +269,7 @@ logger.log(Level.TRACE, "shuffleElementsKutenToExclamation: " + l);
             return false;
         }
 
-        // 丁寧語の場合は「お」を付けない
+        // If you are using 丁寧語, do not add "お"
         return !data.isPoliteWord();
     }
 
@@ -282,14 +284,14 @@ logger.log(Level.TRACE, "shuffleElementsKutenToExclamation: " + l);
         }
     }
 
-    /** surface の前に「お」を付ける。 */
+    /** Add "お" before surface. */
     private AppendResult appendPrefix(TokenData data, int i, String surface, boolean nounKeep) {
         if (!isPrefixAppendable(data)) {
             return new AppendResult(surface, false);
         }
 
-        // 次のトークンが動詞の場合は「お」を付けない。
-        // 例: プレイする
+        // If the next token is a verb, do not add "お".
+        // Example: プレイする
         if (i + 1 < this.tokens.length) {
             data = new TokenData(this.tokens[i + 1]);
             if (equalsFeatures(data.features, new Feature.Feat().setElements("動詞", "自立"))) {
@@ -297,7 +299,7 @@ logger.log(Level.TRACE, "shuffleElementsKutenToExclamation: " + l);
             }
         }
 
-        // すでに「お」を付与されているので、「お」を付与しない
+        // Since "お" has already been added, do not add "お"
         if (nounKeep) {
             return new AppendResult(surface, false);
         }
@@ -305,13 +307,13 @@ logger.log(Level.TRACE, "shuffleElementsKutenToExclamation: " + l);
         if (0 < i) {
             data = new TokenData(this.tokens[i - 1]);
 
-            // 手前のトークンが「お」の場合は付与しない
+            // Do not add if the previous token is "お"
             if (equalsFeatures(data.features, new Feature.Feat().setElements("接頭詞", "名詞接続"))) {
                 return new AppendResult(surface, false);
             }
 
-            // サ変接続が来ても付与しない。
-            // 例: 横断歩道、解体新書
+            // Even if a サ変接続 occurs, it will not be granted.
+            // Example: 横断歩道、解体新書
             if (equalsFeatures(data.features, new Feature.Feat().setElements("名詞", "サ変接続"))) {
                 return new AppendResult(surface, false);
             }

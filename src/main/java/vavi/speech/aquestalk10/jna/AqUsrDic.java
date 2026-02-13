@@ -12,52 +12,52 @@ import com.sun.jna.Native;
 
 
 /**
- * AqUsrDic - ユーザ辞書ライブラリ
- * AqKanji2Koe/AqKanji2Roman用
+ * AqUsrDic - User Dictionary Library
+ * For AqKanji2Koe/AqKanji2Roman
  * <p>
- * 【ディレクトリ構成】
+ * [Directory structure]
  * <pre>
  * <aq_dic>
- * |- aqdic.binシステム辞書
- * |- aq_usr.dicユーザ辞書
+ * |- aqdic.bin System Dictionary
+ * |- aq_usr.dic User Dictionary
  * </pre>
  * </p>
  * <p>
- * 【注意】
- * ユーザ辞書はシステム辞書に依存するため、
- * 異なるシステム辞書との組み合わせは正常動作しない。
+ * [Note]
+ * Since the user dictionary depends on the system dictionary,
+ * it will not work properly when combined with a different system dictionary.
  * </p>
  * <p>
- * 品詞コード(posCode)：品詞名
+ * Part of speech code (posCode): part of speech name
  * <ul>
- * <li>0:名詞
- * <li>1:名詞(サ変)
- * <li>2:人名
- * <li>3:人名(姓)
- * <li>4:人名(名)
- * <li>5:固有名詞
- * <li>6:固有名詞(組織)
- * <li>7:固有名詞(地域)
- * <li>8:固有名詞(国)
- * <li>9:代名詞
- * <li>10:代名詞(縮約)
- * <li>11:名詞(副詞可能)
- * <li>12:名詞(接続詞的)
- * <li>13:名詞(形容動詞語幹)
- * <li>14:名詞(ナイ形容詞語幹)
- * <li>15:形容詞
- * <li>16:副詞
- * <li>17:副詞(助詞類接続)
- * <li>18:接頭詞(名詞接続)
- * <li>19:接頭詞(動詞接続)
- * <li>20:接頭詞(数接続)
- * <li>21:接頭詞(形容詞接続)
- * <li>22:接続詞
- * <li>23:連体詞
- * <li>24:記号
- * <li>25:記号(アルファベット)
- * <li>26:感動詞
- * <li>27:間投詞
+ * <li>0:noun
+ * <li>1:Noun (サ変)
+ * <li>2:person's name
+ * <li>3:Person name (surname)
+ * <li>4:Person's name (first name)
+ * <li>5:Proper nouns
+ * <li>6:Proper noun (Organization)
+ * <li>7:Proper noun (Region)
+ * <li>8:Proper noun (Country)
+ * <li>9:Pronoun
+ * <li>10:Pronoun (Contraction)
+ * <li>11:Noun (Adverbial)
+ * <li>12:Noun (Conjunctive)
+ * <li>13:Noun (Adjectival verb stem)
+ * <li>14:Noun (ナイ adjective stem)
+ * <li>15:Adjective
+ * <li>16:Adverb
+ * <li>17:Adverb (Particle connection)
+ * <li>18:Prefix (Noun connection)
+ * <li>19:Prefix (Verb connection)
+ * <li>20:Prefix (Number connection)
+ * <li>21:Prefix (Adjective connection)
+ * <li>22:Conjunction
+ * <li>23:Adnominal
+ * <li>24:Symbol
+ * <li>25:Symbol (Alphabet)
+ * <li>26:Interjection
+ * <li>27:Interjection (Filler)
  * </ul>
  * </p>
  * 2017/05/11 N.Yamazaki Creation.
@@ -67,41 +67,41 @@ public interface AqUsrDic extends Library {
     AqUsrDic INSTANCE = Native.load("AqUsrDic", AqUsrDic.class);
 
     /**
-     * CSV辞書からユーザ辞書(aq_usr.dic)を生成(上書)
-     * aq_user.dicと同じディレクトリにシステム辞書(aqdic.bin)があること
+     * Generate (overwrite) user dictionary (aq_usr.dic) from CSV dictionary
+     * The system dictionary (aqdic.bin) must exist in the same directory as aq_user.dic
      *
-     * @param pathUserDic ユーザ辞書(aq_user.dic)ファイルのパス
-     * @param pathDicCsv CSV辞書ファイルのパス
-     * @return 0：正常終了それ以外：エラー
+     * @param pathUserDic Path to the user dictionary (aq_user.dic) file
+     * @param pathDicCsv Path to the CSV dictionary file
+     * @return 0: Normal termination, Other: Error
      */
     int AqUsrDic_Import(String pathUserDic, String pathDicCsv);
 
     /**
-     * ユーザ辞書(aq_usr.dic)からCSV辞書を生成
-     * aq_user.dicと同じディレクトリにシステム辞書(aqdic.bin)があること
+     * Generate CSV dictionary from user dictionary (aq_usr.dic)
+     * The system dictionary (aqdic.bin) must exist in the same directory as aq_user.dic
      *
-     * @param pathUserDic ユーザ辞書(aq_user.dic)ファイルのパス
-     * @param pathDicCsv CSV辞書ファイルのパス
-     * @return 0：正常終了それ以外：エラー
+     * @param pathUserDic Path to the user dictionary (aq_user.dic) file
+     * @param pathDicCsv Path to the CSV dictionary file
+     * @return 0: Normal termination, Other: Error
      */
     int AqUsrDic_Export(String pathUserDic, String pathDicCsv);
 
     /**
-     * 書式のチェック
-     * CSV辞書に見出し語を追加・修正するとき、ユーザ辞書の生成前に
-     * 読み記号列の書式などをチェック
+     * Check format
+     * When adding/modifying headwords in the CSV dictionary, before generating the user dictionary,
+     * check the format of the reading symbol string, etc.
      *
-     * @param surface 見出し語文字列(UTF8)
-     * @param yomi よみ記号列（アクセント付き発音記号列 UTF8）
-     * @param posCode 品詞コード（下記参照）
-     * @return 0：チェックOKそれ以外：エラー
+     * @param surface Headword string (UTF8)
+     * @param yomi Reading symbol string (Pronunciation symbol string with accent UTF8)
+     * @param posCode Part of speech code (see below)
+     * @return 0: Check OK, Other: Error
      */
     int AqUsrDic_Check(String surface, String yomi, int posCode);
 
     /**
-     * 最後のエラーの詳細メッセージを返す
+     * Returns the detailed message of the last error
      *
-     * @return エラーメッセージ（UTF8, NULL終端)
+     * @return Error message (UTF8, NULL terminated)
      */
     String AqUsrDic_GetLastError();
 }
