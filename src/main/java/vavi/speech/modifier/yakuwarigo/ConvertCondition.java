@@ -44,7 +44,7 @@ public class ConvertCondition {
         if (isNotEmptyStringAndDoesntEqualString(this.reading, data.reading)) {
             return false;
         }
-        if (isNotEmptyStringAndDoesntEqualString(this.baseForm, data.base_form)) {
+        if (isNotEmptyStringAndDoesntEqualString(this.baseForm, data.baseForm)) {
             return false;
         }
         if (isNotNullAndDoesntMatchString(this.surfaceRe, data.surface)) {
@@ -53,7 +53,7 @@ public class ConvertCondition {
         if (isNotNullAndDoesntMatchString(this.readingRe, data.reading)) {
             return false;
         }
-        if (isNotNullAndDoesntMatchString(this.baseFormRe, data.base_form)) {
+        if (isNotNullAndDoesntMatchString(this.baseFormRe, data.baseForm)) {
             return false;
         }
 

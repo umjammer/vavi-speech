@@ -17,7 +17,7 @@ public class TokenData {
     int end;
     public String surface;
     String[] pos;
-    String base_form;
+    String baseForm;
     String reading;
     String pronunciation;
     public Feature features;
@@ -59,8 +59,8 @@ public class TokenData {
         return this;
     }
 
-    public TokenData setBaseForm(String base_form) {
-        this.base_form = base_form;
+    public TokenData setBaseForm(String baseForm) {
+        this.baseForm = baseForm;
         return this;
     }
 
@@ -89,7 +89,7 @@ public class TokenData {
         if (features == null) {
             features = Feature.Feat.NULL;
         }
-        base_form = t.getBasicString();
+        baseForm = t.getBasicString();
         reading = t.getReading();
         pronunciation = t.getPronunciation();
     }

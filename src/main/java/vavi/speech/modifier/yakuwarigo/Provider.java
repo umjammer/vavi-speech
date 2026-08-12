@@ -45,7 +45,7 @@ import static vavi.speech.modifier.yakuwarigo.YakuwarigoModifier.StringResult;
  */
 public interface Provider {
 
-    Logger logger = getLogger(ConvertConditionJsonSerDes.class.getName());
+    Logger logger = getLogger(Provider.class.getName());
 
     /* gson: not serialize when false  */
     JsonSerializer<Boolean> booleanJsonSerializer = (in, type, context) ->
