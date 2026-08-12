@@ -42,7 +42,7 @@ selected by `aquestalk10.properties`
 |----------|---------------------|--------|---------|---------|
 | simple   | SimpleConverter     | ✅ |  💩     |         |
 | ojosama  | YakuearigoConverter | ✅ | 😐|         |
-| zundamon | YakuearigoConverter | 🚧 | |         |
+| zundamon | YakuearigoConverter | ✅ | 😐|         |
 
 ## Install
 
@@ -152,7 +152,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
    * ~~[お嬢様言葉](https://github.com/jiro4989/ojosama)~~ done
      * remaining some unit tests
      * ~~extract rules as json~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/salome/rule.json))
-   * ずんだもん ([wip](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
+   * ~~ずんだもん~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
  * unify japanese tokenizer (lucene-gosen?)
  * ~~AVSpeechSynthesizer needs [obj-c block](https://github.com/umjammer/rococoa/discussions/23)~~
  * access private

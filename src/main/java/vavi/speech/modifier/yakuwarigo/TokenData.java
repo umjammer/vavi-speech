@@ -64,6 +64,11 @@ public class TokenData {
         return this;
     }
 
+    /** the dictionary (terminal) form of the word. */
+    public String getBaseForm() {
+        return baseForm;
+    }
+
     public TokenData setReading(String reading) {
         this.reading = reading;
         return this;
