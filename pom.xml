@@ -23,6 +23,10 @@
   <properties>
     <freetts.groupId>com.github.umjammer.FreeTTS</freetts.groupId> <!-- org.jvoicexml / com.github.umjammer.FreeTTS -->
     <freetts.version>1.2.5</freetts.version>
+
+    <!-- see vavi.speech.modifier.yakuwarigo.SFAgent -->
+    <sf.agent.jar>${project.build.directory}/sf-agent.jar</sf.agent.jar>
+    <sf.agent.targets>vavi.speech.modifier.yakuwarigo.salome.EQMark#shuffler,vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomizer,vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#shuffleElementsKutenToExclamation</sf.agent.targets>
   </properties>
 
   <profiles>
@@ -77,6 +81,7 @@
               </environmentVariables>
               <argLine>
                 --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                -javaagent:${sf.agent.jar}=${sf.agent.targets}
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
                 -Dsudachi.dir=@{sudachi.dir}
                 -Dsen.home=@{sen.home}
@@ -104,6 +109,7 @@
             <configuration>
               <argLine>
                 --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                -javaagent:${sf.agent.jar}=${sf.agent.targets}
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
               </argLine>
               <reuseForks>false</reuseForks>
@@ -193,11 +199,40 @@
   <build>
     <plugins>
       <plugin>
+        <!-- packs SFAgent into a jar with a Premain-Class manifest, for surefire's -javaagent -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>sf-agent-jar</id>
+            <phase>process-test-classes</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <jar destfile="${sf.agent.jar}">
+                  <fileset dir="${project.build.testOutputDirectory}"
+                           includes="vavi/speech/modifier/yakuwarigo/SFAgent*.class"/>
+                  <manifest>
+                    <attribute name="Premain-Class" value="vavi.speech.modifier.yakuwarigo.SFAgent"/>
+                    <attribute name="Agent-Class" value="vavi.speech.modifier.yakuwarigo.SFAgent"/>
+                    <attribute name="Can-Retransform-Classes" value="true"/>
+                  </manifest>
+                </jar>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.12.1</version>
         <configuration>
-          <release>21</release>
+          <release>25</release>
         </configuration>
       </plugin>
 

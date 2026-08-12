@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledForJreRange;
-import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -34,7 +32,6 @@ import static vavi.speech.modifier.yakuwarigo.SFModifier.setFinalStatic;
  *  because the dictionary is not the same as the original
  *  or miss porting
  */
-@EnabledForJreRange(max = JRE.JAVA_17)
 class OjosamaTest {
 
     static String[] original;
