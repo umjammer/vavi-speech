@@ -26,7 +26,7 @@
 
     <!-- see vavi.speech.modifier.yakuwarigo.SFAgent -->
     <sf.agent.jar>${project.build.directory}/sf-agent.jar</sf.agent.jar>
-    <sf.agent.targets>vavi.speech.modifier.yakuwarigo.salome.EQMark#shuffler,vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomizer,vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#shuffleElementsKutenToExclamation</sf.agent.targets>
+    <sf.agent.targets>vavi.speech.modifier.yakuwarigo.salome.EQMark#shuffler,vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#randomizer,vavi.speech.modifier.yakuwarigo.salome.SalomeProvider#kutenToExclamationCandidates</sf.agent.targets>
   </properties>
 
   <profiles>
