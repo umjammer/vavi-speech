@@ -321,8 +321,8 @@
           <artifactId>rococoa-cocoa</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>com.github.lostromb.concentus</groupId>
-          <artifactId>Concentus</artifactId>
+          <groupId>com.github.lostromb</groupId>
+          <artifactId>concentus</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
