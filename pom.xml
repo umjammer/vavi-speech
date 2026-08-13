@@ -63,6 +63,34 @@
             </executions>
           </plugin>
           <plugin>
+            <!-- packs SFAgent into a jar with a Premain-Class manifest, for surefire's -javaagent -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+              <execution>
+                <id>sf-agent-jar</id>
+                <phase>process-test-classes</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <jar destfile="${sf.agent.jar}">
+                      <fileset dir="${project.build.testOutputDirectory}"
+                               includes="vavi/speech/modifier/yakuwarigo/SFAgent*.class"/>
+                      <manifest>
+                        <attribute name="Premain-Class" value="vavi.speech.modifier.yakuwarigo.SFAgent"/>
+                        <attribute name="Agent-Class" value="vavi.speech.modifier.yakuwarigo.SFAgent"/>
+                        <attribute name="Can-Retransform-Classes" value="true"/>
+                      </manifest>
+                    </jar>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <!-- don't touch: this works well on local -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
@@ -198,35 +226,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <!-- packs SFAgent into a jar with a Premain-Class manifest, for surefire's -javaagent -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>sf-agent-jar</id>
-            <phase>process-test-classes</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <jar destfile="${sf.agent.jar}">
-                  <fileset dir="${project.build.testOutputDirectory}"
-                           includes="vavi/speech/modifier/yakuwarigo/SFAgent*.class"/>
-                  <manifest>
-                    <attribute name="Premain-Class" value="vavi.speech.modifier.yakuwarigo.SFAgent"/>
-                    <attribute name="Agent-Class" value="vavi.speech.modifier.yakuwarigo.SFAgent"/>
-                    <attribute name="Can-Retransform-Classes" value="true"/>
-                  </manifest>
-                </jar>
-              </target>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
