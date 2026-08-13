@@ -137,7 +137,6 @@
             <configuration>
               <argLine>
                 --add-opens java.base/java.lang.reflect=ALL-UNNAMED
-                -javaagent:${sf.agent.jar}=${sf.agent.targets}
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
               </argLine>
               <reuseForks>false</reuseForks>
