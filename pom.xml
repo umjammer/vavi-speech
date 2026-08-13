@@ -115,7 +115,7 @@
               <reuseForks>false</reuseForks>
               <trimStackTrace>false</trimStackTrace>
               <includes>
-                <include>**/*Test_*.java</include>
+                <include>**/*</include>
               </includes>
             </configuration>
           </plugin>
@@ -284,7 +284,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>6.0.2</version>
+        <version>6.0.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -295,7 +295,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.1.16</version>
+      <version>1.1.19</version>
     </dependency>
     <dependency> <!-- JSAPI1 -->
       <groupId>com.github.umjammer</groupId>
@@ -360,16 +360,25 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.umjammer</groupId> <!-- com.github.umjammer / vavi -->
+      <groupId>vavi</groupId> <!-- com.github.umjammer / vavi -->
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.18</version>
+      <version>1.0.19-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <artifactId>vavi-net-auth-amazon</artifactId>
           <groupId>com.github.umjammer.vavi-net-auth</groupId>
         </exclusion>
+        <exclusion>
+          <groupId>tools.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
+<dependency>
+  <groupId>tools.jackson.core</groupId>
+  <artifactId>jackson-core</artifactId>
+  <version>3.1.1</version>
+</dependency>
 
     <dependency>
       <groupId>${freetts.groupId}</groupId>
