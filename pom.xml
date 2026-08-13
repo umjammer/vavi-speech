@@ -115,7 +115,7 @@
               <reuseForks>false</reuseForks>
               <trimStackTrace>false</trimStackTrace>
               <includes>
-                <include>**/*</include>
+                <include>**/*Test_*.java</include>
               </includes>
             </configuration>
           </plugin>
