@@ -90,7 +90,7 @@ public class EQMark {
 
         public EQMark getFirst(List<EQMark> s) {
             Collections.shuffle(s, random);
-            return s.get(0);
+            return s.getFirst();
         }
     }
 

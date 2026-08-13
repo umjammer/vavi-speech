@@ -8,8 +8,6 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.condition.EnabledForJreRange;
-import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -28,7 +26,6 @@ import static vavi.speech.modifier.yakuwarigo.salome.EQMark.isExclamationQuestio
 import static vavi.speech.modifier.yakuwarigo.salome.EQMark.sampleExclamationQuestionByValue;
 
 
-@EnabledForJreRange(max = JRE.JAVA_17)
 class TestChars {
 
     static Shuffler original;

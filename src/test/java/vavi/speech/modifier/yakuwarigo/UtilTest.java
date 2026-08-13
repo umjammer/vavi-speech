@@ -6,8 +6,6 @@ package vavi.speech.modifier.yakuwarigo;
 
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.condition.EnabledForJreRange;
-import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,7 +19,6 @@ import static vavi.speech.modifier.yakuwarigo.Feature.containsString;
 import static vavi.speech.modifier.yakuwarigo.Feature.equalsFeatures;
 
 
-@EnabledForJreRange(max = JRE.JAVA_17)
 public class UtilTest {
 
     static Stream<Arguments> sourceIsKuten() {

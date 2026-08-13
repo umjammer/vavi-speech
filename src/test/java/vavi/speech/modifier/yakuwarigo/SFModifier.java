@@ -6,41 +6,39 @@
 
 package vavi.speech.modifier.yakuwarigo;
 
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 
 /**
  * SFModifier.
+ * <p>
+ * Reads and writes private static fields, so that unit tests can swap the
+ * randomizers and shufflers of the converters for fixed fixtures.
+ * <p>
+ * Writing needs the field to be non final at the point the JVM loaded it, which
+ * {@link SFAgent} arranges by rewriting the class file on the way in. Up to
+ * Java 17 this class instead cleared {@code ACC_FINAL} through the
+ * {@code Field.modifiers} back door; JEP 416 closed that in Java 18.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2024-05-23 nsano initial version <br>
- * @see "https://stackoverflow.com/a/56043252"
- * @see "https://stackoverflow.com/a/14724884"
+ *          0.01 2026-08-13 nsano rely on SFAgent instead of Field.modifiers <br>
+ * @see SFAgent
  */
 public class SFModifier {
 
-    /** @see "https://stackoverflow.com/a/56043252" */
-    private static final VarHandle MODIFIERS;
-
-    /* @see "https://stackoverflow.com/a/56043252" */
-    static {
-        try {
-            var lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
-            MODIFIERS = lookup.findVarHandle(Field.class, "modifiers", int.class);
-        } catch (IllegalAccessException | NoSuchFieldException ex) {
-            throw new RuntimeException(ex);
+    /** */
+    private static void setSecurityLow(Field field) {
+        if (Modifier.isFinal(field.getModifiers())) {
+            throw new IllegalStateException(String.format("""
+                    %s#%s is still final, so it cannot be replaced.
+                    the -javaagent for %s is missing from the command line, or it was not asked for this field.
+                    expected: -javaagent:target/sf-agent.jar=%s#%s""",
+                    field.getDeclaringClass().getName(), field.getName(),
+                    SFAgent.class.getName(),
+                    field.getDeclaringClass().getName(), field.getName()));
         }
-    }
-
-    /**
-     * @see "https://stackoverflow.com/a/56043252"
-     */
-    static void setSecurityLow(Field field) throws Exception {
-        // TODO this works Java 12 - 17
-        MODIFIERS.set(field, field.getModifiers() & ~Modifier.FINAL);
         field.setAccessible(true);
     }
 
@@ -50,8 +48,9 @@ public class SFModifier {
         field.set(null, newValue);
     }
 
+    /** read a static final field */
     public static Object getFinalStatic(Field field) throws Exception {
-        setSecurityLow(field);
+        field.setAccessible(true);
         return field.get(null);
     }
 }

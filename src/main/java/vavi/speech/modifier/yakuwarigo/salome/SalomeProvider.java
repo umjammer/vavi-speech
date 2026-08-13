@@ -9,8 +9,7 @@ package vavi.speech.modifier.yakuwarigo.salome;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
 
 import net.java.sen.Token;
 import vavi.speech.modifier.yakuwarigo.Feature;
@@ -134,8 +133,8 @@ public class SalomeProvider implements Provider {
 
     //----
 
-    /** */
-    private static final String[] shuffleElementsKutenToExclamation = {"。", "。", "！", "❗"};
+    /** weighted by repetition, one is drawn at random; see {@link #newKutenToExclamation} */
+    private static final String[] kutenToExclamationCandidates = {"。", "。", "！", "❗"};
 
     /** */
     static class Randomizer {
@@ -170,14 +169,14 @@ public class SalomeProvider implements Provider {
         int e = randomizer.exclamationMarkCount();
 
         StringBuilder suffix = new StringBuilder();
-        suffix.append("～".repeat(Math.max(0, w)));
+        suffix.repeat("～", Math.max(0, w));
 
         // Randomly select either ! or ?
         EQMark feq = sampleExclamationQuestionByValue(s);
 
         // Since it is certain that the next token will always be either an exclamation mark
         // or a question mark, the number is adjusted by -1.
-        suffix.append(String.valueOf(feq.value).repeat(Math.max(0, e - 1)));
+        suffix.repeat(String.valueOf(Objects.requireNonNull(feq).value), Math.max(0, e - 1));
 
         // If there are consecutive exclamation marks or question marks at the end,
         // they will all be replaced with exclamation marks or question marks of the same type as feq
@@ -254,10 +253,12 @@ public class SalomeProvider implements Provider {
             return null;
         }
 
-        List<String> l = Arrays.asList(shuffleElementsKutenToExclamation);
-logger.log(Level.TRACE, "shuffleElementsKutenToExclamation: " + l);
-        Collections.shuffle(l, random);
-        return new StringResult(l.get(0), pos);
+        // draw by index rather than shuffling a view of the array: Arrays.asList writes through,
+        // so Collections.shuffle would permute this shared static and could tear under concurrency.
+        // duplicated entries are what weight the draw, so the odds are unchanged: 。50% ！25% ❗25%
+        String[] candidates = kutenToExclamationCandidates;
+logger.log(Level.TRACE, "kutenToExclamationCandidates: " + Arrays.toString(candidates));
+        return new StringResult(candidates[random.nextInt(candidates.length)], pos);
     }
 
     //----

@@ -1,7 +1,7 @@
 [![Release](https://jitpack.io/v/umjammer/vavi-speech.svg)](https://jitpack.io/#umjammer/vavi-speech)
 [![Java CI](https://github.com/umjammer/vavi-speech/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/maven.yml)
 [![CodeQL](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/vavi-speech/actions/workflows/codeql-analysis.yml)
-![Java](https://img.shields.io/badge/Java-21-b07219)
+![Java](https://img.shields.io/badge/Java-25-b07219)
 [![Parent](https://img.shields.io/badge/Parent-vavi--speech2-pink)](https://github.com/umjammer/vavi-speech2)
 
 # vavi-speech
@@ -42,7 +42,7 @@ selected by `aquestalk10.properties`
 |----------|---------------------|--------|---------|---------|
 | simple   | SimpleConverter     | ✅ |  💩     |         |
 | ojosama  | YakuearigoConverter | ✅ | 😐|         |
-| zundamon | YakuearigoConverter | 🚧 | |         |
+| zundamon | YakuearigoConverter | ✅ | 😐|         |
 
 ## Install
 
@@ -152,7 +152,7 @@ phonemer=vavi.speech.phoneme.KuromojiJaPhonemer
    * ~~[お嬢様言葉](https://github.com/jiro4989/ojosama)~~ done
      * remaining some unit tests
      * ~~extract rules as json~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/salome/rule.json))
-   * ずんだもん ([wip](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
+   * ~~ずんだもん~~ ([done](src/main/resources/vavi/speech/modifier/yakuwarigo/zundamon/rule.json))
  * unify japanese tokenizer (lucene-gosen?)
  * ~~AVSpeechSynthesizer needs [obj-c block](https://github.com/umjammer/rococoa/discussions/23)~~
  * access private

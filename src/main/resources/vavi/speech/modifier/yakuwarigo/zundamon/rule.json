@@ -50,7 +50,6 @@
         ],
         "Poem": [
           {
-            "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ これだけ特殊",
             "feature": {
               "elements": [
                 "助詞",
@@ -99,7 +98,7 @@
           "をするのだ"
         ],
         "Prohibition": [
-          "をしたらいけないのだ"
+          "をしちゃだめなのだ"
         ],
         "Coercion": [
           "をするのだ"
@@ -109,63 +108,2287 @@
   ],
   "continuousConditionsConvertRules": [
     {
+      "comment": "ずんだもん自身は分割されてしまうので真っ先に守る",
       "value": "ずんだもん",
       "conditions": [
         {
-          "surface": "ずんだもん"
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          },
+          "surface": "ずん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surface": "もん"
         }
       ]
     },
     {
-      "value": "するのだ",
+      "comment": "ありません。「あらない」のだ にならないように",
+      "value": "なかったのだ",
       "conditions": [
         {
-          "feature": {
-            "elements": [
-              "動詞",
-              "自立"
-            ]
-          },
-          "surface": "し"
+          "surface": "あり"
         },
         {
           "feature": {
-            "elements": [
-              "助動詞"
-            ]
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なかったのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "なかったのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        }
+      ]
+    },
+    {
+      "value": "あったのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "あったのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "あったのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "value": "あるのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "あるのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "あるのだ",
+      "conditions": [
+        {
+          "surface": "あり"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
           },
           "surface": "ます"
         }
       ]
     },
     {
-      "value": "なんなのだ",
+      "comment": "ありがとうございました",
+      "value": "@1なのだ",
       "conditions": [
         {
           "feature": {
-            "elements": [
-              "助動詞"
-            ]
-          },
-          "surface": "な"
+            "pos": "Pos.Interjection"
+          }
+        },
+        {
+          "surface": "ござい"
         },
         {
           "feature": {
-            "elements": [
-              "名詞",
-              "非自立",
-              "一般"
-            ]
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          }
+        },
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          }
+        },
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "comment": "ありがとうございます",
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          }
+        },
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          }
+        },
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          }
+        },
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        }
+      ]
+    },
+    {
+      "value": "なかったのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
           },
           "surface": "ん"
         },
         {
           "feature": {
-            "elements": [
-              "助動詞"
-            ]
+            "pos": "Pos.AuxiliaryVerb"
           },
-          "surface": "だ"
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なかったのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "なかったのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        }
+      ]
+    },
+    {
+      "value": "だったのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "だったのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "だったのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "surface": "ござい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        }
+      ]
+    },
+    {
+      "comment": "〜ませんでした",
+      "value": "@1nなかったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1nなかったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1nなかったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "comment": "〜ませんでした",
+      "value": "@1nなかったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1nなかったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1nなかったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "comment": "〜ません",
+      "value": "@1nないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1nないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1nないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        }
+      ]
+    },
+    {
+      "comment": "〜ません",
+      "value": "@1nないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1nないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1nないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ませ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ん"
+        }
+      ]
+    },
+    {
+      "comment": "〜ました",
+      "value": "@1tのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1tのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1tのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "comment": "〜ました",
+      "value": "@1tのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1tのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1tのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "comment": "〜ましょう",
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ましょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ましょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ましょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "comment": "〜ましょう",
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ましょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ましょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ましょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "comment": "〜ます",
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        }
+      ]
+    },
+    {
+      "comment": "〜ます",
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        }
+      ]
+    },
+    {
+      "comment": "美しいです → 美しいのだ",
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ]
+    },
+    {
+      "comment": "行くです → 行くのだ",
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ]
+    },
+    {
+      "comment": "行くです → 行くのだ",
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ない"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ない"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "ないのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ない"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ]
+    },
+    {
+      "value": "たいのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "たい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "たいのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "たい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "たいのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "たい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ]
+    },
+    {
+      "value": "たのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "たのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "たのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ]
+    },
+    {
+      "comment": "〜でした",
+      "value": "だったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "だったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "だったのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でし"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "comment": "〜でしょう",
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
         }
       ]
     },
@@ -174,20 +2397,1017 @@
       "conditions": [
         {
           "feature": {
-            "elements": [
-              "助動詞"
-            ]
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "でしょ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "value": "なので",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "ので"
+        }
+      ]
+    },
+    {
+      "value": "なのに",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "のに"
+        }
+      ]
+    },
+    {
+      "value": "だから",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "から"
+        }
+      ]
+    },
+    {
+      "value": "だが",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "が"
+        }
+      ]
+    },
+    {
+      "value": "だけど",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "けど"
+        }
+      ]
+    },
+    {
+      "value": "だけれど",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "けれど"
+        }
+      ]
+    },
+    {
+      "value": "だし",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "し"
+        }
+      ]
+    },
+    {
+      "comment": "〜です",
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "comment": "〜だろう",
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だろ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "う"
+        }
+      ]
+    },
+    {
+      "comment": "〜のだ、〜んだ",
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        }
+      ]
+    },
+    {
+      "comment": "〜のです、〜んです",
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "です"
+        }
+      ]
+    },
+    {
+      "comment": "〜のか、〜のよ",
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "のだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "comment": "読んだか、死んだか",
+      "value": "@1だのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1だのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1だのだ。",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
           },
           "surface": "だ"
         },
         {
           "feature": {
             "elements": [
-              "助詞",
-              "終助詞"
+              "記号",
+              "句点"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1だのだ@3",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "一般"
             ]
           },
-          "surface": "よ"
+          "surfaceRe": "^[！？!?]$"
+        }
+      ]
+    },
+    {
+      "comment": "文末でない過去形はそのまま。「読んだ本」が「読んだのだ本」にならないように",
+      "value": "@1だ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        }
+      ]
+    },
+    {
+      "comment": "読んだか、死んだか",
+      "value": "@1だのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1だのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1だのだ。",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "句点"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1だのだ@3",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "一般"
+            ]
+          },
+          "surfaceRe": "^[！？!?]$"
+        }
+      ]
+    },
+    {
+      "comment": "文末でない過去形はそのまま。「読んだ本」が「読んだのだ本」にならないように",
+      "value": "@1だ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        }
+      ]
+    },
+    {
+      "value": "なので",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "ので"
+        }
+      ]
+    },
+    {
+      "value": "なのに",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "のに"
+        }
+      ]
+    },
+    {
+      "value": "だから",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "から"
+        }
+      ]
+    },
+    {
+      "value": "だが",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "が"
+        }
+      ]
+    },
+    {
+      "value": "だけど",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "けど"
+        }
+      ]
+    },
+    {
+      "value": "だけれど",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "けれど"
+        }
+      ]
+    },
+    {
+      "value": "だし",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.ConnAssistant"
+          },
+          "surface": "し"
+        }
+      ]
+    },
+    {
+      "comment": "そうだね、ペンだよ",
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
         }
       ]
     },
@@ -205,6 +3425,96 @@
             "pos": "Pos.SubPostpositionalParticle"
           },
           "surface": "じゃ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubPostpositionalParticle"
+          },
+          "surface": "じゃ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubPostpositionalParticle"
+          },
+          "surface": "じゃ"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "なのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "だ"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
         }
       ]
     },
@@ -239,107 +3549,55 @@
             "pos": "Pos.AssistantParallelParticle"
           },
           "surface": "や"
-        }
-      ]
-    },
-    {
-      "value": "@1なのだ",
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.NounsGeneral"
-          }
         },
         {
           "feature": {
-            "pos": "Pos.AuxiliaryVerb"
+            "pos": "Pos.SubParEndParticle"
           },
-          "surface": "じゃ"
+          "surface": "か"
         }
       ]
     },
     {
-      "value": "@1だのだ",
+      "value": "なのだ",
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.NounsGeneral"
-          }
-        },
-        {
-          "feature": {
-            "pos": "Pos.AuxiliaryVerb"
+            "pos": "Pos.PronounGeneral"
           },
-          "surface": "だ"
+          "surface": "なん"
+        },
+        {
+          "feature": {
+            "pos": "Pos.AssistantParallelParticle"
+          },
+          "surface": "や"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
         }
       ]
     },
     {
-      "value": "@1なのだ",
+      "value": "なのだ",
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.NounsGeneral"
-          }
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "なん"
         },
         {
           "feature": {
-            "pos": "Pos.AuxiliaryVerb"
+            "pos": "Pos.AssistantParallelParticle"
           },
           "surface": "や"
         }
       ]
     },
     {
-      "value": "@1なのだ",
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.PronounGeneral"
-          }
-        },
-        {
-          "feature": {
-            "pos": "Pos.AuxiliaryVerb"
-          },
-          "surface": "じゃ"
-        }
-      ]
-    },
-    {
-      "value": "@1だのだ",
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.PronounGeneral"
-          }
-        },
-        {
-          "feature": {
-            "pos": "Pos.AuxiliaryVerb"
-          },
-          "surface": "だ"
-        }
-      ]
-    },
-    {
-      "value": "@1なのだ",
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.PronounGeneral"
-          }
-        },
-        {
-          "feature": {
-            "pos": "Pos.AuxiliaryVerb"
-          },
-          "surface": "や"
-        }
-      ]
-    },
-    {
-      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋した＋終助詞は文の終わり",
       "value": "@1をしたのだ",
       "conditions": [
         {
@@ -367,7 +3625,6 @@
       ]
     },
     {
-      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 名詞＋やる＋終助詞は文の終わり",
       "value": "@1をやったのだ",
       "conditions": [
         {
@@ -392,11 +3649,105 @@
           }
         }
       ]
+    },
+    {
+      "comment": "座りなさい → 座るのだ",
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surface": "なさい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surface": "なさい"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
+    },
+    {
+      "value": "@1bのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surface": "なさい"
+        }
+      ]
+    },
+    {
+      "comment": "〜てください → 〜てほしいのだ",
+      "value": "ほしいのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surfaceRe": "^(ください|くれ)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ]
+    },
+    {
+      "value": "ほしいのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surfaceRe": "^(ください|くれ)$"
+        },
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          }
+        }
+      ]
     }
   ],
   "convertRules": [
     {
-      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 一人称",
+      "comment": "一人称は ボク",
       "conditions": [
         {
           "feature": {
@@ -405,7 +3756,7 @@
           "surface": "俺"
         }
       ],
-      "value": "僕"
+      "value": "ボク"
     },
     {
       "conditions": [
@@ -435,7 +3786,29 @@
           "feature": {
             "pos": "Pos.PronounGeneral"
           },
-          "surface": "あたし"
+          "surface": "僕"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "ぼく"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "私"
         }
       ],
       "value": "ボク"
@@ -452,7 +3825,51 @@
       "value": "ボク"
     },
     {
-      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕ 二人称",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "わたくし"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "あたし"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "わし"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "自分"
+        }
+      ],
+      "value": "ボク"
+    },
+    {
+      "comment": "二人称は おまえ",
       "conditions": [
         {
           "feature": {
@@ -478,21 +3895,103 @@
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.AuxiliaryVerb"
+            "pos": "Pos.PronounGeneral"
           },
-          "surface": "です"
+          "surface": "おまえ"
         }
       ],
-      "afterIgnoreConditions": [
-        {
-          "feature": {
-            "pos": "Pos.SubParEndParticle"
-          }
-        }
-      ],
-      "value": "なのだ"
+      "value": "おまえ"
     },
     {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "お前"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "君"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "きみ"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "てめえ"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "てめぇ"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "きさま"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          },
+          "surface": "そなた"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          },
+          "surface": "貴様"
+        }
+      ],
+      "value": "おまえ"
+    },
+    {
+      "comment": "動詞の後ろの「だ」は過去形、「の」「ん」の後ろの「だ」は変換済みなので触らない",
       "conditions": [
         {
           "feature": {
@@ -501,116 +4000,102 @@
           "surface": "だ"
         }
       ],
+      "beforeIgnoreConditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        }
+      ],
       "afterIgnoreConditions": [
         {
           "feature": {
-            "pos": "Pos.SubParEndParticle"
+            "elements": [
+              "記号",
+              "読点"
+            ]
           }
         }
       ],
+      "enableWhenSentenceSeparation": true,
       "value": "なのだ"
     },
     {
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.VerbIndependence"
+            "pos": "Pos.AuxiliaryVerb"
           },
-          "surface": "する"
+          "surface": "です"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "value": "するのだ"
+      "value": "なのだ"
     },
     {
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.VerbIndependence"
-          },
-          "surface": "なる"
-        }
-      ],
-      "enableWhenSentenceSeparation": true,
-      "value": "なるのだ"
-    },
-    {
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.VerbIndependence"
-          },
-          "surface": "ある"
-        }
-      ],
-      "value": "あるのだ"
-    },
-    {
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.SubPostpositionalParticle"
+            "pos": "Pos.AuxiliaryVerb"
           },
           "surface": "じゃ"
         }
       ],
-      "value": "ではなのだ"
-    },
-    {
-      "conditions": [
+      "afterIgnoreConditions": [
         {
           "feature": {
-            "pos": "Pos.SentenceEndingParticle"
-          },
-          "surface": "わ"
-        }
-      ],
-      "value": "なのだ"
-    },
-    {
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.SentenceEndingParticle"
-          },
-          "surface": "な"
-        }
-      ],
-      "value": "なのだ"
-    },
-    {
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.SentenceEndingParticle"
-          },
-          "surface": "さ"
-        }
-      ],
-      "value": "なのだ"
-    },
-    {
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.AuxiliaryVerb"
-          },
-          "surface": "ます"
-        }
-      ],
-      "value": "ますのだ"
-    },
-    {
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.AuxiliaryVerb"
-          },
-          "surface": "た"
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
         }
       ],
       "enableWhenSentenceSeparation": true,
-      "value": "たのだ"
+      "value": "なのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "や"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "なのだ"
     },
     {
       "conditions": [
@@ -621,9 +4106,44 @@
           "surface": "だろ"
         }
       ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
       "value": "なのだ"
     },
     {
+      "comment": "「〜である」の ある は助動詞",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ある"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "あるのだ"
+    },
+    {
+      "comment": "打ち消し",
       "conditions": [
         {
           "feature": {
@@ -632,38 +4152,258 @@
           "surface": "ない"
         }
       ],
-      "beforeIgnoreConditions": [
+      "afterIgnoreConditions": [
         {
           "feature": {
-            "pos": "Pos.VerbIndependence"
+            "elements": [
+              "記号",
+              "読点"
+            ]
           }
         }
       ],
+      "enableWhenSentenceSeparation": true,
       "value": "ないのだ"
     },
     {
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.VerbNotIndependence"
+            "pos": "Pos.AuxiliaryVerb"
           },
-          "surface": "ください"
+          "surface": "ん"
         }
       ],
-      "value": "くださいなのだ"
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "ないのだ"
     },
     {
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.VerbNotIndependence"
+            "pos": "Pos.AuxiliaryVerb"
           },
-          "surface": "くれ"
+          "surface": "ぬ"
         }
       ],
-      "value": "くれなのだ"
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "ないのだ"
     },
     {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "まい"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "ないのだ"
+    },
+    {
+      "comment": "過去",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "た"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "たのだ"
+    },
+    {
+      "comment": "希望",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "たい"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "たいのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AuxiliaryVerb"
+          },
+          "surface": "ます"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "のだ"
+    },
+    {
+      "comment": "文末の終助詞は「のだ」に置き換える。行くよ → 行くのだ。呼びかけの「国民よ！」は名詞に続くので変換しない",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.SentenceEndingParticle"
+          },
+          "surfaceRe": "^(わ|な|さ|よ|ね|ぞ|ぜ|の|かしら)$"
+        }
+      ],
+      "beforeIgnoreConditions": [
+        {
+          "feature": {
+            "pos": "Pos.NounsGeneral"
+          }
+        },
+        {
+          "feature": {
+            "pos": "Pos.PronounGeneral"
+          }
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "のだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.SubParEndParticle"
+          },
+          "surface": "か"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "のだ"
+    },
+    {
+      "comment": "依頼",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbNotIndependence"
+          },
+          "surfaceRe": "^(ください|くれ)$"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "ほしいのだ"
+    },
+    {
+      "comment": "文末の「の」。行くの → 行くのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.NotIndependenceGeneral"
+          },
+          "surfaceRe": "^(の|ん)$"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "のだ"
+    },
+    {
+      "comment": "感動詞",
       "conditions": [
         {
           "feature": {
@@ -672,6 +4412,17 @@
           "surface": "ありがとう"
         }
       ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
       "value": "ありがとうなのだ"
     },
     {
@@ -680,10 +4431,21 @@
           "feature": {
             "pos": "Pos.Interjection"
           },
-          "surface": "じゃぁ"
+          "surface": "おはよう"
         }
       ],
-      "value": "じゃあなのだ"
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "おはようなのだ"
     },
     {
       "conditions": [
@@ -691,28 +4453,246 @@
           "feature": {
             "pos": "Pos.Interjection"
           },
-          "surface": "じゃあ"
+          "surface": "こんにちは"
         }
       ],
-      "value": "じゃあなのだ"
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "こんにちはなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "こんばんは"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "こんばんはなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "さようなら"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "さようならなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "はい"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "そうなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "うん"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "そうなのだ"
+    },
+    {
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.Interjection"
+          },
+          "surface": "いいえ"
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "ちがうのだ"
+    },
+    {
+      "comment": "形容詞文。嬉しい → 嬉しいのだ",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.AdjectivesSelfSupporting"
+          }
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "@1のだ"
+    },
+    {
+      "comment": "形容動詞文。きれい → きれいなのだ",
+      "conditions": [
+        {
+          "feature": {
+            "elements": [
+              "名詞",
+              "形容動詞語幹"
+            ]
+          }
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "@1なのだ"
+    },
+    {
+      "comment": "動詞文。基本形に戻すので 走れ → 走るのだ にもなる",
+      "conditions": [
+        {
+          "feature": {
+            "pos": "Pos.VerbIndependence"
+          }
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "@1bのだ"
     },
     {
       "conditions": [
         {
           "feature": {
             "pos": "Pos.VerbNotIndependence"
-          },
-          "surface": "くれる"
+          }
         }
       ],
-      "value": "くれるのだ"
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        }
+      ],
+      "enableWhenSentenceSeparation": true,
+      "value": "@1bのだ"
     },
     {
-      "comment": "⭕⭕⭕⭕⭕⭕⭕⭕⭕ 形容詞文。形容詞で文が終わる時に変換する",
+      "comment": "体言止め。呼びかけの「諸君！」まで変換しないように「。」で終わるときだけ",
       "conditions": [
         {
           "feature": {
-            "pos": "Pos.AdjectivesSelfSupporting"
+            "pos": "Pos.NounsGeneral"
+          }
+        }
+      ],
+      "afterIgnoreConditions": [
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "読点"
+            ]
+          }
+        },
+        {
+          "feature": {
+            "elements": [
+              "記号",
+              "一般"
+            ]
           }
         }
       ],
@@ -721,16 +4701,6 @@
     }
   ],
   "excludeRules": [
-    {
-      "conditions": [
-        {
-          "feature": {
-            "pos": "Pos.SpecificGeneral"
-          },
-          "surface": "カス"
-        }
-      ]
-    },
     {
       "conditions": [
         {

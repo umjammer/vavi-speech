@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledForJreRange;
-import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -34,7 +32,6 @@ import static vavi.speech.modifier.yakuwarigo.SFModifier.setFinalStatic;
  *  because the dictionary is not the same as the original
  *  or miss porting
  */
-@EnabledForJreRange(max = JRE.JAVA_17)
 class OjosamaTest {
 
     static String[] original;
@@ -47,12 +44,12 @@ class OjosamaTest {
 Debug.println(originalRandomizer);
         originalShuffler = (EQMark.Shuffler) getFinalStatic(EQMark.class.getDeclaredField("shuffler"));
 Debug.println(originalRandomizer);
-        original = ((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"))).clone();
+        original = ((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("kutenToExclamationCandidates"))).clone();
     }
 
     @AfterEach
     void teardown() throws Exception {
-        setFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"), original);
+        setFinalStatic(SalomeProvider.class.getDeclaredField("kutenToExclamationCandidates"), original);
         setFinalStatic(SalomeProvider.class.getDeclaredField("randomizer"), originalRandomizer);
         setFinalStatic(EQMark.class.getDeclaredField("shuffler"), originalShuffler);
     }
@@ -575,8 +572,8 @@ Debug.println(Level.FINE, "forceCharsTestMode: " + ((EQMark[]) getFinalStatic(EQ
         }
 
         if (topt != null && topt.forceKutenToExclamation) {
-            setFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"), new String[]{"❗", "❗"});
-Debug.println(Level.FINE, "forceKutenToExclamation: " + Arrays.toString((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("shuffleElementsKutenToExclamation"))));
+            setFinalStatic(SalomeProvider.class.getDeclaredField("kutenToExclamationCandidates"), new String[]{"❗", "❗"});
+Debug.println(Level.FINE, "forceKutenToExclamation: " + Arrays.toString((String[]) getFinalStatic(SalomeProvider.class.getDeclaredField("kutenToExclamationCandidates"))));
         }
 
         // Any number can be added only if forceAppendLongNote is present.
