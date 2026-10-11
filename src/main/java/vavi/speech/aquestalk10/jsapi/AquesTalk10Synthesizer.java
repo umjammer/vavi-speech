@@ -37,7 +37,7 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.SynthesizerProperties;
 
 import com.sun.speech.engine.synthesis.BaseSynthesizerProperties;
-import vavi.beans.InstanciationBinder;
+import vavi.beans.InstantiationBinder;
 import vavi.speech.Player;
 import vavi.speech.aquestalk10.jna.AquesTalk10Wrapper;
 import vavi.speech.phonemizer.JaPhonemizer;
@@ -65,10 +65,10 @@ public class AquesTalk10Synthesizer implements Synthesizer {
     private static final Logger logger = System.getLogger(AquesTalk10Synthesizer.class.getName());
 
     /** */
-    private SynthesizerModeDesc desc;
+    private final SynthesizerModeDesc desc;
 
     /** */
-    private SynthesizerProperties properties = new BaseSynthesizerProperties();
+    private final SynthesizerProperties properties = new BaseSynthesizerProperties();
 
     /**
      * Creates a new Synthesizer in the DEALLOCATED state.
@@ -87,7 +87,7 @@ logger.log(Level.INFO, "use " + phonemizer);
     }
 
     /** */
-    @Property(binder = InstanciationBinder.class, value = "vavi.speech.phonemizer.KuromojiJaPhonemizer")
+    @Property(binder = InstantiationBinder.class, value = "vavi.speech.phonemizer.KuromojiJaPhonemizer")
     private JaPhonemizer phonemizer;
 
     /** */
@@ -185,7 +185,7 @@ logger.log(Level.INFO, "use " + phonemizer);
     private AquesTalk10Wrapper aquesTalk10;
 
     /** */
-    private ExecutorService executer = Executors.newSingleThreadExecutor();
+    private final ExecutorService executer = Executors.newSingleThreadExecutor();
 
     /** */
     private boolean looping = true;

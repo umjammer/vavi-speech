@@ -12,27 +12,27 @@ Text to Speech (JSAPI) engines for Java and Japanese phonemeizers
 
 ### Staus
 
-| **Type** | **Description**                                                                                                                                                                                   | **Staus** | **SPI Status** | **Quality** | **Comment**              |
-|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------:|:--------------:|:-----------:|:-------------------------|
-| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only               |
-| AquesTalk | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 | 32bit only               |
-| AquesTalk2 | JNI                                                                                                                                                                                               | - | - | | mac: intel only          |
-| AquesTalk10 | JNA                                                                                                                                                                                               | ✅ |  ✅ | 😐 | mac: intel only          |
-| Google Cloud Text To Speech | [Google Cloud Text To Speech](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)                                                                                           | ✅ | ✅ | 👑 |                          |
-| Rococoa | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA | ✅ | ✅ | 😃 |                          |
-| FreeTTS | [FreeTTS](https://github.com/umjammer/FreeTTS/)                                                                                                                                                   | - | ✅ | 💩 | not included (test only) |
+| **Type**                                                     | **Description**                                                                                                                                                                                   | **Staus** | **SPI Status** | **Quality** | **Comment**              |
+|:-------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------:|:--------------:|:-----------:|:-------------------------|
+| [AquesTalk](https://www.a-quest.com/products/aquestalk.html) | JNI                                                                                                                                                                                               |     ✅     |       ✅        |     😐      | 32bit only               |
+| AquesTalk                                                    | JNA                                                                                                                                                                                               |     ✅     |       ✅        |     😐      | 32bit only               |
+| AquesTalk2                                                   | JNI                                                                                                                                                                                               |     -     |       -        |             | mac: intel only          |
+| AquesTalk10                                                  | JNA                                                                                                                                                                                               |     ✅     |       ✅        |     😐      | mac: intel only          |
+| Google Cloud Text To Speech                                  | [Google Cloud Text To Speech](https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries)                                                                                           |     ✅     |       ✅        |     👑      |                          |
+| Rococoa                                                      | [Rococoa](https://github.com/iterate-ch/rococoa/blob/d5fdd3b884d5f044bc0b168aff66e5f52a014da8/rococoa/rococoa-contrib/src/test/java/org/rococoa/contrib/appkit/NSSpeechSynthesizerTest.java), JNA |     ✅     |       ✅        |     😃      |                          |
+| FreeTTS                                                      | [FreeTTS](https://github.com/umjammer/FreeTTS/)                                                                                                                                                   |     -     |       ✅        |     💩      | not included (test only) |
 
 ### Kanji to Kana converter
 
-| **Type** | **Description** | **Staus** | **Quality** | **Comment** |
-|:---------|:----------------|:---------:|:-----------:|:------------|
-| [Kromoji](https://github.com/atilika/kuromoji) |  | ✅ | 😐 | number, alphabet |
-| [Sen](https://github.com/SenMorphologicalAnalyzer/sen) |  | ✅ | 😐 | number, alphabet |
-| [Sudachi](https://github.com/WorksApplications/Sudachi) |  | ✅ | 😐 | 助詞(は,へ), number, alphabet |
-| [YahooJapan Furigana](https://developer.yahoo.co.jp/webapi/jlp/furigana/v1/furigana.html) | Web | ✅ | 😐 | 助詞(は,へ) |
-| [YahooJapan MA](https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html) | Web | - | | |
-| [Goo Furigana](https://labs.goo.ne.jp/api/jp/hiragana-translation/) | Web | ✅ | 😐 | 助詞(は,へ) |
-| [Rococoa](https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293) |  | ✅ | 😃 | 数字+助数詞 |
+| **Type**                                                                                  | **Description** | **Staus** | **Quality** | **Comment**               |
+|:------------------------------------------------------------------------------------------|:----------------|:---------:|:-----------:|:--------------------------|
+| [Kromoji](https://github.com/atilika/kuromoji)                                            |                 |     ✅     |     😐      | number, alphabet          |
+| [Sen](https://github.com/SenMorphologicalAnalyzer/sen)                                    |                 |     ✅     |     😐      | number, alphabet          |
+| [Sudachi](https://github.com/WorksApplications/Sudachi)                                   |                 |     ✅     |     😐      | 助詞(は,へ), number, alphabet |
+| [YahooJapan Furigana](https://developer.yahoo.co.jp/webapi/jlp/furigana/v1/furigana.html) | Web             |     ✅     |     😐      | 助詞(は,へ)                   |
+| [YahooJapan MA](https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html)                | Web             |     -     |             |                           |
+| [Goo Furigana](https://labs.goo.ne.jp/api/jp/hiragana-translation/)                       | Web             |     ✅     |     😐      | 助詞(は,へ)                   |
+| [Rococoa](https://gist.github.com/doraTeX/3163b5aef70951ac8c541c4c77ac6293)               |                 |     ✅     |     😃      | 数字+助数詞                    |
 
 selected by `aquestalk10.properties`
 
@@ -40,9 +40,9 @@ selected by `aquestalk10.properties`
 
 | name     | type                | status | qyality | comment |
 |----------|---------------------|--------|---------|---------|
-| simple   | SimpleConverter     | ✅ |  💩     |         |
-| ojosama  | YakuearigoConverter | ✅ | 😐|         |
-| zundamon | YakuearigoConverter | ✅ | 😐|         |
+| simple   | SimpleConverter     | ✅      | 💩      |         |
+| ojosama  | YakuearigoConverter | ✅      | 😐      |         |
+| zundamon | YakuearigoConverter | ✅      | 😐      |         |
 
 ## Install
 
@@ -77,10 +77,27 @@ phonemer=vavi.speech.phoneme.SenJaPhonemer
 
 ### Sudachi
 
+- download latest [zip](https://github.com/WorksApplications/SudachiDict/releases)
+
 ```shell
-$ cd vavi-speech
-$ curl -o sudachi-dictionary-20210802-full.zip http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/sudachi-dictionary-20210802-full.zip
-$ tar zxvf sudachi-dictionary-20210802-full.zip src/test/resources/sudachi/
+$ unzip v20260723.1.zip
+$ cd v20260723.1
+```
+
+- build the dictionary
+
+```diff
+   dict.format=v1
+   # dictionary source version, YYYYMMDD
+   dict.version=20260723
+-  dict.release=false
++  dict.release=true
+```
+
+```shell
+$ vi gradle.properties # patch above
+$ ./gradlew compileFullDict
+$ ln -s lib/dict/bin/v1/xxxxxxxx/system_full.fic ${VAVI-SPEECH}/src/test/resources/sudachi/
 ```
 
 * edit `aquestalk10.properties` like below
