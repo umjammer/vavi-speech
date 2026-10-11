@@ -108,7 +108,6 @@
                 <YAHOOJAPAN_API_KEY>${yahoo.japan.apiKey}</YAHOOJAPAN_API_KEY>
               </environmentVariables>
               <argLine>
-                --add-opens java.base/java.lang.reflect=ALL-UNNAMED
                 -javaagent:${sf.agent.jar}=${sf.agent.targets}
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
                 -Dsudachi.dir=@{sudachi.dir}
@@ -136,7 +135,6 @@
             <version>3.2.5</version>
             <configuration>
               <argLine>
-                --add-opens java.base/java.lang.reflect=ALL-UNNAMED
                 -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
               </argLine>
               <reuseForks>false</reuseForks>
@@ -274,7 +272,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>libraries-bom</artifactId>
-        <version>26.73.0</version>
+        <version>26.90.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -282,7 +280,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>6.0.3</version>
+        <version>6.1.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -291,9 +289,9 @@
   
   <dependencies>
     <dependency>
-      <groupId>com.github.umjammer</groupId>
+      <groupId>com.github.umjammer</groupId> <!-- vavi / com.github.umjammer -->
       <artifactId>vavi-commons</artifactId>
-      <version>1.1.19</version>
+      <version>1.1.24</version>
     </dependency>
     <dependency> <!-- JSAPI1 -->
       <groupId>com.github.umjammer</groupId>
@@ -304,30 +302,18 @@
     <dependency>
       <groupId>com.github.umjammer</groupId> <!-- vavi / com.github.umjammer -->
       <artifactId>vavi-sound-sandbox</artifactId>
-      <version>1.0.12</version>
+      <version>1.0.23</version>
       <exclusions>
         <exclusion>
-          <artifactId>jmf</artifactId>
-          <groupId>javax.media</groupId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.github.umjammer.rococoa</groupId>
-          <artifactId>rococoa-cocoa</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.rococoa</groupId>
-          <artifactId>rococoa-cocoa</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.github.lostromb</groupId>
-          <artifactId>concentus</artifactId>
+          <groupId>com.github.umjammer</groupId>
+          <artifactId>vavi-commons</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.umjammer.rococoa</groupId> <!-- org.rococoa / com.github.umjammer.rococoa -->
       <artifactId>rococoa-core</artifactId>
-      <version>0.8.15</version>
+      <version>0.8.16</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
@@ -343,6 +329,12 @@
       <groupId>sen</groupId>
       <artifactId>sen</artifactId>
       <version>1.2.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.github.umjammer</groupId>
+          <artifactId>vavi-commons</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.atilika.kuromoji</groupId>
@@ -352,19 +344,25 @@
     <dependency>
       <groupId>com.worksap.nlp</groupId>
       <artifactId>sudachi</artifactId>
-      <version>0.7.3</version>
+      <version>0.8.2</version>
     </dependency>
 
     <dependency>
       <groupId>com.ibm.icu</groupId>
       <artifactId>icu4j</artifactId>
-      <version>77.1</version>
+      <version>78.3</version>
     </dependency>
 
     <dependency>
       <groupId>com.github.umjammer</groupId> <!-- com.github.umjammer / vavi -->
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.19</version>
+      <version>1.0.20</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.github.umjammer</groupId>
+          <artifactId>vavi-commons</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -397,7 +395,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jdk14</artifactId>
-      <version>1.7.36</version>
+      <version>2.0.20</version>
       <scope>test</scope>
     </dependency>
 
@@ -439,7 +437,7 @@
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-commons</artifactId>
-      <version>9.7.1</version>
+      <version>9.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

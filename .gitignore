@@ -3,3 +3,4 @@ lib/
 local.properties
 src/test/resources/sudachi/sudachi-dictionary-*
 AGENTS.md
+/src/test/resources/sudachi/system_full.dic
